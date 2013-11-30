@@ -1,0 +1,125 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+ 
+    <!-- Framelayout to display Fragments -->
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    
+    <!-- slider menu -->
+    <LinearLayout
+	    android:id="@+id/drawer_view"
+	    android:layout_width="246dp"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:layout_gravity="start">
+	    
+        <RelativeLayout 
+	        android:id="@+id/profile_view"
+	        android:layout_width="match_parent"
+	        android:layout_height="180dp"
+	        android:padding="8dp"
+            android:background="@drawable/background_profile" >
+            
+            <ImageView
+			    android:id="@+id/profile_image" 
+			    android:layout_height="70dp"
+			    android:layout_width="70dp" 
+			    android:layout_marginRight="8dp"
+		        android:background="@drawable/image_bg"
+			    android:contentDescription="@string/description_profile_image" >
+			</ImageView>
+			
+            <TextView
+		        android:id="@+id/profile_nick"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_toRightOf="@id/profile_image"
+		        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        		android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        		android:textSize="21sp"
+        		android:textStyle="bold"
+		        android:textColor="@color/list_item_title"
+		        android:gravity="center_vertical" />
+            
+            <TextView
+                android:id="@+id/profile_points_number"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_toRightOf="@id/profile_image"
+        		android:layout_alignBottom="@+id/profile_image"
+		        android:background="@drawable/counter_bg"
+		        android:textColor="@color/counter_text_color" />
+            
+            <TextView
+		        android:id="@+id/profile_points_text"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_toRightOf="@id/profile_points_number"
+        		android:layout_alignBottom="@+id/profile_image"
+		        android:layout_marginLeft="4dp"
+		        android:textColor="@color/list_item_title"
+		        android:text="@string/profile_points_text" />
+            
+            
+            <TextView
+			    android:id="@+id/profile_counter_following"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_above="@+id/profile_counter_followers"
+			    android:layout_alignParentRight="true"
+			    android:layout_marginBottom="8dp"
+			    android:background="@drawable/counter_bg"
+			    android:textColor="@color/counter_text_color" />
+            
+            <TextView
+		        android:id="@+id/profile_following_text"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_toLeftOf="@id/profile_counter_following"
+        		android:layout_alignBottom="@+id/profile_counter_following"
+		        android:layout_marginRight="4dp"
+		        android:textColor="@color/list_item_title"
+		        android:text="@string/profile_following_text" />
+            
+            
+            <TextView android:id="@+id/profile_counter_followers"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:background="@drawable/counter_bg"
+		        android:layout_centerVertical="true"
+		        android:layout_marginBottom="10dp"
+			    android:layout_alignParentBottom="true"
+			    android:layout_alignParentRight="true"
+		        android:textColor="@color/counter_text_color"/>
+            
+            <TextView
+		        android:id="@+id/profile_followers_text"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_toLeftOf="@id/profile_counter_followers"
+        		android:layout_alignBottom="@+id/profile_counter_followers"
+		        android:layout_marginRight="4dp"
+		        android:textColor="@color/list_item_title"
+		        android:text="@string/profile_followers_text" />
+            
+        </RelativeLayout>
+    
+        <!-- Listview to display slider menu -->
+	    <ListView
+	        android:id="@+id/list_slidermenu"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:choiceMode="singleChoice"
+	        android:divider="@color/list_divider"
+	        android:dividerHeight="1dp"       
+	        android:listSelector="@drawable/list_selector"
+	        android:background="@color/list_background"/>
+    
+	</LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
