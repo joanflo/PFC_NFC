@@ -44,6 +44,8 @@ public class MainActivity extends Activity {
     private ArrayList<NavigationDrawerListItem> navDrawerItems;
     private NavigationDrawerListAdapter adapter;
     
+    private Fragment currentFragment;
+    
     
 
 	@Override
@@ -133,23 +135,23 @@ public class MainActivity extends Activity {
 	
 	private void loadUserData() {
 		// show user image
-		ImageView iv = (ImageView) findViewById(R.id.profile_image);
+		ImageView iv = (ImageView) findViewById(R.id.profile_image_drawer);
 		iv.setImageResource(R.drawable.user_profile);
 		
 		// set user nick
-		TextView tv = (TextView) findViewById(R.id.profile_nick);
+		TextView tv = (TextView) findViewById(R.id.profile_nick_drawer);
 		tv.setText("Joan_flo");
 		
 		// set user points
-		tv = (TextView) findViewById(R.id.profile_points_number);
+		tv = (TextView) findViewById(R.id.profile_pointsnumber_drawer);
 		tv.setText("326");
 		
 		// set user followers
-		tv = (TextView) findViewById(R.id.profile_counter_followers);
+		tv = (TextView) findViewById(R.id.profile_counterfollowers_drawer);
 		tv.setText("106");
 		
 		// set user following
-		tv = (TextView) findViewById(R.id.profile_counter_following);
+		tv = (TextView) findViewById(R.id.profile_counterfollowing_drawer);
 		tv.setText("256");
 	}
 	
@@ -241,33 +243,33 @@ public class MainActivity extends Activity {
      */
     private void displayView(int position) {
         // update the main content by replacing fragments
-        Fragment fragment = null;
+        currentFragment = null;
         switch (position) {
         case 0:
-            fragment = new HomeFragment();
+        	currentFragment = new HomeFragment();
             break;
         case 1:
-            //fragment = new FindPeopleFragment();
+            currentFragment = new ShopSelectionFragment();
             break;
         case 2:
-            //fragment = new PhotosFragment();
+            currentFragment = new CategoryListFragment();
             break;
         case 3:
-            //fragment = new CommunityFragment();
+            currentFragment = new ProductSearchFragment();
             break;
         case 4:
-            //fragment = new PagesFragment();
+            currentFragment = new PurchaseDetailListFragment();
             break;
         case 5:
-            //fragment = new WhatsHotFragment();
+            currentFragment = new WishListFragment();
             break;
         default:
             break;
         }
  
-        if (fragment != null) {
+        if (currentFragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.frame_container, currentFragment).commit();
  
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
@@ -278,6 +280,38 @@ public class MainActivity extends Activity {
             Log.e("MainActivity", "Error in creating fragment");
         }
     }
+    
+    
+    
+    public void onClickButton(View v) {
+    	// delegating event to the corresponding fragment
+    	
+    	if (currentFragment instanceof HomeFragment) {
+    		HomeFragment fragment = (HomeFragment) currentFragment;
+    		fragment.onClickButton(v);
+    		
+    	} else if (currentFragment instanceof ShopSelectionFragment) {
+    		ShopSelectionFragment fragment = (ShopSelectionFragment) currentFragment;
+    		fragment.onClickButton(v);
+    		
+    	} else if (currentFragment instanceof CategoryListFragment) {
+    		CategoryListFragment fragment = (CategoryListFragment) currentFragment;
+    		fragment.onClickButton(v);
+    		
+    	} else if (currentFragment instanceof ProductSearchFragment) {
+    		ProductSearchFragment fragment = (ProductSearchFragment) currentFragment;
+    		fragment.onClickButton(v);
+    		
+    	} else if (currentFragment instanceof PurchaseDetailListFragment) {
+    		PurchaseDetailListFragment fragment = (PurchaseDetailListFragment) currentFragment;
+    		fragment.onClickButton(v);
+    		
+    	} else if (currentFragment instanceof WishListFragment) {
+    		WishListFragment fragment = (WishListFragment) currentFragment;
+    		fragment.onClickButton(v);
+    	}
+    }
+    
     
 	
 }

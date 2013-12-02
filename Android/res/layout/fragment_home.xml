@@ -8,33 +8,336 @@
 	    android:layout_height="wrap_content"
 	    android:paddingBottom="10dp" >
 	    
-	    <LinearLayout
-	        android:background="#cccccc"
-		    android:id="@+id/section_search"
-		    android:layout_width="match_parent"
-		    android:layout_height="400dp"
-		    android:layout_marginTop="10dp"
-		    android:layout_marginLeft="10dp"
-		    android:layout_marginRight="10dp"
-		    android:orientation="vertical"
-		    android:layout_gravity="start" >
-	    </LinearLayout>
+	    <RelativeLayout
+	        android:id="@+id/section_search"
+	        style="@style/section1"
+	        android:layout_height="180dp" >
+
+	        <LinearLayout
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/title_home_search"
+	                android:src="@drawable/ic_search" />
+
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:text="@string/title_home_search"
+	                android:textColor="@color/main_blue" />
+	            
+	        </LinearLayout>
+
+	        
+	        <SearchView
+	            android:id="@+id/searchview_product_home"
+	            style="@style/search1"
+	            android:layout_marginTop="44dp" >
+	        </SearchView>
+	        
+	        
+	        <Button
+	            android:id="@+id/button_searchcategory_home"
+	            style="@style/button1"
+	            android:layout_width="110dp"
+	            android:layout_alignParentBottom="true"
+	            android:layout_alignParentLeft="true"
+	            android:layout_margin="8dp"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_searchcategory" />
+
+	        <Button
+	            android:id="@+id/button_advancedsearch_home"
+	            style="@style/button1"
+	            android:layout_width="110dp"
+	            android:layout_alignParentBottom="true"
+	            android:layout_alignParentRight="true"
+	            android:layout_margin="8dp"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_advancedsearch" />
+	        
+	    </RelativeLayout>
 	    
-	    <LinearLayout
-	        android:background="#cccccc"
-		    android:id="@+id/section_profile"
-		    android:layout_width="match_parent"
-		    android:layout_height="150dp"
-		    android:layout_marginTop="10dp"
-		    android:layout_marginLeft="10dp"
-		    android:layout_marginRight="10dp"
+	    <RelativeLayout
+	        android:id="@+id/section_shop"
+	        style="@style/section1"
+	        android:layout_height="156dp"
 	        android:layout_below="@+id/section_search"
-	        android:layout_centerHorizontal="true"
-		    android:orientation="vertical"
-		    android:layout_gravity="start" >
+	        android:orientation="vertical" >
+
+	        <LinearLayout
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/title_home_shop"
+	                android:src="@drawable/ic_currentshop" />
+
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:text="@string/title_home_shop"
+	                android:textColor="@color/main_blue" />
+	            
+	        </LinearLayout>
+
+	        
+	        <TextView
+	            android:id="@+id/title_currentshop_home"
+	            style="@style/b"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginTop="42dp"
+	            android:text="@string/currentshop_text"
+	            android:textColor="@color/grey_light" />
+
+	        <TextView
+	            android:id="@+id/currentshop_home"
+	            style="@style/p"
+	            android:layout_alignLeft="@+id/title_currentshop_home"
+	            android:layout_below="@+id/title_currentshop_home"
+	            android:layout_marginTop="4dp"
+	            android:text="@string/nocurrentshopselected_text"
+	            android:textColor="@color/grey_light" />
+
+	        
+	        <Button
+	            android:id="@+id/button_pickshop_home"
+	            style="@style/button1"
+	            android:layout_width="110dp"
+	            android:layout_alignParentBottom="true"
+	            android:layout_alignParentRight="true"
+	            android:layout_margin="8dp"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_pickshop" />
+
+	        <Button
+	            android:id="@+id/button_seeshop_home"
+	            style="@style/button1"
+	            android:layout_width="110dp"
+	            android:layout_above="@+id/button_pickshop_home"
+	            android:layout_alignLeft="@+id/button_pickshop_home"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_seeshop" />
+
+	    </RelativeLayout>
+	    
+	    <LinearLayout
+	        style="@style/section2"
+		    android:id="@+id/section_divided"
+		    android:orientation="horizontal"
+		    android:layout_height="150dp"
+	        android:layout_below="@+id/section_shop"
+	        android:baselineAligned="false" >
+		    
+	        <RelativeLayout
+	        	style="@style/section3"
+		    	android:id="@+id/section_mycart"
+			    android:layout_marginRight="5dp"
+			    android:layout_weight="0.5" >
+			    
+		        <LinearLayout
+		        	style="@style/title"
+				    android:orientation="horizontal" >
+			        
+			        <ImageView
+			            style="@style/icon2"
+			            android:contentDescription="@string/title_home_mycart"
+			            android:src="@drawable/ic_mycart" />
+			        
+				    <TextView
+				        style="@style/h2"
+				        android:gravity="center_vertical"
+				        android:textColor="@color/main_blue"
+				        android:text="@string/title_home_mycart" />
+			    
+		    	</LinearLayout>
+		    	
+		        
+		        <TextView
+	                android:id="@+id/mycart_itemsnumber_home"
+	                style="@style/counter1"
+	                android:layout_alignParentLeft="true"
+	                android:layout_marginLeft="20dp"
+	                android:layout_marginTop="56dp" />
+	            
+	            <TextView
+		            style="@style/p"
+		            android:id="@+id/mycart_itemsnumber_hometext"
+		            android:layout_alignBaseline="@+id/mycart_itemsnumber_home"
+		            android:layout_alignBottom="@+id/mycart_itemsnumber_home"
+		            android:layout_marginLeft="4dp"
+		            android:layout_toRightOf="@+id/mycart_itemsnumber_home"
+		            android:text="@string/item_text"
+		            android:textColor="@color/grey_light" />
+		        
+		        
+		        <Button
+	                android:id="@+id/button_viewmycart_home"
+	                style="@style/button1"
+	                android:layout_width="match_parent"
+	                android:layout_alignParentBottom="true"
+	                android:layout_alignParentLeft="true"
+	                android:layout_margin="8dp"
+	                android:onClick="onClickButton"
+	                android:text="@string/button_mycart" />
+		        
+	        </RelativeLayout>
+	        
+	        <RelativeLayout
+	            android:id="@+id/section_mywishlist"
+	            style="@style/section3"
+	            android:layout_marginLeft="5dp"
+	            android:layout_weight="0.5" >
+
+	            <LinearLayout
+	                style="@style/title"
+	                android:orientation="horizontal" >
+
+	                <ImageView
+	                    style="@style/icon2"
+	                    android:contentDescription="@string/title_home_mywishlist"
+	                    android:src="@drawable/ic_mywishlist" />
+
+	                <TextView
+	                    style="@style/h2"
+	                    android:gravity="center_vertical"
+	                    android:text="@string/title_home_mywishlist"
+	                    android:textColor="@color/main_blue" />
+	            </LinearLayout>
+
+	            
+	            <TextView
+	                android:id="@+id/mywishlist_itemsnumber_home"
+	                style="@style/counter1"
+	                android:layout_alignParentLeft="true"
+	                android:layout_marginLeft="20dp"
+	                android:layout_marginTop="56dp" />
+	            
+	            <TextView
+		            style="@style/p"
+		            android:id="@+id/mywishlist_itemsnumber_hometext"
+		            android:layout_alignBaseline="@+id/mywishlist_itemsnumber_home"
+		            android:layout_alignBottom="@+id/mywishlist_itemsnumber_home"
+		            android:layout_marginLeft="4dp"
+		            android:layout_toRightOf="@+id/mywishlist_itemsnumber_home"
+		            android:text="@string/item_text"
+		            android:textColor="@color/grey_light" />
+
+	            
+	            <Button
+	                android:id="@+id/button_viewmywishlist_home"
+	                style="@style/button1"
+	                android:layout_width="match_parent"
+	                android:layout_alignParentBottom="true"
+	                android:layout_alignParentLeft="true"
+	                android:layout_margin="8dp"
+	                android:onClick="onClickButton"
+	                android:text="@string/button_mywishlist" />
+	            
+	        </RelativeLayout>
+	        
 	    </LinearLayout>
 	    
-	    <!-- TODO -->
+	    <RelativeLayout
+	        android:id="@+id/section_profile"
+	        style="@style/section1"
+	        android:layout_height="218dp"
+	        android:layout_below="@+id/section_divided"
+	        android:orientation="vertical" >
+
+	        <LinearLayout
+	            android:id="@+id/linearLayout1"
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/desc_list_item_icon"
+	                android:src="@drawable/ic_profile" />
+
+	            <TextView
+	                android:id="@+id/profile_nick_home"
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:textColor="@color/main_blue" />
+	        </LinearLayout>
+
+	        
+	        <ImageView
+	            android:id="@+id/profile_image_home"
+	            android:layout_width="170dp"
+	            android:layout_height="170dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/linearLayout1"
+	            android:layout_margin="8dp"
+	            android:background="@drawable/image_bg"
+	            android:contentDescription="@string/description_profile_image" />
+
+	        
+	        <TextView
+	            android:id="@+id/profile_pointsnumber_home"
+	            style="@style/counter1"
+	            android:layout_alignTop="@+id/profile_image_home"
+	            android:layout_toRightOf="@+id/profile_image_home" />
+
+	        <TextView
+	            android:id="@+id/profile_pointsnumber_hometext"
+	            style="@style/p"
+	            android:layout_alignBaseline="@+id/profile_pointsnumber_home"
+	            android:layout_alignBottom="@+id/profile_pointsnumber_home"
+	            android:layout_marginLeft="4dp"
+	            android:layout_toRightOf="@+id/profile_pointsnumber_home"
+	            android:text="@string/profile_points_text"
+	            android:textColor="@color/grey_light" />
+
+	        
+	        <TextView
+	            android:id="@+id/profile_counterfollowing_home"
+	            style="@style/counter1"
+	            android:layout_below="@+id/profile_pointsnumber_home"
+	            android:layout_marginTop="25dp"
+	            android:layout_toRightOf="@+id/profile_image_home" />
+
+	        <TextView
+	            android:id="@+id/textView_counterfollowing"
+	            style="@style/p"
+	            android:layout_alignBaseline="@+id/profile_counterfollowing_home"
+	            android:layout_alignBottom="@+id/profile_counterfollowing_home"
+	            android:layout_alignLeft="@+id/profile_pointsnumber_hometext"
+	            android:text="@string/profile_following_text"
+	            android:textColor="@color/grey_light" />
+
+	        
+	        <TextView
+	            android:id="@+id/profile_counterfollowers_home"
+	            style="@style/counter1"
+	            android:layout_below="@+id/profile_counterfollowing_home"
+	            android:layout_marginTop="8dp"
+	            android:layout_toRightOf="@+id/profile_image_home" />
+
+	        <TextView
+	            style="@style/p"
+	            android:layout_alignBaseline="@+id/profile_counterfollowers_home"
+	            android:layout_alignBottom="@+id/profile_counterfollowers_home"
+	            android:layout_alignLeft="@+id/textView_counterfollowing"
+	            android:text="@string/profile_followers_text"
+	            android:textColor="@color/grey_light" />
+	        
+	        
+	        <Button
+	            style="@style/button1"
+	            android:id="@+id/button_viewprofile_home"
+	            android:layout_width="match_parent"
+	            android:layout_alignBottom="@+id/profile_image_home"
+	            android:layout_marginRight="8dp"
+	            android:layout_toRightOf="@+id/profile_image_home"
+	            android:text="@string/button_profile"
+	            android:onClick="onClickButton" />
+	        
+	    </RelativeLayout>
 	
 	</RelativeLayout>
 </ScrollView>

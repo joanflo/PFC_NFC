@@ -2,18 +2,19 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" >
 
-    <!-- view background color -->
-    <solid android:color="@color/grey_light" >
-    </solid>
-
     <!-- If you want to add some padding -->
     <padding
-        android:right="4dp"
-        android:left="4dp" >
+        android:right="12dp"
+        android:left="12dp" >
     </padding>
 
     <!-- Here is the corner radius -->
-    <corners android:radius="2dp" >
+    <corners android:radius="22dp" >
     </corners>
+    
+    <!-- Border line -->
+    <stroke
+        android:width="3dp"
+        android:color="@color/grey_light" />
 
 </shape>

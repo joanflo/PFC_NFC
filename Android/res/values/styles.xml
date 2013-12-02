@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -16,5 +16,128 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    
+    
 
+    <!-- OWN STYLES -->
+    
+    <!-- sections -->
+    <style name="section1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">#cccccc</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_gravity">start</item>
+    </style>
+    
+    <style name="section2">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    
+    <style name="section3">
+        <item name="android:background">#cccccc</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    
+    <style name="title">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/grey_background</item>
+    </style>
+    
+    
+    <!-- texts -->
+	<style name="h1">
+		<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">21sp</item>
+        <item name="android:textStyle">bold</item>
+	</style>
+	
+	<style name="h2">
+		<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+		<item name="android:minHeight">?android:attr/listPreferredItemHeightSmall</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceListItemSmall</item>
+	</style>
+	
+	<style name="p">
+		<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+	</style>
+	
+	<style name="b">
+		<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+	</style>
+	
+	
+	<!-- images -->
+	<style name="icon1">
+	    <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_centerVertical">true</item>
+	</style>
+	
+	<style name="icon2">
+	    <item name="android:layout_width">20dp</item>
+	    <item name="android:layout_height">20dp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:layout_centerVertical">true</item>
+	</style>
+	
+	
+	<!-- buttons -->
+	<style name="button1">
+		<item name="android:background">@drawable/button_selector</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textColor">@color/main_white</item>
+		<item name="android:textSize">15sp</item>
+	</style>
+	
+	
+	<!-- others -->
+	<style name="list1">
+		<item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+		<item name="android:choiceMode">singleChoice</item>
+        <item name="android:divider">@color/list_divider</item>
+		<item name="android:dividerHeight">1dp</item>
+        <item name="android:listSelector">@drawable/list_selector</item>
+		<item name="android:background">@color/grey_background</item>
+	</style>
+	
+	<style name="counter1">
+		<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+		<item name="android:background">@drawable/counter_bg</item>
+        <item name="android:textColor">@color/grey_hard</item>
+	</style>
+	
+	<style name="search1">
+		<item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+		<item name="android:background">@drawable/search_bg</item>
+        <item name="android:textColor">@color/grey_light</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:textSize">12sp</item>
+	</style>
+	
+	<!-- 
+	http://stackoverflow.com/questions/14137141/android-actionbar-customize-search-view
+	-->
+	
 </resources>

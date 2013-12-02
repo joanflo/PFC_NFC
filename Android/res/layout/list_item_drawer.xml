@@ -5,34 +5,24 @@
     android:background="@drawable/list_selector">
 
     <ImageView
+	    style="@style/icon1"
         android:id="@+id/icon"
-        android:layout_width="25dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:contentDescription="@string/desc_list_item_icon"
-        android:src="@drawable/ic_home"
-        android:layout_centerVertical="true" />
+        android:src="@drawable/ic_home" />
 
     <TextView
+	    style="@style/h2"
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
         android:layout_toRightOf="@id/icon"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:textColor="@color/list_item_title"
+        android:textColor="@color/main_white"
         android:gravity="center_vertical"
-        android:paddingRight="40dp"/>
+        android:paddingRight="40dp" />
     
-    <TextView android:id="@+id/counter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/counter_bg"
+    <TextView 
+	    style="@style/counter1"
+        android:id="@+id/counter"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="8dp"
-        android:textColor="@color/counter_text_color"/>
+        android:layout_marginRight="8dp" />
 
 </RelativeLayout>
