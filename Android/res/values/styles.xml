@@ -52,6 +52,14 @@
         <item name="android:background">@color/grey_background</item>
     </style>
     
+    <style name="layout1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:layout_marginRight">30dp</item>
+		<item name="android:background">@drawable/layout_bg</item>
+    </style>
+    
     
     <!-- texts -->
 	<style name="h1">
@@ -133,11 +141,17 @@
         <item name="android:textColor">@color/grey_light</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">13sp</item>
 	</style>
 	
-	<!-- 
-	http://stackoverflow.com/questions/14137141/android-actionbar-customize-search-view
-	-->
+	<style name="edittext1">
+		<item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+		<item name="android:background">@drawable/edittext_bg</item>
+        <item name="android:textColor">@color/grey_background</item>
+        <item name="android:textSize">18sp</item>
+	</style>
+	
+	
 	
 </resources>

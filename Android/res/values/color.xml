@@ -5,8 +5,10 @@
     <color name="grey_light">#626262</color>
     <color name="grey_hard">#c5c4c4</color>
     <color name="grey_background">#303030</color>
+    <color name="grey_alpha">#ee626262</color>
     
     <color name="main_blue">#0066CC</color>
+    <color name="base_blue">#99CCFF</color>
     
     <color name="main_red">#992416</color>
     

@@ -1,7 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
+    android:layout_height="match_parent"
+    android:background="@drawable/background_login" >
+
+    <RelativeLayout
+        style="@style/layout1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:padding="8dp" >
+
+        <!-- title -->
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/logo_base" />
+        
+        <TextView
+            android:id="@+id/textView_title_login"
+            style="@style/h1"
+            android:layout_centerHorizontal="true"
+            android:text="@string/title_login"
+            android:textColor="@color/main_white" />
+
+        
+        <!-- nick or email -->
+        <TextView
+            android:id="@+id/textView_identifier"
+            style="@style/b"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView_title_login"
+            android:layout_marginTop="50dp"
+            android:text="@string/identifier"
+            android:textColor="@color/main_white" />
+
+        <EditText
+            android:id="@+id/editText_identifier"
+            style="@style/edittext1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView_identifier"
+            android:inputType="text"
+            android:padding="8dp" />
+
+        
+        <!-- password -->
+        <TextView
+            android:id="@+id/textView_password"
+            style="@style/b"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/editText_identifier"
+            android:layout_marginTop="16dp"
+            android:text="@string/password"
+            android:textColor="@color/main_white" />
+
+        <EditText
+            android:id="@+id/editText_password"
+            style="@style/edittext1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView_password"
+            android:inputType="textPassword"
+            android:padding="8dp" />
+
+        
+        <!-- buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText_password"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_singin_login"
+                style="@style/button1"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="4dp"
+                android:layout_weight="0.5"
+                android:onClick="onClickButton"
+                android:text="@string/button_singin" />
+
+            <Button
+                android:id="@+id/button_login"
+                style="@style/button1"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="0.5"
+                android:onClick="onClickButton"
+                android:text="@string/button_login" />
+        </LinearLayout>
+        
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/button_skip_login"
+        style="@style/button1"
+        android:layout_width="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+	    android:onClick="onClickButton"
+        android:text="@string/button_skip" />
 
 </RelativeLayout>

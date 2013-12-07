@@ -13,6 +13,7 @@
 	        style="@style/section1"
 	        android:layout_height="180dp" >
 
+	        
 	        <LinearLayout
 	            style="@style/title"
 	            android:orientation="horizontal" >
@@ -29,7 +30,6 @@
 	                android:textColor="@color/main_blue" />
 	            
 	        </LinearLayout>
-
 	        
 	        <SearchView
 	            android:id="@+id/searchview_product_home"

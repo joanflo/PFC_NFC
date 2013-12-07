@@ -1,7 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
+    android:layout_height="match_parent"
+    android:background="@drawable/background_registration" >
+
+    <RelativeLayout
+        style="@style/layout1"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_skip_singin"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="22dp"
+        android:padding="8dp" >
+
+        <!-- title -->
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/logo_base" />
+
+        <TextView
+            android:id="@+id/textView_title_login"
+            style="@style/h1"
+            android:layout_centerHorizontal="true"
+            android:text="@string/title_singin"
+            android:textColor="@color/main_white" />
+
+
+        <ScrollView
+            android:id="@+id/scrollview1"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_above="@+id/button_singin_singin"
+            android:layout_alignLeft="@+id/imageView1"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/imageView1"
+            android:layout_marginTop="8dp" >
+
+        </ScrollView>
+        
+        
+        <Button
+            android:id="@+id/button_singin_singin"
+            style="@style/button1"
+            android:layout_width="100dp"
+            android:layout_alignParentBottom="true"
+            android:onClick="onClickButton"
+            android:text="@string/button_singin" />
+        
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/button_skip_singin"
+        style="@style/button1"
+        android:layout_width="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+	    android:onClick="onClickButton"
+        android:text="@string/button_skip" />
 
 </RelativeLayout>

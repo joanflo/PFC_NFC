@@ -19,13 +19,15 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
+        public static final int base_blue=0x7f050006;
+        public static final int grey_alpha=0x7f050004;
         public static final int grey_background=0x7f050003;
         public static final int grey_hard=0x7f050002;
         public static final int grey_light=0x7f050001;
         public static final int list_divider=0x7f050000;
-        public static final int main_blue=0x7f050004;
-        public static final int main_red=0x7f050005;
-        public static final int main_white=0x7f050006;
+        public static final int main_blue=0x7f050005;
+        public static final int main_red=0x7f050007;
+        public static final int main_white=0x7f050008;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -38,76 +40,93 @@ public final class R {
         public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
-        public static final int background_profile=0x7f020000;
-        public static final int button_normal=0x7f020001;
-        public static final int button_pressed=0x7f020002;
-        public static final int button_selector=0x7f020003;
-        public static final int counter_bg=0x7f020004;
-        public static final int ic_categories=0x7f020005;
-        public static final int ic_currentshop=0x7f020006;
-        public static final int ic_drawer=0x7f020007;
-        public static final int ic_home=0x7f020008;
-        public static final int ic_launcher=0x7f020009;
-        public static final int ic_mycart=0x7f02000a;
-        public static final int ic_mywishlist=0x7f02000b;
-        public static final int ic_profile=0x7f02000c;
-        public static final int ic_search=0x7f02000d;
-        public static final int ic_searchproducts=0x7f02000e;
-        public static final int image_bg=0x7f02000f;
-        public static final int list_item_bg_normal=0x7f020010;
-        public static final int list_item_bg_pressed=0x7f020011;
-        public static final int list_selector=0x7f020012;
-        public static final int search_bg=0x7f020013;
-        public static final int user_profile=0x7f020014;
+        public static final int background_login=0x7f020000;
+        public static final int background_profile=0x7f020001;
+        public static final int background_registration=0x7f020002;
+        public static final int button_normal=0x7f020003;
+        public static final int button_pressed=0x7f020004;
+        public static final int button_selector=0x7f020005;
+        public static final int counter_bg=0x7f020006;
+        public static final int edittext_bg=0x7f020007;
+        public static final int ic_categories=0x7f020008;
+        public static final int ic_currentshop=0x7f020009;
+        public static final int ic_drawer=0x7f02000a;
+        public static final int ic_home=0x7f02000b;
+        public static final int ic_launcher=0x7f02000c;
+        public static final int ic_mycart=0x7f02000d;
+        public static final int ic_mywishlist=0x7f02000e;
+        public static final int ic_profile=0x7f02000f;
+        public static final int ic_search=0x7f020010;
+        public static final int ic_searchproducts=0x7f020011;
+        public static final int image_bg=0x7f020012;
+        public static final int layout_bg=0x7f020013;
+        public static final int list_item_bg_normal=0x7f020014;
+        public static final int list_item_bg_pressed=0x7f020015;
+        public static final int list_selector=0x7f020016;
+        public static final int logo_base=0x7f020017;
+        public static final int search_bg=0x7f020018;
+        public static final int user_profile=0x7f020019;
     }
     public static final class id {
-        public static final int action_about=0x7f0b002d;
-        public static final int action_help=0x7f0b002b;
-        public static final int action_logout=0x7f0b002e;
-        public static final int action_settings=0x7f0b002c;
-        public static final int button_advancedsearch_home=0x7f0b000f;
-        public static final int button_pickshop_home=0x7f0b0013;
-        public static final int button_searchcategory_home=0x7f0b000e;
-        public static final int button_seeshop_home=0x7f0b0014;
-        public static final int button_viewmycart_home=0x7f0b0019;
-        public static final int button_viewmywishlist_home=0x7f0b001d;
-        public static final int button_viewprofile_home=0x7f0b0027;
-        public static final int counter=0x7f0b002a;
-        public static final int currentshop_home=0x7f0b0012;
-        public static final int drawer_layout=0x7f0b0000;
-        public static final int drawer_view=0x7f0b0002;
-        public static final int frame_container=0x7f0b0001;
-        public static final int icon=0x7f0b0028;
-        public static final int linearLayout1=0x7f0b001f;
-        public static final int list_slidermenu=0x7f0b000b;
-        public static final int mycart_itemsnumber_home=0x7f0b0017;
-        public static final int mycart_itemsnumber_hometext=0x7f0b0018;
-        public static final int mywishlist_itemsnumber_home=0x7f0b001b;
-        public static final int mywishlist_itemsnumber_hometext=0x7f0b001c;
-        public static final int profile_counterfollowers_drawer=0x7f0b0008;
-        public static final int profile_counterfollowers_home=0x7f0b0026;
-        public static final int profile_counterfollowing_drawer=0x7f0b0007;
-        public static final int profile_counterfollowing_home=0x7f0b0024;
-        public static final int profile_followers_text=0x7f0b000a;
-        public static final int profile_following_text=0x7f0b0009;
-        public static final int profile_image_drawer=0x7f0b0004;
-        public static final int profile_image_home=0x7f0b0021;
-        public static final int profile_nick_drawer=0x7f0b0005;
-        public static final int profile_nick_home=0x7f0b0020;
-        public static final int profile_pointsnumber_drawer=0x7f0b0006;
-        public static final int profile_pointsnumber_home=0x7f0b0022;
-        public static final int profile_pointsnumber_hometext=0x7f0b0023;
-        public static final int profile_view=0x7f0b0003;
-        public static final int searchview_product_home=0x7f0b000d;
-        public static final int section_divided=0x7f0b0015;
-        public static final int section_mycart=0x7f0b0016;
-        public static final int section_mywishlist=0x7f0b001a;
-        public static final int section_profile=0x7f0b001e;
-        public static final int section_search=0x7f0b000c;
-        public static final int section_shop=0x7f0b0010;
-        public static final int textView_counterfollowing=0x7f0b0025;
-        public static final int title=0x7f0b0029;
-        public static final int title_currentshop_home=0x7f0b0011;
+        public static final int action_about=0x7f0b0039;
+        public static final int action_help=0x7f0b0037;
+        public static final int action_logout=0x7f0b003a;
+        public static final int action_settings=0x7f0b0038;
+        public static final int button_advancedsearch_home=0x7f0b001b;
+        public static final int button_login=0x7f0b0006;
+        public static final int button_pickshop_home=0x7f0b001f;
+        public static final int button_searchcategory_home=0x7f0b001a;
+        public static final int button_seeshop_home=0x7f0b0020;
+        public static final int button_singin_login=0x7f0b0005;
+        public static final int button_singin_singin=0x7f0b0017;
+        public static final int button_skip_login=0x7f0b0007;
+        public static final int button_skip_singin=0x7f0b0014;
+        public static final int button_viewmycart_home=0x7f0b0025;
+        public static final int button_viewmywishlist_home=0x7f0b0029;
+        public static final int button_viewprofile_home=0x7f0b0033;
+        public static final int counter=0x7f0b0036;
+        public static final int currentshop_home=0x7f0b001e;
+        public static final int drawer_layout=0x7f0b0008;
+        public static final int drawer_view=0x7f0b000a;
+        public static final int editText_identifier=0x7f0b0002;
+        public static final int editText_password=0x7f0b0004;
+        public static final int frame_container=0x7f0b0009;
+        public static final int icon=0x7f0b0034;
+        public static final int imageView1=0x7f0b0015;
+        public static final int linearLayout1=0x7f0b002b;
+        public static final int list_slidermenu=0x7f0b0013;
+        public static final int mycart_itemsnumber_home=0x7f0b0023;
+        public static final int mycart_itemsnumber_hometext=0x7f0b0024;
+        public static final int mywishlist_itemsnumber_home=0x7f0b0027;
+        public static final int mywishlist_itemsnumber_hometext=0x7f0b0028;
+        public static final int profile_counterfollowers_drawer=0x7f0b0010;
+        public static final int profile_counterfollowers_home=0x7f0b0032;
+        public static final int profile_counterfollowing_drawer=0x7f0b000f;
+        public static final int profile_counterfollowing_home=0x7f0b0030;
+        public static final int profile_followers_text=0x7f0b0012;
+        public static final int profile_following_text=0x7f0b0011;
+        public static final int profile_image_drawer=0x7f0b000c;
+        public static final int profile_image_home=0x7f0b002d;
+        public static final int profile_nick_drawer=0x7f0b000d;
+        public static final int profile_nick_home=0x7f0b002c;
+        public static final int profile_pointsnumber_drawer=0x7f0b000e;
+        public static final int profile_pointsnumber_home=0x7f0b002e;
+        public static final int profile_pointsnumber_hometext=0x7f0b002f;
+        public static final int profile_view=0x7f0b000b;
+        public static final int scrollview1=0x7f0b0016;
+        public static final int searchview_product_home=0x7f0b0019;
+        public static final int section_divided=0x7f0b0021;
+        public static final int section_mycart=0x7f0b0022;
+        public static final int section_mywishlist=0x7f0b0026;
+        public static final int section_profile=0x7f0b002a;
+        public static final int section_search=0x7f0b0018;
+        public static final int section_shop=0x7f0b001c;
+        public static final int textView_counterfollowing=0x7f0b0031;
+        public static final int textView_identifier=0x7f0b0001;
+        public static final int textView_password=0x7f0b0003;
+        public static final int textView_title_login=0x7f0b0000;
+        public static final int title=0x7f0b0035;
+        public static final int title_currentshop_home=0x7f0b001d;
     }
     public static final class layout {
         public static final int activity_badgelist=0x7f030000;
@@ -122,16 +141,17 @@ public final class R {
         public static final int activity_purchaselist=0x7f030009;
         public static final int activity_registration=0x7f03000a;
         public static final int activity_shop=0x7f03000b;
-        public static final int activity_updateuserdata=0x7f03000c;
-        public static final int activity_userprofile=0x7f03000d;
-        public static final int activity_userreviewlist=0x7f03000e;
-        public static final int fragment_categorylist=0x7f03000f;
-        public static final int fragment_home=0x7f030010;
-        public static final int fragment_productsearch=0x7f030011;
-        public static final int fragment_purchasedetaillist=0x7f030012;
-        public static final int fragment_shopselection=0x7f030013;
-        public static final int fragment_wishlist=0x7f030014;
-        public static final int list_item_drawer=0x7f030015;
+        public static final int activity_start=0x7f03000c;
+        public static final int activity_updateuserdata=0x7f03000d;
+        public static final int activity_userprofile=0x7f03000e;
+        public static final int activity_userreviewlist=0x7f03000f;
+        public static final int fragment_categorylist=0x7f030010;
+        public static final int fragment_home=0x7f030011;
+        public static final int fragment_productsearch=0x7f030012;
+        public static final int fragment_purchasedetaillist=0x7f030013;
+        public static final int fragment_shopselection=0x7f030014;
+        public static final int fragment_wishlist=0x7f030015;
+        public static final int list_item_drawer=0x7f030016;
     }
     public static final class menu {
         public static final int home=0x7f0a0000;
@@ -144,32 +164,39 @@ public final class R {
         public static final int action_logout=0x7f070005;
         public static final int action_settings=0x7f070003;
         public static final int app_name=0x7f070000;
-        public static final int button_advancedsearch=0x7f070018;
-        public static final int button_mycart=0x7f070014;
-        public static final int button_mywishlist=0x7f070013;
-        public static final int button_pickshop=0x7f070015;
+        public static final int button_advancedsearch=0x7f07001c;
+        public static final int button_login=0x7f07001f;
+        public static final int button_mycart=0x7f070018;
+        public static final int button_mywishlist=0x7f070017;
+        public static final int button_pickshop=0x7f070019;
         /**  buttons 
          */
-        public static final int button_profile=0x7f070012;
-        public static final int button_searchcategory=0x7f070017;
-        public static final int button_seeshop=0x7f070016;
+        public static final int button_profile=0x7f070016;
+        public static final int button_searchcategory=0x7f07001b;
+        public static final int button_seeshop=0x7f07001a;
+        public static final int button_singin=0x7f07001e;
+        public static final int button_skip=0x7f07001d;
         public static final int currentshop_text=0x7f07000c;
         /**  Content Description 
          */
         public static final int desc_list_item_icon=0x7f070006;
         public static final int description_profile_image=0x7f070007;
+        public static final int identifier=0x7f07000e;
         public static final int item_text=0x7f07000b;
         public static final int nocurrentshopselected_text=0x7f07000d;
+        public static final int password=0x7f07000f;
         public static final int profile_followers_text=0x7f070009;
         public static final int profile_following_text=0x7f07000a;
         public static final int profile_points_text=0x7f070008;
         public static final int search_hint=0x7f070001;
-        public static final int title_home_mycart=0x7f070010;
-        public static final int title_home_mywishlist=0x7f070011;
+        public static final int title_home_mycart=0x7f070012;
+        public static final int title_home_mywishlist=0x7f070013;
         /**  titles 
          */
-        public static final int title_home_search=0x7f07000e;
-        public static final int title_home_shop=0x7f07000f;
+        public static final int title_home_search=0x7f070010;
+        public static final int title_home_shop=0x7f070011;
+        public static final int title_login=0x7f070015;
+        public static final int title_singin=0x7f070014;
     }
     public static final class style {
         /** 
@@ -198,24 +225,26 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f090001;
-        public static final int b=0x7f090009;
+        public static final int b=0x7f09000a;
         /**  buttons 
          */
-        public static final int button1=0x7f09000c;
-        public static final int counter1=0x7f09000e;
+        public static final int button1=0x7f09000d;
+        public static final int counter1=0x7f09000f;
+        public static final int edittext1=0x7f090011;
         /**  texts 
          */
-        public static final int h1=0x7f090006;
-        public static final int h2=0x7f090007;
+        public static final int h1=0x7f090007;
+        public static final int h2=0x7f090008;
         /**  images 
          */
-        public static final int icon1=0x7f09000a;
-        public static final int icon2=0x7f09000b;
+        public static final int icon1=0x7f09000b;
+        public static final int icon2=0x7f09000c;
+        public static final int layout1=0x7f090006;
         /**  others 
          */
-        public static final int list1=0x7f09000d;
-        public static final int p=0x7f090008;
-        public static final int search1=0x7f09000f;
+        public static final int list1=0x7f09000e;
+        public static final int p=0x7f090009;
+        public static final int search1=0x7f090010;
         /**  OWN STYLES 
  sections 
          */

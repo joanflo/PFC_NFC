@@ -44,6 +44,8 @@
     <string name="item_text">item(s)</string>
     <string name="currentshop_text">Current shop</string>
     <string name="nocurrentshopselected_text">No current shop\nselected. Pick a shop\nto check products\navaiability.</string>
+    <string name="identifier">Nick or email</string>
+    <string name="password">Password</string>
     
     
     <!-- titles -->
@@ -51,6 +53,8 @@
     <string name="title_home_shop">Shop selection</string>
     <string name="title_home_mycart">My cart</string>
     <string name="title_home_mywishlist">My wishlist</string>
+    <string name="title_singin">Sing in</string>
+    <string name="title_login">Log in</string>
     
     
     <!-- buttons -->
@@ -59,9 +63,12 @@
     <string name="button_mycart">See cart</string>
     <string name="button_pickshop">Pick shop</string>
     <string name="button_seeshop">See shop</string>
-    
     <string name="button_searchcategory">Search by category</string>
     <string name="button_advancedsearch">Advanced search</string>
+    <string name="button_skip">Skip</string>
+    <string name="button_singin">Sing in</string>
+    <string name="button_login">Log in</string>
+    
     
     
 </resources>

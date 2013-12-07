@@ -1,14 +1,17 @@
 package com.joanflo.tagit;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -31,10 +34,20 @@ public class HomeFragment extends Fragment {
 	
 
 	private void prepareSearchSection(View fragment) {
-		// Get the SearchView and set the searchable configuration
-	    SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+		// Get search view and activity
 	    SearchView searchView = (SearchView) fragment.findViewById(R.id.searchview_product_home);
-	    ComponentName cn = new ComponentName(getActivity(), ProductListActivity.class);
+		Activity activity = getActivity();
+	    
+	    // Customize search view
+	    int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        EditText searchPlate = (EditText) searchView.findViewById(searchPlateId);
+        searchPlate.setTextColor(activity.getResources().getColor(R.color.grey_light));
+        searchPlate.setHintTextColor(activity.getResources().getColor(R.color.grey_light));
+        searchPlate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+	    
+		// Set the searchable configuration
+	    SearchManager searchManager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
+	    ComponentName cn = new ComponentName(activity, ProductListActivity.class);
 	    searchView.setSearchableInfo(searchManager.getSearchableInfo(cn));
 	    
 	    // expand widget by default
