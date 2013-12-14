@@ -45,7 +45,21 @@
     <string name="currentshop_text">Current shop</string>
     <string name="nocurrentshopselected_text">No current shop\nselected. Pick a shop\nto check products\navaiability.</string>
     <string name="identifier">Nick or email</string>
-    <string name="password">Password</string>
+    <string name="email">Email*</string>
+    <string name="city_name">City*</string>
+    <string name="region_name">Region*</string>
+    <string name="country_name">Country*</string>
+    <string name="language_name">Language*</string>
+    <string name="nick">Nick*</string>
+    <string name="name">Name*</string>
+    <string name="surname">Surname*</string>
+    <string name="age">Age*</string>
+    <string name="password">Password*</string>
+    <string name="repeat_password">Repeat password*</string>
+    <string name="phone">Phone</string>
+    <string name="direction">Direction</string>
+    <string name="termsconditions">I accept terms and conditions</string>
+    <string name="required_fields">* Required fields</string>
     
     
     <!-- titles -->
@@ -68,6 +82,7 @@
     <string name="button_skip">Skip</string>
     <string name="button_singin">Sing in</string>
     <string name="button_login">Log in</string>
+    <string name="button_terms">See terms</string>
     
     
     

@@ -8,8 +8,8 @@
         style="@style/layout1"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_skip_singin"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:padding="8dp" >
 
         <!-- title -->
@@ -31,22 +31,308 @@
 
 
         <ScrollView
-            android:id="@+id/scrollview1"
+            android:id="@+id/aux3"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_above="@+id/button_singin_singin"
             android:layout_alignLeft="@+id/imageView1"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/imageView1"
-            android:layout_marginTop="8dp" >
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" >
 
+            <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" >
+	            
+                
+                <!-- email -->
+		        <TextView
+		            android:id="@+id/textView_registration_email"
+		            style="@style/b"
+		            android:text="@string/email"
+		            android:textColor="@color/main_white" />
+		
+		        <EditText
+		            android:id="@+id/editText_registration_email"
+		            style="@style/edittext1"
+		            android:inputType="textEmailAddress"
+		            android:padding="8dp"
+		            android:layout_below="@+id/textView_registration_email" />
+                
+		        
+		        <!-- nick -->
+		        <TextView
+		            android:id="@+id/textView_registration_nick"
+		            style="@style/b"
+		            android:text="@string/nick"
+		            android:textColor="@color/main_white"
+		            android:layout_below="@+id/editText_registration_email"
+		            android:layout_marginTop="16dp" />
+		
+		        <EditText
+		            android:id="@+id/editText_registration_nick"
+		            style="@style/edittext1"
+		            android:inputType="text"
+		            android:padding="8dp"
+		            android:layout_below="@+id/textView_registration_nick" />
+		        
+                
+                <!-- password -->
+		        <TextView
+		            android:id="@+id/textView_registration_password"
+		            style="@style/b"
+		            android:text="@string/password"
+		            android:textColor="@color/main_white"
+		            android:layout_below="@+id/editText_registration_nick"
+		            android:layout_marginTop="16dp" />
+		
+		        <EditText
+		            android:id="@+id/editText_registration_password"
+		            style="@style/edittext1"
+		            android:inputType="textPassword"
+		            android:padding="8dp"
+		            android:layout_below="@+id/textView_registration_password" />
+		        
+		        
+		        <!-- repeat password -->
+		        <TextView
+		            android:id="@+id/textView_registration_repeatpassword"
+		            style="@style/b"
+		            android:text="@string/repeat_password"
+		            android:textColor="@color/main_white"
+		            android:layout_below="@+id/editText_registration_password"
+		            android:layout_marginTop="16dp" />
+		
+		        <EditText
+		            android:id="@+id/editText_registration_repeatpassword"
+		            style="@style/edittext1"
+		            android:inputType="textPassword"
+		            android:padding="8dp"
+		            android:layout_below="@+id/textView_registration_repeatpassword" />
+		        
+		        
+				<!-- select location -->
+			    <LinearLayout 
+			        android:id="@+id/aux1"
+			        android:baselineAligned="false"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal"
+					android:layout_marginTop="16dp"
+					android:layout_below="@+id/editText_registration_repeatpassword" >
+			        
+			        <LinearLayout 
+				        android:layout_width="0dp"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical"
+				        android:layout_weight="0.3" >
+			
+			            <TextView 
+				            style="@style/b"
+				            android:text="@string/city_name"
+				            android:textColor="@color/main_white" />
+			
+			            <Spinner
+				            style="@style/spinner1"
+			                android:id="@+id/spinner_registration_city"
+			                android:padding="0dp" />
+				        
+				    </LinearLayout>
+			        
+			        <LinearLayout 
+				        android:layout_width="0dp"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical"
+				        android:layout_weight="0.3" >
+			
+			            <TextView 
+				            style="@style/b"
+				            android:text="@string/region_name"
+				            android:textColor="@color/main_white" />
+			
+			            <Spinner
+				            style="@style/spinner1"
+			                android:id="@+id/spinner_registration_region"
+			                android:padding="0dp" />
+				        
+				    </LinearLayout>
+			        
+			        <LinearLayout 
+				        android:layout_width="0dp"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical"
+				        android:layout_weight="0.3" >
+			
+			            <TextView 
+				            style="@style/b"
+				            android:text="@string/country_name"
+				            android:textColor="@color/main_white" />
+			
+			            <Spinner
+				            style="@style/spinner1"
+			                android:id="@+id/spinner_registration_country"
+			                android:padding="0dp" />
+				        
+				    </LinearLayout>
+			        
+			    </LinearLayout>
+		        
+		        
+		        <!-- select language and set age -->
+			    <LinearLayout 
+			        android:id="@+id/aux2"
+			        android:baselineAligned="false"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal"
+					android:layout_marginTop="16dp"
+					android:layout_below="@+id/aux1" >
+			        
+			        <LinearLayout 
+				        android:layout_width="0dp"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical"
+				        android:layout_weight="0.6" >
+			
+			            <TextView 
+				            style="@style/b"
+				            android:text="@string/language_name"
+				            android:textColor="@color/main_white" />
+			
+			            <Spinner
+				            style="@style/spinner1"
+			                android:id="@+id/spinner_registration_language"
+			                android:padding="0dp" />
+				        
+				    </LinearLayout>
+			        
+			        <LinearLayout 
+				        android:layout_width="0dp"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical"
+				        android:layout_weight="0.3" >
+			
+			            <TextView 
+				            style="@style/b"
+				            android:text="@string/age"
+				            android:textColor="@color/main_white" />
+			
+			            <EditText
+					            android:id="@+id/editText_registration_age"
+					            style="@style/edittext1"
+					            android:inputType="number"
+					            android:padding="10dp" />
+				        
+				    </LinearLayout>
+			        
+			    </LinearLayout>
+		        
+		        
+		        <!-- name -->
+		        <TextView
+		            android:id="@+id/textView_registration_name"
+		            style="@style/b"
+		            android:text="@string/name"
+		            android:textColor="@color/main_white"
+		            android:layout_below="@+id/aux2"
+		            android:layout_marginTop="16dp" />
+		
+		        <EditText
+		            android:id="@+id/editText_registration_name"
+		            style="@style/edittext1"
+		            android:inputType="text"
+		            android:padding="8dp"
+		            android:layout_below="@+id/textView_registration_name" />
+		        
+		        
+		        <!-- surname -->
+		        <TextView
+		            android:id="@+id/textView_registration_surname"
+		            style="@style/b"
+		            android:text="@string/surname"
+		            android:textColor="@color/main_white"
+		            android:layout_below="@+id/editText_registration_name"
+		            android:layout_marginTop="16dp" />
+		
+		        <EditText
+		            android:id="@+id/editText_registration_surname"
+		            style="@style/edittext1"
+		            android:inputType="text"
+		            android:padding="8dp"
+		            android:layout_below="@+id/textView_registration_surname" />
+		        
+		        
+		        <!-- phone -->
+		        <TextView
+		            android:id="@+id/textView_registration_phone"
+		            style="@style/b"
+		            android:text="@string/phone"
+		            android:textColor="@color/main_white"
+		            android:layout_below="@+id/editText_registration_surname"
+		            android:layout_marginTop="16dp" />
+		
+		        <EditText
+		            android:id="@+id/editText_registration_phone"
+		            style="@style/edittext1"
+		            android:inputType="phone"
+		            android:padding="8dp"
+		            android:layout_below="@+id/textView_registration_phone" />
+		        
+		        
+		        <!-- direction -->
+		        <TextView
+		            android:id="@+id/textView_registration_direction"
+		            style="@style/b"
+		            android:text="@string/direction"
+		            android:textColor="@color/main_white"
+		            android:layout_below="@+id/editText_registration_phone"
+		            android:layout_marginTop="16dp" />
+		
+		        <EditText
+		            android:id="@+id/editText_registration_direction"
+		            style="@style/edittext1"
+		            android:inputType="text"
+		            android:padding="8dp"
+		            android:layout_below="@+id/textView_registration_direction" />
+		        
+		        
+		        <!-- check terms and conditions -->
+			    <CheckBox
+		            style="@style/p"
+			        android:id="@+id/checkBox_termsconditions"
+		            android:textColor="@color/main_white"
+			        android:text="@string/termsconditions"
+			        android:onClick="onCheckboxClicked"
+		            android:layout_below="@+id/editText_registration_direction"
+		            android:layout_marginTop="20dp" />
+			    
+			    <TextView
+		            style="@style/p"
+		            android:text="@string/required_fields"
+		            android:textColor="@color/main_white"
+		            android:layout_below="@+id/checkBox_termsconditions"
+		            android:layout_marginTop="5dp"
+        			android:layout_alignParentRight="true" />
+                
+            </RelativeLayout>
+            
         </ScrollView>
-        
-        
+
+        <Button
+            android:id="@+id/button_terms"
+            style="@style/button1"
+            android:layout_width="110dp"
+            android:layout_alignRight="@+id/aux3"
+            android:layout_alignTop="@+id/button_singin_singin"
+            android:onClick="onClickButton"
+            android:text="@string/button_terms" />
+
         <Button
             android:id="@+id/button_singin_singin"
             style="@style/button1"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
+            android:layout_alignLeft="@+id/aux3"
             android:layout_alignParentBottom="true"
             android:onClick="onClickButton"
             android:text="@string/button_singin" />
@@ -56,7 +342,7 @@
     <Button
         android:id="@+id/button_skip_singin"
         style="@style/button1"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="8dp"
