@@ -60,6 +60,13 @@
     <string name="direction">Direction</string>
     <string name="termsconditions">I accept terms and conditions</string>
     <string name="required_fields">* Required fields</string>
+    <string name="product_name">Product name</string>
+    <string name="price_from">From</string>
+    <string name="price_until">since</string>
+    <string name="price_coin">€</string>
+    <string name="product_brand">Brand</string>
+    <string name="product_category">Category</string>
+    <string name="product_rating">Minimum rating</string>
     
     
     <!-- titles -->
@@ -69,6 +76,7 @@
     <string name="title_home_mywishlist">My wishlist</string>
     <string name="title_singin">Sing in</string>
     <string name="title_login">Log in</string>
+    <string name="title_advanced_search">Advanced search</string>
     
     
     <!-- buttons -->
@@ -79,6 +87,7 @@
     <string name="button_seeshop">See shop</string>
     <string name="button_searchcategory">Search by category</string>
     <string name="button_advancedsearch">Advanced search</string>
+    <string name="button_search">Search</string>
     <string name="button_skip">Skip</string>
     <string name="button_singin">Sing in</string>
     <string name="button_login">Log in</string>

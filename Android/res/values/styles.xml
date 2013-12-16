@@ -158,6 +158,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 	
+	<style name="ratingbar1" parent="@android:style/Widget.RatingBar">
+		<item name="android:progressDrawable">@drawable/rating_bar_selector</item>
+    </style>
+    
+	
+	
 	
 	
 </resources>

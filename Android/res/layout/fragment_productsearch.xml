@@ -1,7 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+	    
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingBottom="10dp" >
+	    
+	    <RelativeLayout
+	        style="@style/section1"
+	        android:layout_height="440dp" >
 
-</RelativeLayout>
+	        <LinearLayout
+	            android:id="@+id/aux1"
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/title_home_search"
+	                android:src="@drawable/ic_search" />
+
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:text="@string/title_advanced_search"
+	                android:textColor="@color/main_blue" />
+	        </LinearLayout>
+
+	        <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/aux1"
+	            android:layout_margin="8dp" >
+
+	            <!-- name -->
+	            <TextView
+	                android:id="@+id/textView_advancedsearch_name"
+	                style="@style/b"
+	                android:text="@string/product_name"
+	                android:textColor="@color/main_white" />
+
+	            <EditText
+	                android:id="@+id/editText_advancedsearch_name"
+	                style="@style/edittext1"
+	                android:layout_below="@+id/textView_advancedsearch_name"
+	                android:inputType="text"
+	                android:padding="8dp" />
+
+	            
+	            <!-- price -->
+	            <TextView
+	                android:id="@+id/textView_advancedsearch_price"
+	                style="@style/b"
+	                android:layout_below="@+id/editText_advancedsearch_name"
+	                android:layout_marginTop="20dp"
+	                android:text="@string/product_brand"
+	                android:textColor="@color/main_white" />
+	            
+	            <LinearLayout 
+			        android:id="@+id/aux2"
+			        android:baselineAligned="false"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal"
+					android:layout_below="@+id/textView_advancedsearch_price" >
+	            
+	                <TextView
+		                style="@style/p"
+		                android:text="@string/price_from"
+		                android:textColor="@color/main_white"
+		                android:layout_marginTop="11dp"
+		                android:layout_marginRight="4dp" />
+	                
+	                <EditText
+		                android:id="@+id/editText_advancedsearch_from"
+		                style="@style/edittext1"
+		                android:inputType="number"
+		                android:padding="8dp"
+		                android:layout_weight="0.5" />
+	                
+	                <TextView
+			        	android:id="@+id/from_coin"
+		                style="@style/p"
+		                android:text="@string/price_coin"
+		                android:textColor="@color/main_white"
+		                android:layout_marginTop="11dp"
+		                android:layout_marginRight="10dp"
+		                android:layout_marginLeft="2dp" />
+	                
+	                <TextView
+		                style="@style/p"
+		                android:text="@string/price_until"
+		                android:textColor="@color/main_white"
+		                android:layout_marginTop="11dp"
+		                android:layout_marginRight="4dp" />
+	                
+	                <EditText
+		                android:id="@+id/editText_advancedsearch_until"
+		                style="@style/edittext1"
+		                android:inputType="number"
+		                android:padding="8dp"
+		                android:layout_weight="0.5" />
+	                
+					<TextView
+			        	android:id="@+id/until_coin"
+		                style="@style/p"
+		                android:text="@string/price_coin"
+		                android:textColor="@color/main_white"
+		                android:layout_marginTop="11dp"
+		                android:layout_marginLeft="2dp" />
+	                
+				</LinearLayout>
+	           
+	            
+	            <!-- brand and category -->
+	            <LinearLayout 
+			        android:id="@+id/aux3"
+			        android:baselineAligned="false"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal"
+					android:layout_marginTop="20dp"
+					android:layout_below="@+id/aux2" >
+			        
+	                <!-- brand -->
+			        <LinearLayout 
+				        android:layout_width="0dp"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical"
+				        android:layout_weight="0.5" >
+			
+			            <TextView 
+				            style="@style/b"
+				            android:text="@string/product_brand"
+				            android:textColor="@color/main_white" />
+			
+			            <Spinner
+				            style="@style/spinner1"
+			                android:id="@+id/spinner_productsearch_brand"
+			                android:padding="0dp" />
+				        
+				    </LinearLayout>
+			        
+			        <!-- category -->
+			        <LinearLayout 
+				        android:layout_width="0dp"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical"
+				        android:layout_weight="0.5" >
+			
+			            <TextView 
+				            style="@style/b"
+				            android:text="@string/product_category"
+				            android:textColor="@color/main_white" />
+			
+			            <Spinner
+				            style="@style/spinner1"
+			                android:id="@+id/spinner_productsearch_category"
+			                android:padding="0dp" />
+				        
+				    </LinearLayout>
+			        
+			    </LinearLayout>
+	            
+	            
+	            <!-- rating -->
+	            <TextView
+	                android:id="@+id/aux4"
+	                style="@style/b"
+	                android:text="@string/product_rating"
+	                android:textColor="@color/main_white"
+	                android:layout_below="@+id/aux3"
+	                android:layout_marginTop="20dp" />
+
+		        <RatingBar
+		            android:id="@+id/ratingBar_advancedsearch"
+	                style="@style/ratingbar1"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentLeft="true"
+	                android:layout_below="@+id/aux4"
+			        android:numStars="5"
+			        android:stepSize="0.5"
+			        android:rating="3.0" />
+	            
+	        </RelativeLayout>
+
+	        <Button
+	            android:id="@+id/button_advancedsearch_productsearch"
+	            style="@style/button1"
+	            android:layout_width="120dp"
+	            android:layout_alignParentBottom="true"
+	            android:layout_alignParentRight="true"
+	            android:layout_margin="8dp"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_search" />
+	        
+	    </RelativeLayout>
+	    
+	</RelativeLayout>
+</ScrollView>

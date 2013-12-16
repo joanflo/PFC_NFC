@@ -20,7 +20,6 @@ public class LoginActivity extends Activity {
 	
 	
 	
-	
 	public void onClickButton(View v) {
 		
 		switch (v.getId()) {

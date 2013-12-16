@@ -20,6 +20,7 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 	private String[] languages = {"Català", "French", "English"};
 	
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
