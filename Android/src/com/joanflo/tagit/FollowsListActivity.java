@@ -1,7 +1,7 @@
 package com.joanflo.tagit;
 
-import android.app.Activity;
+import android.app.ListActivity;
 
-public class FollowsListActivity extends Activity {
+public class FollowsListActivity extends ListActivity {
 
 }

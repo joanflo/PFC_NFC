@@ -1,7 +1,6 @@
 package com.joanflo.tagit;
 
-import android.app.Activity;
-import android.app.Fragment;
+
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,45 +8,60 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-public class HomeFragment extends Fragment {
 
+public class HomeActivity extends BaseActivity {
+
+
+	
 	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		// update the main content by replacing view
+		LayoutInflater factory = LayoutInflater.from(this);
+		View activityView = factory.inflate(R.layout.activity_home, null);
+		// inflate activity layout
+        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
+        viewContainer.addView(activityView);
         
-        prepareSearchSection(rootView);
-        prepareShopSection(rootView);
-        prepareMyCartSection(rootView);
-        prepareMyWishlistSection(rootView);
-        prepareProfileSection(rootView);
-        
-        return rootView;
-    }
+        // update selected item and title, then close the drawer
+        Bundle bundle = getIntent().getExtras();
+        int pos = 0;
+        if (bundle != null) {
+        	pos = bundle.getInt("drawerPosition");
+        }
+        super.updateSelected(pos);
+		
+		prepareSearchSection();
+        prepareShopSection();
+        prepareMyCartSection();
+        prepareMyWishlistSection();
+        prepareProfileSection();
+	}
 	
 	
 
-	private void prepareSearchSection(View fragment) {
+	private void prepareSearchSection() {
 		// Get search view and activity
-	    SearchView searchView = (SearchView) fragment.findViewById(R.id.searchview_product_home);
-		Activity activity = getActivity();
+	    SearchView searchView = (SearchView) findViewById(R.id.searchview_product_home);
 	    
 	    // Customize search view
 	    int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         EditText searchPlate = (EditText) searchView.findViewById(searchPlateId);
-        searchPlate.setTextColor(activity.getResources().getColor(R.color.grey_light));
-        searchPlate.setHintTextColor(activity.getResources().getColor(R.color.grey_light));
+        searchPlate.setTextColor(getResources().getColor(R.color.grey_light));
+        searchPlate.setHintTextColor(getResources().getColor(R.color.grey_light));
         searchPlate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 	    
 		// Set the searchable configuration
-	    SearchManager searchManager = (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
-	    ComponentName cn = new ComponentName(activity, ProductListActivity.class);
+	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+	    ComponentName cn = new ComponentName(this, ProductListActivity.class);
 	    searchView.setSearchableInfo(searchManager.getSearchableInfo(cn));
 	    
 	    // expand widget by default
@@ -56,13 +70,13 @@ public class HomeFragment extends Fragment {
 	
 	
 	
-	private void prepareShopSection(View fragment) {
+	private void prepareShopSection() {
 		
 		boolean currentShopSelected = true;
 		// current shop info
-		TextView tv = (TextView) fragment.findViewById(R.id.currentshop_home);
+		TextView tv = (TextView) findViewById(R.id.currentshop_home);
 		// see shop button
-		Button b = (Button) fragment.findViewById(R.id.button_seeshop_home);
+		Button b = (Button) findViewById(R.id.button_seeshop_home);
 		if (currentShopSelected) {
 			tv.setText("4, Aragó St.\nPalma 07008");
 			b.setVisibility(View.VISIBLE);
@@ -74,44 +88,44 @@ public class HomeFragment extends Fragment {
 	
 	
 	
-	private void prepareMyCartSection(View fragment) {
+	private void prepareMyCartSection() {
 		
 		// set cart items number
-		TextView tv = (TextView) fragment.findViewById(R.id.mycart_itemsnumber_home);
+		TextView tv = (TextView) findViewById(R.id.mycart_itemsnumber_home);
 		tv.setText("22");
 	}
 	
 	
 	
-	private void prepareMyWishlistSection(View fragment) {
+	private void prepareMyWishlistSection() {
 
 		// set wishlist items number
-		TextView tv = (TextView) fragment.findViewById(R.id.mywishlist_itemsnumber_home);
+		TextView tv = (TextView) findViewById(R.id.mywishlist_itemsnumber_home);
 		tv.setText("50+");
 	}
 	
 	
 	
-	private void prepareProfileSection(View fragment) {
+	private void prepareProfileSection() {
 		
 		// show user image
-		ImageView iv = (ImageView) fragment.findViewById(R.id.profile_image_home);
+		ImageView iv = (ImageView) findViewById(R.id.profile_image_home);
 		iv.setImageResource(R.drawable.user_profile);
 		
 		// set user nick
-		TextView tv = (TextView) fragment.findViewById(R.id.profile_nick_home);
+		TextView tv = (TextView) findViewById(R.id.profile_nick_home);
 		tv.setText("Joan_flo");
 		
 		// set user points
-		tv = (TextView) fragment.findViewById(R.id.profile_pointsnumber_home);
+		tv = (TextView) findViewById(R.id.profile_pointsnumber_home);
 		tv.setText("326");
 		
 		// set user followers
-		tv = (TextView) fragment.findViewById(R.id.profile_counterfollowers_home);
+		tv = (TextView) findViewById(R.id.profile_counterfollowers_home);
 		tv.setText("106");
 		
 		// set user following
-		tv = (TextView) fragment.findViewById(R.id.profile_counterfollowing_home);
+		tv = (TextView) findViewById(R.id.profile_counterfollowing_home);
 		tv.setText("256");
 	}
 	

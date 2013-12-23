@@ -1,7 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+	android:orientation="vertical" >
     
+    <fragment
+        android:id="@+id/shop_map"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+    	android:layout_weight="0.4" />
+    
+    
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+	    android:layout_weight="0.6"
+	    android:layout_marginBottom="8dp" >
+	    
+	    <RelativeLayout
+	        style="@style/section1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingBottom="8dp" >
 
-</RelativeLayout>
+	        <LinearLayout
+	            android:id="@+id/aux8"
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/title_home_shop"
+	                android:src="@drawable/ic_currentshop" />
+
+	            <TextView
+	                android:id="@+id/title_shop_shopselected"
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:text="@string/title_home_shop"
+	                android:textColor="@color/main_blue" />
+	            
+	        </LinearLayout>
+
+	        
+	        <!-- location -->
+	        <ImageButton
+	            android:id="@+id/imageButton_shop_direction"
+	            style="@style/icon3"
+	            android:onClick="onClickButton"
+	            android:scaleType="fitCenter"
+	            android:padding="10dp"
+	            android:adjustViewBounds="true"
+	            android:layout_below="@+id/aux8"
+	            android:src="@drawable/ic_navigation"
+	            android:contentDescription="@string/direction" />
+
+	        <TextView
+	            android:id="@+id/textView_shop_direction"
+	            style="@style/b"
+	            android:layout_alignTop="@+id/imageButton_shop_direction"
+	            android:layout_toRightOf="@+id/imageButton_shop_direction"
+	            android:textColor="@color/grey_light" />
+
+	        <TextView
+	            android:id="@+id/textView_shop_city"
+	            style="@style/p"
+	            android:layout_below="@+id/textView_shop_direction"
+	            android:layout_toRightOf="@+id/imageButton_shop_direction"
+	            android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- phone -->
+	        <ImageButton
+	            android:id="@+id/imageButton_shop_phone"
+	            style="@style/icon3"
+	            android:onClick="onClickButton"
+	            android:scaleType="fitCenter"
+	            android:padding="10dp"
+	            android:adjustViewBounds="true"
+	            android:layout_below="@+id/imageButton_shop_direction"
+	            android:src="@drawable/ic_phone"
+	            android:contentDescription="@string/phone" />
+	        
+	        <TextView
+	            android:id="@+id/textView_shop_phone"
+	            style="@style/b"
+	            android:layout_alignTop="@+id/imageButton_shop_phone"
+	            android:layout_toRightOf="@+id/imageButton_shop_phone"
+	            android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- email -->
+	        <ImageButton
+	            android:id="@+id/imageButton_shop_email"
+	            style="@style/icon3"
+	            android:onClick="onClickButton"
+	            android:scaleType="fitCenter"
+	            android:padding="10dp"
+	            android:adjustViewBounds="true"
+	            android:layout_below="@+id/imageButton_shop_phone"
+	            android:src="@drawable/ic_email"
+	            android:contentDescription="@string/email" />
+	        
+	        <TextView
+	            android:id="@+id/textView_shop_email"
+	            style="@style/b"
+	            android:layout_alignTop="@+id/imageButton_shop_email"
+	            android:layout_toRightOf="@+id/imageButton_shop_email"
+	            android:textColor="@color/grey_light" />
+
+	        
+	        <!-- schedule -->
+	        <TextView
+	            android:id="@+id/textView_shop_schedule"
+	            style="@style/b"
+	            android:layout_alignLeft="@+id/imageButton_shop_email"
+	            android:layout_below="@+id/imageButton_shop_email"
+	            android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- Pick shop button -->
+	        <Button
+	            android:id="@+id/button_shop_pickshop"
+	            style="@style/button1"
+	            android:layout_width="110dp"
+	            android:layout_alignParentRight="true"
+	            android:layout_below="@+id/textView_shop_schedule"
+	            android:layout_marginRight="8dp"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_pickshop" />
+	        
+	    </RelativeLayout>
+	
+	</ScrollView>
+
+</LinearLayout>

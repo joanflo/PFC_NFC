@@ -1,20 +1,19 @@
 package com.joanflo.tagit;
 
 import java.util.ArrayList;
-
 import com.joanflo.adapters.NavigationDrawerListAdapter;
 import com.joanflo.adapters.NavigationDrawerListItem;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -39,7 +38,8 @@ public class BaseActivity extends Activity {
  
     private ArrayList<NavigationDrawerListItem> navDrawerItems;
     private NavigationDrawerListAdapter adapter;
-	
+    
+    private int currentPosition = -1;
     
     
 	@Override
@@ -52,8 +52,18 @@ public class BaseActivity extends Activity {
 		// setting the nav drawer list adapter
         adapter = new NavigationDrawerListAdapter(getApplicationContext(), navDrawerItems);
         mDrawerList.setAdapter(adapter);
+        // setting the nav drawer click listener
+        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
         
         prepareActionBar();
+	}
+	
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.home, menu);
+		return true;
 	}
 	
 	
@@ -116,6 +126,8 @@ public class BaseActivity extends Activity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        
+        getActionBar().show();
 	}
 	
 	
@@ -208,6 +220,7 @@ public class BaseActivity extends Activity {
      * update selected item and title, then close the drawer
      */
     protected void updateSelected(int position) {
+    	currentPosition = position;
     	mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
         setTitle(navMenuTitles[position]);
@@ -216,8 +229,57 @@ public class BaseActivity extends Activity {
     
     
     
-    protected ListView getNavigationDrawerList() {
-    	return mDrawerList;
+    public void displayView(int position) {
+    	
+    	if (currentPosition == position) {
+    		// close navigation drawer
+    		updateSelected(position);
+    		
+    	} else {
+	        Intent intent;
+	        switch (position) {
+	        case 0:
+	        	intent = new Intent(this, HomeActivity.class);
+	            break;
+	        case 1:
+	        	intent = new Intent(this, ShopSelectionActivity.class);
+	            break;
+	        case 2:
+	        	intent = new Intent(this, CategoryListActivity.class);
+	            break;
+	        case 3:
+	        	intent = new Intent(this, ProductSearchActivity.class);
+	            break;
+	        case 4:
+	        	intent = new Intent(this, PurchaseDetailListActivity.class);
+	            break;
+	        case 5:
+	        	intent = new Intent(this, WishListActivity.class);
+	            break;
+	        default:
+	        	// home activity by default
+	        	intent = new Intent(this, HomeActivity.class);
+	            break;
+	        }
+	        currentPosition = mDrawerList.getCheckedItemPosition();
+	        intent.putExtra("drawerPosition", position);
+			startActivity(intent);
+    	}
+    	
+    }
+    
+    
+    
+    /**
+     * Slide menu item click listener
+     */
+    private class SlideMenuClickListener implements ListView.OnItemClickListener {
+    	
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            // display view for selected nav drawer item
+            displayView(position);
+        }
     }
 	
 	

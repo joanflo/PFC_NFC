@@ -19,13 +19,15 @@ public class NavigationDrawerListItem {
         this.title = title;
         this.icon = icon;
     }
-     
+    
+    
     public NavigationDrawerListItem(String title, int icon, boolean isCounterVisible, String count){
         this.title = title;
         this.icon = icon;
         this.isCounterVisible = isCounterVisible;
         this.count = count;
     }
+    
     
     public String getTitle(){
         return this.title;

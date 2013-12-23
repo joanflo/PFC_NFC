@@ -25,7 +25,7 @@ public class LoginActivity extends Activity {
 		switch (v.getId()) {
 		case R.id.button_skip_login:
 			// Skip log in
-			Intent iMain = new Intent(this, MainActivity.class);
+			Intent iMain = new Intent(this, HomeActivity.class);
 			startActivity(iMain);
 			finish();
 			break;

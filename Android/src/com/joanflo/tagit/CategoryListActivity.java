@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 
-public class PurchaseListActivity extends BaseActivity {
+public class CategoryListActivity extends BaseActivity {
 
 	
 	
@@ -14,12 +14,18 @@ public class PurchaseListActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		// update the main content by replacing view
+
+        // update the main content by replacing view
 		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_purchaselist, null);
+		View activityView = factory.inflate(R.layout.activity_categorylist, null);
 		// inflate activity layout
         FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
         viewContainer.addView(activityView);
+        
+        // update selected item and title, then close the drawer
+        Bundle bundle = getIntent().getExtras();
+        int pos = bundle.getInt("drawerPosition");
+        super.updateSelected(pos);
 	}
 	
 	

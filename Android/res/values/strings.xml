@@ -43,6 +43,7 @@
     <string name="profile_following_text">Following</string>
     <string name="item_text">item(s)</string>
     <string name="currentshop_text">Current shop</string>
+    <string name="shopinfo_text">Shop info</string>
     <string name="nocurrentshopselected_text">No current shop\nselected. Pick a shop\nto check products\navaiability.</string>
     <string name="identifier">Nick or email</string>
     <string name="email">Email*</string>
@@ -64,10 +65,11 @@
     <string name="price_from">From</string>
     <string name="price_until">since</string>
     <string name="price_coin">€</string>
+    <string name="product_price">€</string>
     <string name="product_brand">Brand</string>
     <string name="product_category">Category</string>
     <string name="product_rating">Minimum rating</string>
-    
+    <string name="distance">meters</string>
     
     <!-- titles -->
     <string name="title_home_search">Search</string>
@@ -77,14 +79,16 @@
     <string name="title_singin">Sing in</string>
     <string name="title_login">Log in</string>
     <string name="title_advanced_search">Advanced search</string>
-    
+    <string name="title_current_shop">Current shop</string>
     
     <!-- buttons -->
     <string name="button_profile">My profile</string>
     <string name="button_mywishlist">See wishlist</string>
     <string name="button_mycart">See cart</string>
     <string name="button_pickshop">Pick shop</string>
+    <string name="button_unselectshop">Unselect</string>
     <string name="button_seeshop">See shop</string>
+    <string name="button_info">Info</string>
     <string name="button_searchcategory">Search by category</string>
     <string name="button_advancedsearch">Advanced search</string>
     <string name="button_search">Search</string>

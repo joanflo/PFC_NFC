@@ -57,7 +57,7 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 		switch (v.getId()) {
 		case R.id.button_skip_singin:
 			// Skip log in
-			Intent i = new Intent(this, MainActivity.class);
+			Intent i = new Intent(this, HomeActivity.class);
 			startActivity(i);
 			finish();
 			break;

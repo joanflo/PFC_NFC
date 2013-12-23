@@ -30,7 +30,7 @@ public class StartActivity extends Activity {
 			private void chooseInitialActivity(boolean userLoged) {
 				Intent i;
 				if (userLoged) {
-					i = new Intent(startActivity, MainActivity.class);
+					i = new Intent(startActivity, HomeActivity.class);
 				} else {
 					i = new Intent(startActivity, LoginActivity.class);
 				}
