@@ -1,7 +1,494 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+	    
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingBottom="10dp"
+	    android:orientation="vertical" >
 
-</RelativeLayout>
+	    <RelativeLayout
+	        android:id="@+id/section_userprofile_profile"
+	        style="@style/section1"
+	        android:layout_height="wrap_content"
+	        android:paddingBottom="8dp" >
+
+	        <LinearLayout
+	            android:id="@+id/aux9"
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/desc_list_item_icon"
+	                android:src="@drawable/ic_profile" />
+
+	            <TextView
+	                android:id="@+id/textView_userprofile_nick"
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:textColor="@color/main_blue" />
+	            
+	        </LinearLayout>
+
+	        
+	        <!-- profile image -->
+	        <ImageView
+	            android:id="@+id/imageView_userprofile"
+	            android:layout_width="170dp"
+	            android:layout_height="170dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/aux9"
+	            android:layout_margin="8dp"
+	            android:background="@drawable/image_bg_normal"
+	            android:contentDescription="@string/description_profile_image" />
+
+	        
+	        <!-- points number -->
+	        <TextView
+	            android:id="@+id/textView_userprofile_pointsnumber"
+	            style="@style/counter1"
+			    android:onClick="onClickButton"
+			    android:clickable="true"
+	            android:layout_alignTop="@+id/imageView_userprofile"
+	            android:layout_toRightOf="@+id/imageView_userprofile" />
+
+	        <TextView
+	            android:id="@+id/textView_userprofile_pointsnumber_text"
+	            style="@style/p"
+	            android:layout_alignBaseline="@+id/textView_userprofile_pointsnumber"
+	            android:layout_alignBottom="@+id/textView_userprofile_pointsnumber"
+	            android:layout_marginLeft="4dp"
+	            android:layout_toRightOf="@+id/textView_userprofile_pointsnumber"
+	            android:text="@string/profile_points_text"
+	            android:textColor="@color/grey_light" />
+
+	        
+	        <!-- following number -->
+	        <TextView
+	            android:id="@+id/textView_userprofile_counterfollowing"
+	            style="@style/counter1"
+	            android:layout_below="@+id/textView_userprofile_pointsnumber"
+	            android:layout_marginTop="25dp"
+	            android:layout_toRightOf="@+id/imageView_userprofile"
+			    android:onClick="onClickButton"                
+			    android:clickable="true" />
+
+	        <TextView
+	            android:id="@+id/textView_userprofile_counterfollowing_text"
+	            style="@style/p"
+	            android:layout_alignBaseline="@+id/textView_userprofile_counterfollowing"
+	            android:layout_alignBottom="@+id/textView_userprofile_counterfollowing"
+	            android:layout_alignLeft="@+id/textView_userprofile_pointsnumber_text"
+	            android:text="@string/profile_following_text"
+	            android:textColor="@color/grey_light" />
+
+	        
+	        <!-- followers number -->
+	        <TextView
+	            android:id="@+id/textView_userprofile_counterfollowers"
+	            style="@style/counter1"
+	            android:layout_below="@+id/textView_userprofile_counterfollowing"
+	            android:layout_marginTop="8dp"
+	            android:layout_toRightOf="@+id/imageView_userprofile"
+			    android:onClick="onClickButton"                
+			    android:clickable="true" />
+
+	        <TextView
+	            style="@style/p"
+	            android:layout_alignBaseline="@+id/textView_userprofile_counterfollowers"
+	            android:layout_alignBottom="@+id/textView_userprofile_counterfollowers"
+	            android:layout_alignLeft="@+id/textView_userprofile_counterfollowing_text"
+	            android:text="@string/profile_followers_text"
+	            android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- buttons -->
+	        <Button
+	            style="@style/button1"
+	            android:id="@+id/button_userprofile_seecomments"
+	            android:layout_width="match_parent"
+	            android:layout_alignBottom="@+id/imageView_userprofile"
+	            android:layout_marginRight="8dp"
+	            android:layout_toRightOf="@+id/imageView_userprofile"
+	            android:text="@string/button_seecomments"
+	            android:onClick="onClickButton" />
+
+	        <Button
+	            android:id="@+id/button_userprofile_seepurchase"
+	            android:layout_width="match_parent"
+	            style="@style/button1"
+	            android:layout_alignLeft="@+id/imageView_userprofile"
+	            android:layout_alignRight="@+id/imageView_userprofile"
+	            android:layout_below="@+id/imageView_userprofile"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_seepurchases" />
+
+	        <Button
+	            android:id="@+id/button_userprofile_seecart"
+	            android:layout_width="match_parent"
+	            style="@style/button1"
+	            android:layout_alignBottom="@+id/button_userprofile_seepurchase"
+	            android:layout_alignRight="@+id/button_userprofile_seecomments"
+	            android:layout_alignTop="@+id/button_userprofile_seepurchase"
+	            android:layout_toRightOf="@+id/imageView_userprofile"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_mycart" />
+	        
+	    </RelativeLayout>
+	    
+	    
+	    <RelativeLayout
+	        android:id="@+id/section_userprofile_badges"
+	        style="@style/section1"
+	        android:layout_height="wrap_content"
+	        android:paddingBottom="8dp" >
+
+	        <LinearLayout
+	            android:id="@+id/aux10"
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/desc_list_item_icon"
+	                android:src="@drawable/ic_badge" />
+
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:textColor="@color/main_blue"
+	                android:text="@string/title_badges" />
+	            
+	        </LinearLayout>
+	    
+	        
+	        <!-- badges -->
+	        <GridView
+			    android:id="@+id/gridView_userprofile_badges"
+	            android:layout_below="@+id/aux10"
+	            android:layout_margin="8dp"
+			    android:layout_width="match_parent" 
+			    android:layout_height="wrap_content"
+			    android:gravity="center"
+			    android:verticalSpacing="10dp"
+			    android:horizontalSpacing="10dp"
+			    android:stretchMode="columnWidth"
+			    android:numColumns="5" />
+	        
+	        
+	        <!-- buttons -->
+	        <Button
+	            android:id="@+id/button_userprofile_seeallbadges"
+	            style="@style/button1"
+	            android:layout_width="170dp"
+	            android:layout_alignLeft="@+id/gridView_userprofile_badges"
+	            android:layout_below="@+id/gridView_userprofile_badges"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_seeallbadges" />
+	    
+	    </RelativeLayout>
+	    
+	    
+	    <RelativeLayout
+	        android:id="@+id/section_userprofile_personalinfo"
+	        style="@style/section1"
+	        android:layout_height="wrap_content"
+	        android:paddingBottom="8dp" >
+
+	        <LinearLayout
+	            android:id="@+id/aux11"
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/desc_list_item_icon"
+	                android:src="@drawable/ic_personalinfo" />
+
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:textColor="@color/main_blue"
+	                android:text="@string/title_personalinfo" />
+	            
+	        </LinearLayout>
+	        
+	        
+	        <!-- email -->
+	        <TextView
+	            android:id="@+id/textView_userprofile_emailtext"
+		        style="@style/b"
+		        android:layout_marginTop="8dp"
+		        android:layout_marginLeft="8dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/aux11"
+		        android:text="@string/email2"
+		        android:textColor="@color/grey_light" />
+
+	        <TextView
+	            android:id="@+id/textView_userprofile_email"
+		        style="@style/p"
+	            android:layout_alignLeft="@+id/textView_userprofile_emailtext"
+	            android:layout_below="@+id/textView_userprofile_emailtext"
+		        android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- name -->
+	        <TextView
+	            android:id="@+id/textView_userprofile_nametext"
+		        style="@style/b"
+		        android:layout_marginTop="8dp"
+		        android:layout_marginLeft="8dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/textView_userprofile_email"
+		        android:text="@string/name2"
+		        android:textColor="@color/grey_light" />
+
+	        <TextView
+	            android:id="@+id/textView_userprofile_name"
+		        style="@style/p"
+	            android:layout_alignLeft="@+id/textView_userprofile_nametext"
+	            android:layout_below="@+id/textView_userprofile_nametext"
+		        android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- surname -->
+	        <TextView
+	            android:id="@+id/textView_userprofile_surnametext"
+		        style="@style/b"
+		        android:layout_marginTop="8dp"
+		        android:layout_marginLeft="8dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/textView_userprofile_name"
+		        android:text="@string/surname2"
+		        android:textColor="@color/grey_light" />
+
+	        <TextView
+	            android:id="@+id/textView_userprofile_surname"
+		        style="@style/p"
+	            android:layout_alignLeft="@+id/textView_userprofile_surnametext"
+	            android:layout_below="@+id/textView_userprofile_surnametext"
+		        android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- location -->
+	        <LinearLayout
+	            android:id="@+id/linearLayout_userprofile_location"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_margin="8dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentRight="true"
+	            android:layout_below="@+id/textView_userprofile_surname"
+	            android:baselineAligned="false" >
+
+	            <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/city_name2"
+			            android:textColor="@color/grey_light" />
+		            
+		            <TextView 
+		                android:id="@+id/textView_userprofile_city"
+			            style="@style/p"
+			            android:textColor="@color/grey_light" />
+			        
+			    </LinearLayout>
+		        
+		        <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/region_name2"
+			            android:textColor="@color/grey_light" />
+		            
+		            <TextView 
+		                android:id="@+id/textView_userprofile_region"
+			            style="@style/p"
+			            android:textColor="@color/grey_light" />
+			        
+			    </LinearLayout>
+		        
+		        <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/country_name2"
+			            android:textColor="@color/grey_light" />
+		            
+			        <TextView 
+		                android:id="@+id/textView_userprofile_country"
+			            style="@style/p"
+			            android:textColor="@color/grey_light" />
+			        
+			    </LinearLayout>
+	            
+	        </LinearLayout>
+	        
+	        
+	        <!-- language & registration & age -->
+	        <LinearLayout
+	            android:id="@+id/linearLayout_userprofile_languageage"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_marginBottom="8dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentRight="true"
+	            android:layout_below="@+id/linearLayout_userprofile_location"
+			    android:orientation="horizontal"
+			    android:baselineAligned="false" >
+	        
+	            <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/language_name2"
+			            android:textColor="@color/grey_light" />
+		            
+		            <TextView 
+		                android:id="@+id/textView_userprofile_language"
+			            style="@style/p"
+			            android:textColor="@color/grey_light" />
+			        
+			    </LinearLayout>
+			    
+	            <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/registration_name"
+			            android:textColor="@color/grey_light" />
+		            
+		            <TextView 
+		                android:id="@+id/textView_userprofile_registration"
+			            style="@style/p"
+			            android:textColor="@color/grey_light" />
+			        
+			    </LinearLayout>
+	            
+	            <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/age2"
+			            android:textColor="@color/grey_light" />
+		            
+		            <TextView 
+		                android:id="@+id/textView_userprofile_age"
+			            style="@style/p"
+			            android:textColor="@color/grey_light" />
+			        
+			    </LinearLayout>
+	            
+	        </LinearLayout>
+	        
+	        
+	        <!-- direction & phone -->
+	        <LinearLayout
+	            android:id="@+id/linearLayout_userprofile_directionphone"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_marginBottom="8dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentRight="true"
+	            android:layout_below="@+id/linearLayout_userprofile_languageage"
+			    android:orientation="horizontal"
+			    android:baselineAligned="false" >
+	        
+	            <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.6" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/direction"
+			            android:textColor="@color/grey_light" />
+		            
+		            <TextView 
+		                android:id="@+id/textView_userprofile_direction"
+			            style="@style/p"
+			            android:textColor="@color/grey_light" />
+			        
+			    </LinearLayout>
+			    
+	            <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/phone"
+			            android:textColor="@color/grey_light" />
+		            
+		            <TextView 
+		                android:id="@+id/textView_userprofile_phone"
+			            style="@style/p"
+			            android:textColor="@color/grey_light" />
+			        
+			    </LinearLayout>
+	            
+	        </LinearLayout>
+	        
+	        
+	        <!-- buttons -->
+	        <Button
+	            android:id="@+id/button_userprofile_modifydata"
+	            style="@style/button1"
+	            android:layout_width="170dp"
+	            android:layout_alignLeft="@+id/linearLayout_userprofile_directionphone"
+	            android:layout_below="@+id/linearLayout_userprofile_directionphone"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_modifydata" />
+
+	        <Button
+	            android:id="@+id/button_userprofile_changepassword"
+	            style="@style/button1"
+	            android:layout_width="wrap_content"
+	            android:layout_marginLeft="8dp"
+	            android:layout_alignRight="@+id/linearLayout_userprofile_directionphone"
+	            android:layout_alignTop="@+id/button_userprofile_modifydata"
+	            android:layout_toRightOf="@+id/button_userprofile_modifydata"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_changepassword" />
+	        
+	    </RelativeLayout>
+	    
+	</LinearLayout>
+
+</ScrollView>

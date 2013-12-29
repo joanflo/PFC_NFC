@@ -1,5 +1,6 @@
 package com.joanflo.tagit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,21 @@ public class WishListActivity extends BaseActivity {
         int pos = bundle.getInt("drawerPosition");
         super.updateSelected(pos);
 	}
+
+	
+	
+	
+	
+	public void onClickButton(View v) {
+		Intent i;
+    	
+		switch (v.getId()) {
+		default:
+			super.onClickButton(v);
+			break;
+		}
+    }
+	
 	
 	
 }

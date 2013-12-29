@@ -1,11 +1,11 @@
 package com.joanflo.tagit;
 
-import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
-public class ProductListActivity extends ListActivity {
+public class ProductListActivity extends BaseActivity {
 	
 	
 	@Override
@@ -29,7 +29,21 @@ public class ProductListActivity extends ListActivity {
 	private void searchProducts(String query) {
 		
 	}
+
+
 	
+	
+	
+	
+	public void onClickButton(View v) {
+		Intent i;
+    	
+		switch (v.getId()) {
+		default:
+			super.onClickButton(v);
+			break;
+		}
+    }
 	
 	
 }

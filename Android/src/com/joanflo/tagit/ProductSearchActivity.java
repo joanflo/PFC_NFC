@@ -1,5 +1,6 @@
 package com.joanflo.tagit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,9 +68,23 @@ public class ProductSearchActivity extends BaseActivity implements OnItemSelecte
 
 
 
+	
+
+	
+	
+	
+	
 	public void onClickButton(View v) {
-		// search button clicked
-	}
+		Intent i;
+    	
+		switch (v.getId()) {
+		// case: search button clicked
+		
+		default:
+			super.onClickButton(v);
+			break;
+		}
+    }
 
 
 

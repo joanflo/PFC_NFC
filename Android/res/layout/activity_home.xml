@@ -266,20 +266,25 @@
 	        </LinearLayout>
 
 	        
-	        <ImageView
+	        <ImageButton
 	            android:id="@+id/profile_image_home"
 	            android:layout_width="170dp"
 	            android:layout_height="170dp"
 	            android:layout_alignParentLeft="true"
 	            android:layout_below="@+id/linearLayout1"
 	            android:layout_margin="8dp"
-	            android:background="@drawable/image_bg"
-	            android:contentDescription="@string/description_profile_image" />
-
+	            android:background="@drawable/image_bg_normal"
+	            android:contentDescription="@string/description_profile_image"
+	            android:scaleType="fitCenter"
+	            android:adjustViewBounds="true"
+	            android:onClick="onClickButton" >
+			</ImageButton>
 	        
 	        <TextView
 	            android:id="@+id/profile_pointsnumber_home"
 	            style="@style/counter1"
+			    android:onClick="onClickButton"
+			    android:clickable="true"
 	            android:layout_alignTop="@+id/profile_image_home"
 	            android:layout_toRightOf="@+id/profile_image_home" />
 
@@ -299,7 +304,9 @@
 	            style="@style/counter1"
 	            android:layout_below="@+id/profile_pointsnumber_home"
 	            android:layout_marginTop="25dp"
-	            android:layout_toRightOf="@+id/profile_image_home" />
+	            android:layout_toRightOf="@+id/profile_image_home"
+			    android:onClick="onClickButton"                
+			    android:clickable="true" />
 
 	        <TextView
 	            android:id="@+id/textView_counterfollowing"
@@ -316,7 +323,9 @@
 	            style="@style/counter1"
 	            android:layout_below="@+id/profile_counterfollowing_home"
 	            android:layout_marginTop="8dp"
-	            android:layout_toRightOf="@+id/profile_image_home" />
+	            android:layout_toRightOf="@+id/profile_image_home"
+			    android:onClick="onClickButton"                
+			    android:clickable="true" />
 
 	        <TextView
 	            style="@style/p"

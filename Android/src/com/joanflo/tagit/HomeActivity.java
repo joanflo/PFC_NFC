@@ -4,6 +4,7 @@ package com.joanflo.tagit;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -132,38 +133,65 @@ public class HomeActivity extends BaseActivity {
 	
 	
     public void onClickButton(View v) {
-		
+		Intent i;
+    	
 		switch (v.getId()) {
+		case R.id.button_pickshop_home:
+			// shop selection
+			super.displayView(1);
+			break;
+		
 		case R.id.button_searchcategory_home:
 			// Search by category
+			super.displayView(2);
 			break;
 			
 		case R.id.button_advancedsearch_home:
 			// Advanced search
-			break;
-			
-		case R.id.button_seeshop_home:
-			// see shop details
-			break;
-			
-		case R.id.button_pickshop_home:
-			// shop selection
+			super.displayView(3);
 			break;
 			
 		case R.id.button_viewmycart_home:
 			// see user's cart
+			super.displayView(4);
 			break;
 			
 		case R.id.button_viewmywishlist_home:
 			// see user's wishlist
+			super.displayView(5);
 			break;
 			
+		case R.id.button_seeshop_home:
+			// see shop details
+			i = new Intent(this, ShopActivity.class);
+			startActivity(i);
+			break;
+		
+		case R.id.profile_image_home:
 		case R.id.button_viewprofile_home:
 			// see user's profile
+			super.viewProfile();
+			break;
+			
+		case R.id.profile_pointsnumber_home:
+			// see user's points
+			super.viewUserPoints();
+			break;
+		
+		case R.id.profile_counterfollowing_home:
+			// see user's following
+			super.viewUserRealationship(false);
+			break;
+	
+		case R.id.profile_counterfollowers_home:
+			// see user's followers
+			super.viewUserRealationship(true);
+			break;
+			
+		default:
+			super.onClickButton(v);
 			break;
 		}
-		
-		//ep! fer un onClick a followers i following
     }
 	
 	

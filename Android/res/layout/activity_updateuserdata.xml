@@ -1,7 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
+    <RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingBottom="10dp" >
+	    
+        <!-- update user data section -->
+        <RelativeLayout
+	        android:id="@+id/section_updateuserdata"
+	        style="@style/section1"
+	        android:layout_height="wrap_content" >
+	        
+	        <LinearLayout
+	            android:id="@+id/aux15"
+	            style="@style/title"
+	            android:orientation="horizontal" >
 
-</RelativeLayout>
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/title_updatepersonalinfo"
+	                android:src="@drawable/ic_personalinfo" />
+
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:text="@string/title_updatepersonalinfo"
+	                android:textColor="@color/main_blue" />
+	            
+	        </LinearLayout>
+	        
+	        
+	        <!-- email -->
+	        <TextView
+	            android:id="@+id/textView_updateuserdata_emailtext"
+		        style="@style/b"
+		        android:layout_marginTop="8dp"
+		        android:layout_marginLeft="8dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/aux15"
+		        android:text="@string/email2"
+		        android:textColor="@color/grey_light" />
+
+	        <TextView
+	            android:id="@+id/textView_updateuserdata_email"
+		        style="@style/p"
+	            android:layout_alignLeft="@+id/textView_updateuserdata_emailtext"
+	            android:layout_below="@+id/textView_updateuserdata_emailtext"
+		        android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- location -->
+	        <LinearLayout
+	            android:id="@+id/linearLayout_updateuserdata_location"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_margin="8dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentRight="true"
+	            android:layout_below="@+id/textView_updateuserdata_email"
+	            android:baselineAligned="false" >
+
+	            <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/city_name2"
+			            android:textColor="@color/grey_light" />
+		            
+		            <Spinner
+			            style="@style/spinner1"
+		                android:id="@+id/spinner_updateuserdata_city"
+		                android:padding="0dp" />
+			        
+			    </LinearLayout>
+		        
+		        <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/region_name2"
+			            android:textColor="@color/grey_light" />
+		            
+		            <Spinner
+			            style="@style/spinner1"
+		                android:id="@+id/spinner_updateuserdata_region"
+		                android:padding="0dp" />
+			        
+			    </LinearLayout>
+		        
+		        <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/country_name2"
+			            android:textColor="@color/grey_light" />
+		            
+			        <Spinner
+			            style="@style/spinner1"
+		                android:id="@+id/spinner_updateuserdata_country"
+		                android:padding="0dp" />
+			        
+			    </LinearLayout>
+	            
+	        </LinearLayout>
+	        
+	        
+	        <!-- language & age -->
+	        <LinearLayout
+	            android:id="@+id/linearLayout_updateuserdata_languageage"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentRight="true"
+	            android:layout_below="@+id/linearLayout_updateuserdata_location"
+			    android:orientation="horizontal"
+			    android:baselineAligned="false" >
+	        
+	            <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.6" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/language_name2"
+			            android:textColor="@color/grey_light" />
+		            
+		            <Spinner
+			            style="@style/spinner1"
+		                android:id="@+id/spinner_updateuserdata_language"
+		                android:padding="0dp" />
+			        
+			    </LinearLayout>
+	            
+	            <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.3" >
+		
+		            <TextView 
+			            style="@style/b"
+			            android:text="@string/age2"
+			            android:textColor="@color/grey_light" />
+			
+		            <EditText
+			            android:id="@+id/editText_updateuserdata_age"
+			            style="@style/edittext1"
+			            android:inputType="number"
+			            android:padding="10dp" />
+			        
+			    </LinearLayout>
+	            
+	        </LinearLayout>
+		        
+		        
+	        <!-- name -->
+	        <TextView
+	            android:id="@+id/textView_updateuserdata_name"
+	            style="@style/b"
+	            android:text="@string/name"
+	            android:textColor="@color/grey_light"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_below="@+id/linearLayout_updateuserdata_languageage"
+	            android:layout_marginTop="16dp" />
+	
+	        <EditText
+	            android:id="@+id/editText_updateuserdata_name"
+	            style="@style/edittext1"
+	            android:inputType="text"
+	            android:padding="8dp"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_below="@+id/textView_updateuserdata_name" />
+	        
+	        
+	        <!-- surname -->
+	        <TextView
+	            android:id="@+id/textView_updateuserdata_surname"
+	            style="@style/b"
+	            android:text="@string/surname"
+	            android:textColor="@color/grey_light"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_below="@+id/editText_updateuserdata_name"
+	            android:layout_marginTop="16dp" />
+	
+	        <EditText
+	            android:id="@+id/editText_updateuserdata_surname"
+	            style="@style/edittext1"
+	            android:inputType="text"
+	            android:padding="8dp"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_below="@+id/textView_updateuserdata_surname" />
+	        
+	        
+	        <!-- phone -->
+	        <TextView
+	            android:id="@+id/textView_updateuserdata_phone"
+	            style="@style/b"
+	            android:text="@string/phone"
+	            android:textColor="@color/grey_light"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_below="@+id/editText_updateuserdata_surname"
+	            android:layout_marginTop="16dp" />
+	
+	        <EditText
+	            android:id="@+id/editText_updateuserdata_phone"
+	            style="@style/edittext1"
+	            android:inputType="phone"
+	            android:padding="8dp"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_below="@+id/textView_updateuserdata_phone" />
+	        
+	        
+	        <!-- direction -->
+	        <TextView
+	            android:id="@+id/textView_updateuserdata_direction"
+	            style="@style/b"
+	            android:text="@string/direction"
+	            android:textColor="@color/grey_light"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_below="@+id/editText_updateuserdata_phone"
+	            android:layout_marginTop="16dp" />
+	
+	        <EditText
+	            android:id="@+id/editText_updateuserdata_direction"
+	            style="@style/edittext1"
+	            android:inputType="text"
+	            android:padding="8dp"
+	            android:layout_marginLeft="8dp"
+	            android:layout_marginRight="8dp"
+	            android:layout_below="@+id/textView_updateuserdata_direction" />
+	        
+	        
+	        <!-- change data button -->
+	        <Button
+	            android:id="@+id/button_updateuserdata_update"
+	            style="@style/button1"
+	            android:layout_width="170dp"
+	            android:layout_alignLeft="@+id/editText_updateuserdata_direction"
+	            android:layout_below="@+id/editText_updateuserdata_direction"
+	            android:layout_marginTop="8dp"
+	            android:layout_marginBottom="8dp"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_update" />
+	        
+        </RelativeLayout>
+	</RelativeLayout>
+</ScrollView>

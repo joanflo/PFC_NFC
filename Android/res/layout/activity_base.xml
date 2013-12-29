@@ -25,14 +25,17 @@
 	        android:padding="8dp"
             android:background="@drawable/background_profile" >
             
-            <ImageView
+            <ImageButton
 			    android:id="@+id/profile_image_drawer" 
 			    android:layout_height="70dp"
 			    android:layout_width="70dp" 
 			    android:layout_marginRight="8dp"
-		        android:background="@drawable/image_bg"
-			    android:contentDescription="@string/description_profile_image" >
-			</ImageView>
+		        android:background="@drawable/image_bg_normal"
+			    android:contentDescription="@string/description_profile_image"
+	            android:scaleType="fitCenter"
+	            android:adjustViewBounds="true"
+	            android:onClick="onClickButton" >
+			</ImageButton>
 			
 			
             <TextView
@@ -45,6 +48,8 @@
             
             <TextView
 	        	style="@style/counter1"
+			    android:onClick="onClickButton"
+			    android:clickable="true"   
                 android:id="@+id/profile_pointsnumber_drawer"
 		        android:layout_toRightOf="@id/profile_image_drawer"
         		android:layout_alignBottom="@+id/profile_image_drawer" />
@@ -63,7 +68,9 @@
 			    android:id="@+id/profile_counterfollowing_drawer"
 			    android:layout_above="@+id/profile_counterfollowers_drawer"
 			    android:layout_alignParentRight="true"
-			    android:layout_marginBottom="8dp" />
+			    android:layout_marginBottom="8dp"
+			    android:onClick="onClickButton"
+			    android:clickable="true" />
             
             <TextView
                 style="@style/p"
@@ -81,7 +88,9 @@
 		        android:layout_centerVertical="true"
 		        android:layout_marginBottom="10dp"
 			    android:layout_alignParentBottom="true"
-			    android:layout_alignParentRight="true" />
+			    android:layout_alignParentRight="true"
+			    android:onClick="onClickButton"
+			    android:clickable="true" />
             
             <TextView
                 style="@style/p"

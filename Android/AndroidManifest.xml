@@ -120,6 +120,78 @@
         
         
         <activity
+            android:name="com.joanflo.tagit.UserProfileActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.ProductReviewListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.PurchaseListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.FollowsListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.BadgeListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.BadgeActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.NewReviewActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.PasswordActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.ProductActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.UpdateUserDataActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.UserReviewListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.PointsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        
+        <activity
             android:name="com.joanflo.tagit.ProductListActivity" >
 	        <intent-filter>
 	            <action android:name="android.intent.action.SEARCH" />

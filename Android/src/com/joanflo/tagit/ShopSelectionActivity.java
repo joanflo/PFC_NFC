@@ -2,6 +2,8 @@ package com.joanflo.tagit;
 
 
 import java.util.ArrayList;
+import java.util.List;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -11,6 +13,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.joanflo.adapters.ShopListAdapter;
 import com.joanflo.adapters.ShopListItem;
+import com.joanflo.models.City;
+import com.joanflo.models.Country;
+import com.joanflo.models.Region;
 import com.joanflo.models.Shop;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,7 +43,7 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 	
 	private GoogleMap googleMap;
 	
-	private Shop[] shops;
+	private List<Shop> shops;
 	
 	private ArrayList<ShopListItem> shopItems;
 	private ShopListAdapter adapter;
@@ -93,21 +98,36 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 	
 	private void loadShops() {
 		// TODO: mètode que carregui tendes pròximes
-		shops = new Shop[3];
-		shops[0] = new Shop(0, "Palma", "Sant Vicenç Ferrer 117", "L-V 9.00h a 19.00h\nS 9.00h a 13.00h", "686922414", "info@tenda.cat", 39.57993, 2.666000);
-		shops[1] = new Shop(0, "Palma", "Sant Vicenç Ferrer 117", "L-V 9.00h a 19.00h\nS 9.00h a 13.00h", "686922414", "info@tenda.cat", 39.57000, 2.666812);
-		shops[2] = new Shop(0, "Palma", "Sant Vicenç Ferrer 117", "L-V 9.00h a 19.00h\nS 9.00h a 13.00h", "686922414", "info@tenda.cat", 39.57993, 2.666812);
+		City palma;
+		Region illesBalears = null;
+		Country espanya = null;
+		
+		palma = new City("Palma", shops, illesBalears);
+		
+		List<City> ciutats = new ArrayList<City>();
+		ciutats.add(palma);
+		illesBalears = new Region("Illes Balears", ciutats, espanya);
+		
+		List<Region> regions = new ArrayList<Region>();
+		regions.add(illesBalears);
+		espanya = new Country("Espanya", regions, 34, '€');
+		
+		shops = new ArrayList<Shop>();
+		shops.add(new Shop(0, palma, "Sant Vicenç Ferrer 117", "L-V 9.00h a 19.00h\nS 9.00h a 13.00h", "686922414", "info@tenda.cat", 39.57993, 2.666000));
+		shops.add(new Shop(0, palma, "Sant Vicenç Ferrer 117", "L-V 9.00h a 19.00h\nS 9.00h a 13.00h", "686922414", "info@tenda.cat", 39.57000, 2.666812));
+		shops.add(new Shop(0, palma, "Sant Vicenç Ferrer 117", "L-V 9.00h a 19.00h\nS 9.00h a 13.00h", "686922414", "info@tenda.cat", 39.57993, 2.666812));
+		/*********************************************************/
 		
 		// add shops to map
-		for (int i = 0; i < shops.length; i++) {
-			addShopToMap(shops[i].getLatitude(), shops[i].getLongitude());
+		for (int i = 0; i < shops.size(); i++) {
+			addShopToMap(shops.get(i).getLatitude(), shops.get(i).getLongitude());
 		}
 		
 		// go to nearest shop
 		googleMap.setMyLocationEnabled(true);
 		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-		if (shops.length > 0) {
-			LatLng loc = new LatLng(shops[0].getLatitude(), shops[0].getLongitude());
+		if (shops.size() > 0) {
+			LatLng loc = new LatLng(shops.get(0).getLatitude(), shops.get(0).getLongitude());
 			CameraPosition cameraPosition = new CameraPosition.Builder().target(loc).zoom(13).build();
 			googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 		}
@@ -146,12 +166,12 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 	private void prepareShopListSection() {
 		shopList = (ListView) findViewById(R.id.list_shops);
 		shopItems = new ArrayList<ShopListItem>();
- 		for (int i = 0; i < shops.length; i++) {
- 			CharSequence direction = shops[i].getDirection();
+ 		for (int i = 0; i < shops.size(); i++) {
+ 			CharSequence direction = shops.get(i).getDirection();
  			int distance = 10;
  			ShopListItem item = new ShopListItem(direction, distance);
  			shopItems.add(item);
- 			addShopToMap(shops[i].getLatitude(), shops[i].getLongitude());
+ 			addShopToMap(shops.get(i).getLatitude(), shops.get(i).getLongitude());
  		}
 		
 		// setting the shop list adapter
@@ -187,6 +207,12 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 			break;
 		}
 	}
+
+	
+	
+	public void onClickButton(View v) {
+		super.onClickButton(v);
+    }
 
 
 
@@ -287,9 +313,9 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 				
 			case R.id.button_seeshop:
 				Intent i = new Intent(getBaseContext(), ShopActivity.class);
-				Shop s = shops[itemSelectedPosition];
+				Shop s = shops.get(itemSelectedPosition);
 				i.putExtra("idShop", s.getIdShop());
-				i.putExtra("cityName", s.getCityName());
+				i.putExtra("cityName", s.getCity().getCityName());
 				i.putExtra("direction", s.getDirection());
 				i.putExtra("schedule", s.getSchedule());
 				i.putExtra("phone", s.getPhone());

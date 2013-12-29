@@ -1,5 +1,6 @@
 package com.joanflo.tagit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,22 @@ public class PurchaseListActivity extends BaseActivity {
         FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
         viewContainer.addView(activityView);
 	}
+	
+	
+	
+	
+	
+	
+	public void onClickButton(View v) {
+		Intent i;
+    	
+		switch (v.getId()) {
+		default:
+			super.onClickButton(v);
+			break;
+		}
+    }
+	
 	
 	
 }

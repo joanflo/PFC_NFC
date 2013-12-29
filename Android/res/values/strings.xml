@@ -47,15 +47,27 @@
     <string name="nocurrentshopselected_text">No current shop\nselected. Pick a shop\nto check products\navaiability.</string>
     <string name="identifier">Nick or email</string>
     <string name="email">Email*</string>
+    <string name="email2">Email</string>
     <string name="city_name">City*</string>
+    <string name="city_name2">City</string>
     <string name="region_name">Region*</string>
+    <string name="region_name2">Region</string>
     <string name="country_name">Country*</string>
+    <string name="country_name2">Country</string>
     <string name="language_name">Language*</string>
+    <string name="language_name2">Language</string>
+    <string name="registration_name">Registration</string>
     <string name="nick">Nick*</string>
     <string name="name">Name*</string>
+    <string name="name2">Name</string>
     <string name="surname">Surname*</string>
+    <string name="surname2">Surname</string>
     <string name="age">Age*</string>
+    <string name="age2">Age</string>
     <string name="password">Password*</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New password</string>
+    <string name="repeat_new_password">Repeat new password</string>
     <string name="repeat_password">Repeat password*</string>
     <string name="phone">Phone</string>
     <string name="direction">Direction</string>
@@ -70,6 +82,9 @@
     <string name="product_category">Category</string>
     <string name="product_rating">Minimum rating</string>
     <string name="distance">meters</string>
+    <string name="pick_email_client">Pick your mail client</string>
+    <string name="no_email_client">There is no email client installed.</string>
+    <string name="won">Won date</string>
     
     <!-- titles -->
     <string name="title_home_search">Search</string>
@@ -77,9 +92,16 @@
     <string name="title_home_mycart">My cart</string>
     <string name="title_home_mywishlist">My wishlist</string>
     <string name="title_singin">Sing in</string>
+    <string name="title_password">Change password</string>
     <string name="title_login">Log in</string>
     <string name="title_advanced_search">Advanced search</string>
     <string name="title_current_shop">Current shop</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_badges">Badges</string>
+    <string name="title_allbadges">All badges</string>
+    <string name="title_personalinfo">Personal info</string>
+    <string name="title_updatepersonalinfo">Update personal info</string>
+    <string name="title_points">Points table</string>
     
     <!-- buttons -->
     <string name="button_profile">My profile</string>
@@ -96,7 +118,27 @@
     <string name="button_singin">Sing in</string>
     <string name="button_login">Log in</string>
     <string name="button_terms">See terms</string>
+    <string name="button_password">Change password</string>
+    <string name="button_seecomments">See comments</string>
+    <string name="button_seepurchases">Purchase History</string>
+    <string name="button_seeallbadges">See all badges</string>
+    <string name="button_modifydata">Modify data</string>
+    <string name="button_changepassword">Change password</string>
+    <string name="button_update">Update</string>
     
+    
+    <!-- points -->
+    <string name="number5">05</string>
+    <string name="number10">10</string>
+    <string name="number20">20</string>
+    <array name="points_descriptions">
+        <item>Sing up welcome points</item>
+        <item>Share a product using NFC</item>
+        <item>Share a product in social networks</item>
+        <item>Review a product</item>
+        <item>But a product</item>
+        <item>Open app for first time in a day</item>
+    </array>
     
     
 </resources>

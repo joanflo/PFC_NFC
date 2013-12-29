@@ -219,10 +219,10 @@
 				            android:textColor="@color/main_white" />
 			
 			            <EditText
-					            android:id="@+id/editText_registration_age"
-					            style="@style/edittext1"
-					            android:inputType="number"
-					            android:padding="10dp" />
+				            android:id="@+id/editText_registration_age"
+				            style="@style/edittext1"
+				            android:inputType="number"
+				            android:padding="10dp" />
 				        
 				    </LinearLayout>
 			        

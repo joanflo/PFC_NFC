@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="8dp" >
+    
+    <RelativeLayout
+        style="@style/section1"
+        android:layout_height="wrap_content"
+    	android:paddingBottom="8dp" >
+
+        <LinearLayout
+            android:id="@+id/aux13"
+            style="@style/title"
+            android:orientation="horizontal" >
+
+            <ImageView
+                style="@style/icon2"
+                android:contentDescription="@string/desc_list_item_icon"
+                android:src="@drawable/ic_badge" />
+
+            <TextView
+            	android:id="@+id/textView_badge_name"
+                style="@style/h2"
+                android:gravity="center_vertical"
+                android:textColor="@color/main_blue"
+                android:text="@string/title_badges" />
+            
+        </LinearLayout>
+    
+        
+        <!-- thumb -->
+        <ImageView
+            android:id="@+id/imageView_badge_thumb"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/aux13"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/desc_list_item_icon" />
+        
+
+        <!-- description -->
+        <TextView
+            android:id="@+id/textView_badge_description"
+            style="@style/p"
+	        android:textColor="@color/grey_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView_badge_thumb"
+            android:layout_toRightOf="@+id/imageView_badge_thumb" />
+
+        
+        <!-- date -->
+        <TextView
+            android:id="@+id/textView_badge_wontext"
+            style="@style/b"
+	        android:textColor="@color/grey_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView_badge_thumb"
+            android:layout_below="@+id/imageView_badge_thumb"
+            android:text="@string/won" />
+
+        <TextView
+            android:id="@+id/textView_badge_date"
+            style="@style/p"
+	        android:textColor="@color/grey_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView_badge_wontext"
+            android:layout_below="@+id/textView_badge_wontext" />
+    
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.joanflo.tagit;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,6 +31,20 @@ public class BrandActivity extends BaseActivity {
 		getMenuInflater().inflate(R.menu.home, menu);
 		return true;
 	}
+
+	
+	
+	
+	
+	public void onClickButton(View v) {
+		Intent i;
+    	
+		switch (v.getId()) {
+		default:
+			super.onClickButton(v);
+			break;
+		}
+    }
 	
 	
 }

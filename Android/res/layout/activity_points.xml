@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="8dp" >
+    
+    <RelativeLayout
+        style="@style/section1"
+        android:layout_height="wrap_content"
+    	android:paddingBottom="8dp" >
+
+        <LinearLayout
+            android:id="@+id/aux16"
+            style="@style/title"
+            android:orientation="horizontal" >
+
+            <ImageView
+                style="@style/icon2"
+                android:contentDescription="@string/desc_list_item_icon"
+                android:src="@drawable/ic_points" />
+
+            <TextView
+            	android:id="@+id/textView_points_name"
+                style="@style/h2"
+                android:gravity="center_vertical"
+                android:textColor="@color/main_blue"
+                android:text="@string/title_points" />
+            
+        </LinearLayout>
+        
+
+        <!-- 1 -->
+        <TextView
+            android:id="@+id/textView_points1"
+            style="@style/counter1"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/aux16"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/number10" />
+
+		<TextView
+            android:id="@+id/textView_points1_txtpoints"
+		    style="@style/p"
+		    android:layout_alignBaseline="@+id/textView_points1"
+		    android:layout_alignBottom="@+id/textView_points1"
+		    android:layout_toRightOf="@+id/textView_points1"
+		    android:text="@string/profile_points_text"
+		    android:textColor="@color/grey_light" />
+
+		<TextView
+            android:id="@+id/textView_points1_txtdescription"
+		    style="@style/b"
+		    android:layout_marginLeft="16dp"
+		    android:layout_alignBaseline="@+id/textView_points1_txtpoints"
+		    android:layout_alignBottom="@+id/textView_points1_txtpoints"
+		    android:layout_toRightOf="@+id/textView_points1_txtpoints"
+		    android:textColor="@color/grey_light" />
+    
+		
+        <!-- 2 -->
+        <TextView
+            android:id="@+id/textView_points2"
+            style="@style/counter1"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView_points1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/number5" />
+
+		<TextView
+            android:id="@+id/textView_points2_txtpoints"
+		    style="@style/p"
+		    android:layout_alignBaseline="@+id/textView_points2"
+		    android:layout_alignBottom="@+id/textView_points2"
+		    android:layout_toRightOf="@+id/textView_points2"
+		    android:text="@string/profile_points_text"
+		    android:textColor="@color/grey_light" />
+
+		<TextView
+            android:id="@+id/textView_points2_txtdescription"
+		    style="@style/b"
+		    android:layout_marginLeft="16dp"
+		    android:layout_alignBaseline="@+id/textView_points2_txtpoints"
+		    android:layout_alignBottom="@+id/textView_points2_txtpoints"
+		    android:layout_toRightOf="@+id/textView_points2_txtpoints"
+		    android:textColor="@color/grey_light" />
+    
+		
+        <!-- 3 -->
+        <TextView
+            android:id="@+id/textView_points3"
+            style="@style/counter1"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView_points2"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/number5" />
+
+		<TextView
+            android:id="@+id/textView_points3_txtpoints"
+		    style="@style/p"
+		    android:layout_alignBaseline="@+id/textView_points3"
+		    android:layout_alignBottom="@+id/textView_points3"
+		    android:layout_toRightOf="@+id/textView_points3"
+		    android:text="@string/profile_points_text"
+		    android:textColor="@color/grey_light" />
+
+		<TextView
+            android:id="@+id/textView_points3_txtdescription"
+		    style="@style/b"
+		    android:layout_marginLeft="16dp"
+		    android:layout_alignBaseline="@+id/textView_points3_txtpoints"
+		    android:layout_alignBottom="@+id/textView_points3_txtpoints"
+		    android:layout_toRightOf="@+id/textView_points3_txtpoints"
+		    android:textColor="@color/grey_light" />
+    
+		
+        <!-- 4 -->
+        <TextView
+            android:id="@+id/textView_points4"
+            style="@style/counter1"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView_points3"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/number10" />
+
+		<TextView
+            android:id="@+id/textView_points4_txtpoints"
+		    style="@style/p"
+		    android:layout_alignBaseline="@+id/textView_points4"
+		    android:layout_alignBottom="@+id/textView_points4"
+		    android:layout_toRightOf="@+id/textView_points4"
+		    android:text="@string/profile_points_text"
+		    android:textColor="@color/grey_light" />
+
+		<TextView
+            android:id="@+id/textView_points4_txtdescription"
+		    style="@style/b"
+		    android:layout_marginLeft="16dp"
+		    android:layout_alignBaseline="@+id/textView_points4_txtpoints"
+		    android:layout_alignBottom="@+id/textView_points4_txtpoints"
+		    android:layout_toRightOf="@+id/textView_points4_txtpoints"
+		    android:textColor="@color/grey_light" />
+    
+		
+        <!-- 5 -->
+        <TextView
+            android:id="@+id/textView_points5"
+            style="@style/counter1"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView_points4"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/number20" />
+
+		<TextView
+            android:id="@+id/textView_points5_txtpoints"
+		    style="@style/p"
+		    android:layout_alignBaseline="@+id/textView_points5"
+		    android:layout_alignBottom="@+id/textView_points5"
+		    android:layout_toRightOf="@+id/textView_points5"
+		    android:text="@string/profile_points_text"
+		    android:textColor="@color/grey_light" />
+
+		<TextView
+            android:id="@+id/textView_points5_txtdescription"
+		    style="@style/b"
+		    android:layout_marginLeft="16dp"
+		    android:layout_alignBaseline="@+id/textView_points5_txtpoints"
+		    android:layout_alignBottom="@+id/textView_points5_txtpoints"
+		    android:layout_toRightOf="@+id/textView_points5_txtpoints"
+		    android:textColor="@color/grey_light" />
+    
+		
+        <!-- 6 -->
+        <TextView
+            android:id="@+id/textView_points6"
+            style="@style/counter1"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView_points5"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/number5" />
+
+		<TextView
+            android:id="@+id/textView_points6_txtpoints"
+		    style="@style/p"
+		    android:layout_alignBaseline="@+id/textView_points6"
+		    android:layout_alignBottom="@+id/textView_points6"
+		    android:layout_toRightOf="@+id/textView_points6"
+		    android:text="@string/profile_points_text"
+		    android:textColor="@color/grey_light" />
+
+		<TextView
+            android:id="@+id/textView_points6_txtdescription"
+		    style="@style/b"
+		    android:layout_marginLeft="16dp"
+		    android:layout_alignBaseline="@+id/textView_points6_txtpoints"
+		    android:layout_alignBottom="@+id/textView_points6_txtpoints"
+		    android:layout_toRightOf="@+id/textView_points6_txtpoints"
+		    android:textColor="@color/grey_light" />
+		
+		
+    </RelativeLayout>
+
+</LinearLayout>

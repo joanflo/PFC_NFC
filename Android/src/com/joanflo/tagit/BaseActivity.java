@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -39,7 +40,10 @@ public class BaseActivity extends Activity {
     private ArrayList<NavigationDrawerListItem> navDrawerItems;
     private NavigationDrawerListAdapter adapter;
     
-    private int currentPosition = -1;
+    private static final int NO_CURRENT_POSITION = -2;
+    private static final int PROFILE = -1;
+    // 0..5 ListView item selected
+    private int currentPosition = NO_CURRENT_POSITION;
     
     
 	@Override
@@ -221,10 +225,22 @@ public class BaseActivity extends Activity {
      */
     protected void updateSelected(int position) {
     	currentPosition = position;
-    	mDrawerList.setItemChecked(position, true);
-        mDrawerList.setSelection(position);
-        setTitle(navMenuTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerLinearLayout);
+    	
+    	ImageButton ib = (ImageButton) findViewById(R.id.profile_image_drawer);
+    	
+    	if (position == PROFILE) {
+    		ib.setBackgroundResource(R.drawable.image_bg_selected);
+    		String txt = getResources().getString(R.string.title_profile);
+    		setTitle(txt);
+    		
+    	} else {
+    		ib.setBackgroundResource(R.drawable.image_bg_normal);
+	    	mDrawerList.setItemChecked(position, true);
+	        mDrawerList.setSelection(position);
+	        mDrawerLayout.closeDrawer(mDrawerLinearLayout);
+	        setTitle(navMenuTitles[position]);
+    	}
+    	
     }
     
     
@@ -266,6 +282,62 @@ public class BaseActivity extends Activity {
 			startActivity(intent);
     	}
     	
+    }
+    
+    
+    
+    protected void onClickButton(View v) {
+
+		switch (v.getId()) {
+		case R.id.profile_image_drawer:
+			// see user's following
+			viewProfile();
+			break;
+			
+		case R.id.profile_pointsnumber_drawer:
+			// see user's points
+			viewUserPoints();
+			break;
+			
+		case R.id.profile_counterfollowing_drawer:
+			// see user's following
+			viewUserRealationship(false);
+			break;
+	
+		case R.id.profile_counterfollowers_drawer:
+			// see user's followers
+			viewUserRealationship(true);
+			break;
+		}
+    }
+    
+    
+    
+    protected void viewProfile() {
+    	if (currentPosition != PROFILE) {
+			Intent i = new Intent(this, UserProfileActivity.class);
+			currentPosition = PROFILE;
+	        i.putExtra("drawerPosition", currentPosition);
+			startActivity(i);
+    	} else {
+    		mDrawerLayout.closeDrawer(mDrawerLinearLayout);
+    	}
+    }
+    
+    
+    
+    protected void viewUserPoints() {
+    	Intent i = new Intent(this, PointsActivity.class);
+    	startActivity(i);
+    }
+    
+    
+    
+    protected void viewUserRealationship(boolean seeFollowers) {
+		Intent i = new Intent(this, FollowsListActivity.class);
+        i.putExtra("seeFollowers", seeFollowers);
+        i.putExtra("userEmail", "prova@prova.com");
+		startActivity(i);
     }
     
     
