@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    
+    <!-- product thumb -->
+    <ImageView
+        android:id="@+id/imageView_product_thumb"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_margin="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/desc_list_item_icon"
+        android:background="@drawable/image_bg_normal"
+		android:scaleType="fitCenter"
+		android:adjustViewBounds="true"
+        android:src="@drawable/default_image" />
+
+    
+    <!-- product name -->
+    <TextView
+        android:id="@+id/textView_product_productname"
+        style="@style/b"
+        android:layout_alignTop="@+id/imageView_product_thumb"
+        android:layout_toRightOf="@+id/imageView_product_thumb"
+        android:textColor="@color/main_white" />
+    
+
+    <!-- product price -->
+    <TextView
+        android:id="@+id/textView_product_price"
+        style="@style/counter1"
+        android:layout_alignBottom="@+id/imageView_product_thumb"
+        android:layout_alignLeft="@+id/textView_product_productname" />
+
+    <TextView
+        android:id="@+id/textView_product_pricetext"
+        style="@style/p"
+        android:layout_alignBaseline="@+id/textView_product_price"
+        android:layout_alignBottom="@+id/textView_product_price"
+        android:layout_toRightOf="@+id/textView_product_price"
+        android:layout_marginLeft="4dp"
+        android:textColor="@color/main_white" />
+    
+    
+    <!-- rating -->
+    <TextView
+        android:id="@+id/textView_product_rating"
+        style="@style/counter1"
+        android:layout_marginBottom="8dp"
+        android:layout_above="@+id/textView_product_price"
+        android:layout_alignRight="@+id/textView_product_price"
+        android:layout_toRightOf="@+id/imageView_product_thumb"
+        android:gravity="center" />
+    
+    <TextView
+        android:id="@+id/textView_product_ratingtext"
+        style="@style/p"
+        android:layout_alignBottom="@+id/textView_product_rating"
+        android:layout_alignLeft="@+id/textView_product_pricetext"
+        android:textColor="@color/main_white"
+        android:text="@string/star" />
+
+    
+    <!-- brand -->
+    <TextView
+        android:id="@+id/textView_product_brandname"
+        style="@style/p"
+        android:layout_alignBaseline="@+id/textView_product_pricetext"
+        android:layout_alignBottom="@+id/textView_product_pricetext"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:textColor="@color/main_white" />
+
+    
+    <!-- category -->
+    <TextView
+        android:id="@+id/textView_product_categoryname"
+        style="@style/p"
+        android:layout_alignBaseline="@+id/textView_product_ratingtext"
+        android:layout_alignBottom="@+id/textView_product_ratingtext"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:textColor="@color/main_white" />
+
+</RelativeLayout>

@@ -63,5 +63,15 @@ public class Country {
 		this.coin = coin;
 	}
 	
+	
+	public boolean equals(Object obj) {
+		if (obj instanceof Country) {
+			Country country = (Country) obj;
+			return countryName.equals(country.getCountryName()); 
+		} else {
+			return false;
+		}
+	}
+	
 
 }

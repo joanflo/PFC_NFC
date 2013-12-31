@@ -14,7 +14,8 @@ public class ShopListAdapter extends BaseAdapter {
 
 	private Context context;
     private ArrayList<ShopListItem> shopItems;
-     
+    
+    
     public ShopListAdapter(Context context, ArrayList<ShopListItem> shopItems){
         this.context = context;
         this.shopItems = shopItems;

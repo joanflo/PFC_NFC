@@ -67,8 +67,36 @@ public class BaseActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.home, menu);
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
+	
+	
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+		// toggle nav drawer on selecting action bar app icon/title
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        
+        // Handle action bar actions click
+        switch (item.getItemId()) {
+        case R.id.action_search:
+            return true;
+            
+        case R.id.action_help:
+            return true;
+            
+        case R.id.action_settings:
+            return true;
+            
+        case R.id.action_logout:
+            return true;
+            
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 	
 	
 	
@@ -157,23 +185,6 @@ public class BaseActivity extends Activity {
 		tv = (TextView) findViewById(R.id.profile_counterfollowing_drawer);
 		tv.setText("256");
 	}
-
-	
-	
-	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // toggle nav drawer on selecting action bar app icon/title
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle action bar actions click
-        switch (item.getItemId()) {
-        case R.id.action_settings:
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
 	
 	
 	

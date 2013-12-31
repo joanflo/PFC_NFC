@@ -13,14 +13,14 @@ public class Review {
 	private User user;
 	
 	// review info
-	private int rating; // [0..5]
+	private float rating; // [0..5]
 	private CharSequence comment;
 	private Timestamp date;
 	
 	
 	
 	// review from database
-	public Review(int idComment, Product product, User user, int rating, CharSequence comment, Timestamp date) {
+	public Review(int idComment, Product product, User user, float rating, CharSequence comment, Timestamp date) {
 		this.idComment = idComment;
 		this.product = product;
 		this.user = user;
@@ -32,7 +32,7 @@ public class Review {
 	
 	
 	// new review
-	public Review(int idComment, Product product, User user, int rating, CharSequence comment) {
+	public Review(int idComment, Product product, User user, float rating, CharSequence comment) {
 		this.idComment = idComment;
 		this.product = product;
 		this.user = user;
@@ -59,11 +59,11 @@ public class Review {
 	}
 
 
-	public int getRating() {
+	public float getRating() {
 		return rating;
 	}
 	
-	public void setRating(int rating) {
+	public void setRating(float rating) {
 		this.rating = rating;
 	}
 

@@ -1,16 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+	android:orientation="vertical" >
+    
+    <fragment
+        android:id="@+id/brand_map"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+    	android:layout_weight="0.4" />
+    
+    
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+	    android:layout_weight="0.6"
+	    android:layout_marginBottom="8dp" >
+	    
+	    <RelativeLayout
+	        style="@style/section1"
+	        android:layout_height="wrap_content"
+	        android:paddingBottom="8dp" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="64dp"
-        android:text="brand!" />
+	        <LinearLayout
+	            android:id="@+id/aux17"
+	            style="@style/title"
+	            android:orientation="horizontal" >
 
-</RelativeLayout>
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/product_brand"
+	                android:src="@drawable/ic_currentshop" />
+
+	            <TextView
+	                android:id="@+id/textView_brand_title"
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:text="@string/title_home_shop"
+	                android:textColor="@color/main_blue" />
+	            
+	        </LinearLayout>
+
+	        
+	        <!-- location -->
+	        <ImageButton
+	            android:id="@+id/imageButton_brand_direction"
+	            style="@style/icon3"
+	            android:onClick="onClickButton"
+	            android:scaleType="fitCenter"
+	            android:padding="10dp"
+	            android:adjustViewBounds="true"
+	            android:layout_below="@+id/aux17"
+	            android:src="@drawable/ic_navigation"
+	            android:contentDescription="@string/direction" />
+
+	        <TextView
+	            android:id="@+id/textView_brand_direction"
+	            style="@style/b"
+	            android:layout_alignTop="@+id/imageButton_brand_direction"
+	            android:layout_toRightOf="@+id/imageButton_brand_direction"
+	            android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- phone -->
+	        <ImageButton
+	            android:id="@+id/imageButton_brand_phone"
+	            style="@style/icon3"
+	            android:onClick="onClickButton"
+	            android:scaleType="fitCenter"
+	            android:padding="10dp"
+	            android:adjustViewBounds="true"
+	            android:layout_below="@+id/imageButton_brand_direction"
+	            android:src="@drawable/ic_phone"
+	            android:contentDescription="@string/phone" />
+	        
+	        <TextView
+	            android:id="@+id/textView_brand_phone"
+	            style="@style/b"
+	            android:layout_alignTop="@+id/imageButton_brand_phone"
+	            android:layout_toRightOf="@+id/imageButton_brand_phone"
+	            android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- email -->
+	        <ImageButton
+	            android:id="@+id/imageButton_brand_email"
+	            style="@style/icon3"
+	            android:onClick="onClickButton"
+	            android:scaleType="fitCenter"
+	            android:padding="10dp"
+	            android:adjustViewBounds="true"
+	            android:layout_below="@+id/imageButton_brand_phone"
+	            android:src="@drawable/ic_email"
+	            android:contentDescription="@string/email" />
+	        
+	        <TextView
+	            android:id="@+id/textView_brand_email"
+	            style="@style/b"
+	            android:layout_alignTop="@+id/imageButton_brand_email"
+	            android:layout_toRightOf="@+id/imageButton_brand_email"
+	            android:textColor="@color/grey_light" />
+
+	        
+	        <!-- brand logo -->
+	        <ImageView
+	            android:id="@+id/imageView_brand_logo"
+	            android:layout_width="100dp"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBottom="@+id/imageButton_brand_email"
+	            android:layout_alignParentRight="true"
+	            android:layout_alignTop="@+id/textView_brand_phone"
+	            android:contentDescription="@string/product_brand" />
+	        
+	    </RelativeLayout>
+	
+	</ScrollView>
+
+</LinearLayout>

@@ -10,6 +10,7 @@ public class Category {
 	
 	// foreign key
 	private List<Product> products;
+	private List<Category> categories;
 	
 	// category info
 	private int level;
@@ -17,9 +18,10 @@ public class Category {
 	
 	
 	
-	public Category(int idCategory, List<Product> products, int level, CharSequence name) {
+	public Category(int idCategory, List<Product> products, List<Category> categories, int level, CharSequence name) {
 		this.idCategory = idCategory;
 		this.products = products;
+		this.categories = categories;
 		this.level = level;
 		this.name = name;
 	}
@@ -40,6 +42,15 @@ public class Category {
 	}
 
 
+	public List<Category> getCategories() {
+		return categories;
+	}
+	
+	public void addCategory(Category category) {
+		categories.add(category);
+	}
+
+
 	public int getLevel() {
 		return level;
 	}
@@ -55,6 +66,22 @@ public class Category {
 
 	public void setName(CharSequence name) {
 		this.name = name;
+	}
+	
+	
+	public int getItemsNumber() {
+		if (categories != null) {
+			return categories.size();
+		}
+		if (products != null) {
+			return products.size();
+		}
+		return 0;
+	}
+	
+	
+	public boolean isLeafNode() {
+		return categories == null;
 	}
 	
 	

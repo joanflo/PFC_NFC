@@ -1,6 +1,5 @@
 package com.joanflo.tagit;
 
-import java.util.List;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -20,7 +19,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.joanflo.models.City;
-import com.joanflo.models.Region;
 import com.joanflo.models.Shop;
 
 

@@ -11,9 +11,13 @@ public class Brand {
 	private CharSequence phone;
 	private CharSequence email;
 	
+	// location
+	private double latitude;
+	private double longitude;
 	
 	
-	public Brand(CharSequence brandName, CharSequence headquarter, CharSequence phone, CharSequence email) {
+	
+	public Brand(CharSequence brandName, CharSequence headquarter, CharSequence phone, CharSequence email, double latitude, double longitude) {
 		this.brandName = brandName;
 		this.headquarter = headquarter;
 		this.phone = phone;
@@ -51,6 +55,24 @@ public class Brand {
 	
 	public void setEmail(CharSequence email) {
 		this.email = email;
+	}
+
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 	
 	

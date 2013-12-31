@@ -3,5 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-
+    <ListView 
+        android:id="@+id/listView_category"
+	    style="@style/list1"
+    	android:choiceMode="singleChoice" 
+        android:listSelector="@color/main_red" >
+        
+    </ListView>
+    
 </RelativeLayout>

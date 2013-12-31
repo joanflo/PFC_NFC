@@ -182,4 +182,58 @@ public class Product {
 	}
 	
 	
+	public Tax searchTax(Country country) {
+		int i = 0;
+		boolean found = false;
+		Tax tax = null;
+		
+		while (i < taxes.size() && !found) {
+			tax = taxes.get(i);
+			if (tax.getCountry().equals(country)) {
+				found = true;
+			}
+		}
+		
+		return tax;
+	}
+	
+	
+	public double calculatePrice(Tax tax) {
+		double basePrice = tax.getBasePrice();
+		int iva = tax.getIva();
+		double discount = tax.getDiscount();
+		char discountType = tax.getDiscountType();
+		
+		double ivaMoney = basePrice * (iva / 100);
+		double discountMoney = 0;
+		if (discountType == Tax.DISCOUNT_MONEY) {
+			discountMoney = discount;
+		} else if (discountType == Tax.DISCOUNT_PERCENT) {
+			discountMoney = (basePrice + ivaMoney) * (discount / 100);
+		}
+		
+		// return final price (round to 2 decimals)
+		double finalPrice = basePrice + ivaMoney - discountMoney;
+		return Math.rint(finalPrice * 100) / 100; 
+	}
+	
+	
+	public double calculateAverageRating() {
+		int n = reviews.size();
+		if (n == 0) {
+			// there's no reviews
+			return -1;
+		}
+		
+		double accumulated = 0;
+		for (int i = 0; i < n; i++) {
+			accumulated += reviews.get(i).getRating();
+		}
+		
+		// round to 2 decimals
+		double finalAverage = accumulated / n;
+		return Math.rint(finalAverage * 100) / 100;
+	}
+	
+	
 }
