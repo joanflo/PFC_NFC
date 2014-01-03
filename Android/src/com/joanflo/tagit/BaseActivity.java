@@ -171,7 +171,7 @@ public class BaseActivity extends Activity {
 		
 		// set user nick
 		TextView tv = (TextView) findViewById(R.id.profile_nick_drawer);
-		tv.setText("Joan_flo");
+		tv.setText("@" + "Joan_flo");
 		
 		// set user points
 		tv = (TextView) findViewById(R.id.profile_pointsnumber_drawer);

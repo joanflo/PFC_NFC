@@ -2,9 +2,11 @@ package com.joanflo.models;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.joanflo.utils.Gamification;
+import com.joanflo.utils.SearchUtils;
 
 public class User {
 
@@ -199,6 +201,19 @@ public class User {
 		usersFollowing.add(relation);
 	}
 	
+	public void addUserFollowing(User followed) {
+		Friendship relation = new Friendship(followed, this);
+		usersFollowing.add(relation);
+	}
+	
+	public void removeUserFollowing(User followed) {
+		List<User> following = getUsers(usersFollowing, true);
+		int position = following.indexOf(followed);
+		if (position != -1) {
+			usersFollowing.remove(position);
+		}
+	}
+	
 	
 	public List<Friendship> getUsersFollower() {
 		return usersFollower;
@@ -206,6 +221,19 @@ public class User {
 	
 	public void addUserFollower(Friendship relation) {
 		usersFollower.add(relation);
+	}
+	
+	public void addUserFollower(User follower) {
+		Friendship relation = new Friendship(this, follower);
+		usersFollower.add(relation);
+	}
+	
+	public void removeUserFollower(User follower) {
+		List<User> followers = getUsers(usersFollower, true);
+		int position = followers.indexOf(follower);
+		if (position != -1) {
+			usersFollower.remove(position);
+		}
 	}
 	
 	
@@ -252,6 +280,33 @@ public class User {
 	
 	public void updatePoints(int newPoints) {
 		points += newPoints;
+	}
+	
+	
+	public boolean isFollowedBy(User user) {
+		List<User> followers = getUsers(usersFollower, true);
+		User u = SearchUtils.searchUserByEmail(user.getUserEmail(), followers);
+		return u != null;
+	}
+	
+	public boolean isFollowingTo(User user) {
+		List<User> following = getUsers(usersFollowing, false);
+		User u = SearchUtils.searchUserByEmail(user.getUserEmail(), following);
+		return u != null;
+	}
+	
+	public List<User> getUsers(List<Friendship> relations, boolean getFollowers) {
+		List<User> users = new ArrayList<User>();
+		Iterator<Friendship> it = relations.iterator();
+		while (it.hasNext()) {
+			Friendship relation = it.next();
+			if (getFollowers) {
+				users.add(relation.getUserFollower());
+			} else {
+				users.add(relation.getUserFollowing());
+			}
+		}
+		return users;
 	}
 	
 	

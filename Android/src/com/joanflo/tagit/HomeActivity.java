@@ -115,7 +115,7 @@ public class HomeActivity extends BaseActivity {
 		
 		// set user nick
 		TextView tv = (TextView) findViewById(R.id.profile_nick_home);
-		tv.setText("Joan_flo");
+		tv.setText("@" + "Joan_flo");
 		
 		// set user points
 		tv = (TextView) findViewById(R.id.profile_pointsnumber_home);

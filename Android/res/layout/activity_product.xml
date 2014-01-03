@@ -1,7 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+	    
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingBottom="10dp" >
+	    
+	    
+	    <!-- product info -->
+	    <RelativeLayout
+	        android:id="@+id/section_product_info"
+	        style="@style/section1"
+	        android:layout_height="150dp" >
 
-</RelativeLayout>
+	        
+	        <LinearLayout
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/title_product_info"
+	                android:src="@drawable/ic_search" />
+
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:text="@string/title_product_info"
+	                android:textColor="@color/main_blue" />
+	            
+	        </LinearLayout>
+	        
+	        
+	        <!-- TODO -->
+	        
+	        
+	    </RelativeLayout>
+	    
+	    
+	    <!-- avaiability -->
+	    <RelativeLayout
+	        android:id="@+id/section_product_avaiability"
+	        style="@style/section1"
+	        android:layout_height="150dp"
+	        android:layout_below="@+id/section_product_info" >
+
+	        
+	        <LinearLayout
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/title_product_info"
+	                android:src="@drawable/ic_search" />
+
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:text="@string/title_product_avaiability"
+	                android:textColor="@color/main_blue" />
+	            
+	        </LinearLayout>
+	        
+	        
+	        <!-- TODO -->
+	        
+	        
+	    </RelativeLayout>
+	    
+	    
+	    <!-- price -->
+	    <RelativeLayout
+	        android:id="@+id/section_product_price"
+	        style="@style/section1"
+	        android:layout_height="150dp"
+	        android:layout_below="@+id/section_product_avaiability" >
+
+	        
+	        <LinearLayout
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/title_product_info"
+	                android:src="@drawable/ic_search" />
+
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:text="@string/title_product_price"
+	                android:textColor="@color/main_blue" />
+	            
+	        </LinearLayout>
+	        
+	        
+	        <!-- TODO -->
+	        
+	        
+	    </RelativeLayout>
+	    
+	    
+	    <LinearLayout
+	        style="@style/section2"
+		    android:id="@+id/section_divided2"
+		    android:orientation="horizontal"
+		    android:layout_height="150dp"
+	        android:layout_below="@+id/section_product_price"
+	        android:baselineAligned="false" >
+		    
+	        <!-- collection -->
+	        <RelativeLayout
+	        	style="@style/section3"
+		    	android:id="@+id/section_product_collection"
+			    android:layout_marginRight="5dp"
+			    android:layout_weight="0.5" >
+			    
+		        <LinearLayout
+		        	style="@style/title"
+				    android:orientation="horizontal" >
+			        
+			        <ImageView
+			            style="@style/icon2"
+			            android:contentDescription="@string/title_product_collection"
+			            android:src="@drawable/ic_mycart" />
+			        
+				    <TextView
+				        style="@style/h2"
+				        android:gravity="center_vertical"
+				        android:textColor="@color/main_blue"
+				        android:text="@string/title_product_collection" />
+			    
+		    	</LinearLayout>
+		    	
+		        
+		        <!-- TODO -->
+		        
+		        
+	        </RelativeLayout>
+	        
+	        
+	        <!-- brand -->
+	        <RelativeLayout
+	            android:id="@+id/section_product_brand"
+	            style="@style/section3"
+	            android:layout_marginLeft="5dp"
+	            android:layout_weight="0.5" >
+
+	            <LinearLayout
+	                style="@style/title"
+	                android:orientation="horizontal" >
+
+	                <ImageView
+	                    style="@style/icon2"
+	                    android:contentDescription="@string/title_product_brand"
+	                    android:src="@drawable/ic_mywishlist" />
+
+	                <TextView
+	                    style="@style/h2"
+	                    android:gravity="center_vertical"
+	                    android:text="@string/title_product_brand"
+	                    android:textColor="@color/main_blue" />
+	            </LinearLayout>
+
+	            
+	            <!-- TODO -->
+	            
+	            
+	        </RelativeLayout>
+	        
+	    </LinearLayout>
+	    
+	    
+	    <!-- Image slider -->
+	    <RelativeLayout
+	        android:id="@+id/section_product_slider"
+	        style="@style/section1"
+	        android:layout_height="150dp"
+	        android:layout_below="@+id/section_divided2"
+	        android:orientation="vertical" >
+
+	        
+	        <!-- TODO -->
+	        
+
+	    </RelativeLayout>
+	    
+	    
+	    <!-- Related products -->
+	    <RelativeLayout
+	        android:id="@+id/section_product_related"
+	        style="@style/section1"
+	        android:layout_height="150dp"
+	        android:layout_below="@+id/section_product_slider"
+	        android:orientation="vertical" >
+
+	        <LinearLayout
+	            android:id="@+id/aux18"
+	            style="@style/title"
+	            android:orientation="horizontal" >
+
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/title_product_related"
+	                android:src="@drawable/ic_profile" />
+
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:text="@string/title_product_related"
+	                android:textColor="@color/main_blue" />
+	            
+	        </LinearLayout>
+
+	        
+	        <!-- TODO -->
+	        
+	        
+	    </RelativeLayout>
+	
+	</RelativeLayout>
+</ScrollView>

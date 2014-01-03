@@ -121,6 +121,12 @@
     <string name="title_personalinfo">Personal info</string>
     <string name="title_updatepersonalinfo">Update personal info</string>
     <string name="title_points">Points table</string>
+    <string name="title_product_info">Product info</string>
+    <string name="title_product_avaiability">Avaiability</string>
+    <string name="title_product_price">Price</string>
+    <string name="title_product_collection">Collection</string>
+    <string name="title_product_brand">Brand</string>
+    <string name="title_product_related">Related products</string>
     
     <!-- buttons -->
     <string name="button_profile">My profile</string>

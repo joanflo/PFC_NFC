@@ -64,7 +64,7 @@ public class UserProfileActivity extends BaseActivity implements OnItemClickList
 		
 		// set user nick
 		TextView tv = (TextView) findViewById(R.id.textView_userprofile_nick);
-		tv.setText("Joan_flo");
+		tv.setText("@" + "Joan_flo");
 		
 		// set user points
 		tv = (TextView) findViewById(R.id.textView_userprofile_pointsnumber);

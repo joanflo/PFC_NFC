@@ -5,6 +5,7 @@ import java.util.List;
 import com.joanflo.models.Category;
 import com.joanflo.models.Product;
 import com.joanflo.models.ProductImage;
+import com.joanflo.models.User;
 
 public class SearchUtils {
 	
@@ -24,7 +25,12 @@ public class SearchUtils {
 			}
 			i++;
 		}
-		return cat;
+		
+		if (found) {
+			return cat;
+		} else {
+			return null;
+		}
 	}
 	
 	
@@ -44,7 +50,37 @@ public class SearchUtils {
 			}
 			i++;
 		}
-		return prod;
+		
+		if (found) {
+			return prod;
+		} else {
+			return null;
+		}
+	}
+	
+	
+	
+	public static User searchUserByEmail(CharSequence email, List<User> users) {
+		if (email == null) {
+			return null;
+		}
+		
+		User user = null;
+		int i = 0;
+		boolean found = false;
+		while (i < users.size() && !found) {
+			user = users.get(i);
+			if (user.getUserEmail().equals(email)) {
+				found = true;
+			}
+			i++;
+		}
+		
+		if (found) {
+			return user;
+		} else {
+			return null;
+		}
 	}
 	
 	
@@ -62,7 +98,12 @@ public class SearchUtils {
 			}
 			i++;
 		}
-		return img;
+		
+		if (found) {
+			return img;
+		} else {
+			return null;
+		}
 	}
 	
 	
