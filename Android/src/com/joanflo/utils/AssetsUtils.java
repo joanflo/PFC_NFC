@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.util.TypedValue;
 
 public class AssetsUtils {
 
@@ -38,6 +40,21 @@ public class AssetsUtils {
 	    return d;
 	}
 	
+	
+	public static int convertPixelsToDips(Context context, int pixels) {
+		Resources resources = context.getResources();
+        float dipValue = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, pixels, resources.getDisplayMetrics());
+        resources = null;
+        return (int) dipValue;
+    }
+	
+
+    public static int convertDipsToPixels(Context context, int dip) {
+        Resources resources = context.getResources();
+        float pixelValue = (dip * resources.getDisplayMetrics().density);
+        resources = null;
+        return (int) pixelValue;
+    }
 	
 	
 }

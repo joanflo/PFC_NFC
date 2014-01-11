@@ -97,4 +97,14 @@ public class Shop {
 	}
 	
 	
+	public boolean equals(Object obj) {
+		if (obj instanceof Shop) {
+			Shop shop = (Shop) obj;
+			return idShop == shop.getIdShop(); 
+		} else {
+			return false;
+		}
+	}
+	
+	
 }

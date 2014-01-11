@@ -32,4 +32,14 @@ public class Color {
 	}
 	
 	
+	public boolean equals(Object obj) {
+		if (obj instanceof Color) {
+			Color color = (Color) obj;
+			return colorCode == color.getColorCode(); 
+		} else {
+			return false;
+		}
+	}
+	
+	
 }

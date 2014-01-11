@@ -56,6 +56,7 @@
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="description_profile_image">Profile image</string>
+    <string name="description_product_image">Product image</string>
     <string name="profile_points_text">Points</string>
     <string name="profile_followers_text">Followers</string>
     <string name="profile_following_text">Following</string>
@@ -96,6 +97,8 @@
     <string name="price_until">since</string>
     <string name="price_coin">€</string>
     <string name="product_price">Price</string>
+    <string name="product_finalprice">Final price:</string>
+    <string name="product_discount">Discount</string>
     <string name="product_brand">Brand</string>
     <string name="product_category">Category</string>
     <string name="product_rating">Minimum rating</string>
@@ -104,6 +107,10 @@
     <string name="no_email_client">There is no email client installed.</string>
     <string name="won">Won date</string>
     <string name="star">★</string>
+    <string name="product_description">Description</string>
+    <string name="product_composition">Composition</string>
+    <string name="product_color">Colors</string>
+    <string name="product_size">Sizes</string>
     
     <!-- titles -->
     <string name="title_home_search">Search</string>
@@ -150,6 +157,13 @@
     <string name="button_modifydata">Modify data</string>
     <string name="button_changepassword">Change password</string>
     <string name="button_update">Update</string>
+    <string name="button_addreview">Add review</string>
+    <string name="button_seereviews">See reviews</string>
+    <string name="button_seebrand">See brand</string>
+    <string name="button_changeshop">Change shop</string>
+    <string name="button_checkavaiability">Check avaiability</string>
+    <string name="button_addtocart">Add to cart</string>
+    <string name="button_addtowishlist">Add to wishlist</string>
     
     
     <!-- points -->

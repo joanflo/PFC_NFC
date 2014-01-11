@@ -137,7 +137,7 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
         	CharSequence cName = currentCategory.getName();
         	Tax tax = product.searchTax(user.getCity().getRegion().getCountry());
         	DecimalFormat df = new DecimalFormat("0.00");
-        	CharSequence price = df.format(product.calculatePrice(tax)); //String.valueOf(product.calculatePrice(tax));
+        	CharSequence price = df.format(product.calculatePrice(tax));
         	CharSequence coin = String.valueOf(tax.getCountry().getCoin());
         	double averageRate = product.calculateAverageRating();
         	CharSequence rate;

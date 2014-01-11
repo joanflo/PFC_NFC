@@ -1,6 +1,7 @@
 package com.joanflo.models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Product {
@@ -112,6 +113,22 @@ public class Product {
 	
 	public List<Batch> getBatches() {
 		return batches;
+	}
+	
+	public List<Batch> getBatches(Shop shop) {
+		if (shop == null) {
+			return batches;
+		}
+		
+		List<Batch> shopBatches = new ArrayList<Batch>();
+		Iterator<Batch> it = batches.iterator();
+		while (it.hasNext()) {
+			Batch batch = it.next();
+			if (shop.equals(batch.getShop())) {
+				shopBatches.add(batch);
+			}
+		}
+		return shopBatches;
 	}
 	
 	public void addBatch(Batch batch) {
@@ -233,6 +250,16 @@ public class Product {
 		// round to 2 decimals
 		double finalAverage = accumulated / n;
 		return Math.rint(finalAverage * 100) / 100;
+	}
+	
+	
+	public boolean equals(Object obj) {
+		if (obj instanceof Product) {
+			Product product = (Product) obj;
+			return idProduct == product.getIdProduct(); 
+		} else {
+			return false;
+		}
 	}
 	
 	
