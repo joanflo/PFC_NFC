@@ -1,11 +1,15 @@
 package com.joanflo.tagit;
 
+import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.joanflo.models.Batch;
 import com.joanflo.models.Brand;
@@ -30,6 +35,7 @@ import com.joanflo.models.Shop;
 import com.joanflo.models.Size;
 import com.joanflo.models.Tax;
 import com.joanflo.models.User;
+import com.joanflo.network.ImageLoader;
 import com.joanflo.utils.AssetsUtils;
 
 
@@ -73,7 +79,34 @@ public class ProductActivity extends BaseActivity {
 
 
 	private void prepareSliderSection() {
+		List<ProductImage> images = product.getRegularImages();
+		Iterator<ProductImage> it = images.iterator();
+		while (it.hasNext()) {
+			ProductImage img = (ProductImage) it.next();
+			appendImage(img);
+		}
+	}
+
+
+
+	private void appendImage(ProductImage image) {
+		// set image view info
+		ImageView iv = new ImageView(this);
+		iv.setContentDescription(image.getDescription());
+		ImageLoader il = new ImageLoader(iv);
+		il.execute(image.getUrl());
 		
+		// customize image view
+		int width = AssetsUtils.convertDipsToPixels(this, 230);
+		int height = AssetsUtils.convertDipsToPixels(this, 230);
+		int margin = AssetsUtils.convertDipsToPixels(this, 6);
+		LayoutParams params = new LayoutParams(width, height);
+		params.setMargins(margin, margin, margin, margin);
+		iv.setLayoutParams(params);
+		
+		// add image to slider
+		LinearLayout container = (LinearLayout) findViewById(R.id.slider_product);
+		container.addView(iv);
 	}
 
 
@@ -355,8 +388,14 @@ public class ProductActivity extends BaseActivity {
 		tv.setText(product.getComposition());
 		
 		ImageView iv = (ImageView) findViewById(R.id.imageView_product_front);
-		iv.setImageDrawable(null);
-		iv.setContentDescription(product.getName());
+		ProductImage front = product.getFrontImage();
+		if (front != null) {
+			iv.setContentDescription(front.getDescription());
+			ImageLoader il = new ImageLoader(iv);
+			il.execute(front.getUrl());
+		} else {
+			iv.setImageResource(R.drawable.default_image);
+		}
 	}
 
 
@@ -496,48 +535,142 @@ public class ProductActivity extends BaseActivity {
 		List<Product> ac12 = c12.getProducts(); // Fishers
 		ac12.add(p5);
 		
+
+		ProductImage img1;
+		try {
+			img1 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p1, ProductImage.TYPE_FRONT, "description...");
+			p1.addImage(img1);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img1 = new ProductImage("", p1, ProductImage.TYPE_FRONT, "description...");
-		p1.addImage(img1);
-		ProductImage img14 = new ProductImage("", p1, ProductImage.TYPE_REGULAR, "description...");
-		p1.addImage(img14);
+		ProductImage img14;
+		try {
+			img14 = new ProductImage("http://shop.camisetasfrikis.es/163-1195-large/camiseta-i-love-mates.jpg", p1, ProductImage.TYPE_REGULAR, "description...");
+			p1.addImage(img14);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img2 = new ProductImage("", p2, ProductImage.TYPE_FRONT, "description...");
-		p2.addImage(img2);
+		ProductImage img15;
+		try {
+			img15 = new ProductImage("http://shop.camisetasfrikis.es/73-544-large/camiseta-space-invader-game-over.jpg", p1, ProductImage.TYPE_REGULAR, "description...");
+			p1.addImage(img15);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img3 = new ProductImage("", p3, ProductImage.TYPE_FRONT, "description...");
-		p3.addImage(img3);
+		ProductImage img16;
+		try {
+			img16 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p1, ProductImage.TYPE_REGULAR, "description...");
+			p1.addImage(img16);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img4 = new ProductImage("", p4, ProductImage.TYPE_FRONT, "description...");
-		p4.addImage(img4);
+		ProductImage img17;
+		try {
+			img17 = new ProductImage("http://1.bp.blogspot.com/-BviKauMn6uY/TicGTGbONII/AAAAAAAAAX0/_QEHg5FADEI/s1600/productimage-picture-hal-9000-60.jpg", p1, ProductImage.TYPE_REGULAR, "description...");
+			p1.addImage(img17);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img5 = new ProductImage("", p5, ProductImage.TYPE_FRONT, "description...");
-		p5.addImage(img5);
+		ProductImage img2;
+		try {
+			img2 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p2, ProductImage.TYPE_FRONT, "description...");
+			p2.addImage(img2);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img6 = new ProductImage("", p6, ProductImage.TYPE_FRONT, "description...");
-		p6.addImage(img6);
+		ProductImage img3;
+		try {
+			img3 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p3, ProductImage.TYPE_FRONT, "description...");
+			p3.addImage(img3);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img7 = new ProductImage("", p7, ProductImage.TYPE_FRONT, "description...");
-		p7.addImage(img7);
+		ProductImage img4;
+		try {
+			img4 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p4, ProductImage.TYPE_FRONT, "description...");
+			p4.addImage(img4);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img8 = new ProductImage("", p8, ProductImage.TYPE_FRONT, "description...");
-		p8.addImage(img8);
+		ProductImage img5;
+		try {
+			img5 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p5, ProductImage.TYPE_FRONT, "description...");
+			p5.addImage(img5);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img9 = new ProductImage("", p9, ProductImage.TYPE_FRONT, "description...");
-		p9.addImage(img9);
+		ProductImage img6;
+		try {
+			img6 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p6, ProductImage.TYPE_FRONT, "description...");
+			p6.addImage(img6);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img10 = new ProductImage("", p10, ProductImage.TYPE_FRONT, "description...");
-		p10.addImage(img10);
+		ProductImage img7;
+		try {
+			img7 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p7, ProductImage.TYPE_FRONT, "description...");
+			p7.addImage(img7);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img11 = new ProductImage("", p11, ProductImage.TYPE_FRONT, "description...");
-		p11.addImage(img11);
+		ProductImage img8;
+		try {
+			img8 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p8, ProductImage.TYPE_FRONT, "description...");
+			p8.addImage(img8);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img12 = new ProductImage("", p12, ProductImage.TYPE_FRONT, "description...");
-		p12.addImage(img12);
+		ProductImage img9;
+		try {
+			img9 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p9, ProductImage.TYPE_FRONT, "description...");
+			p9.addImage(img9);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img13 = new ProductImage("", p13, ProductImage.TYPE_FRONT, "description...");
-		p13.addImage(img13);
+		ProductImage img10;
+		try {
+			img10 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p10, ProductImage.TYPE_FRONT, "description...");
+			p10.addImage(img10);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
+		ProductImage img11;
+		try {
+			img11 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p11, ProductImage.TYPE_FRONT, "description...");
+			p11.addImage(img11);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		ProductImage img12;
+		try {
+			img12 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p12, ProductImage.TYPE_FRONT, "description...");
+			p12.addImage(img12);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		ProductImage img13;
+		try {
+			img13 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p13, ProductImage.TYPE_FRONT, "description...");
+			p13.addImage(img13);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
 		
 		Tax t1 = new Tax(p1, espanya, 50, 21, 10, Tax.DISCOUNT_PERCENT);
@@ -598,7 +731,7 @@ public class ProductActivity extends BaseActivity {
 		p1.addRelatedProduct(p2);
 		p1.addRelatedProduct(p3);
 		p1.addRelatedProduct(p4);
-		p1.addRelatedProduct(p5);
+		p1.addRelatedProduct(p10);
 		
 		Size s1 = new Size(0, 38, Size.GENRE_FEMALE, Size.TYPE_CLOTHES);
 		Color co1 = new Color("#ff0000", "red");

@@ -153,6 +153,32 @@ public class Product {
 		images.add(image);
 	}
 	
+	public ProductImage getFrontImage() {
+		boolean found = false;
+		ProductImage frontImage = null;
+		Iterator<ProductImage> it = images.iterator();
+		while (it.hasNext() && !found) {
+			ProductImage img = (ProductImage) it.next();
+			if (img.getType() == ProductImage.TYPE_FRONT) {
+				found = true;
+				frontImage = img;
+			}
+		}
+		return frontImage;
+	}
+	
+	public List<ProductImage> getRegularImages() {
+		List<ProductImage> regularImages = new ArrayList<ProductImage>();
+		Iterator<ProductImage> it = images.iterator();
+		while (it.hasNext()) {
+			ProductImage img = (ProductImage) it.next();
+			if (img.getType() == ProductImage.TYPE_REGULAR) {
+				regularImages.add(img);
+			}
+		}
+		return regularImages;
+	}
+	
 	
 	public List<Category> getCategories() {
 		return categories;

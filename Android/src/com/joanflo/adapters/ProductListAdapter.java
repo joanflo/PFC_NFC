@@ -1,6 +1,8 @@
 package com.joanflo.adapters;
 
 import java.util.List;
+
+import com.joanflo.network.ImageLoader;
 import com.joanflo.tagit.R;
 import android.app.Activity;
 import android.content.Context;
@@ -52,8 +54,9 @@ public class ProductListAdapter extends BaseAdapter {
 		ProductListItem productItem = productItems.get(position);
 		
 		ImageView iv = (ImageView) convertView.findViewById(R.id.imageView_product_thumb);
-		iv.setImageDrawable(productItem.getThumb());
 		iv.setContentDescription(productItem.getDescription());
+		ImageLoader il = new ImageLoader(iv);
+		il.execute(productItem.getUrl());
 		
 		TextView tv;
 		tv = (TextView) convertView.findViewById(R.id.textView_product_productname);

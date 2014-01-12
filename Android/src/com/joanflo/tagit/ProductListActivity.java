@@ -1,5 +1,7 @@
 package com.joanflo.tagit;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -130,8 +132,12 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
         	Product product = (Product) it.next();
         	
         	ProductImage front = SearchUtils.searchFrontImage(product);
-        	CharSequence url = front.getUrl();
-        	CharSequence desc = front.getDescription();
+        	URL url = null;
+        	CharSequence desc = "";
+        	if (front != null) { // image not found
+        		url = front.getUrl();
+        		desc = front.getDescription();
+        	}
         	CharSequence pName = product.getName();
         	CharSequence bName = product.getBrand().getBrandName();
         	CharSequence cName = currentCategory.getName();
@@ -263,47 +269,118 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
 		List<Product> ac12 = c12.getProducts(); // Fishers
 		ac12.add(p5);
 		
+
+		ProductImage img1;
+		try {
+			img1 = new ProductImage("", p1, ProductImage.TYPE_FRONT, "description...");
+			p1.addImage(img1);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img1 = new ProductImage("", p1, ProductImage.TYPE_FRONT, "description...");
-		p1.addImage(img1);
-		ProductImage img14 = new ProductImage("", p1, ProductImage.TYPE_REGULAR, "description...");
-		p1.addImage(img14);
+		ProductImage img14;
+		try {
+			img14 = new ProductImage("", p1, ProductImage.TYPE_REGULAR, "description...");
+			p1.addImage(img14);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img2 = new ProductImage("", p2, ProductImage.TYPE_FRONT, "description...");
-		p2.addImage(img2);
+		ProductImage img2;
+		try {
+			img2 = new ProductImage("", p2, ProductImage.TYPE_FRONT, "description...");
+			p2.addImage(img2);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img3 = new ProductImage("", p3, ProductImage.TYPE_FRONT, "description...");
-		p3.addImage(img3);
+		ProductImage img3;
+		try {
+			img3 = new ProductImage("", p3, ProductImage.TYPE_FRONT, "description...");
+			p3.addImage(img3);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img4 = new ProductImage("", p4, ProductImage.TYPE_FRONT, "description...");
-		p4.addImage(img4);
+		ProductImage img4;
+		try {
+			img4 = new ProductImage("", p4, ProductImage.TYPE_FRONT, "description...");
+			p4.addImage(img4);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img5 = new ProductImage("", p5, ProductImage.TYPE_FRONT, "description...");
-		p5.addImage(img5);
+		ProductImage img5;
+		try {
+			img5 = new ProductImage("", p5, ProductImage.TYPE_FRONT, "description...");
+			p5.addImage(img5);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img6 = new ProductImage("", p6, ProductImage.TYPE_FRONT, "description...");
-		p6.addImage(img6);
+		ProductImage img6;
+		try {
+			img6 = new ProductImage("", p6, ProductImage.TYPE_FRONT, "description...");
+			p6.addImage(img6);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img7 = new ProductImage("", p7, ProductImage.TYPE_FRONT, "description...");
-		p7.addImage(img7);
+		ProductImage img7;
+		try {
+			img7 = new ProductImage("", p7, ProductImage.TYPE_FRONT, "description...");
+			p7.addImage(img7);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img8 = new ProductImage("", p8, ProductImage.TYPE_FRONT, "description...");
-		p8.addImage(img8);
+		ProductImage img8;
+		try {
+			img8 = new ProductImage("", p8, ProductImage.TYPE_FRONT, "description...");
+			p8.addImage(img8);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img9 = new ProductImage("", p9, ProductImage.TYPE_FRONT, "description...");
-		p9.addImage(img9);
+		ProductImage img9;
+		try {
+			img9 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p9, ProductImage.TYPE_FRONT, "description...");
+			p9.addImage(img9);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img10 = new ProductImage("", p10, ProductImage.TYPE_FRONT, "description...");
-		p10.addImage(img10);
+		ProductImage img10;
+		try {
+			img10 = new ProductImage("http://shop.camisetasfrikis.es/163-1195-large/camiseta-i-love-mates.jpg", p10, ProductImage.TYPE_FRONT, "description...");
+			p10.addImage(img10);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img11 = new ProductImage("", p11, ProductImage.TYPE_FRONT, "description...");
-		p11.addImage(img11);
+		ProductImage img11;
+		try {
+			img11 = new ProductImage("http://shop.camisetasfrikis.es/73-544-large/camiseta-space-invader-game-over.jpg", p11, ProductImage.TYPE_FRONT, "description...");
+			p11.addImage(img11);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img12 = new ProductImage("", p12, ProductImage.TYPE_FRONT, "description...");
-		p12.addImage(img12);
+		ProductImage img12;
+		try {
+			img12 = new ProductImage("", p12, ProductImage.TYPE_FRONT, "description...");
+			p12.addImage(img12);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
-		ProductImage img13 = new ProductImage("", p13, ProductImage.TYPE_FRONT, "description...");
-		p13.addImage(img13);
+		ProductImage img13;
+		try {
+			img13 = new ProductImage("", p13, ProductImage.TYPE_FRONT, "description...");
+			p13.addImage(img13);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
 		
 		

@@ -1,13 +1,18 @@
 package com.joanflo.adapters;
 
+import java.io.IOException;
+import java.net.URL;
+
 import com.joanflo.tagit.R;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 
 public class ProductListItem implements Comparable<ProductListItem> {
 
 	
-	private Drawable thumb;
+	private URL url;
 	private CharSequence description;
 	private CharSequence productName;
 	private CharSequence brandName;
@@ -26,11 +31,11 @@ public class ProductListItem implements Comparable<ProductListItem> {
 	
 	
 	
-	public ProductListItem(Context context, CharSequence url, CharSequence description, 
+	public ProductListItem(Context context, URL url, CharSequence description, 
 			CharSequence productName, CharSequence brandName, CharSequence categoryName, 
 			CharSequence price, CharSequence coin, CharSequence rating) {
 		
-		this.thumb = context.getResources().getDrawable(R.drawable.logo_base); //url
+		this.url = url;
 		this.description = description;
 		this.productName = productName;
 		this.brandName = brandName;
@@ -42,12 +47,12 @@ public class ProductListItem implements Comparable<ProductListItem> {
 
 	
 
-	public Drawable getThumb() {
-		return thumb;
+	public URL getUrl() {
+		return url;
 	}
 
-	public void setThumb(Drawable thumb) {
-		this.thumb = thumb;
+	public void setUrl(URL url) {
+		this.url = url;
 	}
 
 

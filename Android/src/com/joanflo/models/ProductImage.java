@@ -1,5 +1,8 @@
 package com.joanflo.models;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class ProductImage {
 
 	
@@ -9,7 +12,7 @@ public class ProductImage {
 	
 	
 	// primary key
-	private CharSequence url;
+	private URL url;
 	
 	// foreign key
 	private Product product;
@@ -20,8 +23,8 @@ public class ProductImage {
 	
 	
 	
-	public ProductImage(CharSequence url, Product product, char type, CharSequence description) {
-		this.url = url;
+	public ProductImage(String url, Product product, char type, CharSequence description) throws MalformedURLException {
+		this.url = new URL(url);
 		this.product = product;
 		this.type = type;
 		this.description = description;
@@ -29,12 +32,12 @@ public class ProductImage {
 
 
 
-	public CharSequence getUrl() {
+	public URL getUrl() {
 		return url;
 	}
 
-	public void setUrl(CharSequence url) {
-		this.url = url;
+	public void setUrl(String url) throws MalformedURLException {
+		this.url = new URL(url);
 	}
 
 	
