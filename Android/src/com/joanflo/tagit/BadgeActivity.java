@@ -1,12 +1,10 @@
 package com.joanflo.tagit;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
+import java.sql.Timestamp;
 import com.joanflo.models.Achievement;
 import com.joanflo.models.Badge;
 import com.joanflo.utils.AssetsUtils;
 import com.joanflo.utils.Time;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 
 public class BadgeActivity extends BaseActivity {

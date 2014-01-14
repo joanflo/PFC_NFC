@@ -66,5 +66,6 @@ public class CategoryListAdapter extends BaseAdapter {
 		
 		return convertView;
 	}
+	
 
 }

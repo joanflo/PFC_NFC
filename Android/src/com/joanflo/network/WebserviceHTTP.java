@@ -22,6 +22,8 @@ import android.util.Log;
 
 public class WebserviceHTTP extends AsyncTask<Void, Void, Void> {
 
+	public static final CharSequence HOST = "http://alumnes-ltim.uib.es/~jflorit/";
+	
 	private JSONArray jArray;
 	private String result;
 	private StringBuilder sb;

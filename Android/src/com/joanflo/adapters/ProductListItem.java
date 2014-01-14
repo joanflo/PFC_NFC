@@ -1,13 +1,8 @@
 package com.joanflo.adapters;
 
-import java.io.IOException;
 import java.net.URL;
-
-import com.joanflo.tagit.R;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
+
 
 public class ProductListItem implements Comparable<ProductListItem> {
 

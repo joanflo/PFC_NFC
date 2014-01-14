@@ -5,19 +5,22 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Point;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import com.joanflo.models.Batch;
 import com.joanflo.models.Brand;
@@ -62,7 +65,7 @@ public class ProductActivity extends BaseActivity {
         loadInfo();
         
         prepareProductInfoSection();
-        prepareAvaiabilitySection();
+        prepareAvailabilitySection();
         preparePriceSection();
         prepareCollectionSection();
         prepareBrandSection();
@@ -73,7 +76,42 @@ public class ProductActivity extends BaseActivity {
 	
 	
 	private void prepareRelatedProductsSection() {
+		List<Product> relatedProducts = product.getRelatedProducts();
+		if (relatedProducts.isEmpty()) {
+			// if there's not related products, hide section
+			RelativeLayout rl = (RelativeLayout) findViewById(R.id.section_product_related);
+			rl.setVisibility(View.GONE);
+			
+		} else {
+			Iterator<Product> it = relatedProducts.iterator();
+			while (it.hasNext()) {
+				Product product = (Product) it.next();
+				appendProduct(product);
+			}
+		}
+	}
+
+
+
+	private void appendProduct(Product product) {
+		// get related product view
+		LinearLayout container = (LinearLayout) findViewById(R.id.layout_relatedproducts);
+		LayoutInflater mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        ViewGroup convertView = (ViewGroup) mInflater.inflate(R.layout.list_item_relatedproduct, container, false);
 		
+        // set image info
+		ImageView iv = (ImageView) convertView.findViewById(R.id.imageView_front);
+		ProductImage image = product.getFrontImage();
+		iv.setContentDescription(image.getDescription());
+		ImageLoader il = new ImageLoader(iv);
+		il.execute(image.getUrl());
+		
+		// set name info
+		TextView tv = (TextView) convertView.findViewById(R.id.textView_name);
+		tv.setText(product.getName());
+		
+		// add view to root
+		container.addView(convertView);
 	}
 
 
@@ -192,7 +230,7 @@ public class ProductActivity extends BaseActivity {
 
 
 
-	private void prepareAvaiabilitySection() {
+	private void prepareAvailabilitySection() {
 		List<Batch> batches = product.getBatches(shop);
 		Iterator<?> it;
 		
@@ -265,10 +303,10 @@ public class ProductActivity extends BaseActivity {
 		}
 		
 		// button
-		Button b = (Button) findViewById(R.id.button_product_avaiability);
+		Button b = (Button) findViewById(R.id.button_product_availability);
 		if (shop == null) {
-			// check avaiability
-			b.setText(R.string.button_checkavaiability);
+			// check availability
+			b.setText(R.string.button_checkavailability);
 		} else {
 			// change shop
 			b.setText(R.string.button_changeshop);
@@ -404,16 +442,36 @@ public class ProductActivity extends BaseActivity {
 		Intent i;
     	
 		switch (v.getId()) {
-		case R.id.button_product_addreview:
+		case R.id.button_product_seereviews:
+			i = new Intent(this, ReviewListActivity.class);
+	        i.putExtra("idProduct", product.getIdProduct());
+	        startActivity(i);
 			break;
 			
-		case R.id.button_product_seereviews:
+		case R.id.button_product_addreview:
+			i = new Intent(this, NewReviewActivity.class);
+	        i.putExtra("idProduct", product.getIdProduct());
+	        startActivity(i);
 			break;
 			
 		case R.id.button_product_seebrand:
+			i = new Intent(this, BrandActivity.class);
+	        i.putExtra("brandName", product.getBrand().getBrandName());
+	        startActivity(i);
 			break;
 			
-		case R.id.button_product_avaiability:
+		case R.id.button_product_availability:
+			Button b = (Button) v;
+			if (shop == null) {
+				// no current shop selected, check availability
+				b.setText(R.string.button_checkavailability);
+			} else {
+				// change shop
+				b.setText(R.string.button_changeshop);
+			}
+			i = new Intent(this, ShopSelectionActivity.class);
+	        i.putExtra("drawerPosition", 1); // 1 = shop selection item position
+	        startActivity(i);
 			break;
 			
 		case R.id.button_product_addtocart:
@@ -427,6 +485,58 @@ public class ProductActivity extends BaseActivity {
 			break;
 		}
     }
+	
+	
+	
+	public void onClickRelatedProduct(View v) {
+		// get related product
+		ViewGroup vg = (ViewGroup) v.getParent();
+		int pos = vg.indexOfChild(v);
+		Product relatedProduct = product.getRelatedProducts().get(pos);
+		
+		// go to product activity
+		Intent i = new Intent(getBaseContext(), ProductActivity.class);
+		i.putExtra("idProduct", relatedProduct.getIdProduct());
+		startActivity(i);
+	}
+	
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.home, menu);
+		
+		// show share item
+		MenuItem shareItem = menu.findItem(R.id.action_share);
+		shareItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		
+		// set share item action
+		ShareActionProvider provider = (ShareActionProvider) shareItem.getActionProvider();
+		Intent sendIntent = new Intent();
+		sendIntent.setAction(Intent.ACTION_SEND);
+		Resources r = getResources();
+		String shareTxt = r.getString(R.string.share_part1) + " " + product.getName() + " " + r.getString(R.string.share_part2) + " " + r.getString(R.string.app_name);
+		sendIntent.putExtra(Intent.EXTRA_TEXT, shareTxt);
+		sendIntent.setType("text/plain");
+		provider.setShareIntent(sendIntent);
+		
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar actions click
+        switch (item.getItemId()) {
+        case R.id.action_share:
+            return true;
+            
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+	
 	
 	
 	private void loadInfo() {
@@ -578,7 +688,7 @@ public class ProductActivity extends BaseActivity {
 		
 		ProductImage img2;
 		try {
-			img2 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p2, ProductImage.TYPE_FRONT, "description...");
+			img2 = new ProductImage("http://rlv.zcache.es/mensaje_pionero_camiseta-r4a0ac2d55dc845dca282ff71edc3348c_va6lr_512.jpg?max_dim=400", p2, ProductImage.TYPE_FRONT, "description...");
 			p2.addImage(img2);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -642,7 +752,7 @@ public class ProductActivity extends BaseActivity {
 		
 		ProductImage img10;
 		try {
-			img10 = new ProductImage("http://rlv.zcache.es/sagan_camiseta-ref5cd14f703542ea837a4fa112262c5e_804gs_512.jpg", p10, ProductImage.TYPE_FRONT, "description...");
+			img10 = new ProductImage("http://rlv.zcache.es/carl_sagan_las_demandas_requieren_pruebas_camiseta-r23d8d4b20ae04eeab221a535d6bea717_8naiq_512.jpg?max_dim=400", p10, ProductImage.TYPE_FRONT, "description...");
 			p10.addImage(img10);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

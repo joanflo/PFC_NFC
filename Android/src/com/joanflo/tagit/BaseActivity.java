@@ -81,9 +81,6 @@ public class BaseActivity extends Activity {
         
         // Handle action bar actions click
         switch (item.getItemId()) {
-        case R.id.action_search:
-            return true;
-            
         case R.id.action_help:
             return true;
             

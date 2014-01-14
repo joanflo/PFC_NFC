@@ -17,7 +17,7 @@ public class WishListActivity extends BaseActivity {
 		
 		// update the main content by replacing view
 		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_userreviewlist, null);
+		View activityView = factory.inflate(R.layout.activity_purchasedetaillist, null);
 		// inflate activity layout
         FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
         viewContainer.addView(activityView);

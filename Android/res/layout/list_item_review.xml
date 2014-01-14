@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:orientation="vertical" >
+
+    <!-- thumb -->
+    <ImageView
+        android:id="@+id/imageView_review_thumb"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/desc_list_item_icon"
+        android:background="@drawable/image_bg_normal"
+		android:scaleType="fitCenter"
+		android:adjustViewBounds="true"
+        android:src="@drawable/background_login" />
+
+    
+    <!-- date -->
+    <TextView
+        android:id="@+id/textView_date"
+        style="@style/p"
+        android:textColor="@color/grey_light"
+        android:gravity="center"
+        android:layout_alignLeft="@+id/imageView_review_thumb"
+        android:layout_alignRight="@+id/imageView_review_thumb"
+        android:layout_below="@+id/imageView_review_thumb" />
+
+    
+    <!-- rating -->
+    <TextView
+        android:id="@+id/textView_rating"
+	    style="@style/counter1"
+        android:layout_alignTop="@+id/imageView_review_thumb"
+        android:layout_toRightOf="@+id/imageView_review_thumb" />
+
+    <TextView
+        style="@style/p"
+        android:layout_marginLeft="4dp"
+        android:textColor="@color/main_white"
+        android:layout_alignBaseline="@+id/textView_rating"
+        android:layout_alignBottom="@+id/textView_rating"
+        android:layout_toRightOf="@+id/textView_rating"
+        android:text="@string/star" />
+
+    
+    <!-- comment -->
+    <TextView
+        android:id="@+id/textView_comment"
+        style="@style/p"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/main_white"
+        android:layout_below="@+id/textView_rating"
+        android:layout_toRightOf="@+id/imageView_review_thumb" />
+
+</RelativeLayout>

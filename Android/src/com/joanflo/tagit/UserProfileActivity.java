@@ -182,7 +182,7 @@ public class UserProfileActivity extends BaseActivity implements OnItemClickList
 		switch (v.getId()) {
 		case R.id.button_userprofile_seecomments:
 			// See user comments
-			i = new Intent(this, ProductReviewListActivity.class);
+			i = new Intent(this, ReviewListActivity.class);
 			startActivity(i);
 			break;
 

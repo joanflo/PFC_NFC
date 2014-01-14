@@ -1,7 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingTop="10dp" >
+	    
+	    <RelativeLayout
+	        style="@style/section1"
+	        android:layout_height="wrap_content" >
+	
+	        <LinearLayout
+	            android:id="@+id/aux26"
+	            style="@style/title"
+	            android:orientation="horizontal" >
+	
+	            <ImageView
+	                style="@style/icon2"
+	                android:contentDescription="@string/desc_list_item_icon"
+	                android:src="@drawable/ic_points" />
+	
+	            <TextView
+	                style="@style/h2"
+	                android:gravity="center_vertical"
+	                android:textColor="@color/main_blue"
+	                android:text="@string/title_newreview" />
+	            
+	        </LinearLayout>
+	
+		        
+	        <!-- product front image -->
+	        <ImageView
+	            android:id="@+id/imageView_newreview_front"
+	            android:layout_width="120dp"
+	            android:layout_height="120dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/aux26"
+	            android:layout_margin="8dp"
+	            android:background="@drawable/image_bg_normal"
+	            android:contentDescription="@string/description_profile_image" />
+	
+	        
+	        <!-- product name -->
+	        <TextView
+	            android:id="@+id/textView_newreview_name"
+	            style="@style/p"
+	            android:layout_alignTop="@+id/imageView_newreview_front"
+	            android:layout_toRightOf="@+id/imageView_newreview_front"
+	            android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- average rating -->
+	        <TextView
+	            android:id="@+id/textView_newreview_averagerating"
+	            style="@style/counter1"
+	            android:layout_above="@+id/button_newreview_seereview"
+	            android:layout_alignLeft="@+id/button_newreview_seereview"
+	            android:clickable="true"
+	            android:layout_marginBottom="8dp" />
+	        
+	        <TextView
+	            android:id="@+id/textView_newreview_ratingtext"
+	            style="@style/p"
+	            android:layout_alignBaseline="@+id/textView_newreview_averagerating"
+	            android:layout_alignBottom="@+id/textView_newreview_averagerating"
+	            android:layout_toRightOf="@+id/textView_newreview_averagerating"
+	            android:text="@string/star"
+	            android:layout_marginLeft="4dp"
+	            android:textColor="@color/grey_light" />
+	        
+	        
+	        <!-- see reviews button -->
+	        <Button
+	            style="@style/button1"
+	            android:id="@+id/button_newreview_seereview"
+	            android:layout_width="wrap_content"
+	            android:layout_alignBottom="@+id/imageView_newreview_front"
+	            android:layout_alignParentRight="true"
+	            android:layout_toRightOf="@+id/imageView_newreview_front"
+	            android:layout_marginRight="8dp"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_seereviews" />
+	
+	        
+	        <!-- set comment -->
+	        <TextView
+	            android:id="@+id/textView_newreview_comment"
+	            style="@style/b"
+	            android:textColor="@color/main_white"
+	            android:layout_alignLeft="@+id/imageView_newreview_front"
+	            android:layout_below="@+id/imageView_newreview_front"
+	            android:layout_marginTop="14dp"
+	            android:text="@string/comment" />
+	
+	        <EditText
+	            android:id="@+id/editText_newreview_comment"
+		        style="@style/edittext1"
+		        android:padding="8dp"
+	            android:layout_alignLeft="@+id/textView_newreview_comment"
+	            android:layout_alignRight="@+id/button_newreview_seereview"
+	            android:layout_below="@+id/textView_newreview_comment"
+	            android:lines="4"
+	            android:inputType="textMultiLine" >
+	        </EditText>
+	
+	        
+	        <!-- set rating -->
+	        <TextView
+	            android:id="@+id/textView_newreview_ratingtxt"
+	            style="@style/b"
+	            android:textColor="@color/main_white"
+	            android:layout_alignLeft="@+id/editText_newreview_comment"
+	            android:layout_below="@+id/editText_newreview_comment"
+	            android:layout_marginTop="20dp"
+	            android:text="@string/product_setrating" />
+	
+	        <RatingBar
+	            android:id="@+id/ratingBar_newreview"
+	            style="@style/ratingbar1"
+	            android:layout_alignLeft="@+id/textView_newreview_ratingtxt"
+	            android:layout_below="@+id/textView_newreview_ratingtxt"
+		        android:numStars="5"
+		        android:stepSize="0.5"
+		        android:rating="3.0" />
+	        
+	        
+	        <!-- send review button -->
+	        <Button
+	            android:id="@+id/button_newreview_sendreview"
+	            style="@style/button1"
+	            android:layout_width="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/editText_newreview_comment"
+	            android:layout_below="@+id/ratingBar_newreview"
+	            android:layout_marginLeft="136dp"
+	            android:layout_marginTop="20dp"
+	            android:layout_marginBottom="8dp"
+	            android:onClick="onClickButton"
+	            android:text="@string/button_sendreview" />
+			
+	    </RelativeLayout>
+    
+    </LinearLayout>
 
-</RelativeLayout>
+</ScrollView>

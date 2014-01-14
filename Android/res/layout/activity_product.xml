@@ -140,9 +140,9 @@
 	    </RelativeLayout>
 	    
 	    
-	    <!-- avaiability -->
+	    <!-- availability -->
 	    <RelativeLayout
-	        android:id="@+id/section_product_avaiability"
+	        android:id="@+id/section_product_availability"
 	        style="@style/section1"
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/section_product_info" >
@@ -160,7 +160,7 @@
 	            <TextView
 	                style="@style/h2"
 	                android:gravity="center_vertical"
-	                android:text="@string/title_product_avaiability"
+	                android:text="@string/title_product_availability"
 	                android:textColor="@color/main_blue" />
 	            
 	        </LinearLayout>
@@ -213,7 +213,7 @@
 
 	        
 	        <Button
-	            android:id="@+id/button_product_avaiability"
+	            android:id="@+id/button_product_availability"
 	            style="@style/button1"
 	            android:layout_width="wrap_content"
 	            android:layout_alignLeft="@+id/aux25"
@@ -230,7 +230,7 @@
 	        android:id="@+id/section_product_price"
 	        style="@style/section1"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/section_product_avaiability" >
+	        android:layout_below="@+id/section_product_availability" >
 
 	        
 	        <LinearLayout
@@ -515,17 +515,15 @@
 	        <!-- related products -->
 		    <HorizontalScrollView
 	            android:layout_width="match_parent"
-		        android:layout_height="245dp"
+		        android:layout_height="wrap_content"
 		        android:layout_below="@+id/aux24"
-		        android:orientation="vertical"
-		        android:layout_marginTop="8dp" >
+		        android:orientation="vertical" >
 	            
 	            <LinearLayout
 	                android:id="@+id/layout_relatedproducts"
-	                android:layout_width="200dp"
-	                android:layout_height="300dp"
-	                android:orientation="horizontal"
-	                android:background="#ff0000" >
+	                android:layout_width="wrap_content"
+	                android:layout_height="match_parent"
+	                android:orientation="horizontal" >
 	                
 	            </LinearLayout>
 	

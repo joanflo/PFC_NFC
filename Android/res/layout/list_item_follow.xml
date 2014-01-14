@@ -14,8 +14,7 @@
         android:contentDescription="@string/desc_list_item_icon"
         android:background="@drawable/image_bg_normal"
 		android:scaleType="fitCenter"
-		android:adjustViewBounds="true"
-        android:src="@drawable/background_login" />
+		android:adjustViewBounds="true" />
 
     <TextView
         android:id="@+id/textView_follow_name"
