@@ -14,7 +14,6 @@ import com.joanflo.models.User;
 import com.joanflo.utils.SearchUtils;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +21,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
 
 public class FollowsListActivity extends BaseActivity implements Button.OnClickListener {
 

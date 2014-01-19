@@ -3,5 +3,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
+    <RelativeLayout
+        android:id="@+id/layout_purchaseinfo"
+        style="@style/section1"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:baselineAligned="false" >
+
+        <!-- purchase info -->
+        <TextView
+            android:id="@+id/textView_purchasedetail_purchaseinfo"
+            style="@style/b"
+	        android:textColor="@color/grey_light"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+
+        
+        <!-- see shop button -->
+        <Button
+            android:id="@+id/button_purchasedetail_seeshop"
+            style="@style/button1"
+            android:layout_width="110dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textView_purchasedetail_totalprice"
+            android:onClick="onClickButton"
+            android:text="@string/button_seeshop" />
+
+        
+        <!-- total price -->
+        <TextView
+            android:id="@+id/textView_purchasedetail_totalprice"
+            style="@style/counter1"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_alignLeft="@+id/textView_purchasedetail_purchaseinfo"
+            android:layout_below="@+id/textView_purchasedetail_purchaseinfo" />
+
+        <TextView
+            android:id="@+id/textView_purchasedetail_totalpricecoin"
+            style="@style/p"
+	        android:textColor="@color/grey_light"
+            android:layout_alignBaseline="@+id/textView_purchasedetail_totalprice"
+            android:layout_alignBottom="@+id/textView_purchasedetail_totalprice"
+            android:layout_toRightOf="@+id/textView_purchasedetail_totalprice" />
+        
+    </RelativeLayout>
+    
+    
+    <ListView 
+        android:id="@+id/listView_purchasedetail"
+        android:layout_below="@+id/layout_purchaseinfo"
+	    style="@style/list1"
+    	android:choiceMode="singleChoice" 
+        android:listSelector="@color/main_red" >
+        
+    </ListView>
 
 </RelativeLayout>

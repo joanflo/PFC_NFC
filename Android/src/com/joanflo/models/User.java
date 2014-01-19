@@ -188,6 +188,43 @@ public class User {
 		return purchases;
 	}
 	
+	public List<Purchase> getPurchaseHistory() {
+		// return all finished purchases
+		List<Purchase> finishedPurchases = new ArrayList<Purchase>();
+		Iterator<Purchase> it = purchases.iterator();
+		while (it.hasNext()) {
+			Purchase purchase = it.next();
+			if (purchase.getStatus() == Purchase.STATUS_FINISHED) {
+				finishedPurchases.add(purchase);
+			}
+		}
+		return finishedPurchases;
+	}
+	
+	public Purchase getPurchaseCart() {
+		// search not finished purchases
+		Iterator<Purchase> it = purchases.iterator();
+		while (it.hasNext()) {
+			Purchase purchase = it.next();
+			if (purchase.getStatus() == Purchase.STATUS_PENDING) {
+				return purchase;
+			}
+		}
+		return null;
+	}
+	
+	public Purchase searchPurchaseById(int purchaseId) {
+		Iterator<Purchase> it = purchases.iterator();
+		while (it.hasNext()) {
+			Purchase purchase = it.next();
+			if (purchase.getIdPurchase() == purchaseId) {
+				return purchase;
+			}
+		}
+		return null;
+	}
+	
+	
 	public void addPurchase(Purchase purchase) {
 		purchases.add(purchase);
 	}

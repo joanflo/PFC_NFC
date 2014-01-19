@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- price -->
+    <TextView
+        android:id="@+id/textView_totalprice"
+        style="@style/counter1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="4dp" />
+
+    <TextView
+        android:id="@+id/textView_totalprice_coin"
+        style="@style/p"
+        android:layout_alignBottom="@+id/textView_totalprice"
+        android:layout_toRightOf="@+id/textView_totalprice"
+        android:textColor="@color/main_white" />
+    
+    
+    <!-- items number -->
+    <TextView
+        android:id="@+id/textView_itemsnumber"
+        style="@style/counter1"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_alignLeft="@+id/textView_totalprice"
+        android:layout_alignRight="@+id/textView_totalprice"
+        android:layout_below="@+id/textView_totalprice"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/textView_itemsnumbertxt"
+        style="@style/p"
+        android:layout_alignBottom="@+id/textView_itemsnumber"
+        android:layout_toRightOf="@+id/textView_itemsnumber"
+        android:textColor="@color/main_white"
+        android:text="@string/item_text" />
+    
+    
+    <!-- shop & date -->
+    <TextView
+        android:id="@+id/textView_purchaseinfo"
+        style="@style/b"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="130dp"
+        android:textColor="@color/main_white" />
+
+</RelativeLayout>

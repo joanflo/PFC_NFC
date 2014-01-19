@@ -2,6 +2,7 @@ package com.joanflo.models;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Purchase {
@@ -56,7 +57,29 @@ public class Purchase {
 		long time = System.currentTimeMillis();
 		this.date = new java.sql.Timestamp(time);
 	}
+	
+	
 
+	public double calculateTotalPrice() {
+		Country country = user.getCity().getRegion().getCountry();
+		double totalPrice = 0;
+		
+    	Iterator<PurchaseDetail> it = purchaseDetails.iterator();
+    	while (it.hasNext()) {
+    		PurchaseDetail detail = it.next();
+    		
+    		// get units
+    		int units = detail.getUnits();
+    		// get product price
+    		Product product = detail.getBatch().getProduct();
+    		Tax tax = product.searchTax(country);
+    		double productPrice = product.calculatePrice(tax);
+    		
+    		totalPrice += units * productPrice;
+    	}
+		
+		return totalPrice;
+	}
 
 
 	public int getIdPurchase() {

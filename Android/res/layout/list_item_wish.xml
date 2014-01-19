@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:orientation="vertical" >
+
+
+    <!-- thumb -->
+    <ImageView
+        android:id="@+id/imageView_wishlist_thumb"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/desc_list_item_icon"
+        android:background="@drawable/image_bg_normal"
+		android:scaleType="fitCenter"
+		android:adjustViewBounds="true" />
+
+    
+    <!-- date -->
+    <TextView
+        android:id="@+id/textView_wishlist_date"
+        style="@style/p"
+        android:textColor="@color/grey_light"
+        android:gravity="center"
+        android:layout_alignLeft="@+id/imageView_wishlist_thumb"
+        android:layout_alignRight="@+id/imageView_wishlist_thumb"
+        android:layout_below="@+id/imageView_wishlist_thumb" />
+
+    
+    <!-- rating -->
+    <TextView
+        android:id="@+id/textView_wishlist_productname"
+        style="@style/p"
+        android:textColor="@color/main_white"
+        android:layout_alignTop="@+id/imageView_wishlist_thumb"
+        android:layout_toRightOf="@+id/imageView_wishlist_thumb" />
+
+    
+    <!-- buttons -->
+    <ImageButton
+        android:id="@+id/button_wishlist_remove"
+        style="@style/button2"
+	    android:scaleType="fitCenter"
+	    android:padding="2dp"
+        android:layout_alignBottom="@+id/textView_wishlist_date"
+        android:layout_alignParentRight="true"
+        android:focusable="false"
+        android:layout_marginRight="8dp"
+        android:contentDescription="@string/button_removewish"
+        android:src="@drawable/ic_removewish" />
+
+    <ImageButton
+        android:id="@+id/button_wishlist_addtocart"
+        style="@style/button2"
+        android:layout_alignTop="@+id/button_wishlist_remove"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/button_wishlist_remove"
+        android:contentDescription="@string/button_addtocart"
+        android:focusable="false"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_addtocart" />
+
+</RelativeLayout>

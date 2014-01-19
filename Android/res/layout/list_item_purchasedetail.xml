@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    
+    <!-- product thumb -->
+    <ImageView
+        android:id="@+id/imageView_productpurchase_thumb"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_margin="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/desc_list_item_icon"
+        android:background="@drawable/image_bg_normal"
+		android:scaleType="fitCenter"
+		android:adjustViewBounds="true"
+        android:src="@drawable/default_image" />
+
+    
+    <!-- product name -->
+    <TextView
+        android:id="@+id/textView_purchase_productname"
+        style="@style/b"
+        android:layout_alignTop="@+id/imageView_productpurchase_thumb"
+        android:layout_toRightOf="@+id/imageView_productpurchase_thumb"
+        android:textColor="@color/main_white" />
+    
+
+    <!-- product price -->
+    <TextView
+        android:id="@+id/textView_purchase_price"
+        style="@style/counter1"
+        android:layout_alignBottom="@+id/imageView_productpurchase_thumb"
+        android:layout_alignLeft="@+id/textView_purchase_productname" />
+
+    <TextView
+        android:id="@+id/textView_purchase_pricetext"
+        style="@style/p"
+        android:layout_alignBaseline="@+id/textView_purchase_price"
+        android:layout_alignBottom="@+id/textView_purchase_price"
+        android:layout_toRightOf="@+id/textView_purchase_price"
+        android:layout_marginLeft="4dp"
+        android:textColor="@color/main_white" />
+    
+    
+    <!-- units -->
+    <TextView
+        android:id="@+id/textView_purchase_units"
+        style="@style/counter1"
+        android:layout_marginBottom="8dp"
+        android:layout_above="@+id/textView_purchase_price"
+        android:layout_alignRight="@+id/textView_purchase_price"
+        android:layout_toRightOf="@+id/imageView_productpurchase_thumb"
+        android:gravity="center" />
+    
+    <TextView
+        android:id="@+id/textView_purchase_unitstext"
+        style="@style/p"
+        android:layout_alignBottom="@+id/textView_purchase_units"
+        android:layout_alignLeft="@+id/textView_purchase_pricetext"
+        android:textColor="@color/main_white"
+        android:text="@string/item_text" />
+
+    
+    <!-- size -->
+    <TextView
+        android:id="@+id/textView_purchase_size"
+        style="@style/p"
+        android:layout_alignBaseline="@+id/textView_purchase_unitstext"
+        android:layout_alignBottom="@+id/textView_purchase_unitstext"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:textColor="@color/main_white" />
+
+    
+    <!-- color -->
+    <TextView
+        android:id="@+id/textView_purchase_colorcode"
+        style="@style/counter1"
+        android:layout_width="17dp"
+        android:layout_alignBaseline="@+id/textView_purchase_pricetext"
+        android:layout_alignBottom="@+id/textView_purchase_pricetext"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp" />
+
+    <TextView
+        android:id="@+id/textView_purchase_colorname"
+        style="@style/p"
+        android:layout_alignBaseline="@+id/textView_purchase_colorcode"
+        android:layout_alignBottom="@+id/textView_purchase_colorcode"
+        android:layout_toLeftOf="@+id/textView_purchase_colorcode"
+        android:layout_marginRight="4dp"
+        android:textColor="@color/main_white" />
+
+    
+    <!-- button -->
+    <ImageButton
+        android:id="@+id/button_purchase_remove"
+        style="@style/button2"
+	    android:scaleType="fitCenter"
+	    android:padding="2dp"
+        android:layout_alignBottom="@+id/imageView_productpurchase_thumb"
+        android:layout_alignParentRight="true"
+        android:focusable="false"
+        android:layout_marginRight="8dp"
+        android:contentDescription="@string/button_removecart"
+        android:src="@drawable/ic_removecart" />
+
+</RelativeLayout>

@@ -113,9 +113,12 @@
     <string name="product_composition">Composition</string>
     <string name="product_color">Colors</string>
     <string name="product_size">Sizes</string>
+    <string name="product_size2">Size</string>
     <string name="share_part1">Just watching</string>
     <string name="share_part2">using</string>
     <string name="comment">Comment</string>
+    <string name="shop1">Bought in</string>
+    <string name="shop2">on</string>
     
     <!-- titles -->
     <string name="title_home_search">Search</string>
@@ -171,6 +174,8 @@
     <string name="button_checkavailability">Check availability</string>
     <string name="button_addtocart">Add to cart</string>
     <string name="button_addtowishlist">Add to wishlist</string>
+    <string name="button_removewish">Remove wish</string>
+    <string name="button_removecart">Remove item from cart</string>
     
     
     <!-- points -->
