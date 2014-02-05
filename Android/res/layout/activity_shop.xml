@@ -32,7 +32,7 @@
 	            <ImageView
 	                style="@style/icon2"
 	                android:contentDescription="@string/title_home_shop"
-	                android:src="@drawable/ic_currentshop" />
+	                android:src="@drawable/ic_shop" />
 
 	            <TextView
 	                android:id="@+id/title_shop_shopselected"

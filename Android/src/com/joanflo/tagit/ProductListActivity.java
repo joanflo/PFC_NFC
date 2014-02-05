@@ -49,13 +49,8 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+		super.setFrameContainerView(R.layout.activity_productlist);
 		
-        // update the main content by replacing view
-		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_productlist, null);
-		// inflate activity layout
-        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
-        viewContainer.addView(activityView);
 
 	    // Get the intent and verify the action
 	    Intent intent = getIntent();

@@ -50,7 +50,16 @@ public class PurchaseDetailListItem {
 		this.totalPrice = totalPrice;
 		this.coin = String.valueOf(coin);
 	}
+	
+	
+	
+	public boolean isViewingCart() {
+		return viewingCart;
+	}
 
+	public void setViewingCart(boolean viewingCart) {
+		this.viewingCart = viewingCart;
+	}
 
 
 	public int getUnits() {

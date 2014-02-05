@@ -74,7 +74,7 @@
 	            <ImageView
 	                style="@style/icon2"
 	                android:contentDescription="@string/title_home_shop"
-	                android:src="@drawable/ic_currentshop" />
+	                android:src="@drawable/ic_shop" />
 
 	            <TextView
 	                style="@style/h2"
@@ -206,6 +206,7 @@
 	                    android:gravity="center_vertical"
 	                    android:text="@string/title_home_mywishlist"
 	                    android:textColor="@color/main_blue" />
+	                
 	            </LinearLayout>
 
 	            
@@ -263,6 +264,7 @@
 	                style="@style/h2"
 	                android:gravity="center_vertical"
 	                android:textColor="@color/main_blue" />
+	            
 	        </LinearLayout>
 
 	        

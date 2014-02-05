@@ -50,13 +50,7 @@ public class PurchaseListActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		// update the main content by replacing view
-		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_purchaselist, null);
-		// inflate activity layout
-        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
-        viewContainer.addView(activityView);
+		super.setFrameContainerView(R.layout.activity_purchaselist);
         
         
         loadData();

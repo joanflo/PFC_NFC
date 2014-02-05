@@ -23,7 +23,7 @@
 	            <ImageView
 	                style="@style/icon2"
 	                android:contentDescription="@string/title_product_info"
-	                android:src="@drawable/ic_search" />
+	                android:src="@drawable/ic_product" />
 
 	            <TextView
 	                android:id="@+id/title_product_info"
@@ -155,7 +155,7 @@
 	            <ImageView
 	                style="@style/icon2"
 	                android:contentDescription="@string/title_product_info"
-	                android:src="@drawable/ic_search" />
+	                android:src="@drawable/iv_availability" />
 
 	            <TextView
 	                style="@style/h2"
@@ -241,7 +241,7 @@
 	            <ImageView
 	                style="@style/icon2"
 	                android:contentDescription="@string/title_product_info"
-	                android:src="@drawable/ic_search" />
+	                android:src="@drawable/ic_price" />
 
 	            <TextView
 	                style="@style/h2"
@@ -385,7 +385,7 @@
 			        <ImageView
 			            style="@style/icon2"
 			            android:contentDescription="@string/title_product_collection"
-			            android:src="@drawable/ic_mycart" />
+			            android:src="@drawable/ic_collection" />
 			        
 				    <TextView
 				        style="@style/h2"
@@ -429,7 +429,7 @@
 	                <ImageView
 	                    style="@style/icon2"
 	                    android:contentDescription="@string/title_product_brand"
-	                    android:src="@drawable/ic_mywishlist" />
+	                    android:src="@drawable/ic_brand" />
 
 	                <TextView
 	                    style="@style/h2"
@@ -501,7 +501,7 @@
 	            <ImageView
 	                style="@style/icon2"
 	                android:contentDescription="@string/title_product_related"
-	                android:src="@drawable/ic_profile" />
+	                android:src="@drawable/ic_relatedproduct" />
 
 	            <TextView
 	                style="@style/h2"

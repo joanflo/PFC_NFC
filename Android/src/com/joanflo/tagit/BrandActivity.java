@@ -34,13 +34,8 @@ public class BrandActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setFrameContainerView(R.layout.activity_brand);
 		
-		// update the main content by replacing view
-		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_brand, null);
-		// inflate activity layout
-        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
-        viewContainer.addView(activityView);
         
         // update selected item and title, then close the drawer
         Bundle bundle = getIntent().getExtras();

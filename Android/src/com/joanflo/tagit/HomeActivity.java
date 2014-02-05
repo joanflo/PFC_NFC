@@ -1,17 +1,14 @@
 package com.joanflo.tagit;
 
-
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -24,13 +21,8 @@ public class HomeActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setFrameContainerView(R.layout.activity_home);
 		
-		// update the main content by replacing view
-		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_home, null);
-		// inflate activity layout
-        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
-        viewContainer.addView(activityView);
         
         // update selected item and title, then close the drawer
         Bundle bundle = getIntent().getExtras();

@@ -20,7 +20,7 @@
 	            <ImageView
 	                style="@style/icon2"
 	                android:contentDescription="@string/desc_list_item_icon"
-	                android:src="@drawable/ic_points" />
+	                android:src="@drawable/ic_review" />
 	
 	            <TextView
 	                style="@style/h2"

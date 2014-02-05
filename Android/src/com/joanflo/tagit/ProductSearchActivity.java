@@ -2,14 +2,13 @@ package com.joanflo.tagit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 
 public class ProductSearchActivity extends BaseActivity implements OnItemSelectedListener {
 
@@ -22,13 +21,8 @@ public class ProductSearchActivity extends BaseActivity implements OnItemSelecte
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setFrameContainerView(R.layout.activity_productsearch);
 		
-		// update the main content by replacing view
-		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_productsearch, null);
-		// inflate activity layout
-        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
-        viewContainer.addView(activityView);
         
         // update selected item and title, then close the drawer
         Bundle bundle = getIntent().getExtras();

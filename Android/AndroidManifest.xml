@@ -14,9 +14,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
     <!-- Required to show current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
+    <!-- NFC -->
+    <uses-permission android:name="android.permission.NFC" />
     
     
     <!-- Required OpenGL ES 2.0. for Maps V2 -->
@@ -170,6 +174,14 @@
         <activity
             android:name="com.joanflo.tagit.ProductActivity"
             android:label="@string/app_name" >
+            
+            <!-- reading tag filter & android beam -->
+            <intent-filter>
+			    <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+			    <category android:name="android.intent.category.DEFAULT"/>
+			    <data android:mimeType="text/plain" />
+			</intent-filter>
+			
         </activity>
         
         

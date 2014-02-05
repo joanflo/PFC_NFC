@@ -8,9 +8,7 @@ import com.joanflo.utils.Time;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,13 +20,8 @@ public class BadgeActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setFrameContainerView(R.layout.activity_badge);
 		
-		// update the main content by replacing view
-		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_badge, null);
-		// inflate activity layout
-        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
-        viewContainer.addView(activityView);
         
         // get extras
         Bundle bundle = getIntent().getExtras();
@@ -76,13 +69,7 @@ public class BadgeActivity extends BaseActivity {
 	
 	
 	public void onClickButton(View v) {
-		Intent i;
-    	
-		switch (v.getId()) {
-		default:
-			super.onClickButton(v);
-			break;
-		}
+		super.onClickButton(v);
     }
 
 }

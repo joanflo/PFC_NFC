@@ -27,9 +27,9 @@
     <!-- Nav Drawer List Item Icons -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
-        <item>@drawable/ic_currentshop</item>
+        <item>@drawable/ic_shop</item>
         <item>@drawable/ic_categories</item>
-        <item>@drawable/ic_searchproducts</item>
+        <item>@drawable/ic_search</item>
         <item>@drawable/ic_mycart</item>
         <item>@drawable/ic_mywishlist</item>
     </array>
@@ -46,11 +46,11 @@
     
     <!-- Nav Spinner List Item Icons -->
     <array name="nav_spinner_icons">
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_currentshop</item>
-        <item>@drawable/ic_currentshop</item>
-        <item>@drawable/ic_categories</item>
-        <item>@drawable/ic_searchproducts</item>
+        <item>@drawable/ic_name</item>
+        <item>@drawable/ic_priceascending</item>
+        <item>@drawable/ic_pricedescending</item>
+        <item>@drawable/ic_brand</item>
+        <item>@drawable/ic_mywishlist</item>
     </array>
     
     

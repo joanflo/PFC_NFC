@@ -10,10 +10,12 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -94,6 +96,17 @@ public class BaseActivity extends Activity {
             return super.onOptionsItemSelected(item);
         }
     }
+	
+	
+	
+	protected void setFrameContainerView(int idView) {
+		// update the main content by replacing view
+		LayoutInflater factory = LayoutInflater.from(this);
+		View activityView = factory.inflate(idView, null);
+		// inflate activity layout
+        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
+        viewContainer.addView(activityView);
+	}
 	
 	
 	

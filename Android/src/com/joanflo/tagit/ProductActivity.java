@@ -8,6 +8,9 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter.CreateNdefMessageCallback;
+import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,13 +18,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.joanflo.models.Batch;
 import com.joanflo.models.Brand;
 import com.joanflo.models.Category;
@@ -40,9 +43,10 @@ import com.joanflo.models.Tax;
 import com.joanflo.models.User;
 import com.joanflo.network.ImageLoader;
 import com.joanflo.utils.AssetsUtils;
+import com.joanflo.utils.NFC;
 
 
-public class ProductActivity extends BaseActivity {
+public class ProductActivity extends BaseActivity implements CreateNdefMessageCallback {
 	
 	
 	private Product product;
@@ -54,16 +58,67 @@ public class ProductActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+		super.setFrameContainerView(R.layout.activity_product);
 		
-        // update the main content by replacing view
-		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_product, null);
-		// inflate activity layout
-        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
-        viewContainer.addView(activityView);
         
-        loadInfo();
+        // set adapter
+        NFC.setNfcAdapter(this);
         
+        int productId;
+        Intent intent = getIntent();
+
+        if (NFC.isNFCIntent(intent)) {
+        	// If an activity starts because of an NFC intent...
+        	productId = NFC.retrieveData(intent);
+        	if (productId == NFC.PARSING_ERROR) {
+        		
+        		return;
+        	} else {
+        		Toast.makeText(this, "product id: " + productId, Toast.LENGTH_LONG).show();
+        	}
+        	
+        } else {
+        	Bundle bundle = intent.getExtras();
+        	productId = bundle.getInt("productId");
+        }
+        
+        loadInfo(productId);
+        prepareSections();
+	}
+
+	
+	
+    @Override
+    public void onResume() {
+        super.onResume();
+        
+        // Check to see that the Activity started due to an Android Beam
+        Intent intent = getIntent();
+        if (NFC.isNFCIntent(intent)) {
+        	int productId = NFC.retrieveData(intent);
+        	loadInfo(productId);
+        	prepareSections();
+        }
+    }
+    
+    
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        // onResume gets called after this to handle the intent
+        setIntent(intent);
+    }
+
+
+
+	@Override
+	public NdefMessage createNdefMessage(NfcEvent event) {
+		return NFC.createBeamMessage(product.getIdProduct());
+	}
+	
+	
+	
+	private void prepareSections() {
         prepareProductInfoSection();
         prepareAvailabilitySection();
         preparePriceSection();
@@ -539,7 +594,7 @@ public class ProductActivity extends BaseActivity {
 	
 	
 	
-	private void loadInfo() {
+	private void loadInfo(int productId) {
 		Country espanya = new Country("Espanya", null, 34, Country.EURO);
 		Region balears = new Region("Balears", null, espanya);
 		City palma = new City("Palma", null, balears);

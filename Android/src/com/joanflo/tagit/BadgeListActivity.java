@@ -1,19 +1,15 @@
 package com.joanflo.tagit;
 
 import java.util.ArrayList;
-
 import com.joanflo.adapters.BadgeListAdapter;
 import com.joanflo.adapters.BadgeListItem;
 import com.joanflo.models.Achievement;
 import com.joanflo.models.Badge;
 import com.joanflo.utils.Gamification;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -28,13 +24,8 @@ public class BadgeListActivity extends BaseActivity implements OnItemClickListen
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setFrameContainerView(R.layout.activity_badgelist);
 		
-		// update the main content by replacing view
-		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_badgelist, null);
-		// inflate activity layout
-        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
-        viewContainer.addView(activityView);
         
         prepareBadgesSection();
 	}
@@ -111,13 +102,7 @@ public class BadgeListActivity extends BaseActivity implements OnItemClickListen
 
 
 	public void onClickButton(View v) {
-		Intent i;
-    	
-		switch (v.getId()) {
-		default:
-			super.onClickButton(v);
-			break;
-		}
+		super.onClickButton(v);
     }
 
 

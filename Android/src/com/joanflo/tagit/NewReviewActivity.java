@@ -2,7 +2,6 @@ package com.joanflo.tagit;
 
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
-
 import com.joanflo.models.Brand;
 import com.joanflo.models.City;
 import com.joanflo.models.Collection;
@@ -14,13 +13,10 @@ import com.joanflo.models.Region;
 import com.joanflo.models.Review;
 import com.joanflo.models.User;
 import com.joanflo.network.ImageLoader;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -37,13 +33,8 @@ public class NewReviewActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+		super.setFrameContainerView(R.layout.activity_newreview);
 		
-        // update the main content by replacing view
-		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_newreview, null);
-		// inflate activity layout
-        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
-        viewContainer.addView(activityView);
         
         loadInfo();
         

@@ -1,23 +1,16 @@
 package com.joanflo.tagit;
 
-import java.sql.Timestamp;
-
-import com.joanflo.models.Achievement;
-import com.joanflo.models.Badge;
 import com.joanflo.models.City;
 import com.joanflo.models.Country;
 import com.joanflo.models.Language;
 import com.joanflo.models.Region;
 import com.joanflo.models.User;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -36,13 +29,8 @@ public class UpdateUserDataActivity extends BaseActivity implements OnItemSelect
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setFrameContainerView(R.layout.activity_updateuserdata);
 		
-		// update the main content by replacing view
-		LayoutInflater factory = LayoutInflater.from(this);
-		View activityView = factory.inflate(R.layout.activity_updateuserdata, null);
-		// inflate activity layout
-        FrameLayout viewContainer = (FrameLayout) findViewById(R.id.frame_container);
-        viewContainer.addView(activityView);
         
         prepareInfoSection();
 	}

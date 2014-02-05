@@ -31,7 +31,7 @@
 	            <ImageView
 	                style="@style/icon2"
 	                android:contentDescription="@string/product_brand"
-	                android:src="@drawable/ic_currentshop" />
+	                android:src="@drawable/ic_brand" />
 
 	            <TextView
 	                android:id="@+id/textView_brand_title"
