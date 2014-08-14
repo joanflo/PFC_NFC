@@ -1,5 +1,7 @@
 package com.joanflo.tagit;
 
+import com.joanflo.models.Country;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +15,8 @@ import android.widget.TextView;
 public class ProductSearchActivity extends BaseActivity implements OnItemSelectedListener {
 
 	
-	private String[] brands = {"Quicksilver", "Vans", "Zara"};
-	private String[] categories = {"Shorts", "T-Shirts", "Trousers"};
+	private String[] brands = {getResources().getString(R.string.all_brands), "Quicksilver", "Vans", "Zara"};
+	private String[] categories = {getResources().getString(R.string.all_brands), "Shorts", "T-Shirts", "Trousers"};
 	
 	
 	
@@ -22,7 +24,6 @@ public class ProductSearchActivity extends BaseActivity implements OnItemSelecte
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_productsearch);
-		
         
         // update selected item and title, then close the drawer
         Bundle bundle = getIntent().getExtras();
@@ -36,7 +37,7 @@ public class ProductSearchActivity extends BaseActivity implements OnItemSelecte
 
 	private void prepareSearchSection() {
 		TextView et;
-		String coin = "€";
+		char coin = Country.EURO;
 		
 		// price from
 		et = (TextView) findViewById(R.id.from_coin);

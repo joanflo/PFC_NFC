@@ -54,6 +54,11 @@
     </array>
     
     
+    <!-- default values in lists -->
+    <string name="all_brands">All brands</string>
+    <string name="all_categories">All categories</string>
+    
+    
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="description_profile_image">Profile image</string>
@@ -125,7 +130,7 @@
     <string name="title_home_shop">Shop selection</string>
     <string name="title_home_mycart">My cart</string>
     <string name="title_home_mywishlist">My wishlist</string>
-    <string name="title_singin">Sing in</string>
+    <string name="title_signin">Sign in</string>
     <string name="title_password">Change password</string>
     <string name="title_login">Log in</string>
     <string name="title_advanced_search">Advanced search</string>
@@ -156,7 +161,7 @@
     <string name="button_advancedsearch">Advanced search</string>
     <string name="button_search">Search</string>
     <string name="button_skip">Skip</string>
-    <string name="button_singin">Sing in</string>
+    <string name="button_signin">Sign in</string>
     <string name="button_login">Log in</string>
     <string name="button_terms">See terms</string>
     <string name="button_password">Change password</string>
@@ -183,7 +188,7 @@
     <string name="number10">10</string>
     <string name="number20">20</string>
     <array name="points_descriptions">
-        <item>Sing up welcome points</item>
+        <item>Sign up welcome points</item>
         <item>Share a product using NFC</item>
         <item>Share a product in social networks</item>
         <item>Review a product</item>

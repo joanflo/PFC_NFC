@@ -4,6 +4,7 @@ public class PurchaseDetail {
 
 	
 	// primary & foreign keys
+	private int idPurchaseDetail;
 	private Purchase purchase;
 	private Batch batch;
 	
@@ -12,6 +13,17 @@ public class PurchaseDetail {
 	
 	
 	
+	// new purchase detail from database
+	public PurchaseDetail(int idPurchaseDetail, Purchase purchase, Batch batch, int units) {
+		this.idPurchaseDetail = idPurchaseDetail;
+		this.purchase = purchase;
+		this.batch = batch;
+		this.units = units;
+	}
+	
+	
+	
+	// new purchase detail
 	public PurchaseDetail(Purchase purchase, Batch batch, int units) {
 		this.purchase = purchase;
 		this.batch = batch;
@@ -19,6 +31,11 @@ public class PurchaseDetail {
 	}
 
 
+	
+	public int getIdPurchaseDetail() {
+		return idPurchaseDetail;
+	}
+	
 
 	public Purchase getPurchase() {
 		return purchase;

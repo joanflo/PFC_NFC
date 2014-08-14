@@ -83,7 +83,7 @@
                 android:layout_marginRight="4dp"
                 android:layout_weight="0.5"
                 android:onClick="onClickButton"
-                android:text="@string/button_singin" />
+                android:text="@string/button_signin" />
 
             <Button
                 android:id="@+id/button_login"

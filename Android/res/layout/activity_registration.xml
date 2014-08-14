@@ -26,7 +26,7 @@
             android:id="@+id/textView_title_login"
             style="@style/h1"
             android:layout_centerHorizontal="true"
-            android:text="@string/title_singin"
+            android:text="@string/title_signin"
             android:textColor="@color/main_white" />
 
 
@@ -335,7 +335,7 @@
             android:layout_alignLeft="@+id/aux3"
             android:layout_alignParentBottom="true"
             android:onClick="onClickButton"
-            android:text="@string/button_singin" />
+            android:text="@string/button_signin" />
         
     </RelativeLayout>
 
