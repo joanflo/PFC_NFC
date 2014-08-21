@@ -7,6 +7,6 @@ class Subcategory extends Eloquent {
 	
 	protected $primaryKey = 'idSubcategory';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

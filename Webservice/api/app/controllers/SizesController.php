@@ -9,7 +9,7 @@ class SizesController extends BaseController {
     public function show($idSize)
     {
         // GET <URLbase>/sizes/{idSize}
-        
+        return Size::find($idSize);
     }
 	
  

@@ -7,6 +7,6 @@ class Brand extends Eloquent {
 	
 	protected $primaryKey = 'brandName';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

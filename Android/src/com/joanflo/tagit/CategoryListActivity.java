@@ -3,6 +3,9 @@ package com.joanflo.tagit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.json.JSONObject;
+
 import com.joanflo.adapters.CategoryListAdapter;
 import com.joanflo.adapters.CategoryListItem;
 import com.joanflo.models.Brand;
@@ -223,6 +226,12 @@ public class CategoryListActivity extends BaseActivity {
 			startActivity(i);
 		}
 		
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 	
 	

@@ -7,6 +7,6 @@ class Country extends Eloquent {
 	
 	protected $primaryKey = 'countryName';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

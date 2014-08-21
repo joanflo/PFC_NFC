@@ -6,6 +6,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.json.JSONObject;
+
 import com.joanflo.adapters.PurchaseListAdapter;
 import com.joanflo.adapters.PurchaseListItem;
 import com.joanflo.models.Batch;
@@ -510,6 +513,12 @@ public class PurchaseListActivity extends BaseActivity {
 			startActivity(i);
 		}
 		
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 	
 	

@@ -1,9 +1,14 @@
 package com.joanflo.tagit;
 
+import org.json.JSONObject;
+
+import com.joanflo.network.RESTClient;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -38,6 +43,9 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 		fillSpinner(R.id.spinner_registration_region, regions);
 		fillSpinner(R.id.spinner_registration_country, countries);
 		fillSpinner(R.id.spinner_registration_language, languages);
+		
+		Log.i("test", "JODEEER");
+		RESTClient.getInstance().getLanguages(this);
 	}
 	
 	
@@ -116,6 +124,12 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 	public void onCheckboxClicked(View v) {
 		
 		
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 	
 	

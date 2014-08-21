@@ -7,6 +7,6 @@ class Product extends Eloquent {
 	
 	protected $primaryKey = 'idProduct';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

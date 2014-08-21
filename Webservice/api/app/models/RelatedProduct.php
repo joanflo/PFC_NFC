@@ -7,6 +7,6 @@ class Related_Product extends Eloquent {
 	
 	protected $primaryKey = 'idRelatedProduct';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

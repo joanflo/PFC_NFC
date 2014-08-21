@@ -5,6 +5,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -233,11 +236,11 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
     	
     	// set price with IVA
     	int iva = tax.getIva();
-    	double priveWithIva = tax.getBasePrice() + (tax.getBasePrice() * (iva / 100));
+    	double priceWithIva = tax.getBasePrice() + (tax.getBasePrice() * (iva / 100));
     	tv = (TextView) findViewById(R.id.textView_product_ivapricetxt);
     	tv.setText(getResources().getString(R.string.product_price) + " (" + String.valueOf(iva) + "% IVA)");
     	tv = (TextView) findViewById(R.id.textView_product_ivaprice);
-    	tv.setText(df.format(priveWithIva));
+    	tv.setText(df.format(priceWithIva));
     	tv = (TextView) findViewById(R.id.textView_product_ivapricecoin);
     	tv.setText(coin);
     	
@@ -265,7 +268,7 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
     		Double discountMoney;
     		if (tax.getDiscountType() == Tax.DISCOUNT_PERCENT) {
     			discountTxt = discountTxt + " (-" + df.format(tax.getDiscount()) + "%):";
-    			discountMoney = priveWithIva * (tax.getDiscount() / 100);
+    			discountMoney = priceWithIva * (tax.getDiscount() / 100);
     		} else { // Tax.DISCOUNT_MONEY
     			discountMoney = tax.getDiscount();
     		}
@@ -915,6 +918,12 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 		
 		
 		product = p1;
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 	
 	

@@ -3,6 +3,9 @@ package com.joanflo.tagit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.json.JSONObject;
+
 import com.joanflo.adapters.FollowListAdapter;
 import com.joanflo.adapters.FollowListItem;
 import com.joanflo.models.City;
@@ -216,6 +219,12 @@ public class FollowsListActivity extends BaseActivity implements Button.OnClickL
 			startActivity(i);
 		}
 		
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 	
 	

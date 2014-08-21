@@ -1,5 +1,7 @@
 package com.joanflo.tagit;
 
+import org.json.JSONObject;
+
 import com.joanflo.models.Country;
 
 import android.content.Intent;
@@ -106,6 +108,12 @@ public class ProductSearchActivity extends BaseActivity implements OnItemSelecte
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 		
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 
 }

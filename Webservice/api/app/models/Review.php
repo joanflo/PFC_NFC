@@ -7,6 +7,6 @@ class Review extends Eloquent {
 	
 	protected $primaryKey = 'idComment';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

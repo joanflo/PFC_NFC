@@ -1,5 +1,7 @@
 package com.joanflo.tagit;
 
+import org.json.JSONObject;
+
 import com.joanflo.models.City;
 import com.joanflo.models.Country;
 import com.joanflo.models.Language;
@@ -149,6 +151,12 @@ public class UpdateUserDataActivity extends BaseActivity implements OnItemSelect
 	public void onCheckboxClicked(View v) {
 		
 		
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 	
 	
