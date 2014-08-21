@@ -7,6 +7,6 @@ class Size extends Eloquent {
 	
 	protected $primaryKey = 'idSize';
 	
-	public $timestamps = false;
+	protected $timestamps = false;
 
 }

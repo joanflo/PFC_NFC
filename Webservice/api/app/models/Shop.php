@@ -7,6 +7,6 @@ class Shop extends Eloquent {
 	
 	protected $primaryKey = 'idShop';
 	
-	public $timestamps = false;
+	protected $timestamps = false;
 
 }

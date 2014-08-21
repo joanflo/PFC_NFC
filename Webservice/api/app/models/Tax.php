@@ -7,6 +7,6 @@ class Tax extends Eloquent {
 	
 	protected $primaryKey = 'idTax';
 	
-	public $timestamps = false;
+	protected $timestamps = false;
 
 }

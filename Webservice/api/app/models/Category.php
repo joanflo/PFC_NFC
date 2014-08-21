@@ -7,6 +7,6 @@ class Category extends Eloquent {
 	
 	protected $primaryKey = 'idCategory';
 	
-	public $timestamps = false;
+	protected $timestamps = false;
 
 }

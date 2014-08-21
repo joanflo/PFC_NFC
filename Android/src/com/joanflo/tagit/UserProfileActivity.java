@@ -1,9 +1,6 @@
 package com.joanflo.tagit;
 
 import java.util.ArrayList;
-
-import org.json.JSONObject;
-
 import com.joanflo.adapters.BadgeListAdapter;
 import com.joanflo.adapters.BadgeListItem;
 import com.joanflo.models.Achievement;
@@ -248,12 +245,6 @@ public class UserProfileActivity extends BaseActivity implements OnItemClickList
 		i.putExtra("badgeDescription", badge.getDescription());
 		i.putExtra("badgeType", badge.getType());
 		startActivity(i);
-	}
-	
-	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
 	}
 	
 	

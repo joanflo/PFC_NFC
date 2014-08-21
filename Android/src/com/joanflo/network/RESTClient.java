@@ -2,52 +2,46 @@ package com.joanflo.network;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import org.json.JSONObject;
-import android.app.Activity;
-import android.util.Log;
 
-import com.joanflo.models.*;
-import com.joanflo.tagit.*;
+import com.joanflo.models.Achievement;
+import com.joanflo.models.Badge;
+import com.joanflo.models.Batch;
+import com.joanflo.models.Brand;
+import com.joanflo.models.Category;
+import com.joanflo.models.City;
+import com.joanflo.models.Collection;
+import com.joanflo.models.Color;
+import com.joanflo.models.Country;
+import com.joanflo.models.Friendship;
+import com.joanflo.models.Language;
+import com.joanflo.models.Product;
+import com.joanflo.models.ProductImage;
+import com.joanflo.models.Purchase;
+import com.joanflo.models.PurchaseDetail;
+import com.joanflo.models.Region;
+import com.joanflo.models.Review;
+import com.joanflo.models.Shop;
+import com.joanflo.models.Size;
+import com.joanflo.models.Tax;
+import com.joanflo.models.User;
+import com.joanflo.models.Wish;
 
-public class RESTClient implements AsyncResponse {
-	
-	
-	//public static final CharSequence HOST = "http://alumnes-ltim.uib.es/~jflorit/";
-	//public static final CharSequence HOST = "http://79.152.31.226/api/server.php/";
-	public static final CharSequence HOST = "http://192.168.56.1/api/server.php/";
-	//public static final CharSequence HOST = "http://localhost/api/server.php/";
+public class RESTClient {
 
 	
-	// Singleton pattern
-	private static RESTClient instance = null;
-	
-	private RESTClient() {
-		// Exists only to defeat instantiation from any other classes.
-	}
-	
-	public static RESTClient getInstance() {
-		if (instance == null) {
-			instance = new RESTClient();
-		}
-		return instance;
-	}
+	public static final CharSequence HOST = "http://alumnes-ltim.uib.es/~jflorit/";
 	
 	
 	
-	public boolean logInUser(Activity activity, CharSequence userEmail, CharSequence password) {
+	public boolean logInUser(CharSequence userEmail, CharSequence password) {
 		// GET <URLbase>/users/{userEmail}?fields=password
-		InfoRequest info = new InfoRequest(activity, HttpMethod.GET, HOST + "users/" + userEmail + "?fields=password");
-		Log.i("test", "1");
-		new AsyncRequest(this).execute(info);
-		Log.i("test", "2");
-		
 		// comparar el que ens torna la consulta amb els paràmetres del mètode
 		return true;
 	}
 	
 	
 	
-	public User signInUser(Activity activity, User user) {
+	public User signInUser(User user) {
 		CharSequence userEmail = user.getUserEmail();
 		CharSequence cityName = user.getCity().getCityName();
 		CharSequence languageName = user.getLanguage().getLanguageName();
@@ -58,57 +52,55 @@ public class RESTClient implements AsyncResponse {
 		CharSequence password = user.getPassword();
 		CharSequence phone = user.getPhone();
 		CharSequence direction = user.getDirection();
-		// PUT <URLbase>/users/{userEmail}?cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
+		// PUT <URLbase>/users/{userEmail}?userEmail={userEmail}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&password={password}&phone={phone}&direction={direction}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Language> getLanguages(Activity activity) {
+	public ArrayList<Language> getLanguages() {
 		// GET <URLbase>/languages
-		InfoRequest info = new InfoRequest(activity, HttpMethod.GET, HOST + "languages");
-		new AsyncRequest(this).execute(info);
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Country> getCountries(Activity activity) {
+	public ArrayList<Country> getCountries() {
 		// GET <URLbase>/countries
 		return null;
 	}
 	
 	
 	
-	public Country getCountry(Activity activity, CharSequence cityName) {
+	public Country getCountry(CharSequence cityName) {
 		// GET <URLbase>/countries?cityName={cityName}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Region> getRegions(Activity activity, CharSequence countryName) {
+	public ArrayList<Region> getRegions(CharSequence countryName) {
 		// GET <URLbase>/countries/{countryName}/regions
 		return null;
 	}
 	
 	
 	
-	public ArrayList<City> getCities(Activity activity, CharSequence countryName, CharSequence regionName) {
+	public ArrayList<City> getCities(CharSequence countryName, CharSequence regionName) {
 		// GET <URLbase>/countries/{countryName}/regions/{regionName}/cities
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Product> getProducts(Activity activity, CharSequence queryName) {
+	public ArrayList<Product> getProducts(CharSequence queryName) {
 		// GET <URLbase>/products?queryName={queryName}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Product> getProducts(Activity activity, CharSequence queryName, float priceFrom, float priceSince, char coin, CharSequence brandName, int idCategory, float rating) {
+	public ArrayList<Product> getProducts(CharSequence queryName, float priceFrom, float priceSince, char coin, CharSequence brandName, int idCategory, float rating) {
 		if (queryName != null) {
 			// afegir a la URL
 		}
@@ -131,7 +123,7 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public ArrayList<Category> getCategories(Activity activity, int level) {
+	public ArrayList<Category> getCategories(int level) {
 		// (includes subcategories/products for each category)
 		// GET <URLbase>/categories?level={level}
 		return null;
@@ -139,7 +131,7 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public ArrayList<Category> getSubategories(Activity activity, int idCategory) {
+	public ArrayList<Category> getSubategories(int idCategory) {
 		// (includes sub-subcategories/products for each category)
 		// GET <URLbase>/categories/{idCategory}/subcategories
 		return null;
@@ -147,7 +139,7 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public ArrayList<Shop> getShops(Activity activity, CharSequence cityName) {
+	public ArrayList<Shop> getShops(CharSequence cityName) {
 		// returns all the shops in the city
 		// GET <URLbase>/shops?cityName={cityName}
 		return null;
@@ -155,7 +147,7 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public ArrayList<Shop> getShops(Activity activity, double latitude, double longitude) {
+	public ArrayList<Shop> getShops(double latitude, double longitude) {
 		// returns the most near shops from current location
 		// GET <URLbase>/shops?latitude={latitude}&longitude={longitude}
 		return null;
@@ -163,21 +155,21 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public Shop getShop(Activity activity, int idShop) {
+	public Shop getShop(int idShop) {
 		// GET <URLbase>/shops/{idShop}
 		return null;
 	}
 	
 	
 	
-	public User getCurrentUser(Activity activity, CharSequence userEmail) {
+	public User getCurrentUser(CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}
 		return null;
 	}
 	
 	
 	
-	public User getAnotherUser(Activity activity, CharSequence userEmail) {
+	public User getAnotherUser(CharSequence userEmail) {
 		// doesn't returns personal information
 		// GET <URLbase>/users/{userEmail}?fields=nick,points
 		return null;
@@ -185,101 +177,101 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public User updateUserData(Activity activity, User user) {
+	public User updateUserData(User user) {
 		// same request
-		return signInUser(activity, user);
+		return signInUser(user);
 	}
 	
 	
 	
-	public boolean changeUserPassword(Activity activity, CharSequence userEmail, CharSequence password) {
+	public boolean changeUserPassword(CharSequence userEmail, CharSequence password) {
 		// PUT <URLbase>/users/{userEmail}?password={password}
 		return true;
 	}
 	
 	
 	
-	public ArrayList<User> getFollowers(Activity activity, CharSequence userEmail) {
+	public ArrayList<User> getFollowers(CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/friendships?following=false
 		return null;
 	}
 	
 	
 	
-	public ArrayList<User> getFollowing(Activity activity, CharSequence userEmail) {
+	public ArrayList<User> getFollowing(CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/friendships?following=true
 		return null;
 	}
 	
 	
 	
-	public Friendship followUser(Activity activity, CharSequence userEmailFollowing, CharSequence userEmailFollowed) {
+	public Friendship followUser(CharSequence userEmailFollowing, CharSequence userEmailFollowed) {
 		// POST <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
 		return null;
 	}
 	
 	
 	
-	public Friendship unfollowUser(Activity activity, CharSequence userEmailFollowing, CharSequence userEmailFollowed) {
+	public Friendship unfollowUser(CharSequence userEmailFollowing, CharSequence userEmailFollowed) {
 		// DELETE <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Achievement> getAchievements(Activity activity, CharSequence userEmail) {
+	public ArrayList<Achievement> getAchievements(CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/achievements
 		return null;
 	}
 	
 	
 	
-	public Achievement createAchievement(Activity activity, Achievement achievement) {
+	public Achievement createAchievement(Achievement achievement) {
 		CharSequence userEmail = achievement.getUser().getUserEmail();
 		CharSequence badgeName = achievement.getBadge().getBadgeName();
 		Timestamp date = achievement.getDate();
-		// POST <URLbase>/users/{userEmail}/achievements?badgeName={badgeName}
+		// POST <URLbase>/users/{userEmail}/achievements?badgeName={badgeName}&date={date}
 		return null;
 	}
 	
 	
 	
-	public Achievement getAchievement(Activity activity, CharSequence userEmail, int idAchievement) {
+	public Achievement getAchievement(CharSequence userEmail, int idAchievement) {
 		// GET <URLbase>/users/{userEmail}/achievements/{idAchievement}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Badge> getBadges(Activity activity) {
+	public ArrayList<Badge> getBadges() {
 		// GET <URLbase>/badges
 		return null;
 	}
 	
 	
 	
-	public Badge getBadge(Activity activity, CharSequence badgeName) {
+	public Badge getBadge(CharSequence badgeName) {
 		// GET <URLbase>/badges/{badgeName}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Review> getReviews(Activity activity, CharSequence userEmail) {
+	public ArrayList<Review> getReviews(CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/reviews
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Review> getReviews(Activity activity, int idProduct) {
+	public ArrayList<Review> getReviews(int idProduct) {
 		// GET <URLbase>/products/{idProduct}/reviews
 		return null;
 	}
 	
 	
 	
-	public Review createReview(Activity activity, Review review) {
+	public Review createReview(Review review) {
 		CharSequence userEmail = review.getUser().getUserEmail();
 		int idProduct = review.getProduct().getIdProduct();
 		float rating = review.getRating();
@@ -293,21 +285,21 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public Review getReview(Activity activity, CharSequence userEmail, int idComment) {
+	public Review getReview(CharSequence userEmail, int idComment) {
 		// GET <URLbase>/users/{userEmail}/reviews/{idComment}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Wish> getWishes(Activity activity, CharSequence userEmail) {
+	public ArrayList<Wish> getWishes(CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/wishes
 		return null;
 	}
 	
 	
 	
-	public Wish createWish(Activity activity, Wish wish) {
+	public Wish createWish(Wish wish) {
 		CharSequence userEmail = wish.getUser().getUserEmail();
 		int idProduct = wish.getProduct().getIdProduct();
 		Timestamp date = wish.getDate();
@@ -319,56 +311,56 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public Wish getWish(Activity activity, CharSequence userEmail, int idWish) {
+	public Wish getWish(CharSequence userEmail, int idWish) {
 		// GET <URLbase>/users/{userEmail}/wishes/{idWish}
 		return null;
 	}
 	
 	
 	
-	public Wish deleteWish(Activity activity, CharSequence userEmail, int idWish) {
+	public Wish deleteWish(CharSequence userEmail, int idWish) {
 		// DELETE <URLbase>/users/{userEmail}/wishes/{idWish}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Purchase> getPurchases(Activity activity, CharSequence userEmail) {
+	public ArrayList<Purchase> getPurchases(CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/purchases
 		return null;
 	}
 	
 	
 	
-	public Purchase getPurchase(Activity activity, CharSequence userEmail, int idPurchase) {
+	public Purchase getPurchase(CharSequence userEmail, int idPurchase) {
 		// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}
 		return null;
 	}
 	
 	
 	
-	public Purchase getCartPurchase(Activity activity, CharSequence userEmail) {
+	public Purchase getCartPurchase(CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/purchases?status={Purchase.STATUS_PENDING}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<PurchaseDetail> getPurchaseDetails(Activity activity, CharSequence userEmail, int idPurchase) {
+	public ArrayList<PurchaseDetail> getPurchaseDetails(CharSequence userEmail, int idPurchase) {
 		// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details
 		return null;
 	}
 	
 	
 	
-	public PurchaseDetail getPurchaseDetail(Activity activity, CharSequence userEmail, int idPurchase, int idPurchaseDetail) {
+	public PurchaseDetail getPurchaseDetail(CharSequence userEmail, int idPurchase, int idPurchaseDetail) {
 		// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}
 		return null;
 	}
 	
 	
 	
-	public PurchaseDetail createPurchaseDetail(Activity activity, CharSequence userEmail, PurchaseDetail detail) {
+	public PurchaseDetail createPurchaseDetail(CharSequence userEmail, PurchaseDetail detail) {
 		// new purchase detail added to the current purchase (STATUS_PENDING). If doesn't exists, it's created.
 		int idPurchase = detail.getPurchase().getIdPurchase();
 		int idBatch = detail.getBatch().getIdBatch();
@@ -379,7 +371,7 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public PurchaseDetail updatePurchaseDetail(Activity activity, CharSequence userEmail, PurchaseDetail detail) {
+	public PurchaseDetail updatePurchaseDetail(CharSequence userEmail, PurchaseDetail detail) {
 		int idPurchaseDetail = detail.getIdPurchaseDetail();
 		int idPurchase = detail.getPurchase().getIdPurchase();
 		int idBatch = detail.getBatch().getIdBatch();
@@ -390,21 +382,21 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public PurchaseDetail deletePurchaseDetail(Activity activity, CharSequence userEmail, int idPurchase, int idPurchaseDetail) {
+	public PurchaseDetail deletePurchaseDetail(CharSequence userEmail, int idPurchase, int idPurchaseDetail) {
 		// DELETE <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}
 		return null;
 	}
 	
 	
 	
-	public Batch getBatch(Activity activity, int idBatch) {
+	public Batch getBatch(int idBatch) {
 		// GET <URLbase>/batches/{idBatch}
 		return null;
 	}
 	
 	
 	
-	public Batch updateBatch(Activity activity, Batch batch) {
+	public Batch updateBatch(Batch batch) {
 		int idBatch = batch.getIdBatch();
 		int units = batch.getUnits();
 		// PUT <URLbase>/batches/{idBatch}?units={units}
@@ -413,179 +405,79 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public Tax getTax(Activity activity, int idProduct, CharSequence countryName) {
+	public Tax getTax(int idProduct, CharSequence countryName) {
 		// GET <URLbase>/taxes?idProduct={idProduct}&countryName={countryName}
 		return null;
 	}
 	
 	
 	
-	public Size getSize(Activity activity, int idSize) {
+	public Size getSize(int idSize) {
 		// GET <URLbase>/sizes/{idSize}
 		return null;
 	}
 	
 	
 	
-	public Color getColor(Activity activity, CharSequence colorCode) {
+	public Color getColor(CharSequence colorCode) {
 		// GET <URLbase>/colors/{colorCode}
 		return null;
 	}
 	
 	
 	
-	public Product getProduct(Activity activity, int idProduct) {
+	public Product getProduct(int idProduct) {
 		// GET <URLbase>/products/{idProduct}
 		return null;
 	}
 	
 	
 	
-	public Brand getBrand(Activity activity, CharSequence brandName) {
+	public Brand getBrand(CharSequence brandName) {
 		// GET <URLbase>/brands/{brandName}
 		return null;
 	}
 	
 	
 	
-	public Collection getCollection(Activity activity, int idCollection) {
+	public Collection getCollection(int idCollection) {
 		// GET <URLbase>/collections/{idCollection}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<ProductImage> getProductImages(Activity activity, int idProduct) {
+	public ArrayList<ProductImage> getProductImages(int idProduct) {
 		// GET <URLbase>/products/{idProduct}/product_images
 		return null;
 	}
 	
 	
 	
-	public ProductImage getProductFrontImage(Activity activity, int idProduct) {
+	public ProductImage getProductFrontImage(int idProduct) {
 		// GET <URLbase>/products/{idProduct}/product_images?type={ProductImage.TYPE_FRONT}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Batch> getBatches(Activity activity, int idProduct) {
+	public ArrayList<Batch> getBatches(int idProduct) {
 		// GET <URLbase>/batches?idProduct={idProduct}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Batch> getBatches(Activity activity, int idProduct, int idShop) {
+	public ArrayList<Batch> getBatches(int idProduct, int idShop) {
 		// GET <URLbase>/batches?idProduct={idProduct}&idShop={idShop}
 		return null;
 	}
 	
 	
 	
-	public ArrayList<Product> getRelatedProducts(Activity activity, int idProduct) {
+	public ArrayList<Product> getRelatedProducts(int idProduct) {
 		// GET <URLbase>/products/{idProduct}/related_products
 		return null;
-	}
-	
-	
-
-	@Override
-	public void requestFinished(InfoResponse[] infoResponses) {
-		Log.i("test", "i");
-		// for each response
-		for (int i = 0; i < infoResponses.length; i++) {
-			
-			// get response fields
-			Activity activity = infoResponses[i].getActivity();
-			JSONObject jObject = infoResponses[i].getJObject();
-			
-			// identify activity subclass to delegate it the JSON data
-			if (activity instanceof BadgeActivity) {
-				BadgeActivity badgeActivity = (BadgeActivity) activity;
-				badgeActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof BadgeListActivity) {
-				BadgeListActivity badgeListActivity = (BadgeListActivity) activity;
-				badgeListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof BrandActivity) {
-				BrandActivity brandActivity = (BrandActivity) activity;
-				brandActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof CategoryListActivity) {
-				CategoryListActivity categoryListActivity = (CategoryListActivity) activity;
-				categoryListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof FollowsListActivity) {
-				FollowsListActivity followsListActivity = (FollowsListActivity) activity;
-				followsListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof HomeActivity) {
-				HomeActivity homeActivity = (HomeActivity) activity;
-				homeActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof LoginActivity) {
-				LoginActivity loginActivity = (LoginActivity) activity;
-				loginActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof NewReviewActivity) {
-				NewReviewActivity newReviewActivity = (NewReviewActivity) activity;
-				newReviewActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof PasswordActivity) {
-				PasswordActivity passwordActivity = (PasswordActivity) activity;
-				passwordActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ProductActivity) {
-				ProductActivity productActivity = (ProductActivity) activity;
-				productActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ProductListActivity) {
-				ProductListActivity productListActivity = (ProductListActivity) activity;
-				productListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ProductSearchActivity) {
-				ProductSearchActivity productSearchActivity = (ProductSearchActivity) activity;
-				productSearchActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof PurchaseDetailListActivity) {
-				PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
-				purchaseDetailListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof PurchaseListActivity) {
-				PurchaseListActivity purchaseListActivity = (PurchaseListActivity) activity;
-				purchaseListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof RegistrationActivity) {
-				RegistrationActivity registrationActivity = (RegistrationActivity) activity;
-				registrationActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ReviewListActivity) {
-				ReviewListActivity reviewListActivity = (ReviewListActivity) activity;
-				reviewListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ShopActivity) {
-				ShopActivity shopActivity = (ShopActivity) activity;
-				shopActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ShopSelectionActivity) {
-				ShopSelectionActivity shopSelectionActivity = (ShopSelectionActivity) activity;
-				shopSelectionActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof UpdateUserDataActivity) {
-				UpdateUserDataActivity updateUserDataActivity = (UpdateUserDataActivity) activity;
-				updateUserDataActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof UserProfileActivity) {
-				UserProfileActivity userProfileActivity = (UserProfileActivity) activity;
-				userProfileActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof WishListActivity) {
-				WishListActivity wishListActivity = (WishListActivity) activity;
-				wishListActivity.requestFinished(jObject);
-			}
-		}
 	}
 	
 	

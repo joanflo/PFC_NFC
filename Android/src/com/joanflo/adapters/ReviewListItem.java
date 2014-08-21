@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 import com.joanflo.models.Product;
 import com.joanflo.models.ProductImage;
 import com.joanflo.models.User;
-import com.joanflo.network.RESTClient;
+import com.joanflo.network.WebserviceHTTP;
 import com.joanflo.utils.Time;
 
 public class ReviewListItem {
@@ -32,7 +32,7 @@ public class ReviewListItem {
 		this(date, rating, comment);
 		this.description = user.getName();
 		try {
-			this.urlThumb = new URL(RESTClient.HOST + "profile_images/" + user.getNick() + ".jpg");
+			this.urlThumb = new URL(WebserviceHTTP.HOST + "profile_images/" + user.getNick() + ".jpg");
 		} catch (MalformedURLException e) {
 			this.urlThumb = null;
 		}

@@ -7,6 +7,6 @@ class Region extends Eloquent {
 	
 	protected $primaryKey = 'regionName';
 	
-	public $timestamps = false;
+	protected $timestamps = false;
 
 }

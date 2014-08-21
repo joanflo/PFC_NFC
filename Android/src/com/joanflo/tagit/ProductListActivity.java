@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import org.json.JSONObject;
-
 import com.joanflo.adapters.ProductListAdapter;
 import com.joanflo.adapters.ProductListItem;
 import com.joanflo.adapters.SpinnerNavAdapter;
@@ -469,12 +466,6 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
         ListView productList = (ListView) findViewById(R.id.listView_product);
         productList.setAdapter(adapter);
 		return false;
-	}
-	
-	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
 	}
 	
 	

@@ -17,7 +17,7 @@ class BadgesController extends BaseController {
      */
     public function show($badgeName) {
         // GET <URLbase>/badges/{badgeName}
-        return Badge::find($badgeName);
+        
     }
 	
  

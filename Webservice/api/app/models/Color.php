@@ -7,6 +7,6 @@ class Color extends Eloquent {
 	
 	protected $primaryKey = 'colorCode';
 	
-	public $timestamps = false;
+	protected $timestamps = false;
 
 }

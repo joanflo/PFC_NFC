@@ -7,6 +7,6 @@ class User extends Eloquent {
 	
 	protected $primaryKey = 'userEmail';
 	
-	public $timestamps = false;
+	protected $timestamps = false;
 
 }

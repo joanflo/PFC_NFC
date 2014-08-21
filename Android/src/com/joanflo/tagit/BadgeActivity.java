@@ -1,9 +1,6 @@
 package com.joanflo.tagit;
 
 import java.sql.Timestamp;
-
-import org.json.JSONObject;
-
 import com.joanflo.models.Achievement;
 import com.joanflo.models.Badge;
 import com.joanflo.utils.AssetsUtils;
@@ -74,11 +71,5 @@ public class BadgeActivity extends BaseActivity {
 	public void onClickButton(View v) {
 		super.onClickButton(v);
     }
-	
-	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
 
 }

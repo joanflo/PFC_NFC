@@ -7,6 +7,6 @@ class Collection extends Eloquent {
 	
 	protected $primaryKey = 'idCollection';
 	
-	public $timestamps = false;
+	protected $timestamps = false;
 
 }

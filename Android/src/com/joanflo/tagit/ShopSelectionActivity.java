@@ -2,9 +2,6 @@ package com.joanflo.tagit;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONObject;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -328,12 +325,6 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 		}
 		
     }
-	
-	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
     
 
 }

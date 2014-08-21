@@ -70,7 +70,7 @@
     <string name="currentshop_text">Current shop</string>
     <string name="shopinfo_text">Shop info</string>
     <string name="nocurrentshopselected_text">No current shop\nselected. Pick a shop\nto check products\navailability.</string>
-    <string name="identifier">Email</string>
+    <string name="identifier">Nick or email</string>
     <string name="email">Email*</string>
     <string name="email2">Email</string>
     <string name="city_name">City*</string>

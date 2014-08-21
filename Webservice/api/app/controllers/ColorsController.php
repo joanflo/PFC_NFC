@@ -9,7 +9,7 @@ class ColorsController extends BaseController {
     public function show($colorCode)
     {
         // GET <URLbase>/colors/{colorCode}
-        return Color::find($colorCode);
+        
     }
 	
  

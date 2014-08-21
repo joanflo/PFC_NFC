@@ -156,7 +156,7 @@ Route::get('users/{userEmail}/achievements/{idAchievement}', 'UsersController@sh
  * ===================================== TAXES ==================================== *
  * ================================================================================ */
  
-Route::get('taxes', 'TaxesController@show');
+Route::get('taxes', 'TaxesController@index');
  
 
 
@@ -189,4 +189,7 @@ Route::get('products/{idProduct}/reviews', 'ProductsController@showReviews');
 Route::get('products/{idProduct}/related_products', 'ProductsController@showRelatedProducts');
 
 Route::get('products/{idProduct}/product_images', 'ProductsController@showProductImages');
+
+
+
 

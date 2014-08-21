@@ -7,6 +7,6 @@ class Wish extends Eloquent {
 	
 	protected $primaryKey = 'idWish';
 	
-	public $timestamps = false;
+	protected $timestamps = false;
 
 }

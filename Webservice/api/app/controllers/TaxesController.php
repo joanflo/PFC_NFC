@@ -4,13 +4,12 @@ class TaxesController extends BaseController {
  
  
     /**
-     * Display the specified resource.
+     * Display a listing of the resource.
      */
-    public function show() {
+    public function index()
+    {
         // GET <URLbase>/taxes?idProduct={idProduct}&countryName={countryName}
-        $idProduct = Input::get('idProduct');
-        $countryName = Input::get('countryName');
-		return Tax::where('idProduct', '=', $idProduct)->where('countryName', '=', $countryName)->get()[0];
+        
     }
 	
  

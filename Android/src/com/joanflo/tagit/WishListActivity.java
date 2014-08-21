@@ -4,9 +4,6 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.json.JSONObject;
-
 import com.joanflo.adapters.WishListAdapter;
 import com.joanflo.adapters.WishListItem;
 import com.joanflo.models.Batch;
@@ -529,12 +526,6 @@ public class WishListActivity extends BaseActivity implements Button.OnClickList
 			startActivity(i);
 		}
 		
-	}
-	
-	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
 	}
 	
 	

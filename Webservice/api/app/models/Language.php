@@ -7,6 +7,6 @@ class Language extends Eloquent {
 	
 	protected $primaryKey = 'languageName';
 	
-	public $timestamps = false;
+	protected $timestamps = false;
 
 }
