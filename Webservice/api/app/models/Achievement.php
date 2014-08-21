@@ -7,6 +7,6 @@ class Achievement extends Eloquent {
 	
 	protected $primaryKey = 'idAchievement';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

@@ -1,5 +1,7 @@
 package com.joanflo.tagit;
 
+import org.json.JSONObject;
+
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -185,6 +187,12 @@ public class HomeActivity extends BaseActivity {
 			break;
 		}
     }
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
+	}
 	
 	
 }

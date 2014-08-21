@@ -7,6 +7,6 @@ class Batch extends Eloquent {
 	
 	protected $primaryKey = 'idBatch';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

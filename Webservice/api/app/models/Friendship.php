@@ -7,6 +7,6 @@ class Friendship extends Eloquent {
 	
 	protected $primaryKey = 'idFriendship';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

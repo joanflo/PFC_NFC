@@ -4,6 +4,9 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.json.JSONObject;
+
 import com.joanflo.adapters.ReviewListAdapter;
 import com.joanflo.adapters.ReviewListItem;
 import com.joanflo.models.Batch;
@@ -456,6 +459,12 @@ public class ReviewListActivity extends BaseActivity {
 			
 		}
 		
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 	
 	

@@ -7,6 +7,6 @@ class Product_Image extends Eloquent {
 	
 	protected $primaryKey = 'url';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

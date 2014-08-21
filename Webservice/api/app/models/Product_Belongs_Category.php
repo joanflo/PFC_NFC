@@ -7,6 +7,6 @@ class Product_Belongs_Category extends Eloquent {
 	
 	protected $primaryKey = 'idProductBelongsCategory';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

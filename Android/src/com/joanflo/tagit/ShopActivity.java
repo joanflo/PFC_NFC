@@ -1,6 +1,8 @@
 package com.joanflo.tagit;
 
 
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -180,6 +182,12 @@ public class ShopActivity extends BaseActivity {
 		}
 		
 		shopSelected = !shopSelected;
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 	
 	

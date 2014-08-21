@@ -1,9 +1,17 @@
 package com.joanflo.tagit;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.joanflo.network.AsyncResponse;
+import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.R.id;
 
 public class LoginActivity extends Activity {
 
@@ -30,6 +38,12 @@ public class LoginActivity extends Activity {
 			
 		case R.id.button_login:
 			// Log in
+			TextView tv;
+			tv = (TextView) findViewById(R.id.textView_identifier);
+			CharSequence userEmail = tv.getText();
+			tv = (TextView) findViewById(R.id.textView_password);
+			CharSequence password = tv.getText();
+			RESTClient.getInstance().logInUser(this, userEmail, password);
 			break;
 			
 		case R.id.button_singin_login:
@@ -38,6 +52,13 @@ public class LoginActivity extends Activity {
 			startActivity(iRegistration);
 			break;
 		}
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
+		Toast.makeText(this, "YEAH", Toast.LENGTH_LONG).show();
 	}
 	
 	

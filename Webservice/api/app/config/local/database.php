@@ -19,13 +19,13 @@ return array(
 	*/
 
 	'connections' => array(
-
+		
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'homestead',
-			'username'  => 'homestead',
-			'password'  => 'secret',
+			'database'  => 'jflorit_pfcDB',
+			'username'  => 'jflorit',
+			'password'  => 'j0anNFC',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

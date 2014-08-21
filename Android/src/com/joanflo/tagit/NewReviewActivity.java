@@ -2,6 +2,9 @@ package com.joanflo.tagit;
 
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
+
+import org.json.JSONObject;
+
 import com.joanflo.models.Brand;
 import com.joanflo.models.City;
 import com.joanflo.models.Collection;
@@ -148,6 +151,12 @@ public class NewReviewActivity extends BaseActivity {
 		float rating = bar.getRating();
 		
 		Review review = new Review(666, product, user, rating, comment);
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 	
 	

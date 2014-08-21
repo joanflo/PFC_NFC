@@ -7,6 +7,6 @@ class Badge extends Eloquent {
 	
 	protected $primaryKey = 'badgeName';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

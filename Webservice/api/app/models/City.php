@@ -7,6 +7,6 @@ class City extends Eloquent {
 	
 	protected $primaryKey = 'cityName';
 	
-	protected $timestamps = false;
+	public $timestamps = false;
 
 }

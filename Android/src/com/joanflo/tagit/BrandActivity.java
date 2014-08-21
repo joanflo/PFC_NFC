@@ -1,6 +1,8 @@
 package com.joanflo.tagit;
 
 
+import org.json.JSONObject;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -147,6 +149,12 @@ public class BrandActivity extends BaseActivity {
 			break;
 		}
     }
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
+	}
 	
 	
 }

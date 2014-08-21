@@ -1,5 +1,7 @@
 package com.joanflo.tagit;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +33,12 @@ public class PasswordActivity extends Activity {
 			
 			break;
 		}
+	}
+	
+	
+	
+	public synchronized void requestFinished(JSONObject jResponses) {
+		// TODO
 	}
 	
 	
