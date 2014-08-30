@@ -109,11 +109,5 @@ public class ProductSearchActivity extends BaseActivity implements OnItemSelecte
 	public void onNothingSelected(AdapterView<?> arg0) {
 		
 	}
-	
-	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
 
 }

@@ -4,7 +4,7 @@ class SizesController extends BaseController {
 	
  
     /**
-     * Display the specified resource.
+     * Display the specified size.
      */
     public function show($idSize)
     {

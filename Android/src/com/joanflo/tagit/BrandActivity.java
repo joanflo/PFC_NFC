@@ -151,10 +151,4 @@ public class BrandActivity extends BaseActivity {
     }
 	
 	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
-	
 }

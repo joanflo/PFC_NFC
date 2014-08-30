@@ -57,6 +57,7 @@
     <!-- default values in lists -->
     <string name="all_brands">All brands</string>
     <string name="all_categories">All categories</string>
+    <string name="list_default">::Select::</string>
     
     
     <!-- Content Description -->
@@ -201,5 +202,11 @@
     <string name="nfc_beam">Beam products from one phone to another</string>
     <string name="nfc_settings">Ensure that NFC is enabled</string>
     <string name="nfc_tag">Tap on NFC to add product into shopping cart</string>
+    
+    
+    <!-- toast messages -->
+    <string name="toast_login">Wrong user or password. Please try again.</string>
+    <string name="toast_requiredfields">All required fields must be filled. Terms and conditions must be accepted.</string>
+    <string name="toast_problem_creatinguser">Ops! There was a problem creating the user.</string>
     
 </resources>

@@ -2,30 +2,28 @@ package com.joanflo.network;
 
 import org.json.JSONObject;
 
-import android.app.Activity;
-
 public class InfoResponse {
 
 	
-	private Activity activity;
+	private Object controller;
 	private JSONObject jObject;
 	
 	
 	
-	public InfoResponse(Activity activity, JSONObject jObject) {
-		this.activity = activity;
+	public InfoResponse(Object controller, JSONObject jObject) {
+		this.controller = controller;
 		this.jObject = jObject;
 	}
 
 
 
-	public Activity getActivity() {
-		return activity;
+	public Object getController() {
+		return controller;
 	}
 
 
-	public void setActivity(Activity activity) {
-		this.activity = activity;
+	public void setController(Object controller) {
+		this.controller = controller;
 	}
 
 

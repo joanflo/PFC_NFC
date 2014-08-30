@@ -3,19 +3,17 @@ package com.joanflo.network;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import android.app.Activity;
-
 public class InfoRequest {
 
 	
-	private Activity activity;
+	private Object controller;
 	private HttpMethod method;
 	private URI uri;
 	
 	
 	
-	public InfoRequest(Activity activity, HttpMethod method, String uri) {
-		this.activity = activity;
+	public InfoRequest(Object controller, HttpMethod method, String uri) {
+		this.controller = controller;
 		this.method = method;
 		try {
 			this.uri = new URI(uri);
@@ -26,13 +24,13 @@ public class InfoRequest {
 
 
 
-	public Activity getActivity() {
-		return activity;
+	public Object getController() {
+		return controller;
 	}
 
 
-	public void setActivity(Activity activity) {
-		this.activity = activity;
+	public void setController(Object controller) {
+		this.controller = controller;
 	}
 
 

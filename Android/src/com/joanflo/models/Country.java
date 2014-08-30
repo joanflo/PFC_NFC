@@ -2,6 +2,9 @@ package com.joanflo.models;
 
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Country {
 	
 	
@@ -28,6 +31,13 @@ public class Country {
 		this.regions = regions;
 		this.code = code;
 		this.coin = coin;
+	}
+	
+	public Country(JSONObject jCountry) throws JSONException {
+		this.countryName = jCountry.getString("countryName");
+		this.regions = null;
+		this.code = jCountry.getInt("code");
+		this.coin = jCountry.getString("coin").charAt(0);
 	}
 	
 

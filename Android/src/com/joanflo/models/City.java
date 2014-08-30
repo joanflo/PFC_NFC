@@ -2,6 +2,9 @@ package com.joanflo.models;
 
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class City {
 
 
@@ -18,6 +21,12 @@ public class City {
 		this.cityName = cityName;
 		this.shops = shops;
 		this.region = region;
+	}
+	
+	public City(JSONObject jCities) throws JSONException {
+		this.cityName = jCities.getString("cityName");
+		this.shops = null;
+		this.region = null;
 	}
 	
 	
@@ -38,6 +47,20 @@ public class City {
 	
 	public Region getRegion() {
 		return region;
+	}
+	
+	
+	
+	public JSONObject convertToJSON() {
+		JSONObject jCity = new JSONObject();
+		
+		try {
+			jCity.put("cityName", cityName);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return jCity;
 	}
 	
 	

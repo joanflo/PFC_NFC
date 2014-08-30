@@ -2,6 +2,9 @@ package com.joanflo.models;
 
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Region {
 
 	
@@ -18,6 +21,12 @@ public class Region {
 		this.regionName = regionName;
 		this.cities = cities;
 		this.country = country;
+	}
+	
+	public Region(JSONObject jRegions) throws JSONException {
+		this.regionName = jRegions.getString("regionName");
+		this.cities = null;
+		this.country = null;
 	}
 	
 	

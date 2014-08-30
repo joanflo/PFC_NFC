@@ -4,7 +4,7 @@ class CategoriesController extends BaseController {
  
  
     /**
-     * Display a listing of the resource.
+     * Display a listing of categories.
      */
     public function indexCategories() {
         // GET <URLbase>/categories?level={level}
@@ -14,7 +14,7 @@ class CategoriesController extends BaseController {
  
  
     /**
-     * Display a listing of the nested resource.
+     * Display a listing of the nested categories (subcategories).
      */
     public function indexSubcategories($idCategory) {
         // GET <URLbase>/categories/{idCategory}/subcategories

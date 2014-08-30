@@ -4,7 +4,7 @@ class CountriesController extends BaseController {
  
  
     /**
-     * Display a listing of the resource.
+     * Display a listing of countries.
      */
     public function indexCountries() {
         // GET <URLbase>/countries

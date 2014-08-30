@@ -4,34 +4,62 @@ class UsersController extends BaseController {
  
  
     /**
-     * Display the specified resource.
+     * Display the specified user.
      */
     public function show($userEmail) {
         // GET <URLbase>/users/{userEmail}
         // GET <URLbase>/users/{userEmail}?fields=nick,points
-        // GET <URLbase>/users/{userEmail}?fields=password
+        // GET <URLbase>/users/{userEmail}?password={password}
         $fields = Input::get('fields');
 		if ($fields) {
+			// only return some fields
 			$fields = explode(',', $fields);
 			return User::where('userEmail', '=', $userEmail)->select($fields)->get()[0];
 		} else {
-			return User::where('userEmail', '=', $userEmail)->select('userEmail', 'cityName', 'languageName', 'nick', 'name', 'surname', 'age', 'phone', 'direction', 'registration', 'points')->get()[0];
+			$password = Input::get('password');
+			if ($password) {
+				// login
+				return $password == User::where('userEmail', '=', $userEmail)->select('password')->get()[0];
+			} else {
+				// return the whole user (except password)
+				return User::where('userEmail', '=', $userEmail)->select('userEmail', 'cityName', 'languageName', 'nick', 'name', 'surname', 'age', 'phone', 'direction', 'registration', 'points')->get()[0];
+			}
 		}
     }
  
  
     /**
-     * Update the specified resource in storage.
+     * Update the specified user in storage.
      */
     public function update($userEmail) {
         // PUT <URLbase>/users/{userEmail}?password={password}
         // PUT <URLbase>/users/{userEmail}?cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
-        $password = Input::get('password');
-		if ($password) {
-			// peta
+        // PUT <URLbase>/users/{userEmail}?password={password}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
+        
+        // check if user exists
+        $user = User::where('userEmail', '=', $userEmail)->get()[0];
+		$password = Input::get('password');
+		if ($user) {
+			// update user
+			if ($password) {
+				// update user's password
+				$user->password = $password;
+			} else {
+				// update user's data
+				$user->cityName = Input::get('cityName');
+				$user->languageName = Input::get('languageName');
+				$user->nick = Input::get('nick');
+				$user->name = Input::get('name');
+				$user->surname = Input::get('surname');
+				$user->age = Input::get('age');
+				$user->phone = Input::get('phone');
+				$user->direction = Input::get('direction');
+			}
+			
 		} else {
-			// peta
-			$user = User::where('userEmail', '=', $userEmail)->get()[0];
+			// create user
+			$user = new User();
+			$user->password = $password;
 			$user->cityName = Input::get('cityName');
 			$user->languageName = Input::get('languageName');
 			$user->nick = Input::get('nick');
@@ -40,14 +68,16 @@ class UsersController extends BaseController {
 			$user->age = Input::get('age');
 			$user->phone = Input::get('phone');
 			$user->direction = Input::get('direction');
-			$user->save();
-			return $user;
 		}
+		
+		// save changes
+		$user->save();
+		return $user;
     }
 	
 	
 	/**
-     * Display a listing of the resource.
+     * Display a listing of reviews
      */
     public function indexReviews($userEmail) {
         // GET <URLbase>/users/{userEmail}/reviews
@@ -56,23 +86,23 @@ class UsersController extends BaseController {
 	
 	
 	/**
-     * Show the form for creating a new resource.
+     * Create a new review.
      */
     public function createReview($userEmail) {
-        // POST <URLbase>/users/{userEmail}/reviews?idProduct={idProduct}&rating={rating}&comment={comment}&date={date}
+        // POST <URLbase>/users/{userEmail}/reviews?idProduct={idProduct}&rating={rating}&comment={comment}
         $review = new Review();
 		$review->idProduct = Input::get('idProduct');
 		$review->userEmail = $userEmail;
 		$review->rating = Input::get('rating');
 		$review->comment = Input::get('comment');
-		$review->date = Input::get('date');
+		$review->date = \Carbon\Carbon::now()->toDateTimeString();
 		$review->save();
 		return $review;
     }
 	
 	
 	/**
-     * Display the specified resource.
+     * Display the specified review.
      */
     public function showReview($userEmail, $idComment) {
         // GET <URLbase>/users/{userEmail}/reviews/{idComment}
@@ -83,7 +113,7 @@ class UsersController extends BaseController {
 	
 	
 	/**
-     * Display a listing of the resource.
+     * Display a listing of wishes.
      */
     public function indexWishes($userEmail) {
         // GET <URLbase>/users/{userEmail}/wishes
@@ -92,21 +122,21 @@ class UsersController extends BaseController {
 	
 	
 	/**
-     * Show the form for creating a new resource.
+     * Create a new wish.
      */
     public function createWish($userEmail) {
-        // POST <URLbase>/users/{userEmail}/wishes?idProduct={idProduct}&date={date}
+        // POST <URLbase>/users/{userEmail}/wishes?idProduct={idProduct}
         $wish = new Wish();
 		$wish->idProduct = Input::get('idProduct');
 		$wish->userEmail = $userEmail;
-		$wish->date = Input::get('date');
+		$wish->date = \Carbon\Carbon::now()->toDateTimeString();
 		$wish->save();
 		return $wish;
     }
 	
 	
 	/**
-     * Display the specified resource.
+     * Display the specified wish.
      */
     public function showWish($userEmail, $idWish) {
         // GET <URLbase>/users/{userEmail}/wishes/{idWish}
@@ -117,7 +147,7 @@ class UsersController extends BaseController {
 	
  
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified wish from storage.
      */
     public function destroyWish($userEmail, $idWish) {
         // DELETE <URLbase>/users/{userEmail}/wishes/{idWish}
@@ -128,7 +158,7 @@ class UsersController extends BaseController {
 	
 	
 	/**
-     * Display a listing of the resource.
+     * Display a listing of purchases.
      */
     public function indexPurchases($userEmail) {
         // GET <URLbase>/users/{userEmail}/purchases
@@ -144,7 +174,7 @@ class UsersController extends BaseController {
 	
 	
 	/**
-     * Display the specified resource.
+     * Display the specified purchase.
      */
     public function showPurchase($userEmail, $idPurchase) {
         // GET <URLbase>/users/{userEmail}/purchases/{idPurchase}
@@ -156,7 +186,7 @@ class UsersController extends BaseController {
 	
 	
 	/**
-     * Display a listing of the resource.
+     * Display a listing of purchase details.
      */
     public function indexPurchaseDetails($userEmail, $idPurchase) {
         // GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details
@@ -169,7 +199,7 @@ class UsersController extends BaseController {
 	
 	
 	/**
-     * Display the specified resource.
+     * Display the specified purchase detail.
      */
     public function showPurchaseDetail($userEmail, $idPurchase, $idPurchaseDetail) {
         // GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}
@@ -183,7 +213,7 @@ class UsersController extends BaseController {
  
  
     /**
-     * Show the form for creating a new resource.
+     * Create a new purchase detail.
      */
     public function createPurchaseDetail($userEmail, $idPurchase) {
         // POST <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details?idBatch={idBatch}&units={units}
@@ -214,7 +244,7 @@ class UsersController extends BaseController {
  
  
     /**
-     * Update the specified resource in storage.
+     * Update the specified purchase detail in storage.
      */
     public function updatePurchaseDetail($userEmail, $idPurchase, $idPurchaseDetail) {
         // PUT <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}?idBatch={idBatch}&units={units}
@@ -231,7 +261,7 @@ class UsersController extends BaseController {
 	
  
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified purchase datail from storage.
      */
     public function destroyPurchaseDetail($userEmail, $idPurchase, $idPurchaseDetail) {
         // DELETE <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}
@@ -251,7 +281,7 @@ class UsersController extends BaseController {
 	
 	
 	/**
-     * Display a listing of the resource.
+     * Display a listing of friendships.
      */
     public function indexFriendships($userEmail) {
         // GET <URLbase>/users/{userEmail}/friendships?following=true
@@ -280,7 +310,7 @@ class UsersController extends BaseController {
  
  
     /**
-     * Show the form for creating a new resource.
+     * Create a new friendship.
      */
     public function createFriendship($userEmailFollowing) {
         // POST <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
@@ -293,7 +323,7 @@ class UsersController extends BaseController {
 	
  
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified friendship from storage.
      */
     public function destroyFriendship($userEmailFollowing) {
         // DELETE <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
@@ -305,7 +335,7 @@ class UsersController extends BaseController {
 	
 	
 	/**
-     * Display a listing of the resource.
+     * Display a listing of achievements.
      */
     public function indexAchievements($userEmail) {
         // GET <URLbase>/users/{userEmail}/achievements
@@ -314,7 +344,7 @@ class UsersController extends BaseController {
  
  
     /**
-     * Show the form for creating a new resource.
+     * Create a new achievement.
      */
     public function createAchievement($userEmail) {
         // POST <URLbase>/users/{userEmail}/achievements?badgeName={badgeName}
@@ -327,7 +357,7 @@ class UsersController extends BaseController {
  
  
     /**
-     * Display the specified resource.
+     * Display the specified achievement.
      */
     public function showAchievement($userEmail, $idAchievement) {
         // GET <URLbase>/users/{userEmail}/achievements/{idAchievement}

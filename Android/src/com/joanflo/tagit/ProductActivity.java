@@ -921,10 +921,4 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 	}
 	
 	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
-	
 }

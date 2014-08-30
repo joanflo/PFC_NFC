@@ -66,6 +66,16 @@
             android:inputType="textPassword"
             android:padding="8dp" />
 
+        <!-- Progress bar -->
+		<ProgressBar
+			android:id="@+id/progressBar_login"
+			style="?android:attr/progressBarStyleLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+			android:layout_below="@+id/textView_title_login"
+			android:layout_centerHorizontal="true"
+			android:visibility="gone" />
         
         <!-- buttons -->
         <LinearLayout

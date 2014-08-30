@@ -154,10 +154,4 @@ public class UpdateUserDataActivity extends BaseActivity implements OnItemSelect
 	}
 	
 	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
-	
 }

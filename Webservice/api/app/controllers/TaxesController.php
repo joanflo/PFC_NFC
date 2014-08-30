@@ -4,7 +4,7 @@ class TaxesController extends BaseController {
  
  
     /**
-     * Display the specified resource.
+     * Display the specified tax.
      */
     public function show() {
         // GET <URLbase>/taxes?idProduct={idProduct}&countryName={countryName}

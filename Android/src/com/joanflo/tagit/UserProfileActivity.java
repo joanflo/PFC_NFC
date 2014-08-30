@@ -14,10 +14,12 @@ import com.joanflo.models.Language;
 import com.joanflo.models.Region;
 import com.joanflo.models.User;
 import com.joanflo.utils.Gamification;
+import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Time;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -132,6 +134,7 @@ public class UserProfileActivity extends BaseActivity implements OnItemClickList
 		City palma = new City("Palma", null, balears);
 		Language catala = new Language("Català");
 		User user = new User("joan@uib.cat", palma, catala, "Joan_flo", "Joan", "Florit Gomila", 23, "password", "686922414", "Sant Vicenç Ferrer 117");
+		
 		TextView tv;
 		
 		tv = (TextView) findViewById(R.id.textView_userprofile_email);
@@ -248,12 +251,6 @@ public class UserProfileActivity extends BaseActivity implements OnItemClickList
 		i.putExtra("badgeDescription", badge.getDescription());
 		i.putExtra("badgeType", badge.getType());
 		startActivity(i);
-	}
-	
-	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
 	}
 	
 	

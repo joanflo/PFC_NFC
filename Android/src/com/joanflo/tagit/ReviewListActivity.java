@@ -462,10 +462,4 @@ public class ReviewListActivity extends BaseActivity {
 	}
 	
 	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
-	
 }

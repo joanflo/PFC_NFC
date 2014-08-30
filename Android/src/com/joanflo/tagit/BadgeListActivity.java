@@ -126,10 +126,4 @@ public class BadgeListActivity extends BaseActivity implements OnItemClickListen
 	}
 	
 	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
-	
 }

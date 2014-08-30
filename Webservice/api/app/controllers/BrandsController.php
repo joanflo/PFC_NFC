@@ -4,7 +4,7 @@ class BrandsController extends BaseController {
 	
  
     /**
-     * Display the specified resource.
+     * Display the specified brand.
      */
     public function show($brandName) {
         // GET <URLbase>/brands/{brandName}

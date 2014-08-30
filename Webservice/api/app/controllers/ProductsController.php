@@ -4,7 +4,7 @@ class ProductsController extends BaseController {
  
  
     /**
-     * Display a listing of the resource.
+     * Display a listing of products.
      */
     public function index() {
         // GET <URLbase>/products?queryName={queryName}
@@ -107,6 +107,9 @@ class ProductsController extends BaseController {
     }
 
 
+	/**
+	 * Calculates a product's price in a concrete market
+	 */
 	private function calculatePrice($idProduct, $countryName) {
 		// get tax
 		$tax = Tax::where('idProduct', '=', $idProduct)->where('countryName', '=', $countryName)->get()[0];
@@ -129,6 +132,9 @@ class ProductsController extends BaseController {
 	}
 
 
+	/**
+	 * Calculates a product's average rating
+	 */
 	private function calculateAverageRating($idProduct) {
 		$average = Review::where('idProduct', '=', $idProduct)->avg('rating');
 		if ($average == null) {
@@ -140,7 +146,7 @@ class ProductsController extends BaseController {
  
  
     /**
-     * Display the specified resource.
+     * Display the specified product.
      */
     public function showProduct($idProduct) {
         // GET <URLbase>/products/{idProduct}
@@ -149,18 +155,18 @@ class ProductsController extends BaseController {
  
  
     /**
-     * Display the specified resource.
+     * Display a listing of reviews.
      */
-    public function showReviews($idProduct) {
+    public function indexReviews($idProduct) {
         // GET <URLbase>/products/{idProduct}/reviews 
         return Review::where('idProduct', '=', $idProduct)->get();
     }
  
  
     /**
-     * Display the specified resource.
+     * DDisplay a listing of related products.
      */
-    public function showRelatedProducts($idProduct) {
+    public function indexRelatedProducts($idProduct) {
         // GET <URLbase>/products/{idProduct}/related_products
         $idsRelatedProducts = DB::table('Related_Product')->where('idProductA', '=', $idProduct)->select('IdProductB')->get();
 		$idsProducts = array();
@@ -174,9 +180,9 @@ class ProductsController extends BaseController {
  
  
     /**
-     * Display the specified resource.
+     * Display a listing of product images.
      */
-    public function showProductImages($idProduct) {
+    public function indexProductImages($idProduct) {
         // GET <URLbase>/products/{idProduct}/product_images
         // GET <URLbase>/products/{idProduct}/product_images?type={ProductImage.TYPE_FRONT}
         $query = DB::table('Product_Image')->where('idProduct', '=', $idProduct);

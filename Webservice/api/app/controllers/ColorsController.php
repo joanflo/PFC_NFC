@@ -4,7 +4,7 @@ class ColorsController extends BaseController {
  
  
     /**
-     * Display the specified resource.
+     * Display the specified color.
      */
     public function show($colorCode)
     {

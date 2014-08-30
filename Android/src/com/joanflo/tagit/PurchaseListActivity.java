@@ -516,10 +516,4 @@ public class PurchaseListActivity extends BaseActivity {
 	}
 	
 	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
-	
 }

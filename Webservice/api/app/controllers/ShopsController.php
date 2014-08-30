@@ -4,7 +4,7 @@ class ShopsController extends BaseController {
 	
 	
     /**
-     * Display a listing of the resource.
+     * Display a listing of shops.
      */
     public function index() {
         // GET <URLbase>/shops?cityName={cityName}
@@ -34,7 +34,7 @@ class ShopsController extends BaseController {
  
  
     /**
-     * Display the specified resource.
+     * Display the specified shop.
      */
     public function show($idShop) {
         // GET <URLbase>/shops/{idShop}

@@ -74,11 +74,5 @@ public class BadgeActivity extends BaseActivity {
 	public void onClickButton(View v) {
 		super.onClickButton(v);
     }
-	
-	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
 
 }

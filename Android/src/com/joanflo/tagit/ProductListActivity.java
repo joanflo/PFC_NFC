@@ -472,10 +472,4 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
 	}
 	
 	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
-	
 }

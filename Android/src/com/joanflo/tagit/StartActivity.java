@@ -3,7 +3,7 @@ package com.joanflo.tagit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
+import com.joanflo.utils.LocalStorage;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,13 +23,12 @@ public class StartActivity extends Activity {
 		ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
 		Runnable task = new Runnable() {
 			public void run() {
-				boolean userLoged = false;
-				chooseInitialActivity(userLoged);
+				chooseInitialActivity();
 			}
 
-			private void chooseInitialActivity(boolean userLoged) {
+			private void chooseInitialActivity() {
 				Intent i;
-				if (userLoged) {
+				if (LocalStorage.getInstance().isUserLoged(startActivity)) {
 					i = new Intent(startActivity, HomeActivity.class);
 				} else {
 					i = new Intent(startActivity, LoginActivity.class);

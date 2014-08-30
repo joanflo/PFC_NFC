@@ -184,9 +184,9 @@ Route::get('products', 'ProductsController@index');
 
 Route::get('products/{idProduct}', 'ProductsController@showProduct');
 
-Route::get('products/{idProduct}/reviews', 'ProductsController@showReviews');
+Route::get('products/{idProduct}/reviews', 'ProductsController@indexReviews');
 
-Route::get('products/{idProduct}/related_products', 'ProductsController@showRelatedProducts');
+Route::get('products/{idProduct}/related_products', 'ProductsController@indexRelatedProducts');
 
-Route::get('products/{idProduct}/product_images', 'ProductsController@showProductImages');
+Route::get('products/{idProduct}/product_images', 'ProductsController@indexProductImages');
 

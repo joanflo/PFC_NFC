@@ -222,10 +222,4 @@ public class FollowsListActivity extends BaseActivity implements Button.OnClickL
 	}
 	
 	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
-	
 }

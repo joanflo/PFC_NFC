@@ -532,10 +532,4 @@ public class WishListActivity extends BaseActivity implements Button.OnClickList
 	}
 	
 	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
-	
 }

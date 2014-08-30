@@ -36,10 +36,4 @@ public class PasswordActivity extends Activity {
 	}
 	
 	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
-	
 }

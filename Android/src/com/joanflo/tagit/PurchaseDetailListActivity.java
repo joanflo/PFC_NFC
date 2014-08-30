@@ -600,11 +600,5 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 		
 	}
 	
-	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
-	
 
 }

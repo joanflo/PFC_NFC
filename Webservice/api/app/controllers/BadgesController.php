@@ -4,7 +4,7 @@ class BadgesController extends BaseController {
  
  
     /**
-     * Display a listing of the resource.
+     * Display a listing of badges.
      */
     public function index() {
         // GET <URLbase>/badges
@@ -13,7 +13,7 @@ class BadgesController extends BaseController {
 	
 	
     /**
-     * Display the specified resource.
+     * Display the specified badge.
      */
     public function show($badgeName) {
         // GET <URLbase>/badges/{badgeName}

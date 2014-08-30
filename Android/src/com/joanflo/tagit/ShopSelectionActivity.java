@@ -328,12 +328,6 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 		}
 		
     }
-	
-	
-	
-	public synchronized void requestFinished(JSONObject jResponses) {
-		// TODO
-	}
     
 
 }

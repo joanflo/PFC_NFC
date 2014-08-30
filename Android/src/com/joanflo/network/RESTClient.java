@@ -1,13 +1,28 @@
 package com.joanflo.network;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import org.json.JSONObject;
-import android.app.Activity;
-import android.util.Log;
-
-import com.joanflo.models.*;
-import com.joanflo.tagit.*;
+import com.joanflo.controllers.BadgesController;
+import com.joanflo.controllers.BatchesController;
+import com.joanflo.controllers.BrandsController;
+import com.joanflo.controllers.CategoriesController;
+import com.joanflo.controllers.CollectionsController;
+import com.joanflo.controllers.ColorsController;
+import com.joanflo.controllers.CountriesController;
+import com.joanflo.controllers.LanguagesController;
+import com.joanflo.controllers.ProductsController;
+import com.joanflo.controllers.ShopsController;
+import com.joanflo.controllers.SizesController;
+import com.joanflo.controllers.TaxesController;
+import com.joanflo.controllers.UsersController;
+import com.joanflo.models.Achievement;
+import com.joanflo.models.Batch;
+import com.joanflo.models.ProductImage;
+import com.joanflo.models.Purchase;
+import com.joanflo.models.PurchaseDetail;
+import com.joanflo.models.Review;
+import com.joanflo.models.User;
+import com.joanflo.models.Wish;
 
 public class RESTClient implements AsyncResponse {
 	
@@ -18,13 +33,19 @@ public class RESTClient implements AsyncResponse {
 	//public static final CharSequence HOST = "http://localhost/api/server.php/";
 
 	
+	
 	// Singleton pattern
 	private static RESTClient instance = null;
 	
-	private RESTClient() {
-		// Exists only to defeat instantiation from any other classes.
-	}
+	/**
+	 * Exists only to defeat instantiation from any other classes.
+	 */
+	private RESTClient() { }
 	
+	/**
+	 * Singleton pattern instance
+	 * @return RESTClient instance
+	 */
 	public static RESTClient getInstance() {
 		if (instance == null) {
 			instance = new RESTClient();
@@ -34,20 +55,399 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
-	public boolean logInUser(Activity activity, CharSequence userEmail, CharSequence password) {
-		// GET <URLbase>/users/{userEmail}?fields=password
-		InfoRequest info = new InfoRequest(activity, HttpMethod.GET, HOST + "users/" + userEmail + "?fields=password");
-		Log.i("test", "1");
-		new AsyncRequest(this).execute(info);
-		Log.i("test", "2");
-		
-		// comparar el que ens torna la consulta amb els paràmetres del mètode
-		return true;
+	@Override
+	public void requestFinished(InfoResponse[] infoResponses) {
+		// for each response
+		for (int i = 0; i < infoResponses.length; i++) {
+			
+			// get response fields
+			Object controller = infoResponses[i].getController();
+			JSONObject jObject = infoResponses[i].getJObject();
+			
+			// identify controller to delegate it the JSON data
+			if (controller instanceof BadgesController) {
+				BadgesController badgesController = (BadgesController) controller;
+				badgesController.requestFinished(jObject);
+				
+			} else if (controller instanceof BatchesController) {
+				BatchesController batchesController = (BatchesController) controller;
+				batchesController.requestFinished(jObject);
+				
+			} else if (controller instanceof BrandsController) {
+				BrandsController brandsController = (BrandsController) controller;
+				brandsController.requestFinished(jObject);
+				
+			} else if (controller instanceof CategoriesController) {
+				CategoriesController categoriesController = (CategoriesController) controller;
+				categoriesController.requestFinished(jObject);
+				
+			} else if (controller instanceof CollectionsController) {
+				CollectionsController collectionsController = (CollectionsController) controller;
+				collectionsController.requestFinished(jObject);
+				
+			} else if (controller instanceof ColorsController) {
+				ColorsController colorsController = (ColorsController) controller;
+				colorsController.requestFinished(jObject);
+				
+			} else if (controller instanceof CountriesController) {
+				CountriesController countriesController = (CountriesController) controller;
+				countriesController.requestFinished(jObject);
+				
+			} else if (controller instanceof LanguagesController) {
+				LanguagesController languagesController = (LanguagesController) controller;
+				languagesController.requestFinished(jObject);
+				
+			} else if (controller instanceof ProductsController) {
+				ProductsController productsController = (ProductsController) controller;
+				productsController.requestFinished(jObject);
+				
+			} else if (controller instanceof ShopsController) {
+				ShopsController shopsController = (ShopsController) controller;
+				shopsController.requestFinished(jObject);
+				
+			} else if (controller instanceof SizesController) {
+				SizesController sizesController = (SizesController) controller;
+				sizesController.requestFinished(jObject);
+				
+			} else if (controller instanceof TaxesController) {
+				TaxesController taxesController = (TaxesController) controller;
+				taxesController.requestFinished(jObject);
+				
+			} else if (controller instanceof UsersController) {
+				UsersController usersController = (UsersController) controller;
+				usersController.requestFinished(jObject);
+				
+			}
+		}
 	}
 	
 	
 	
-	public User signInUser(Activity activity, User user) {
+	
+	/* ================================================================================ *
+	 * ===================================== BADGES =================================== *
+	 * ================================================================================ */
+	
+	/**
+	 * Get all database badges
+	 * @param controller
+	 */
+	public void getBadges(BadgesController controller) {
+		// GET <URLbase>/badges
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "badges");
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get a single badge
+	 * @param controller
+	 * @param badgeName
+	 */
+	public void getBadge(BadgesController controller, CharSequence badgeName) {
+		// GET <URLbase>/badges/{badgeName}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "badges/" + badgeName);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	
+	/* ================================================================================ *
+	 * ===================================== SHOPS ==================================== *
+	 * ================================================================================ */
+
+	/**
+	 * Get all the shops in the city
+	 * @param controller
+	 * @param cityName
+	 */
+	public void getShops(ShopsController controller, CharSequence cityName) {
+		// GET <URLbase>/shops?cityName={cityName}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "shops?cityName=" + cityName);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get the nearest shops from current location
+	 * @param controller
+	 * @param latitude
+	 * @param longitude
+	 */
+	public void getShops(ShopsController controller, double latitude, double longitude) {
+		// GET <URLbase>/shops?latitude={latitude}&longitude={longitude}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "shops?latitude=" + latitude + "&longitude=" + longitude);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get shop
+	 * @param controller
+	 * @param idShop
+	 */
+	public void getShop(ShopsController controller, int idShop) {
+		// GET <URLbase>/shops/{idShop}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "shops/" + idShop);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	
+	/* ================================================================================ *
+	 * ===================================== CATEGORIES =============================== *
+	 * ================================================================================ */
+
+	/**
+	 * Get categories
+	 * (includes subcategories/products count for each category)
+	 * @param controller
+	 * @param level
+	 */
+	public void getCategories(CategoriesController controller, int level) {
+		// GET <URLbase>/categories?level={level}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "categories?level=" + level);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get subcategories
+	 * (includes sub-subcategories/products for each category)
+	 * @param controller
+	 * @param idCategory
+	 */
+	public void getSubategories(CategoriesController controller, int idCategory) {
+		// GET <URLbase>/categories/{idCategory}/subcategories
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "categories/" + idCategory + "/subcategories");
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	
+	/* ================================================================================ *
+	 * ===================================== COUNTRIES ================================ *
+	 * ================================================================================ */
+	
+	/**
+	 * Get countries
+	 * @param controller
+	 */
+	public void getCountries(CountriesController controller) {
+		// GET <URLbase>/countries
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "countries");
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get country
+	 * @param controller
+	 * @param cityName
+	 */
+	public void getCountry(CountriesController controller, CharSequence cityName) {
+		// GET <URLbase>/countries?cityName={cityName}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "countries?cityName=" + cityName);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get regions
+	 * @param controller
+	 * @param countryName
+	 */
+	public void getRegions(CountriesController controller, CharSequence countryName) {
+		// GET <URLbase>/countries/{countryName}/regions
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "countries/" + countryName + "/regions");
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get cities
+	 * @param controller
+	 * @param countryName
+	 * @param regionName
+	 */
+	public void getCities(CountriesController controller, CharSequence countryName, CharSequence regionName) {
+		// GET <URLbase>/countries/{countryName}/regions/{regionName}/cities
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "countries/" + countryName + "/regions/" + regionName + "/cities");
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	
+	/* ================================================================================ *
+	 * ===================================== LANGUAGES ================================ *
+	 * ================================================================================ */
+	 
+	/**
+	 * Get languages
+	 * @param controller
+	 */
+	public void getLanguages(LanguagesController controller) {
+		// GET <URLbase>/languages
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "languages");
+		new AsyncRequest(this).execute(info);
+	}
+
+
+
+	/* ================================================================================ *
+	 * ===================================== BATCHES ================================== *
+	 * ================================================================================ */
+	
+	/**
+	 * Get batches from product id
+	 * @param controller
+	 * @param idProduct
+	 */
+	public void getBatches(BatchesController controller, int idProduct) {
+		// GET <URLbase>/batches?idProduct={idProduct}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "batches?idProduct=" + idProduct);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get batches from product id & shop id
+	 * @param controller
+	 * @param idProduct
+	 * @param idShop
+	 */
+	public void getBatches(BatchesController controller, int idProduct, int idShop) {
+		// GET <URLbase>/batches?idProduct={idProduct}&idShop={idShop}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "batches?idProduct=" + idProduct + "&idShop=" + idShop);
+		new AsyncRequest(this).execute(info);
+	}
+	
+
+	
+	/**
+	 * Get batch
+	 * @param controller
+	 * @param idBatch
+	 */
+	public void getBatch(BatchesController controller, int idBatch) {
+		// GET <URLbase>/batches/{idBatch}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "batches/" + idBatch);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Update batch
+	 * @param controller
+	 * @param batch
+	 */
+	public void updateBatch(BatchesController controller, Batch batch) {
+		int idBatch = batch.getIdBatch();
+		int units = batch.getUnits();
+		// PUT <URLbase>/batches/{idBatch}?units={units}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + "batches/" + idBatch + "?units=" + units);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	
+	/* ================================================================================ *
+	 * ===================================== BRANDS =================================== *
+	 * ================================================================================ */
+	
+	/**
+	 * Get brand
+	 * @param controller
+	 * @param brandName
+	 */
+	public void getBrand(BrandsController controller, CharSequence brandName) {
+		// GET <URLbase>/brands/{brandName}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "brands/" + brandName);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	
+	/* ================================================================================ *
+	 * ===================================== SIZES ==================================== *
+	 * ================================================================================ */
+
+	/**
+	 * Get size
+	 * @param controller
+	 * @param idSize
+	 */
+	public void getSize(SizesController controller, int idSize) {
+		// GET <URLbase>/sizes/{idSize}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "sizes/" + idSize);
+		new AsyncRequest(this).execute(info);
+	}
+	 
+
+
+	/* ================================================================================ *
+	 * ===================================== USERS ==================================== *
+	 * ================================================================================ */
+	
+	/**
+	 * Login user
+	 * @param controller
+	 * @param userEmail
+	 * @param password
+	 */
+	public void logInUser(UsersController controller, CharSequence userEmail, CharSequence password) {
+		// GET <URLbase>/users/{userEmail}?password={password}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "?password=" + password);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Create a new user
+	 * @param controller
+	 * @param userEmail
+	 * @param cityName
+	 * @param languageName
+	 * @param nick
+	 * @param name
+	 * @param surname
+	 * @param age
+	 * @param password
+	 * @param phone
+	 * @param direction
+	 */
+	public void signInUser(UsersController controller, CharSequence userEmail, CharSequence cityName,
+						   CharSequence languageName, CharSequence nick, CharSequence name, CharSequence surname,
+						   int age, CharSequence password, CharSequence phone, CharSequence direction) {
+		// PUT <URLbase>/users/{userEmail}?password={password}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + "users/" + userEmail + "?password=" + password + "&cityName=" + cityName + "&languageName=" + languageName + "&nick=" + nick + "&name=" + name + "&surname=" + surname + "&age=" + age + "&phone=" + phone + "&direction=" + direction);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Update user's data
+	 * @param controller
+	 * @param user
+	 */
+	public void updateUserData(UsersController controller, User user) {
 		CharSequence userEmail = user.getUserEmail();
 		CharSequence cityName = user.getCity().getCityName();
 		CharSequence languageName = user.getLanguage().getLanguageName();
@@ -55,537 +455,557 @@ public class RESTClient implements AsyncResponse {
 		CharSequence name = user.getName();
 		CharSequence surname = user.getSurname();
 		int age = user.getAge();
-		CharSequence password = user.getPassword();
 		CharSequence phone = user.getPhone();
 		CharSequence direction = user.getDirection();
 		// PUT <URLbase>/users/{userEmail}?cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Language> getLanguages(Activity activity) {
-		// GET <URLbase>/languages
-		InfoRequest info = new InfoRequest(activity, HttpMethod.GET, HOST + "languages");
+		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + "users/" + userEmail + "?cityName=" + cityName + "&languageName=" + languageName + "&nick=" + nick + "&name=" + name + "&surname=" + surname + "&age=" + age + "&phone=" + phone + "&direction=" + direction);
 		new AsyncRequest(this).execute(info);
-		return null;
 	}
 	
 	
 	
-	public ArrayList<Country> getCountries(Activity activity) {
-		// GET <URLbase>/countries
-		return null;
-	}
-	
-	
-	
-	public Country getCountry(Activity activity, CharSequence cityName) {
-		// GET <URLbase>/countries?cityName={cityName}
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Region> getRegions(Activity activity, CharSequence countryName) {
-		// GET <URLbase>/countries/{countryName}/regions
-		return null;
-	}
-	
-	
-	
-	public ArrayList<City> getCities(Activity activity, CharSequence countryName, CharSequence regionName) {
-		// GET <URLbase>/countries/{countryName}/regions/{regionName}/cities
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Product> getProducts(Activity activity, CharSequence queryName) {
-		// GET <URLbase>/products?queryName={queryName}
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Product> getProducts(Activity activity, CharSequence queryName, float priceFrom, float priceSince, char coin, CharSequence brandName, int idCategory, float rating) {
-		if (queryName != null) {
-			// afegir a la URL
-		}
-		if (priceFrom != 0) {
-			// afegir a la URL
-		}
-		if (priceSince != 0) {
-			// afegir a la URL
-		}
-		if (brandName != null) {
-			// afegir a la URL
-		}
-		if (idCategory != -1) {
-			// afegir a la URL
-		}
-		
-		// GET <URLbase>/products?queryName={queryName}&priceFrom={priceFrom}&priceSince={priceSince}&coin={coin}&brandName={brandName}&idCategory={idCategory}&rating={rating}
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Category> getCategories(Activity activity, int level) {
-		// (includes subcategories/products for each category)
-		// GET <URLbase>/categories?level={level}
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Category> getSubategories(Activity activity, int idCategory) {
-		// (includes sub-subcategories/products for each category)
-		// GET <URLbase>/categories/{idCategory}/subcategories
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Shop> getShops(Activity activity, CharSequence cityName) {
-		// returns all the shops in the city
-		// GET <URLbase>/shops?cityName={cityName}
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Shop> getShops(Activity activity, double latitude, double longitude) {
-		// returns the most near shops from current location
-		// GET <URLbase>/shops?latitude={latitude}&longitude={longitude}
-		return null;
-	}
-	
-	
-	
-	public Shop getShop(Activity activity, int idShop) {
-		// GET <URLbase>/shops/{idShop}
-		return null;
-	}
-	
-	
-	
-	public User getCurrentUser(Activity activity, CharSequence userEmail) {
-		// GET <URLbase>/users/{userEmail}
-		return null;
-	}
-	
-	
-	
-	public User getAnotherUser(Activity activity, CharSequence userEmail) {
-		// doesn't returns personal information
-		// GET <URLbase>/users/{userEmail}?fields=nick,points
-		return null;
-	}
-	
-	
-	
-	public User updateUserData(Activity activity, User user) {
-		// same request
-		return signInUser(activity, user);
-	}
-	
-	
-	
-	public boolean changeUserPassword(Activity activity, CharSequence userEmail, CharSequence password) {
+	/**
+	 * Change user's password
+	 * @param controller
+	 * @param userEmail
+	 * @param password
+	 */
+	public void changeUserPassword(UsersController controller, CharSequence userEmail, CharSequence password) {
 		// PUT <URLbase>/users/{userEmail}?password={password}
-		return true;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + "users/" + userEmail + "?password=" + password);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public ArrayList<User> getFollowers(Activity activity, CharSequence userEmail) {
+	/**
+	 * Get current user
+	 * @param controller
+	 * @param userEmail
+	 */
+	public void getCurrentUser(UsersController controller, CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get user without returning any personal information
+	 * @param controller
+	 * @param userEmail
+	 */
+	public void getAnotherUser(UsersController controller, CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}?fields=nick,points
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "?fields=nick,points");
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get followers
+	 * @param controller
+	 * @param userEmail
+	 */
+	public void getFollowers(UsersController controller, CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/friendships?following=false
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/friendships?following=false");
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public ArrayList<User> getFollowing(Activity activity, CharSequence userEmail) {
+	/**
+	 * Get users being followed
+	 * @param controller
+	 * @param userEmail
+	 */
+	public void getFollowing(UsersController controller, CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/friendships?following=true
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/friendships?following=true");
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public Friendship followUser(Activity activity, CharSequence userEmailFollowing, CharSequence userEmailFollowed) {
+	/**
+	 * Follow user
+	 * @param controller
+	 * @param userEmailFollowing
+	 * @param userEmailFollowed
+	 */
+	public void followUser(UsersController controller, CharSequence userEmailFollowing, CharSequence userEmailFollowed) {
 		// POST <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.POST, HOST + "users/" + userEmailFollowing + "/friendships?userEmailFollowed=" + userEmailFollowed);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public Friendship unfollowUser(Activity activity, CharSequence userEmailFollowing, CharSequence userEmailFollowed) {
+	/**
+	 * Unfollow user
+	 * @param controller
+	 * @param userEmailFollowing
+	 * @param userEmailFollowed
+	 */
+	public void unfollowUser(UsersController controller, CharSequence userEmailFollowing, CharSequence userEmailFollowed) {
 		// DELETE <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.DELETE, HOST + "users/" + userEmailFollowing + "/friendships?userEmailFollowed=" + userEmailFollowed);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public ArrayList<Achievement> getAchievements(Activity activity, CharSequence userEmail) {
+	/**
+	 * Get user's achievements
+	 * @param controller
+	 * @param userEmail
+	 */
+	public void getAchievements(UsersController controller, CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/achievements
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/achievements");
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public Achievement createAchievement(Activity activity, Achievement achievement) {
+	/**
+	 * Create a new achievement
+	 * @param controller
+	 * @param achievement
+	 */
+	public void createAchievement(UsersController controller, Achievement achievement) {
 		CharSequence userEmail = achievement.getUser().getUserEmail();
 		CharSequence badgeName = achievement.getBadge().getBadgeName();
-		Timestamp date = achievement.getDate();
 		// POST <URLbase>/users/{userEmail}/achievements?badgeName={badgeName}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.POST, HOST + "users/" + userEmail + "/achievements?badgeName=" + badgeName);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public Achievement getAchievement(Activity activity, CharSequence userEmail, int idAchievement) {
+	/**
+	 * Get user's achievement by id
+	 * @param controller
+	 * @param userEmail
+	 * @param idAchievement
+	 */
+	public void getAchievement(UsersController controller, CharSequence userEmail, int idAchievement) {
 		// GET <URLbase>/users/{userEmail}/achievements/{idAchievement}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/achievements/" + idAchievement);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public ArrayList<Badge> getBadges(Activity activity) {
-		// GET <URLbase>/badges
-		return null;
-	}
-	
-	
-	
-	public Badge getBadge(Activity activity, CharSequence badgeName) {
-		// GET <URLbase>/badges/{badgeName}
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Review> getReviews(Activity activity, CharSequence userEmail) {
+	/**
+	 * Get user's reviews
+	 * @param controller
+	 * @param userEmail
+	 */
+	public void getReviews(UsersController controller, CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/reviews
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/reviews");
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public ArrayList<Review> getReviews(Activity activity, int idProduct) {
-		// GET <URLbase>/products/{idProduct}/reviews
-		return null;
-	}
-	
-	
-	
-	public Review createReview(Activity activity, Review review) {
+	/**
+	 * Create a new review
+	 * @param controller
+	 * @param review
+	 */
+	public void createReview(UsersController controller, Review review) {
 		CharSequence userEmail = review.getUser().getUserEmail();
 		int idProduct = review.getProduct().getIdProduct();
 		float rating = review.getRating();
 		CharSequence comment = review.getComment();
-		Timestamp date = review.getDate();
-		// POST <URLbase>/users/{userEmail}/reviews?idProduct={idProduct}&rating={rating}&comment={comment}&date={date}
+		// POST <URLbase>/users/{userEmail}/reviews?idProduct={idProduct}&rating={rating}&comment={comment}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.POST, HOST + "users/" + userEmail + "/reviews?idProduct=" + idProduct + "&rating=" + rating + "&comment=" + comment);
+		new AsyncRequest(this).execute(info);
 		// equivalent:
-		// POST <URLbase>/products/{idProduct}/reviews?userEmail={userEmail}&rating={rating}&comment={comment}&date={date}
-		return null;
+		// POST <URLbase>/products/{idProduct}/reviews?userEmail={userEmail}&rating={rating}&comment={comment}
 	}
 	
 	
 	
-	public Review getReview(Activity activity, CharSequence userEmail, int idComment) {
+	/**
+	 * Get review
+	 * @param controller
+	 * @param userEmail
+	 * @param idComment
+	 */
+	public void getReview(UsersController controller, CharSequence userEmail, int idComment) {
 		// GET <URLbase>/users/{userEmail}/reviews/{idComment}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/reviews/" + idComment);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public ArrayList<Wish> getWishes(Activity activity, CharSequence userEmail) {
+	/**
+	 * Get user's wishes
+	 * @param controller
+	 * @param userEmail
+	 */
+	public void getWishes(UsersController controller, CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/wishes
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/wishes");
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public Wish createWish(Activity activity, Wish wish) {
+	/**
+	 * Create wish
+	 * @param controller
+	 * @param wish
+	 */
+	public void createWish(UsersController controller, Wish wish) {
 		CharSequence userEmail = wish.getUser().getUserEmail();
 		int idProduct = wish.getProduct().getIdProduct();
-		Timestamp date = wish.getDate();
-		// POST <URLbase>/users/{userEmail}/wishes?idProduct={idProduct}&date={date}
+		// POST <URLbase>/users/{userEmail}/wishes?idProduct={idProduct}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.POST, HOST + "users/" + userEmail + "/wishes?idProduct=" + idProduct);
+		new AsyncRequest(this).execute(info);
 		// equivalent:
-		// POST <URLbase>/products/{idProduct}/wishes?userEmail={userEmail}&date={date}
-		return null;
+		// POST <URLbase>/products/{idProduct}/wishes?userEmail={userEmail}
 	}
 	
 	
 	
-	public Wish getWish(Activity activity, CharSequence userEmail, int idWish) {
+	/**
+	 * Get user's wish
+	 * @param controller
+	 * @param userEmail
+	 * @param idWish
+	 */
+	public void getWish(UsersController controller, CharSequence userEmail, int idWish) {
 		// GET <URLbase>/users/{userEmail}/wishes/{idWish}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/wishes/" + idWish);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public Wish deleteWish(Activity activity, CharSequence userEmail, int idWish) {
+	/**
+	 * Delete user's wish
+	 * @param controller
+	 * @param userEmail
+	 * @param idWish
+	 */
+	public void deleteWish(UsersController controller, CharSequence userEmail, int idWish) {
 		// DELETE <URLbase>/users/{userEmail}/wishes/{idWish}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.DELETE, HOST + "users/" + userEmail + "/wishes/" + idWish);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public ArrayList<Purchase> getPurchases(Activity activity, CharSequence userEmail) {
+	/**
+	 * Get user's purchases
+	 * @param controller
+	 * @param userEmail
+	 */
+	public void getPurchases(UsersController controller, CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/purchases
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/purchases");
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public Purchase getPurchase(Activity activity, CharSequence userEmail, int idPurchase) {
+	/**
+	 * Get user's purchase
+	 * @param controller
+	 * @param userEmail
+	 * @param idPurchase
+	 */
+	public void getPurchase(UsersController controller, CharSequence userEmail, int idPurchase) {
 		// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/purchases/" + idPurchase);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public Purchase getCartPurchase(Activity activity, CharSequence userEmail) {
+	/**
+	 * Get user's cart
+	 * @param controller
+	 * @param userEmail
+	 */
+	public void getCartPurchase(UsersController controller, CharSequence userEmail) {
 		// GET <URLbase>/users/{userEmail}/purchases?status={Purchase.STATUS_PENDING}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/purchases?status=" + Purchase.STATUS_PENDING);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public ArrayList<PurchaseDetail> getPurchaseDetails(Activity activity, CharSequence userEmail, int idPurchase) {
+	/**
+	 * Get purchase details
+	 * @param controller
+	 * @param userEmail
+	 * @param idPurchase
+	 */
+	public void getPurchaseDetails(UsersController controller, CharSequence userEmail, int idPurchase) {
 		// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/purchases/" + idPurchase + "/purchase_details");
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public PurchaseDetail getPurchaseDetail(Activity activity, CharSequence userEmail, int idPurchase, int idPurchaseDetail) {
+	/**
+	 * Get purchase detail
+	 * @param controller
+	 * @param userEmail
+	 * @param idPurchase
+	 * @param idPurchaseDetail
+	 */
+	public void getPurchaseDetail(UsersController controller, CharSequence userEmail, int idPurchase, int idPurchaseDetail) {
 		// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "/purchases/" + idPurchase + "/purchase_details/" + idPurchaseDetail);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public PurchaseDetail createPurchaseDetail(Activity activity, CharSequence userEmail, PurchaseDetail detail) {
-		// new purchase detail added to the current purchase (STATUS_PENDING). If doesn't exists, it's created.
+	/**
+	 * Create a new purchase detail added to the current purchase (STATUS_PENDING).
+	 * If doesn't exists, it's created.
+	 * @param controller
+	 * @param userEmail
+	 * @param detail
+	 */
+	public void createPurchaseDetail(UsersController controller, CharSequence userEmail, PurchaseDetail detail) {
 		int idPurchase = detail.getPurchase().getIdPurchase();
 		int idBatch = detail.getBatch().getIdBatch();
 		int units = detail.getUnits();
 		// POST <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details?idBatch={idBatch}&units={units}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.POST, HOST + "users/" + userEmail + "/purchases/" + idPurchase + "/purchase_details?idBatch=" + idBatch + "&units=" + units);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public PurchaseDetail updatePurchaseDetail(Activity activity, CharSequence userEmail, PurchaseDetail detail) {
+	/**
+	 * Update purchase detail
+	 * @param controller
+	 * @param userEmail
+	 * @param detail
+	 */
+	public void updatePurchaseDetail(UsersController controller, CharSequence userEmail, PurchaseDetail detail) {
 		int idPurchaseDetail = detail.getIdPurchaseDetail();
 		int idPurchase = detail.getPurchase().getIdPurchase();
 		int idBatch = detail.getBatch().getIdBatch();
 		int units = detail.getUnits();
 		// PUT <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}?idBatch={idBatch}&units={units}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + "users/" + userEmail + "/purchases/" + idPurchase + "/purchase_details/" + idPurchaseDetail + "?idBatch=" + idBatch + "&units=" + units);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public PurchaseDetail deletePurchaseDetail(Activity activity, CharSequence userEmail, int idPurchase, int idPurchaseDetail) {
+	/**
+	 * Delete the given purchase detail from to the current purchase (STATUS_PENDING).
+	 * If the current purchase is empty, it's deleted.
+	 * @param controller
+	 * @param userEmail
+	 * @param idPurchase
+	 * @param idPurchaseDetail
+	 */
+	public void deletePurchaseDetail(UsersController controller, CharSequence userEmail, int idPurchase, int idPurchaseDetail) {
 		// DELETE <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.DELETE, HOST + "users/" + userEmail + "/purchases/" + idPurchase + "/purchase_details/" + idPurchaseDetail);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public Batch getBatch(Activity activity, int idBatch) {
-		// GET <URLbase>/batches/{idBatch}
-		return null;
-	}
 	
+	/* ================================================================================ *
+	 * ===================================== TAXES ==================================== *
+	 * ================================================================================ */
 	
-	
-	public Batch updateBatch(Activity activity, Batch batch) {
-		int idBatch = batch.getIdBatch();
-		int units = batch.getUnits();
-		// PUT <URLbase>/batches/{idBatch}?units={units}
-		return null;
-	}
-	
-	
-	
-	public Tax getTax(Activity activity, int idProduct, CharSequence countryName) {
+	/**
+	 * Get tax
+	 * @param controller
+	 * @param idProduct
+	 * @param countryName
+	 */
+	public void getTax(TaxesController controller, int idProduct, CharSequence countryName) {
 		// GET <URLbase>/taxes?idProduct={idProduct}&countryName={countryName}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "taxes?idProduct=" + idProduct + "&countryName=" + countryName);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public Size getSize(Activity activity, int idSize) {
-		// GET <URLbase>/sizes/{idSize}
-		return null;
-	}
 	
+	/* ================================================================================ *
+	 * ===================================== COLLECCIONS ============================== *
+	 * ================================================================================ */
 	
-	
-	public Color getColor(Activity activity, CharSequence colorCode) {
-		// GET <URLbase>/colors/{colorCode}
-		return null;
-	}
-	
-	
-	
-	public Product getProduct(Activity activity, int idProduct) {
-		// GET <URLbase>/products/{idProduct}
-		return null;
-	}
-	
-	
-	
-	public Brand getBrand(Activity activity, CharSequence brandName) {
-		// GET <URLbase>/brands/{brandName}
-		return null;
-	}
-	
-	
-	
-	public Collection getCollection(Activity activity, int idCollection) {
+	/**
+	 * Get collection
+	 * @param controller
+	 * @param idCollection
+	 */
+	public void getCollection(CollectionsController controller, int idCollection) {
 		// GET <URLbase>/collections/{idCollection}
-		return null;
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "collections/" + idCollection);
+		new AsyncRequest(this).execute(info);
 	}
 	
 	
 	
-	public ArrayList<ProductImage> getProductImages(Activity activity, int idProduct) {
-		// GET <URLbase>/products/{idProduct}/product_images
-		return null;
+	
+	/* ================================================================================ *
+	 * ===================================== COLORS =================================== *
+	 * ================================================================================ */
+	
+	/**
+	 * Get color
+	 * @param controller
+	 * @param colorCode
+	 */
+	public void getColor(ColorsController controller, CharSequence colorCode) {
+		// GET <URLbase>/colors/{colorCode}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "colors/" + colorCode);
+		new AsyncRequest(this).execute(info);
 	}
-	
-	
-	
-	public ProductImage getProductFrontImage(Activity activity, int idProduct) {
-		// GET <URLbase>/products/{idProduct}/product_images?type={ProductImage.TYPE_FRONT}
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Batch> getBatches(Activity activity, int idProduct) {
-		// GET <URLbase>/batches?idProduct={idProduct}
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Batch> getBatches(Activity activity, int idProduct, int idShop) {
-		// GET <URLbase>/batches?idProduct={idProduct}&idShop={idShop}
-		return null;
-	}
-	
-	
-	
-	public ArrayList<Product> getRelatedProducts(Activity activity, int idProduct) {
-		// GET <URLbase>/products/{idProduct}/related_products
-		return null;
-	}
-	
-	
+	 
 
-	@Override
-	public void requestFinished(InfoResponse[] infoResponses) {
-		Log.i("test", "i");
-		// for each response
-		for (int i = 0; i < infoResponses.length; i++) {
-			
-			// get response fields
-			Activity activity = infoResponses[i].getActivity();
-			JSONObject jObject = infoResponses[i].getJObject();
-			
-			// identify activity subclass to delegate it the JSON data
-			if (activity instanceof BadgeActivity) {
-				BadgeActivity badgeActivity = (BadgeActivity) activity;
-				badgeActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof BadgeListActivity) {
-				BadgeListActivity badgeListActivity = (BadgeListActivity) activity;
-				badgeListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof BrandActivity) {
-				BrandActivity brandActivity = (BrandActivity) activity;
-				brandActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof CategoryListActivity) {
-				CategoryListActivity categoryListActivity = (CategoryListActivity) activity;
-				categoryListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof FollowsListActivity) {
-				FollowsListActivity followsListActivity = (FollowsListActivity) activity;
-				followsListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof HomeActivity) {
-				HomeActivity homeActivity = (HomeActivity) activity;
-				homeActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof LoginActivity) {
-				LoginActivity loginActivity = (LoginActivity) activity;
-				loginActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof NewReviewActivity) {
-				NewReviewActivity newReviewActivity = (NewReviewActivity) activity;
-				newReviewActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof PasswordActivity) {
-				PasswordActivity passwordActivity = (PasswordActivity) activity;
-				passwordActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ProductActivity) {
-				ProductActivity productActivity = (ProductActivity) activity;
-				productActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ProductListActivity) {
-				ProductListActivity productListActivity = (ProductListActivity) activity;
-				productListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ProductSearchActivity) {
-				ProductSearchActivity productSearchActivity = (ProductSearchActivity) activity;
-				productSearchActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof PurchaseDetailListActivity) {
-				PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
-				purchaseDetailListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof PurchaseListActivity) {
-				PurchaseListActivity purchaseListActivity = (PurchaseListActivity) activity;
-				purchaseListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof RegistrationActivity) {
-				RegistrationActivity registrationActivity = (RegistrationActivity) activity;
-				registrationActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ReviewListActivity) {
-				ReviewListActivity reviewListActivity = (ReviewListActivity) activity;
-				reviewListActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ShopActivity) {
-				ShopActivity shopActivity = (ShopActivity) activity;
-				shopActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof ShopSelectionActivity) {
-				ShopSelectionActivity shopSelectionActivity = (ShopSelectionActivity) activity;
-				shopSelectionActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof UpdateUserDataActivity) {
-				UpdateUserDataActivity updateUserDataActivity = (UpdateUserDataActivity) activity;
-				updateUserDataActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof UserProfileActivity) {
-				UserProfileActivity userProfileActivity = (UserProfileActivity) activity;
-				userProfileActivity.requestFinished(jObject);
-				
-			} else if (activity instanceof WishListActivity) {
-				WishListActivity wishListActivity = (WishListActivity) activity;
-				wishListActivity.requestFinished(jObject);
-			}
+
+	/* ================================================================================ *
+	 * ===================================== PRODUCTS ================================= *
+	 * ================================================================================ */
+	
+	/**
+	 * Get products by name
+	 * @param controller
+	 * @param queryName
+	 */
+	public void getProducts(ProductsController controller, CharSequence queryName) {
+		// GET <URLbase>/products?queryName={queryName}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "products?queryName=" + queryName);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get products by advanced search
+	 * @param controller
+	 * @param queryName
+	 * @param priceFrom
+	 * @param priceSince
+	 * @param coin
+	 * @param brandName
+	 * @param idCategory
+	 * @param rating
+	 */
+	public void getProducts(ProductsController controller, CharSequence queryName, float priceFrom, float priceSince, char coin, CharSequence brandName, int idCategory, float rating) {
+		// add query params to array
+		ArrayList<String> queryParams = new ArrayList<String>();
+		if (queryName != null && !queryName.equals("")) {
+			// afegir a la URL
+			queryParams.add("queryName=" + queryName);
 		}
+		if (priceFrom != 0) {
+			// afegir a la URL
+			queryParams.add("priceFrom=" + priceFrom);
+		}
+		if (priceSince != 0) {
+			// afegir a la URL
+			queryParams.add("priceSince=" + priceSince);
+		}
+		queryParams.add("coin=" + coin);
+		if (brandName != null) {
+			// afegir a la URL
+			queryParams.add("brandName=" + brandName);
+		}
+		if (idCategory != -1) {
+			// afegir a la URL
+			queryParams.add("idCategory=" + idCategory);
+		}
+		queryParams.add("rating=" + rating);
+		// build query
+		String query = "?" + queryParams.get(0);
+		for (int i = 1; i < queryParams.size(); i++) {
+			query += "&" + queryParams.get(i);
+		}
+		// GET <URLbase>/products?queryName={queryName}&priceFrom={priceFrom}&priceSince={priceSince}&coin={coin}&brandName={brandName}&idCategory={idCategory}&rating={rating}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "products" + query);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get product reviews
+	 * @param controller
+	 * @param idProduct
+	 */
+	public void getReviews(ProductsController controller, int idProduct) {
+		// GET <URLbase>/products/{idProduct}/reviews
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "products/" + idProduct + "/reviews");
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get product
+	 * @param controller
+	 * @param idProduct
+	 */
+	public void getProduct(ProductsController controller, int idProduct) {
+		// GET <URLbase>/products/{idProduct}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "products/" + idProduct);
+		new AsyncRequest(this).execute(info);
+	}	
+	
+	
+	
+	/**
+	 * Get product images
+	 * @param controller
+	 * @param idProduct
+	 */
+	public void getProductImages(ProductsController controller, int idProduct) {
+		// GET <URLbase>/products/{idProduct}/product_images
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "products/" + idProduct + "/product_images");
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get product's front image
+	 * @param controller
+	 * @param idProduct
+	 */
+	public void getProductFrontImage(ProductsController controller, int idProduct) {
+		// GET <URLbase>/products/{idProduct}/product_images?type={ProductImage.TYPE_FRONT}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "products/" + idProduct + "/product_images?type=" + ProductImage.TYPE_FRONT);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get related products
+	 * @param controller
+	 * @param idProduct
+	 */
+	public void getRelatedProducts(ProductsController controller, int idProduct) {
+		// GET <URLbase>/products/{idProduct}/related_products
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "products/" + idProduct + "/related_products");
+		new AsyncRequest(this).execute(info);
 	}
 	
 	

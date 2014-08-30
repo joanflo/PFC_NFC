@@ -29,6 +29,16 @@
             android:text="@string/title_signin"
             android:textColor="@color/main_white" />
 
+        <!-- Progress bar -->
+		<ProgressBar
+			android:id="@+id/progressBar_registration"
+			style="?android:attr/progressBarStyleLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+			android:layout_below="@+id/textView_title_login"
+			android:layout_centerHorizontal="true"
+			android:visibility="gone" />
 
         <ScrollView
             android:id="@+id/aux3"
@@ -303,7 +313,6 @@
 			        android:id="@+id/checkBox_termsconditions"
 		            android:textColor="@color/main_white"
 			        android:text="@string/termsconditions"
-			        android:onClick="onCheckboxClicked"
 		            android:layout_below="@+id/editText_registration_direction"
 		            android:layout_marginTop="20dp" />
 			    

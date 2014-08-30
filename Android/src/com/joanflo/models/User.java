@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.joanflo.utils.Gamification;
 import com.joanflo.utils.SearchUtils;
+import com.joanflo.utils.Time;
 
 public class User {
 
-	
+
 	// primary key
 	private CharSequence userEmail;
 	
@@ -63,8 +67,6 @@ public class User {
 		this.points = points;
 	}
 	
-	
-	
 	// new user
 	public User(CharSequence userEmail, City city, Language language, CharSequence nick, CharSequence name, 
 			CharSequence surname, int age, CharSequence password, CharSequence phone, CharSequence direction) {
@@ -97,6 +99,21 @@ public class User {
 		Achievement newbie = new Achievement(badge, this);
 		this.achievements = new ArrayList<Achievement>();
 		addAchievement(newbie);
+	}
+	
+	public User(JSONObject jUser) throws JSONException {
+		this.userEmail = jUser.getString("userEmail");
+		this.nick = jUser.getString("nick");
+		this.name = jUser.getString("name");
+		this.surname = jUser.getString("surname");
+		this.age = jUser.getInt("age");
+		this.password = jUser.getString("password");
+		this.phone = jUser.getString("phone");
+		this.direction = jUser.getString("direction");
+		this.registration = Time.convertStringToTimestamp(jUser.getString("registration"));
+		this.points = jUser.getInt("points");
+		this.city = new City(jUser.getJSONObject("city"));
+		this.language = new Language(jUser.getJSONObject("language"));
 	}
 	
 	
@@ -344,6 +361,38 @@ public class User {
 			}
 		}
 		return users;
+	}
+	
+	
+	
+	public JSONObject convertToJSON() {
+		JSONObject jUser = new JSONObject();
+		
+		try {
+			jUser.put("userEmail", userEmail);
+			jUser.put("nick", nick);
+			jUser.put("name", name);
+			jUser.put("surname", surname);
+			jUser.put("age", age);
+			jUser.put("password", password);
+			jUser.put("phone", phone);
+			jUser.put("direction", direction);
+			jUser.put("registration", registration.toString());
+			jUser.put("points", points);
+			if (city != null) {
+				JSONObject jCity = city.convertToJSON();
+				jUser.put("city", jCity);
+			}
+			if (language != null) {
+				JSONObject jLanguage = language.convertToJSON();
+				jLanguage.put("language", jLanguage);
+			}
+			// 'purchases', 'usersFollowing', 'usersFollower', 'achievements', 'reviews', 'wishes' ignored
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return jUser;
 	}
 	
 	

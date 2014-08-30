@@ -4,7 +4,7 @@ class LanguagesController extends BaseController {
  	
  
     /**
-     * Display a listing of the resource.
+     * Display a listing of languages.
      */
     public function index() {
         // GET <URLbase>/languages

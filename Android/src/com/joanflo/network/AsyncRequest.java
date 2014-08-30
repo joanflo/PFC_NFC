@@ -16,10 +16,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 	// AsyncTask<Input, Progress, Output>
@@ -29,7 +26,6 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 	
 	
 	public AsyncRequest(AsyncResponse delegate) {
-		Log.i("test", "constructor");
 		this.delegate = delegate;
 	}
 	
@@ -39,10 +35,8 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 	protected InfoResponse[] doInBackground(InfoRequest... infoRequests) {
 		// (executed in secondary thread)
 		InfoResponse[] infoResponses = new InfoResponse[infoRequests.length];
-		Log.i("test", "a");
 		// for each URI
 		for (int i = 0; i < infoRequests.length; i++) {
-			Log.i("test", "b");
 			// prepare request
 			URI uri = infoRequests[i].getUri();
 			HttpRequestBase httpMethod = null;
@@ -51,7 +45,7 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 				httpMethod = new HttpPost(uri);
 				break;
 			case GET:
-				httpMethod = new HttpGet(uri);Log.i("test", "c");
+				httpMethod = new HttpGet(uri);
 				break;
 			case PUT:
 				httpMethod = new HttpPut(uri);
@@ -60,14 +54,10 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 				httpMethod = new HttpDelete(uri);
 				break;
 			}
-			Log.i("test", "d");
 			try {
 				// execute request
-				Log.i("test", "d1");
 				HttpClient httpClient = new DefaultHttpClient();
-				Log.i("test", "d2");
 				HttpResponse httpResponse = httpClient.execute(httpMethod);
-				Log.i("test", "e");
 				// convert response to JSON
 				HttpEntity entity = httpResponse.getEntity();
 				InputStream is = entity.getContent();
@@ -79,10 +69,10 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 				while ((line = reader.readLine()) != null) {
 					sb.append(line + "\n");
 				}
-				is.close();Log.i("test", "f");
+				is.close();
 				JSONObject jObject = new JSONObject(sb.toString());
-				Activity activity = infoRequests[i].getActivity();
-				infoResponses[i] = new InfoResponse(activity, jObject);
+				Object controller = infoRequests[i].getController();
+				infoResponses[i] = new InfoResponse(controller, jObject);
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -90,7 +80,6 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 				e.printStackTrace();
 			}
 		}
-		Log.i("test", "g");
 		return infoResponses;
 	}
 	
@@ -98,7 +87,6 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 	
 	@Override
 	protected void onPostExecute(InfoResponse[] infoResponses) {
-		Log.i("test", "h");
 		delegate.requestFinished(infoResponses);
 	}
 	

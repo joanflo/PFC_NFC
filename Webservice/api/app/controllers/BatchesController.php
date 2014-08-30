@@ -4,7 +4,7 @@ class BatchesController extends BaseController {
  
  
     /**
-     * Display a listing of the resource.
+     * Display a listing of batches.
      */
     public function index() {
         // <URLbase>/batches?idProduct={idProduct}
@@ -21,7 +21,7 @@ class BatchesController extends BaseController {
  
  
     /**
-     * Display the specified resource.
+     * Display the specified batch.
      */
     public function show($idBatch) {
         // GET <URLbase>/batches/{idBatch}
@@ -30,7 +30,7 @@ class BatchesController extends BaseController {
  
  
     /**
-     * Update the specified resource in storage.
+     * Update the specified batch in storage.
      */
     public function update($idBatch) {
         // PUT <URLbase>/batches/{idBatch}?units={units}
