@@ -1,5 +1,8 @@
 package com.joanflo.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Brand {
 
 	
@@ -22,6 +25,21 @@ public class Brand {
 		this.headquarter = headquarter;
 		this.phone = phone;
 		this.email = email;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+	
+	public Brand(CharSequence brandName) {
+		this.brandName = brandName;
+	}
+	
+	public Brand(JSONObject jBrand) throws JSONException {
+		this.brandName = jBrand.getString("brandName");
+		this.headquarter = jBrand.getString("headquarter");
+		this.phone = jBrand.getString("phone");
+		this.email = jBrand.getString("email");
+		this.latitude = jBrand.getDouble("latitude");
+		this.longitude = jBrand.getDouble("longitude");
 	}
 	
 	

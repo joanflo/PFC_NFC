@@ -27,7 +27,7 @@
             android:textColor="@color/main_white" />
 
         
-        <!-- nick or email -->
+        <!-- email -->
         <TextView
             android:id="@+id/textView_identifier"
             style="@style/b"
@@ -43,7 +43,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textView_identifier"
-            android:inputType="text"
+            android:inputType="textEmailAddress" 
             android:padding="8dp" />
 
         

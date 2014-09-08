@@ -16,10 +16,24 @@ public class InfoRequest {
 		this.controller = controller;
 		this.method = method;
 		try {
+			uri = encodeURIComponent(uri);
 			this.uri = new URI(uri);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	
+	public static String encodeURIComponent(String uri) {
+	    String result;
+        result = uri
+        		.replace(" ", "%20")
+	    		.replace("!", "%21")
+	    		.replace("'", "%27")
+	    		.replace("(", "%28")
+	    		.replace(")", "%29");
+	    return result;
 	}
 
 

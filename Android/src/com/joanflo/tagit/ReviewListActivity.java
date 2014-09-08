@@ -364,7 +364,7 @@ public class ReviewListActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 		
-		
+		/*
 		Tax t1 = new Tax(p1, espanya, 50, 21, 10, Tax.DISCOUNT_PERCENT);
 		p1.addTax(t1);
 		Tax t2 = new Tax(p2, espanya, 50, 21, 50, Tax.DISCOUNT_PERCENT);
@@ -391,7 +391,7 @@ public class ReviewListActivity extends BaseActivity {
 		p12.addTax(t12);
 		Tax t13 = new Tax(p13, espanya, 50, 21, 0, Tax.DISCOUNT_MONEY);
 		p13.addTax(t13);
-		
+		*/
 		
 		Review r1 = new Review(0, p1, user, 5, "Lorem ipsum...");
 		user.addReview(r1);

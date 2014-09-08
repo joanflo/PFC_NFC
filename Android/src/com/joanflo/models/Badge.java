@@ -1,5 +1,8 @@
 package com.joanflo.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Badge {
 
 	// primary key
@@ -7,14 +10,17 @@ public class Badge {
 	
 	// badge info
 	private CharSequence description;
-	private int type;
 	
 	
 	
-	public Badge(CharSequence badgeName, CharSequence description, int type) {
+	public Badge(CharSequence badgeName, CharSequence description) {
 		this.badgeName = badgeName;
 		this.description = description;
-		this.type = type;
+	}
+	
+	public Badge(JSONObject jBadge, String lang) throws JSONException {
+		this.badgeName = jBadge.getString("badgeName");
+		this.description = jBadge.getString("description_" + lang);
 	}
 
 
@@ -24,17 +30,13 @@ public class Badge {
 	}
 
 	
+	
 	public CharSequence getDescription() {
 		return description;
 	}
 
 	public void setDescription(CharSequence description) {
 		this.description = description;
-	}
-	
-	
-	public int getType() {
-		return type;
 	}
 	
 	

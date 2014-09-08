@@ -3,6 +3,11 @@ package com.joanflo.models;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.joanflo.utils.AssetsUtils;
+
 public class ProductImage {
 
 	
@@ -28,6 +33,23 @@ public class ProductImage {
 		this.product = product;
 		this.type = type;
 		this.description = description;
+	}
+	
+	public ProductImage(JSONObject jProductImage, String lang) throws JSONException {
+		// url
+		try {
+			String imagePath = jProductImage.getString("url");
+			this.url = AssetsUtils.getUrlFromPath(imagePath);
+		} catch (MalformedURLException e) {
+			this.url = null;
+		}
+		// product
+		int idProduct = jProductImage.getInt("idProduct");
+		this.product = new Product(idProduct, null, null, "", "", "", "");
+		// type
+		this.type = jProductImage.getString("type").charAt(0);
+		// description
+		this.description = jProductImage.getString("description_" + lang);
 	}
 
 

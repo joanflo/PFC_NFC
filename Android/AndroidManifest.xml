@@ -8,7 +8,8 @@
         android:name="com.joanflo.tagit.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
     
-    <uses-permission android:name="info.androidhive.googlemapsv2.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.joanflo.tagit.permission.MAPS_RECEIVE" />
+    
     
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -46,12 +47,13 @@
 		    android:value="@integer/google_play_services_version" />
 		<meta-data
 		     android:name="com.google.android.maps.v2.API_KEY"
-		     android:value="AIzaSyAR_NkIL8NZ4-XbcqOVSBAoDjXaISrVdbU" />
+		     android:value="AIzaSyAhGwhheoDNzeeqfwEe2kwJM-0Vo48wA2g" />
         
 		
 		
         <activity
-            android:name="com.joanflo.tagit.StartActivity" >
+            android:name="com.joanflo.tagit.StartActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -60,12 +62,14 @@
         
         
         <activity
-            android:name="com.joanflo.tagit.LoginActivity" >
+            android:name="com.joanflo.tagit.LoginActivity"
+            android:screenOrientation="portrait" >
         </activity>
         
         
         <activity
-            android:name="com.joanflo.tagit.RegistrationActivity" >
+            android:name="com.joanflo.tagit.RegistrationActivity"
+            android:screenOrientation="portrait" >
         </activity>
         
         

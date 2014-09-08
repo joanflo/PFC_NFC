@@ -23,6 +23,12 @@ public class City {
 		this.region = region;
 	}
 	
+	public City(CharSequence cityName) {
+		this.cityName = cityName;
+		this.shops = null;
+		this.region = null;
+	}
+	
 	public City(JSONObject jCities) throws JSONException {
 		this.cityName = jCities.getString("cityName");
 		this.shops = null;

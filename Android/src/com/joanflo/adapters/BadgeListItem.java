@@ -13,8 +13,8 @@ public class BadgeListItem {
 	
 	
 	
-	public BadgeListItem(Context context, int badgeType, CharSequence description) {
-		this.thumb = AssetsUtils.getImageFromAssets(context, AssetsUtils.BADGES_DIRECTORY, String.valueOf(badgeType));
+	public BadgeListItem(Context context, CharSequence badgeName, CharSequence description) {
+		this.thumb = AssetsUtils.getImageFromAssets(context, AssetsUtils.BADGES_DIRECTORY, String.valueOf(badgeName));
 		this.description = description;
 	}
 

@@ -1,10 +1,7 @@
 package com.joanflo.utils;
 
 import android.annotation.SuppressLint;
-import java.security.SecureRandom;
-
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -25,7 +22,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class SimpleCrypto {
 	
 	
-	public final static String MASTER_KEY = "314159";
+	public final static String MASTER_KEY = "3141592653589793";
 	
 	private final static String HEX = "0123456789ABCDEF";
 	
@@ -50,6 +47,7 @@ public class SimpleCrypto {
 	
 	@SuppressLint("TrulyRandom")
 	private static byte[] getRawKey(byte[] seed) throws Exception {
+		/*
 		KeyGenerator kgen = KeyGenerator.getInstance("AES");
 		SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
 		sr.setSeed(seed);
@@ -57,10 +55,14 @@ public class SimpleCrypto {
 		SecretKey skey = kgen.generateKey();
 		byte[] raw = skey.getEncoded();
 		return raw;
+		*/
+		SecretKey key = new SecretKeySpec(seed, "AES");
+		return key.getEncoded();
 	}
 	
 	
 	
+	@SuppressLint("TrulyRandom")
 	private static byte[] encrypt(byte[] raw, byte[] clear) throws Exception {
 		SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
 		Cipher cipher = Cipher.getInstance("AES");

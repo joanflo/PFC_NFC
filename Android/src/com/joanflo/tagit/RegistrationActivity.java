@@ -171,12 +171,14 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 	
 	public void countriesReceived(List<Country> countries) {
 		countryNames = new String[countries.size() + 1];
-		countryNames[0] = getResources().getString(R.string.list_default);
+		String defaultValue = getResources().getString(R.string.list_default);
+		countryNames[0] = defaultValue;
 		for (int i = 0; i < countries.size(); i++) {
 			CharSequence countryName = countries.get(i).getCountryName();
 			countryNames[i + 1] = (String) countryName;
 		}
 		fillSpinner(R.id.spinner_registration_country, countryNames);
+		fillSpinner(R.id.spinner_registration_city, new String[] {defaultValue});
 	}
 	
 	
@@ -299,7 +301,7 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 			CountriesController cController = new CountriesController(this);
 			Spinner spinner = (Spinner) findViewById(R.id.spinner_registration_country);
 			CharSequence countryName = spinner.getSelectedItem().toString();
-			switch (v.getId()) {
+			switch (adapterView.getId()) {
 			case R.id.spinner_registration_region:
 				// call web service to load cities from selected region
 				spinner = (Spinner) findViewById(R.id.spinner_registration_region);

@@ -1,6 +1,8 @@
 package com.joanflo.network;
 
 import java.util.ArrayList;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import com.joanflo.controllers.BadgesController;
 import com.joanflo.controllers.BatchesController;
@@ -27,10 +29,7 @@ import com.joanflo.models.Wish;
 public class RESTClient implements AsyncResponse {
 	
 	
-	//public static final CharSequence HOST = "http://alumnes-ltim.uib.es/~jflorit/";
-	//public static final CharSequence HOST = "http://79.152.31.226/api/server.php/";
-	public static final CharSequence HOST = "http://192.168.56.1/api/server.php/";
-	//public static final CharSequence HOST = "http://localhost/api/server.php/";
+	public static final CharSequence HOST = "http://alumnes-ltim.uib.es/~jflorit/index.php/";
 
 	
 	
@@ -62,60 +61,63 @@ public class RESTClient implements AsyncResponse {
 			
 			// get response fields
 			Object controller = infoResponses[i].getController();
+			String route = infoResponses[i].getRoute();
+			int statusCode = infoResponses[i].getStatusCode();
 			JSONObject jObject = infoResponses[i].getJObject();
+			JSONArray jArray = infoResponses[i].getJArray();
 			
 			// identify controller to delegate it the JSON data
 			if (controller instanceof BadgesController) {
 				BadgesController badgesController = (BadgesController) controller;
-				badgesController.requestFinished(jObject);
+				badgesController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof BatchesController) {
 				BatchesController batchesController = (BatchesController) controller;
-				batchesController.requestFinished(jObject);
+				batchesController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof BrandsController) {
 				BrandsController brandsController = (BrandsController) controller;
-				brandsController.requestFinished(jObject);
+				brandsController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof CategoriesController) {
 				CategoriesController categoriesController = (CategoriesController) controller;
-				categoriesController.requestFinished(jObject);
+				categoriesController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof CollectionsController) {
 				CollectionsController collectionsController = (CollectionsController) controller;
-				collectionsController.requestFinished(jObject);
+				collectionsController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof ColorsController) {
 				ColorsController colorsController = (ColorsController) controller;
-				colorsController.requestFinished(jObject);
+				colorsController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof CountriesController) {
 				CountriesController countriesController = (CountriesController) controller;
-				countriesController.requestFinished(jObject);
+				countriesController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof LanguagesController) {
 				LanguagesController languagesController = (LanguagesController) controller;
-				languagesController.requestFinished(jObject);
+				languagesController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof ProductsController) {
 				ProductsController productsController = (ProductsController) controller;
-				productsController.requestFinished(jObject);
+				productsController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof ShopsController) {
 				ShopsController shopsController = (ShopsController) controller;
-				shopsController.requestFinished(jObject);
+				shopsController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof SizesController) {
 				SizesController sizesController = (SizesController) controller;
-				sizesController.requestFinished(jObject);
+				sizesController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof TaxesController) {
 				TaxesController taxesController = (TaxesController) controller;
-				taxesController.requestFinished(jObject);
+				taxesController.requestFinished(route, statusCode, jObject, jArray);
 				
 			} else if (controller instanceof UsersController) {
 				UsersController usersController = (UsersController) controller;
-				usersController.requestFinished(jObject);
+				usersController.requestFinished(route, statusCode, jObject, jArray);
 				
 			}
 		}
@@ -205,7 +207,6 @@ public class RESTClient implements AsyncResponse {
 
 	/**
 	 * Get categories
-	 * (includes subcategories/products count for each category)
 	 * @param controller
 	 * @param level
 	 */
@@ -218,14 +219,39 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	/**
+	 * Get categories
+	 * @param controller
+	 * @param idProduct
+	 */
+	public void getProductCategories(CategoriesController controller, int idProduct) {
+		// GET <URLbase>/categories?idProduct={idProduct}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "categories?idProduct=" + idProduct);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
 	 * Get subcategories
-	 * (includes sub-subcategories/products for each category)
 	 * @param controller
 	 * @param idCategory
 	 */
 	public void getSubategories(CategoriesController controller, int idCategory) {
 		// GET <URLbase>/categories/{idCategory}/subcategories
 		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "categories/" + idCategory + "/subcategories");
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Get subcategories/products count for the given category
+	 * @param controller
+	 * @param idCategory
+	 */
+	public void getSubategoriesCount(CategoriesController controller, int idCategory) {
+		// GET <URLbase>/categories/{idCategory}/subcategories?count=true
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "categories/" + idCategory + "/subcategories?count=true");
 		new AsyncRequest(this).execute(info);
 	}
 	
@@ -370,6 +396,18 @@ public class RESTClient implements AsyncResponse {
 	 * ================================================================================ */
 	
 	/**
+	 * Get brands
+	 * @param controller
+	 */
+	public void getBrands(BrandsController controller) {
+		// GET <URLbase>/brands
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "brands");
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
 	 * Get brand
 	 * @param controller
 	 * @param brandName
@@ -410,9 +448,9 @@ public class RESTClient implements AsyncResponse {
 	 * @param userEmail
 	 * @param password
 	 */
-	public void logInUser(UsersController controller, CharSequence userEmail, CharSequence password) {
-		// GET <URLbase>/users/{userEmail}?password={password}
-		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "?password=" + password);
+	public void logInUser(UsersController controller, CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}?fields=password
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "?fields=password");
 		new AsyncRequest(this).execute(info);
 	}
 	
@@ -897,6 +935,14 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	
+	public void getProducts(ProductsController controller, int idCategory) {
+		// GET <URLbase>/products?idCategory={idCategory}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "products?idCategory=" + idCategory);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
 	/**
 	 * Get products by advanced search
 	 * @param controller
@@ -924,7 +970,7 @@ public class RESTClient implements AsyncResponse {
 			queryParams.add("priceSince=" + priceSince);
 		}
 		queryParams.add("coin=" + coin);
-		if (brandName != null) {
+		if (!brandName.equals("")) {
 			// afegir a la URL
 			queryParams.add("brandName=" + brandName);
 		}

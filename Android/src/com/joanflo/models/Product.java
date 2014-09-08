@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Product {
 
 	
@@ -48,8 +51,6 @@ public class Product {
 		this.composition = composition;
 	}
 	
-	
-	
 	public Product(int idProduct, Brand brand, Collection collection, CharSequence name,
 			CharSequence description, CharSequence reference, CharSequence composition) {
 		
@@ -66,6 +67,30 @@ public class Product {
 		this.description = description;
 		this.reference = reference;
 		this.composition = composition;
+	}
+	
+	public Product(JSONObject jProduct, String lang) throws JSONException {
+		this.idProduct = jProduct.getInt("idProduct");
+		if (jProduct.has("brand")) {
+			this.brand = new Brand(jProduct.getJSONObject("brand"));
+		} else if (jProduct.has("brandName")) {
+			this.brand = new Brand(jProduct.getString("brandName"));
+		}
+		if (jProduct.has("collection")) {
+			this.collection = new Collection(jProduct.getJSONObject("collection"));
+		} else if (jProduct.has("idCollection")) {
+			this.collection = new Collection(jProduct.getInt("idCollection"));
+		}
+		this.reviews = new ArrayList<Review>();
+		this.taxes = new ArrayList<Tax>();
+		this.batches = new ArrayList<Batch>();
+		this.relatedProducts = new ArrayList<Product>();
+		this.images = new ArrayList<ProductImage>();
+		this.categories = new ArrayList<Category>();
+		this.name = jProduct.getString("name_" + lang);
+		this.description = jProduct.getString("description_" + lang);
+		this.reference = jProduct.getString("reference");
+		this.composition = jProduct.getString("composition_" + lang);
 	}
 	
 	
@@ -235,6 +260,7 @@ public class Product {
 			if (tax.getCountry().equals(country)) {
 				found = true;
 			}
+			i++;
 		}
 		
 		return tax;

@@ -9,6 +9,18 @@
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+	
+    <!-- Progress bar -->
+	<ProgressBar
+		android:id="@+id/progressBar_base"
+		style="?android:attr/progressBarStyleLarge"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="110dp"
+		android:layout_marginRight="110dp"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"
+		android:visibility="gone" />
     
     <!-- slider menu -->
     <LinearLayout

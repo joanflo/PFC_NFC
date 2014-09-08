@@ -1,5 +1,8 @@
 package com.joanflo.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Shop {
 
 	// primary key
@@ -29,6 +32,17 @@ public class Shop {
 		this.email = email;
 		this.latitude = latitude;
 		this.longitude = longitude;
+	}
+	
+	public Shop(JSONObject jShop) throws JSONException {
+		this.idShop = jShop.getInt("idShop");
+		this.direction = jShop.getString("direction");
+		this.schedule = jShop.getString("schedule");
+		this.phone = jShop.getString("phone");
+		this.email = jShop.getString("email");
+		this.latitude = jShop.getDouble("latitude");
+		this.longitude = jShop.getDouble("longitude");
+		this.city = new City(jShop.getString("cityName"));
 	}
 
 
@@ -104,6 +118,30 @@ public class Shop {
 		} else {
 			return false;
 		}
+	}
+	
+	
+	
+	public JSONObject convertToJSON() {
+		JSONObject jShop = new JSONObject();
+		
+		try {
+			jShop.put("idShop", idShop);
+			jShop.put("direction", direction);
+			jShop.put("schedule", schedule);
+			jShop.put("phone", phone);
+			jShop.put("email", email);
+			jShop.put("latitude", latitude);
+			jShop.put("longitude", longitude);
+			if (city != null) {
+				JSONObject jCity = city.convertToJSON();
+				jShop.put("city", jCity);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return jShop;
 	}
 	
 	

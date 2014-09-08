@@ -3,6 +3,7 @@ package com.joanflo.tagit;
 import java.util.ArrayList;
 import com.joanflo.adapters.NavigationDrawerListAdapter;
 import com.joanflo.adapters.NavigationDrawerListItem;
+import com.joanflo.utils.LocalStorage;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -20,7 +21,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BaseActivity extends Activity {
 
@@ -110,7 +114,7 @@ public class BaseActivity extends Activity {
 	
 	
 	
-	private void prepareResources() {
+	protected void prepareResources() {
 		loadUserData();
 		
 		// load app title
@@ -135,9 +139,11 @@ public class BaseActivity extends Activity {
         // Search products
         navDrawerItems.add(new NavigationDrawerListItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
         // My cart
-        navDrawerItems.add(new NavigationDrawerListItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1), true, "22"));
+		int itemsNumber = LocalStorage.getInstance().getCartItemsCount(this);
+        navDrawerItems.add(new NavigationDrawerListItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1), true, String.valueOf(itemsNumber)));
         // My wishlist
-        navDrawerItems.add(new NavigationDrawerListItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
+		itemsNumber = LocalStorage.getInstance().getWishlistItemsCount(this);
+        navDrawerItems.add(new NavigationDrawerListItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, String.valueOf(itemsNumber)));
 	
         // Recycle the typed array
         navMenuIcons.recycle();
@@ -175,25 +181,36 @@ public class BaseActivity extends Activity {
 	
 	
 	private void loadUserData() {
-		// show user image
-		ImageView iv = (ImageView) findViewById(R.id.profile_image_drawer);
-		iv.setImageResource(R.drawable.user_profile);
-		
-		// set user nick
-		TextView tv = (TextView) findViewById(R.id.profile_nick_drawer);
-		tv.setText("@" + "Joan_flo");
-		
-		// set user points
-		tv = (TextView) findViewById(R.id.profile_pointsnumber_drawer);
-		tv.setText("326");
-		
-		// set user followers
-		tv = (TextView) findViewById(R.id.profile_counterfollowers_drawer);
-		tv.setText("106");
-		
-		// set user following
-		tv = (TextView) findViewById(R.id.profile_counterfollowing_drawer);
-		tv.setText("256");
+		RelativeLayout rl = (RelativeLayout) findViewById(R.id.profile_view);
+		// is user loged?
+		LocalStorage storage = LocalStorage.getInstance();
+		if (storage.isUserLoged(this) && storage.getUser(this) != null) {
+			ImageView iv;
+			TextView tv;
+			// show user image
+			iv = (ImageView) findViewById(R.id.profile_image_drawer);
+			iv.setImageResource(R.drawable.user_profile);
+			// set user nick
+			tv = (TextView) findViewById(R.id.profile_nick_drawer);
+			tv.setText("@" + storage.getUserNick(this));
+			// set user points
+			tv = (TextView) findViewById(R.id.profile_pointsnumber_drawer);
+			tv.setText(String.valueOf(storage.getUserPoints(this)));
+			// set user followers
+			tv = (TextView) findViewById(R.id.profile_counterfollowers_drawer);
+			int followersCount = storage.getFollowersCount(this);
+			tv.setText(String.valueOf(followersCount));
+			// set user following
+			tv = (TextView) findViewById(R.id.profile_counterfollowing_drawer);
+			int followingCount = storage.getFollowingCount(this);
+			tv.setText(String.valueOf(followingCount));
+			// show user profile layout
+			rl.setVisibility(View.VISIBLE);
+			
+		} else {
+			// hide user profile layout
+			rl.setVisibility(View.GONE);
+		}
 	}
 	
 	
@@ -266,6 +283,23 @@ public class BaseActivity extends Activity {
     
     
     
+    protected void showProgressBar(boolean show) {
+    	ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBar_base);
+    	FrameLayout fl = (FrameLayout) findViewById(R.id.frame_container);
+		// show progress bar?
+		if (show) {
+			spinner.setVisibility(View.VISIBLE);
+			// hide frame container
+			fl.setVisibility(View.INVISIBLE);
+		} else {
+			spinner.setVisibility(View.GONE);
+			// show frame container
+			fl.setVisibility(View.VISIBLE);
+		}
+    }
+    
+    
+    
     public void displayView(int position) {
     	
     	if (currentPosition == position) {
@@ -273,6 +307,7 @@ public class BaseActivity extends Activity {
     		updateSelected(position);
     		
     	} else {
+    		LocalStorage storage = LocalStorage.getInstance();
 	        Intent intent;
 	        switch (position) {
 	        case 0:
@@ -288,10 +323,20 @@ public class BaseActivity extends Activity {
 	        	intent = new Intent(this, ProductSearchActivity.class);
 	            break;
 	        case 4:
-	        	intent = new Intent(this, PurchaseDetailListActivity.class);
+	        	if (storage.isUserLoged(this)) {
+	        		intent = new Intent(this, PurchaseDetailListActivity.class);
+	        	} else {
+	        		Toast.makeText(this, R.string.toast_registration, Toast.LENGTH_SHORT).show();
+	        		intent = new Intent(this, RegistrationActivity.class);
+	        	}
 	            break;
 	        case 5:
-	        	intent = new Intent(this, WishListActivity.class);
+	        	if (storage.isUserLoged(this)) {
+	        		intent = new Intent(this, WishListActivity.class);
+	        	} else {
+	        		Toast.makeText(this, R.string.toast_registration, Toast.LENGTH_SHORT).show();
+	        		intent = new Intent(this, RegistrationActivity.class);
+	        	}
 	            break;
 	        default:
 	        	// home activity by default

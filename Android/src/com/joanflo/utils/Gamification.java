@@ -56,7 +56,7 @@ public class Gamification {
 	public static final int BADGE_1PURCHASE = 11;
 	public static final int BADGE_10PURCHASES = 12;
 	
-	
+	/*
 	public static Badge getBadge(int event) {
 		Badge badge = null;
 		
@@ -104,6 +104,6 @@ public class Gamification {
 		
 		return badge;
 	}
-	
+	*/
 	
 }

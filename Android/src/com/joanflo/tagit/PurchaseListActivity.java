@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import com.joanflo.adapters.PurchaseListAdapter;
 import com.joanflo.adapters.PurchaseListItem;
+import com.joanflo.controllers.TaxesController;
 import com.joanflo.models.Batch;
 import com.joanflo.models.Brand;
 import com.joanflo.models.Category;
@@ -30,6 +31,8 @@ import com.joanflo.models.Size;
 import com.joanflo.models.Tax;
 import com.joanflo.models.User;
 import com.joanflo.models.Wish;
+import com.joanflo.utils.LocalStorage;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -75,6 +78,8 @@ public class PurchaseListActivity extends BaseActivity {
 	
 	
 	private void prepareList() {
+    	Country country = LocalStorage.getInstance().getLocaleCountry(this);
+		TaxesController controller = new TaxesController(this);
 		// creating purchase list items
 		purchaseItems = new ArrayList<PurchaseListItem>();
 		Iterator<Purchase> it = user.getPurchaseHistory().iterator();
@@ -87,7 +92,8 @@ public class PurchaseListActivity extends BaseActivity {
         	Timestamp date = purchase.getDate();
         	// get total price
         	DecimalFormat df = new DecimalFormat("0.00");
-        	CharSequence totalPrice = df.format(purchase.calculateTotalPrice());
+			double tPrice = controller.calculateTotalPrice(purchase.getPurchaseDetails(), country);
+        	CharSequence totalPrice = df.format(tPrice);
         	// get coin
         	List<PurchaseDetail> details = purchase.getPurchaseDetails();
         	shop = details.get(0).getBatch().getShop();
@@ -362,7 +368,7 @@ public class PurchaseListActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 		
-		
+		/*
 		Tax t1 = new Tax(p1, espanya, 50, 21, 10, Tax.DISCOUNT_PERCENT);
 		p1.addTax(t1);
 		Tax t2 = new Tax(p2, espanya, 50, 21, 50, Tax.DISCOUNT_PERCENT);
@@ -389,7 +395,7 @@ public class PurchaseListActivity extends BaseActivity {
 		p12.addTax(t12);
 		Tax t13 = new Tax(p13, espanya, 50, 21, 0, Tax.DISCOUNT_MONEY);
 		p13.addTax(t13);
-		
+		*/
 		
 		Review r1 = new Review(0, p1, user, 5, "Lorem ipsum...");
 		user.addReview(r1);
@@ -499,6 +505,8 @@ public class PurchaseListActivity extends BaseActivity {
 			int purchaseId = purchaseItems.get(position).getPurchaseId();
 			Intent i = new Intent(getBaseContext(), PurchaseDetailListActivity.class);
 			i.putExtra("purchaseId", purchaseId);
+			
+			/*
 			// get button info
 			TextView tv;
 			tv = (TextView) view.findViewById(R.id.textView_totalprice);
@@ -507,8 +515,11 @@ public class PurchaseListActivity extends BaseActivity {
 			i.putExtra("totalPriceCoin", tv.getText());
 			tv = (TextView) view.findViewById(R.id.textView_purchaseinfo);
 			i.putExtra("purchaseInfo", tv.getText());
+			
 			// shop id
 			i.putExtra("idShop", shop.getIdShop());
+			*/
+			
 			// start activity
 			startActivity(i);
 		}

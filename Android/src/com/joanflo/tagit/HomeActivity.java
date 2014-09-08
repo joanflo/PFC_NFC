@@ -1,22 +1,31 @@
 package com.joanflo.tagit;
 
-import org.json.JSONObject;
-
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.joanflo.controllers.UsersController;
+import com.joanflo.models.Purchase;
+import com.joanflo.models.User;
+import com.joanflo.utils.LocalStorage;
+
 
 public class HomeActivity extends BaseActivity {
+ 
+    private static final int SELECT_PICTURE = 1;
+	private int requestsNumber;
 
 
 	
@@ -33,7 +42,24 @@ public class HomeActivity extends BaseActivity {
         	pos = bundle.getInt("drawerPosition");
         }
         super.updateSelected(pos);
-		
+        
+        // load user data if isn't available locally
+        if (bundle != null) {
+        	CharSequence userEmail = bundle.getCharSequence("userEmail", null);
+        	if (userEmail != null) {
+        		//GUI
+        		super.showProgressBar(true);
+        		// Call web service
+        		requestsNumber = 5;
+        		UsersController controller = new UsersController(this);
+        		controller.getCurrentUser(userEmail);
+        		controller.getFollowers(userEmail);
+        		controller.getFollowing(userEmail);
+        		controller.getWishes(userEmail);
+        		controller.getCartPurchase(userEmail);
+        	}
+        }
+        
 		prepareSearchSection();
         prepareShopSection();
         prepareMyCartSection();
@@ -66,17 +92,17 @@ public class HomeActivity extends BaseActivity {
 	
 	
 	private void prepareShopSection() {
-		
-		boolean currentShopSelected = true;
-		// current shop info
 		TextView tv = (TextView) findViewById(R.id.currentshop_home);
-		// see shop button
 		Button b = (Button) findViewById(R.id.button_seeshop_home);
-		if (currentShopSelected) {
-			tv.setText("4, Aragó St.\nPalma 07008");
+		// shop selected?
+		LocalStorage storage = LocalStorage.getInstance();
+		if (storage.isShopPicked(this)) {
+			tv.setText(storage.getShopLocation(this));
+			// show shop button
 			b.setVisibility(View.VISIBLE);
 		} else {
 			tv.setText(R.string.nocurrentshopselected_text);
+			// hide shop button
 			b.setVisibility(View.INVISIBLE);
 		}
 	}
@@ -84,44 +110,125 @@ public class HomeActivity extends BaseActivity {
 	
 	
 	private void prepareMyCartSection() {
-		
 		// set cart items number
 		TextView tv = (TextView) findViewById(R.id.mycart_itemsnumber_home);
-		tv.setText("22");
+		int itemsNumber = LocalStorage.getInstance().getCartItemsCount(this);
+		tv.setText(String.valueOf(itemsNumber));
 	}
 	
 	
 	
 	private void prepareMyWishlistSection() {
-
 		// set wishlist items number
 		TextView tv = (TextView) findViewById(R.id.mywishlist_itemsnumber_home);
-		tv.setText("50+");
+		int itemsNumber = LocalStorage.getInstance().getWishlistItemsCount(this);
+		tv.setText(String.valueOf(itemsNumber));
 	}
 	
 	
 	
 	private void prepareProfileSection() {
+		RelativeLayout rl = (RelativeLayout) findViewById(R.id.section_profile);
 		
-		// show user image
-		ImageView iv = (ImageView) findViewById(R.id.profile_image_home);
-		iv.setImageResource(R.drawable.user_profile);
+		// is user loged?
+		LocalStorage storage = LocalStorage.getInstance();
+		if (storage.isUserLoged(this) && storage.getUser(this) != null) {
+			// show section
+			rl.setVisibility(View.VISIBLE);
+			
+			// show user image
+			ImageView iv = (ImageView) findViewById(R.id.profile_image_home);
+            iv.setImageResource(R.drawable.user_profile);
+            
+			// set user nick
+			TextView tv = (TextView) findViewById(R.id.profile_nick_home);
+			tv.setText("@" + storage.getUserNick(this));
+			
+			// set user points
+			tv = (TextView) findViewById(R.id.profile_pointsnumber_home);
+			tv.setText(String.valueOf(storage.getUserPoints(this)));
+			
+			// set user followers
+			tv = (TextView) findViewById(R.id.profile_counterfollowers_home);
+			int followersCount = storage.getFollowersCount(this);
+			tv.setText(String.valueOf(followersCount));
+			
+			// set user following
+			tv = (TextView) findViewById(R.id.profile_counterfollowing_home);
+			int followingCount = storage.getFollowingCount(this);
+			tv.setText(String.valueOf(followingCount));
+			
+		} else {
+			// hide section
+			rl.setVisibility(View.GONE);
+		}
+	}
+	
+	
+	
+	public void userReceived(User user) {
+		LocalStorage.getInstance().saveUser(this, user);
 		
-		// set user nick
-		TextView tv = (TextView) findViewById(R.id.profile_nick_home);
-		tv.setText("@" + "Joan_flo");
+		// check if it's the last request
+		checkLastRequest();
+	}
+	
+	
+	
+	public void followersCountReceived(int followersCount) {
+		LocalStorage.getInstance().setFollowersCount(this, followersCount);
 		
-		// set user points
-		tv = (TextView) findViewById(R.id.profile_pointsnumber_home);
-		tv.setText("326");
+		// check if it's the last request
+		checkLastRequest();
+	}
+	
+	
+	
+	public void followingCountReceived(int followingCount) {
+		LocalStorage.getInstance().setFollowingCount(this, followingCount);
 		
-		// set user followers
-		tv = (TextView) findViewById(R.id.profile_counterfollowers_home);
-		tv.setText("106");
+		// check if it's the last request
+		checkLastRequest();
+	}
+	
+	
+	
+	public void wishlistItemsCountReceived(int wishlistItemsCount) {
+		LocalStorage.getInstance().setWishlistItemsCount(this, wishlistItemsCount);
+		prepareMyWishlistSection();
 		
-		// set user following
-		tv = (TextView) findViewById(R.id.profile_counterfollowing_home);
-		tv.setText("256");
+		// check if it's the last request
+		checkLastRequest();
+	}
+	
+	
+	
+	public void cartPurchaseReceived(Purchase purchase) {
+		// call web service
+		UsersController controller = new UsersController(this);
+		controller.getPurchaseDetails(purchase.getUser().getUserEmail(), purchase.getIdPurchase());
+	}
+	
+	
+	
+	public void cartItemsCountReceived(int cartItemsCount) {
+		LocalStorage.getInstance().setCartItemsCount(this, cartItemsCount);
+		prepareMyCartSection();
+		
+		// check if it's the last request
+		checkLastRequest();
+	}
+	
+	
+	
+	private synchronized void checkLastRequest() {
+		requestsNumber--;
+		if (requestsNumber == 0) {
+			// last request
+			super.prepareResources();
+	        prepareProfileSection();
+			super.showProgressBar(false);
+		}
 	}
 	
 	
@@ -158,10 +265,21 @@ public class HomeActivity extends BaseActivity {
 		case R.id.button_seeshop_home:
 			// see shop details
 			i = new Intent(this, ShopActivity.class);
+			int idCurrentShop = LocalStorage.getInstance().getShop(this).getIdShop();
+			i.putExtra("idCurrentShop", idCurrentShop);
+			i.putExtra("isSelected", true);
 			startActivity(i);
 			break;
 		
 		case R.id.profile_image_home:
+			// select profile image
+			i = new Intent();
+			i.setType("image/*");
+			i.setAction(Intent.ACTION_GET_CONTENT);
+			String title = getResources().getString(R.string.toast_profile);
+			startActivityForResult(Intent.createChooser(i, title), SELECT_PICTURE);
+			break;
+			
 		case R.id.button_viewprofile_home:
 			// see user's profile
 			super.viewProfile();
@@ -186,6 +304,24 @@ public class HomeActivity extends BaseActivity {
 			super.onClickButton(v);
 			break;
 		}
+    }
+    
+    
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	super.onActivityResult(requestCode, resultCode, data);
+    	if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+            	// Get data from intent
+                Uri selectedImageUri = data.getData();
+                // Set profile image
+                ImageButton ib = (ImageButton) findViewById(R.id.profile_image_home);
+                ib.setImageURI(selectedImageUri);
+                // upload image to server
+                // TODO
+            }
+        }
     }
 	
 	

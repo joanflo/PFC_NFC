@@ -32,7 +32,7 @@ public class BadgeActivity extends BaseActivity {
         CharSequence badgeName = bundle.getCharSequence("badgeName");
         CharSequence badgeDescription = bundle.getCharSequence("badgeDescription");
         int badgeType = bundle.getInt("badgeType");
-        Badge badge = new Badge(badgeName, badgeDescription, badgeType);
+        Badge badge = new Badge(badgeName, badgeDescription);
         Timestamp timestamp = null;
         if (date != null) {
         	timestamp = Timestamp.valueOf(date);
@@ -64,7 +64,7 @@ public class BadgeActivity extends BaseActivity {
 		}
 		
 		ImageView iv = (ImageView) findViewById(R.id.imageView_badge_thumb);
-		Drawable d = AssetsUtils.getImageFromAssets(this, AssetsUtils.BADGES_DIRECTORY, String.valueOf(badge.getType()));
+		Drawable d = AssetsUtils.getImageFromAssets(this, AssetsUtils.BADGES_DIRECTORY, String.valueOf(badge.getBadgeName()));
 		iv.setImageDrawable(d);
 		iv.setContentDescription(badge.getDescription());
 	}

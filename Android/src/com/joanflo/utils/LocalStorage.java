@@ -1,26 +1,23 @@
 package com.joanflo.utils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Environment;
-import android.util.Log;
+import com.joanflo.models.Category;
+import com.joanflo.models.Country;
+import com.joanflo.models.Shop;
 import com.joanflo.models.User;
 
 public class LocalStorage {
 
 	
-	private static final String FILE_NAME = "user.tagit";
+	private static final String FILE_NAME = "data.tagit";
+	private User user;
+	private Shop shop;
+	private Category currentCategory;
 	
 	
 	
@@ -28,6 +25,7 @@ public class LocalStorage {
 	private static LocalStorage instance = null;
 	
 	private LocalStorage() {
+		user = null;
 		// Exists only to defeat instantiation from any other classes.
 	}
 	
@@ -42,25 +40,29 @@ public class LocalStorage {
 	
 	
 	public boolean isUserLoged(Activity activity) {
-		SharedPreferences prefs = activity.getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		return prefs.getBoolean("userLoged", false);
 	}
 	
-	
-	
 	public void setUserLoged(Activity activity, boolean loged) {
-		SharedPreferences prefs = activity.getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean("userLoged", loged);
 		editor.commit();
+		if (!loged) {
+			user = null;
+		}
 	}
 	
 	
 	
 	public User getUser(Activity activity) {
-		SharedPreferences prefs = activity.getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		String strUser = prefs.getString("user", null);
-		User user = null;
+		if (strUser == null) {
+			return null;
+		}
+		user = null;
 		try {
 			JSONObject jUser = new JSONObject(strUser);
 			user = new User(jUser);
@@ -70,86 +72,258 @@ public class LocalStorage {
 		return user;
 	}
 	
-	
-	
 	public void saveUser(Activity activity, User user) {
-		SharedPreferences prefs = activity.getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
 		// save user as JSON object
 		JSONObject jUser = user.convertToJSON();
 		String strUser = jUser.toString();
 		editor.putString("user", strUser);
 		editor.commit();
+		this.user = user;
 	}
 	
-
+	public CharSequence getUserNick(Activity activity) {
+		if (user == null) {
+			user = getUser(activity);
+		}
+		return user.getNick();
+	}
+	
+	public int getUserPoints(Activity activity) {
+		if (user == null) {
+			user = getUser(activity);
+		}
+		return user.getPoints();
+	}
+	
+	public CharSequence getUserEmail(Activity activity) {
+		if (user == null) {
+			user = getUser(activity);
+		}
+		return user.getUserEmail();
+	}
 	
 	
-
-	public void writeFile(Activity activity, User user) {
-		if (isExternalStorageWritable()) {
-			try {
-				FileOutputStream fos = activity.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
-				ObjectOutputStream os = new ObjectOutputStream(fos);
-				
-				String str = new String("holaa");
-				
-				os.writeObject(str);
-				os.close();
-			} catch (FileNotFoundException e) {
-				Log.i("excepció", "FileNotFoundException");
-			} catch (IOException e) {
-				Log.i("excepció", "IOException");
-			}
+	
+	public int getFollowersCount(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		return prefs.getInt("followersCount", 0);
+	}
+	
+	public void setFollowersCount(Activity activity, int followersCount) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt("followersCount", followersCount);
+		editor.commit();
+	}
+	
+	public void updateFollowersCount(Activity activity, boolean increase) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		int followersCount = getFollowersCount(activity);
+		if (increase) {
+			followersCount++;
+		} else {
+			followersCount--;
+		}
+		editor.putInt("followersCount", followersCount);
+		editor.commit();
+	}
+	
+	
+	
+	public int getFollowingCount(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		return prefs.getInt("followingCount", 0);
+	}
+	
+	public void setFollowingCount(Activity activity, int followingCount) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt("followingCount", followingCount);
+		editor.commit();
+	}
+	
+	public void updateFollowingCount(Activity activity, boolean increase) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		int followingCount = getFollowingCount(activity);
+		if (increase) {
+			followingCount++;
+		} else {
+			followingCount--;
+		}
+		editor.putInt("followingCount", followingCount);
+		editor.commit();
+	}
+	
+	
+	
+	public boolean isShopPicked(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		return prefs.getBoolean("shopPicked", false);
+	}
+	
+	public void setShopPicked(Activity activity, boolean picked) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean("shopPicked", picked);
+		editor.commit();
+		if (!picked) {
+			shop = null;
 		}
 	}
 	
 	
 	
-	public String readFile(Activity activity) {
-		String str = "";
-		if (isExternalStorageReadable()) {
-			try {
-				FileInputStream fis = activity.openFileInput(FILE_NAME);
-				ObjectInputStream is = new ObjectInputStream(fis);
-				str = (String) is.readObject();
-				is.close();
-			} catch (FileNotFoundException e) {
-				Log.i("excepció", "FileNotFoundException");
-			} catch (IOException e) {
-				Log.i("excepció", "IOException");
-			} catch (ClassNotFoundException e) {
-				Log.i("excepció", "ClassNotFoundException");
-			}
+	public Shop getShop(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		String strShop = prefs.getString("shop", null);
+		shop = null;
+		try {
+			JSONObject jShop = new JSONObject(strShop);
+			shop = new Shop(jShop);
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
-		return str;
+		return shop;
+	}
+	
+	public void deleteShop(Activity activity) {
+		setShopPicked(activity, false);
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		// delete shop
+		editor.remove("shop");
+		editor.commit();
+		this.shop = null;
+	}
+	
+	public void saveShop(Activity activity, Shop shop) {
+		setShopPicked(activity, true);
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		// save shop as JSON object
+		JSONObject jShop = shop.convertToJSON();
+		String strShop = jShop.toString();
+		editor.putString("shop", strShop);
+		editor.commit();
+		this.shop = shop;
+	}
+	
+	public CharSequence getShopLocation(Activity activity) {
+		if (shop == null) {
+			shop = getShop(activity);
+		}
+		return shop.getDirection() + "\n" + shop.getCity().getCityName();
 	}
 	
 	
-	/**
-	 * Checks if external storage is available for read and write
-	 * @return availability
-	 */
-	public boolean isExternalStorageWritable() {
-	    String state = Environment.getExternalStorageState();
-	    if (Environment.MEDIA_MOUNTED.equals(state)) {
-	        return true;
-	    }
-	    return false;
+	
+	public int getCartItemsCount(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		return prefs.getInt("cartItemsCount", 0);
 	}
-
+	
+	public void setCartItemsCount(Activity activity, int cartItemsCount) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt("cartItemsCount", cartItemsCount);
+		editor.commit();
+	}
+	
+	public void updateCartItemsCount(Activity activity, boolean increase) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		int cartItemsCount = getCartItemsCount(activity);
+		if (increase) {
+			cartItemsCount++;
+		} else {
+			cartItemsCount--;
+		}
+		editor.putInt("cartItemsCount", cartItemsCount);
+		editor.commit();
+	}
 	
 	
-	/**
-	 * Checks if external storage is available to at least read
-	 * @return availability
-	 */
-	public boolean isExternalStorageReadable() {
-	    String state = Environment.getExternalStorageState();
-	    if (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-	        return true;
-	    }
-	    return false;
+	
+	public int getWishlistItemsCount(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		return prefs.getInt("wishlistItemsCount", 0);
+	}
+	
+	public void setWishlistItemsCount(Activity activity, int wishlistItemsCount) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt("wishlistItemsCount", wishlistItemsCount);
+		editor.commit();
+	}
+	
+	public void updateWishlistItemsCount(Activity activity, boolean increase) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		int wishlistItemsCount = getWishlistItemsCount(activity);
+		if (increase) {
+			wishlistItemsCount++;
+		} else {
+			wishlistItemsCount--;
+		}
+		editor.putInt("wishlistItemsCount", wishlistItemsCount);
+		editor.commit();
+	}
+	
+	
+	
+	public Category getCurrentCategory() {
+		return currentCategory;
+	}
+	
+	public void setCurrentCategory(Category currentCategory) {
+		this.currentCategory = currentCategory;
+	}
+	
+	
+	
+	public Country getLocaleCountry(Activity activity) {
+		// default values
+		CharSequence countryName = "Espanya";
+		int code = 34;
+		char coin = '€';
+		// get country code
+		String strCode = activity.getResources().getConfiguration().locale.getCountry();
+		if (strCode.equals("ES")) {
+			countryName = "Espanya";
+			code = 34;
+			coin = Country.EURO;
+		} else if (strCode.equals("GB")) {
+			countryName = "England";
+			code = 44;
+			coin = Country.POUND;
+		}
+		return new Country(countryName, null, code, coin);
+	}
+	
+	
+	
+	@SuppressLint("DefaultLocale")
+	public String getLocaleLanguage(Activity activity) {
+		if (user == null) {
+			user = getUser(activity);
+		}
+		if (user != null) {
+			CharSequence languageName = user.getLanguage().getLanguageName();
+			// "Català" ----> "ca"
+			// "English" ---> "en"
+			return languageName.subSequence(0, 2).toString().toLowerCase();
+		}
+		String lang = activity.getResources().getConfiguration().locale.getLanguage();
+		// available language?
+		if (!lang.equals("en") && !lang.equals("ca")) {
+			// by default
+			lang = "en";
+		}
+		return lang;
 	}
 	
 	

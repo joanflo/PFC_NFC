@@ -93,27 +93,62 @@ public class User {
 		long time = System.currentTimeMillis();
 		this.registration = new java.sql.Timestamp(time);
 		
-		// User's registration: 10 points & newbie badge
+		// User's registration
 		this.points = Gamification.POINTS_NEWBIE;
-		Badge badge = Gamification.getBadge(Gamification.BADGE_NEWBIE);
-		Achievement newbie = new Achievement(badge, this);
 		this.achievements = new ArrayList<Achievement>();
-		addAchievement(newbie);
 	}
 	
 	public User(JSONObject jUser) throws JSONException {
+		// user email
 		this.userEmail = jUser.getString("userEmail");
-		this.nick = jUser.getString("nick");
-		this.name = jUser.getString("name");
-		this.surname = jUser.getString("surname");
-		this.age = jUser.getInt("age");
-		this.password = jUser.getString("password");
-		this.phone = jUser.getString("phone");
-		this.direction = jUser.getString("direction");
-		this.registration = Time.convertStringToTimestamp(jUser.getString("registration"));
-		this.points = jUser.getInt("points");
-		this.city = new City(jUser.getJSONObject("city"));
-		this.language = new Language(jUser.getJSONObject("language"));
+		// nick
+		if (jUser.has("nick")) {
+			this.nick = jUser.getString("nick");
+		}
+		// name
+		if (jUser.has("name")) {
+			this.name = jUser.getString("name");
+		}
+		// surname
+		if (jUser.has("surname")) {
+			this.surname = jUser.getString("surname");
+		}
+		// age
+		if (jUser.has("age")) {
+			this.age = jUser.getInt("age");
+		}
+		// password
+		if (jUser.has("password")) {
+			this.password = jUser.getString("password");
+		}
+		// phone
+		if (jUser.has("phone")) {
+			this.phone = jUser.getString("phone");
+		}
+		// direction
+		if (jUser.has("direction")) {
+			this.direction = jUser.getString("direction");
+		}
+		// registration
+		if (jUser.has("registration")) {
+			this.registration = Time.convertStringToTimestamp(jUser.getString("registration"));
+		}
+		// points
+		if (jUser.has("points")) {
+			this.points = jUser.getInt("points");
+		}
+		// city
+		if (jUser.has("cityName")) {
+			this.city = new City(jUser.getString("cityName"));
+		} else if (jUser.has("city")) {
+			this.city = new City(jUser.getJSONObject("city"));
+		}
+		// language
+		if (jUser.has("languageName")) {
+			this.language = new Language(jUser.getString("languageName"));
+		} else if (jUser.has("language")) {
+			this.language = new Language(jUser.getJSONObject("language"));
+		}
 	}
 	
 	
@@ -385,7 +420,7 @@ public class User {
 			}
 			if (language != null) {
 				JSONObject jLanguage = language.convertToJSON();
-				jLanguage.put("language", jLanguage);
+				jUser.put("language", jLanguage);
 			}
 			// 'purchases', 'usersFollowing', 'usersFollower', 'achievements', 'reviews', 'wishes' ignored
 		} catch (JSONException e) {

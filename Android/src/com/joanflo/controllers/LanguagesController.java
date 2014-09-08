@@ -2,15 +2,14 @@ package com.joanflo.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
-
+import android.widget.Toast;
 import com.joanflo.models.Language;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.R;
 import com.joanflo.tagit.RegistrationActivity;
 
 public class LanguagesController {
@@ -27,27 +26,24 @@ public class LanguagesController {
 	
 	
 	
-	public synchronized void requestFinished(JSONObject jObject) {
+	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
 			
-			if (activity instanceof RegistrationActivity) {
-				RegistrationActivity registrationActivity = (RegistrationActivity) activity;
-				
-				// for each language JSON object
-				JSONArray jArray = jObject.getJSONArray("languages");
-				List<Language> languages = new ArrayList<Language>();
-				for (int i = 0; i < jArray.length(); i++) {
-					// create Language model from JSON object
-					JSONObject jLanguage = (JSONObject) jArray.get(i);
-					Language language = new Language(jLanguage);
-					languages.add(language);
+			if (route.equals("languages")) {
+				// GET <URLbase>/languages
+				if (jArray != null) {
+					// list of languages
+					List<Language> languages = processLanguages(jArray);
+					
+					if (activity instanceof RegistrationActivity) {
+						RegistrationActivity registrationActivity = (RegistrationActivity) activity;
+						registrationActivity.languagesReceived(languages);
+					}
 				}
-				registrationActivity.languagesReceived(languages);
-				
 			}
 			
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -57,7 +53,24 @@ public class LanguagesController {
 	 * Get languages
 	 */
 	public void getLanguages() {
+		// GET <URLbase>/languages
 		client.getLanguages(this);
+	}
+	
+	
+	
+	private List<Language> processLanguages(JSONArray jLanguages) throws JSONException {
+		List<Language> languages = new ArrayList<Language>(jLanguages.length());
+		
+		// for each language JSON object
+		for (int i = 0; i < jLanguages.length(); i++) {
+			// create Language model from JSON object
+			JSONObject jLanguage = jLanguages.getJSONObject(i);
+			Language language = new Language(jLanguage);
+			languages.add(language);
+		}
+		
+		return languages;
 	}
 	
 	

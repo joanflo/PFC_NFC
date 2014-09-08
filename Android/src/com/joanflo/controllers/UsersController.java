@@ -1,17 +1,21 @@
 package com.joanflo.controllers;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
+import android.widget.Toast;
 
 import com.joanflo.models.Achievement;
+import com.joanflo.models.Purchase;
 import com.joanflo.models.PurchaseDetail;
 import com.joanflo.models.Review;
 import com.joanflo.models.User;
 import com.joanflo.models.Wish;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.HomeActivity;
 import com.joanflo.tagit.LoginActivity;
+import com.joanflo.tagit.R;
 import com.joanflo.tagit.RegistrationActivity;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.SimpleCrypto;
@@ -30,17 +34,79 @@ public class UsersController {
 	
 	
 	
-	public synchronized void requestFinished(JSONObject jObject) {
+	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
+		/*try {
+			
+			if (route.equals("")) {
+				// 
+				
+				
+			} else if (route.equals("")) {
+				// 
+				
+				
+			}
+			
+			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}*/
+		
+		
+		
+		
+		
 		try {
 		
 		
-			if (activity instanceof LoginActivity) {
-				LoginActivity loginActivity = (LoginActivity) activity;
-				Boolean successful = jObject.getBoolean("successful");
-				if (successful) {
-					LocalStorage.getInstance().setUserLoged(activity, successful);
+			if (activity instanceof HomeActivity) {
+				HomeActivity homeActivity = (HomeActivity) activity;
+				
+				if (jArray != null) {
+					// array
+					jObject = jArray.getJSONObject(0);
+					if (jObject.has("idWish")) {
+						int wishlistItemsCount = jArray.length();
+						homeActivity.wishlistItemsCountReceived(wishlistItemsCount);
+						
+					} else if (jObject.has("idPurchaseDetail")) {
+						int cartItemsCount = jArray.length();
+						homeActivity.cartItemsCountReceived(cartItemsCount);
+						
+					} else if (jObject.has("idPurchase")) {
+						Purchase purchase = new Purchase(jObject);
+						homeActivity.cartPurchaseReceived(purchase);
+					}
+					
+				} else {
+					// object
+					if (jObject.has("following")) {
+						int followingCount = jObject.getJSONArray("following").length();
+						homeActivity.followingCountReceived(followingCount);
+						
+					} else if (jObject.has("followers")) {
+						int followersCount = jObject.getJSONArray("followers").length();
+						homeActivity.followersCountReceived(followersCount);
+						
+					} else if (jObject.has("userEmail")) {
+						User user = new User(jObject);
+						homeActivity.userReceived(user);
+					}
 				}
-				loginActivity.loginReceived(successful);
+				
+			} else if (activity instanceof LoginActivity) {
+				LoginActivity loginActivity = (LoginActivity) activity;
+				String dbPassword = jObject.getString("password");
+				
+				// decrypt database password
+				dbPassword = SimpleCrypto.decrypt(SimpleCrypto.MASTER_KEY, dbPassword);
+				boolean successful = loginActivity.loginReceived(dbPassword);
+				// perform successful login
+				if (successful) {
+					LocalStorage.getInstance().setUserLoged(activity, true);
+					loginActivity.goToHomeActivity(true);
+				}
 				
 			} else if (activity instanceof RegistrationActivity) {
 				RegistrationActivity registrationActivity = (RegistrationActivity) activity;
@@ -54,6 +120,8 @@ public class UsersController {
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -64,14 +132,8 @@ public class UsersController {
 	 * @param userEmail
 	 * @param password
 	 */
-	public void logInUser(CharSequence userEmail, String password) {
-		try {
-			// encrypt password
-			password = SimpleCrypto.encrypt(SimpleCrypto.MASTER_KEY, password);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		client.logInUser(this, userEmail, password);
+	public void logInUser(CharSequence userEmail) {
+		client.logInUser(this, userEmail);
 	}
 	
 	

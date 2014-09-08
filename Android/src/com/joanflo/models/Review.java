@@ -2,6 +2,11 @@ package com.joanflo.models;
 
 import java.sql.Timestamp;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.joanflo.utils.Time;
+
 public class Review {
 
 	
@@ -29,8 +34,6 @@ public class Review {
 		this.date = date;
 	}
 	
-	
-	
 	// new review
 	public Review(int idComment, Product product, User user, float rating, CharSequence comment) {
 		this.idComment = idComment;
@@ -40,6 +43,23 @@ public class Review {
 		this.comment = comment;
 		long time = System.currentTimeMillis();
 		this.date = new java.sql.Timestamp(time);
+	}
+	
+	public Review(JSONObject jReview) throws JSONException {
+		// id comment
+		this.idComment = jReview.getInt("idComment");
+		// product
+		int idProduct = jReview.getInt("idProduct");
+		this.product = new Product(idProduct, null, null, "", "", "", "");
+		// user
+		String userEmail = jReview.getString("userEmail");
+		this.user = new User(userEmail, null, null, "", "", "", 0, "", "", "");
+		// rating
+		this.rating = (float) jReview.getDouble("rating");
+		// comment
+		this.comment = jReview.getString("comment");
+		// date
+		this.date = Time.convertStringToTimestamp(jReview.getString("date"));
 	}
 
 

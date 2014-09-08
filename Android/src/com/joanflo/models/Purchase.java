@@ -2,8 +2,12 @@ package com.joanflo.models;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.joanflo.utils.Time;
 
 public class Purchase {
 
@@ -59,26 +63,13 @@ public class Purchase {
 	}
 	
 	
-
-	public double calculateTotalPrice() {
-		Country country = user.getCity().getRegion().getCountry();
-		double totalPrice = 0;
-		
-    	Iterator<PurchaseDetail> it = purchaseDetails.iterator();
-    	while (it.hasNext()) {
-    		PurchaseDetail detail = it.next();
-    		
-    		// get units
-    		int units = detail.getUnits();
-    		// get product price
-    		Product product = detail.getBatch().getProduct();
-    		Tax tax = product.searchTax(country);
-    		double productPrice = product.calculatePrice(tax);
-    		
-    		totalPrice += units * productPrice;
-    	}
-		
-		return totalPrice;
+	
+	public Purchase(JSONObject jPurchase) throws JSONException {
+		this.idPurchase = jPurchase.getInt("idPurchase");
+		this.user = new User(jPurchase);
+		this.purchaseDetails = new ArrayList<PurchaseDetail>();
+		this.status = jPurchase.getString("status").charAt(0);
+		this.date = Time.convertStringToTimestamp(jPurchase.getString("date"));
 	}
 
 

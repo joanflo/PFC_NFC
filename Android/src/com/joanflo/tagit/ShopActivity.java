@@ -1,16 +1,11 @@
 package com.joanflo.tagit;
 
-
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.joanflo.models.City;
 import com.joanflo.models.Shop;
+import com.joanflo.utils.LocalStorage;
 
 
 public class ShopActivity extends BaseActivity {
@@ -41,17 +37,25 @@ public class ShopActivity extends BaseActivity {
         
         // update selected item and title, then close the drawer
         Bundle bundle = getIntent().getExtras();
-        int idShop = bundle.getInt("idShop");
-        String cityName = bundle.getString("cityName");
-        String direction = bundle.getString("direction");
-        String schedule = bundle.getString("schedule");
-        String phone = bundle.getString("phone");
-        String email = bundle.getString("email");
-        double latitude = bundle.getDouble("latitude");
-        double longitude = bundle.getDouble("longitude");
-        City palma = new City(cityName, null, null);
-        shop = new Shop(idShop, palma, direction, schedule, phone, email, latitude, longitude);
-		        
+        int idCurrentShop = bundle.getInt("idCurrentShop", -1);
+        if (idCurrentShop != -1) {
+        	// we come from home
+        	shop = LocalStorage.getInstance().getShop(this);
+        	
+        } else {
+        	// we come from shop selection
+	        int idShop = bundle.getInt("idShop");
+	        String cityName = bundle.getString("cityName");
+	        String direction = bundle.getString("direction");
+	        String schedule = bundle.getString("schedule");
+	        String phone = bundle.getString("phone");
+	        String email = bundle.getString("email");
+	        double latitude = bundle.getDouble("latitude");
+	        double longitude = bundle.getDouble("longitude");
+	        City palma = new City(cityName, null, null);
+	        shop = new Shop(idShop, palma, direction, schedule, phone, email, latitude, longitude);
+        }
+        
 		prepareMapSection();
 		
 		shopSelected = bundle.getBoolean("isSelected");
@@ -132,6 +136,15 @@ public class ShopActivity extends BaseActivity {
 		
 		switch (v.getId()) {
 		case R.id.button_shop_pickshop:
+			LocalStorage storage = LocalStorage.getInstance();
+			if (shopSelected) {
+				// unselect current shop
+				storage.deleteShop(this);
+			} else {
+				// select current shop
+				storage.saveShop(this, shop);
+			}
+			shopSelected = !shopSelected;
 			updateShopState();
 			break;
 			
@@ -180,8 +193,6 @@ public class ShopActivity extends BaseActivity {
 			tv.setText(R.string.shopinfo_text);
 			b.setText(R.string.button_pickshop);
 		}
-		
-		shopSelected = !shopSelected;
 	}
 	
 	

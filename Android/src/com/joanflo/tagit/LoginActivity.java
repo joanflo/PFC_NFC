@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.joanflo.controllers.UsersController;
 
 public class LoginActivity extends Activity {
@@ -30,21 +29,25 @@ public class LoginActivity extends Activity {
 		switch (v.getId()) {
 		case R.id.button_skip_login:
 			// Skip log in
-			goToHomeActivity();
+			goToHomeActivity(false);
 			break;
 			
 		case R.id.button_login:
 			// Log in
-			TextView tv;
-			tv = (TextView) findViewById(R.id.textView_identifier);
-			CharSequence userEmail = tv.getText();
-			tv = (TextView) findViewById(R.id.textView_password);
-			CharSequence password = tv.getText();
-			// UI
-			showProgressBar(true);
-			// call web service
-			UsersController controller = new UsersController(this);
-			controller.logInUser(userEmail, password.toString());
+			EditText et;
+			et = (EditText) findViewById(R.id.editText_identifier);
+			CharSequence userEmail = et.getText();
+			et = (EditText) findViewById(R.id.editText_password);
+			CharSequence password = et.getText();
+			if (!userEmail.toString().equals("") && !password.toString().equals("")) {
+				// UI
+				showProgressBar(true);
+				// call web service
+				UsersController controller = new UsersController(this);
+				controller.logInUser(userEmail);
+			} else {
+				Toast.makeText(this, R.string.toast_loginfields, Toast.LENGTH_SHORT).show();
+			}
 			break;
 			
 		case R.id.button_singin_login:
@@ -57,13 +60,18 @@ public class LoginActivity extends Activity {
 	
 	
 	
-	public void loginReceived(boolean successful) {
-		if (successful) {
-			goToHomeActivity();
-		} else {
+	public boolean loginReceived(String dbPassword) {
+		try {
+			EditText et = (EditText) findViewById(R.id.editText_password);
+			CharSequence localPassword = et.getText();
+			if (dbPassword.equals(localPassword.toString())) {
+				return true;
+			}
+		} catch (Exception e) {
 			showProgressBar(false);
 			Toast.makeText(this, R.string.toast_login, Toast.LENGTH_LONG).show();
 		}
+		return false;
 	}
 	
 	
@@ -100,8 +108,13 @@ public class LoginActivity extends Activity {
 	
 	
 	
-	private void goToHomeActivity() {
+	public void goToHomeActivity(boolean loged) {
 		Intent iMain = new Intent(this, HomeActivity.class);
+		if (loged) {
+			EditText et = (EditText) findViewById(R.id.editText_identifier);
+			CharSequence userEmail = et.getText();
+			iMain.putExtra("userEmail", userEmail);
+		}
 		startActivity(iMain);
 		finish();
 	}

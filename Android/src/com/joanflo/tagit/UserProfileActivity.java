@@ -1,9 +1,6 @@
 package com.joanflo.tagit;
 
 import java.util.ArrayList;
-
-import org.json.JSONObject;
-
 import com.joanflo.adapters.BadgeListAdapter;
 import com.joanflo.adapters.BadgeListItem;
 import com.joanflo.models.Achievement;
@@ -14,17 +11,12 @@ import com.joanflo.models.Language;
 import com.joanflo.models.Region;
 import com.joanflo.models.User;
 import com.joanflo.utils.Gamification;
-import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Time;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -83,47 +75,12 @@ public class UserProfileActivity extends BaseActivity implements OnItemClickList
 	
 	private void prepareBadgesSection() {
 		GridView gv = (GridView) findViewById(R.id.gridView_userprofile_badges);
-		
+		/*
 		ArrayList<BadgeListItem> thumbs = loadBadgeResources();
 		BadgeListAdapter adapter = new BadgeListAdapter(this.getApplicationContext(), thumbs);
 	    
 		gv.setAdapter(adapter);
-	    gv.setOnItemClickListener(this);
-	}
-	
-	
-
-	private ArrayList<BadgeListItem> loadBadgeResources() {
-		Badge b1 = Gamification.getBadge(Gamification.BADGE_1FOLLOWER);
-		Badge b2 = Gamification.getBadge(Gamification.BADGE_1FOLLOWING);
-		Badge b3 = Gamification.getBadge(Gamification.BADGE_1PURCHASE);
-		Badge b4 = Gamification.getBadge(Gamification.BADGE_1YEAR);
-		Badge b5 = Gamification.getBadge(Gamification.BADGE_NEWBIE);
-		Badge b6 = Gamification.getBadge(Gamification.BADGE_NFC);
-		
-		Achievement a1 = new Achievement(b1, null);
-		Achievement a2 = new Achievement(b2, null);
-		Achievement a3 = new Achievement(b3, null);
-		Achievement a4 = new Achievement(b4, null);
-		Achievement a5 = new Achievement(b5, null);
-		Achievement a6 = new Achievement(b6, null);
-		
-		userAchievements = new ArrayList<Achievement>();
-		userAchievements.add(a1);
-		userAchievements.add(a2);
-		userAchievements.add(a3);
-		userAchievements.add(a4);
-		userAchievements.add(a5);
-		userAchievements.add(a6);
-		
-		ArrayList<BadgeListItem> badgeItems = new ArrayList<BadgeListItem>();
-		for (int i = 0; i < userAchievements.size(); i++) {
-			Achievement a = userAchievements.get(i);
-			BadgeListItem b = new BadgeListItem(this.getApplicationContext(), a.getBadge().getType(), a.getBadge().getDescription());
-			badgeItems.add(b);
-		}
-		
-		return badgeItems;
+	    gv.setOnItemClickListener(this);*/
 	}
 
 
@@ -249,7 +206,6 @@ public class UserProfileActivity extends BaseActivity implements OnItemClickList
 		i.putExtra("date", achievement.getDate().toString());
 		i.putExtra("badgeName", badge.getBadgeName());
 		i.putExtra("badgeDescription", badge.getDescription());
-		i.putExtra("badgeType", badge.getType());
 		startActivity(i);
 	}
 	

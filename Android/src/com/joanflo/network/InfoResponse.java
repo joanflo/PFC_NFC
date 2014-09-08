@@ -1,18 +1,45 @@
 package com.joanflo.network;
 
+import java.net.URI;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class InfoResponse {
 
 	
 	private Object controller;
+	private String route;
+	private int statusCode;
 	private JSONObject jObject;
+	private JSONArray jArray;
 	
 	
 	
-	public InfoResponse(Object controller, JSONObject jObject) {
+	public InfoResponse(Object controller, URI uri, int statusCode, JSONObject jObject) {
 		this.controller = controller;
+		this.route = getRoute(uri);
+		this.statusCode = statusCode;
 		this.jObject = jObject;
+		this.jArray = null;
+	}
+	
+	
+	public InfoResponse(Object controller, URI uri, int statusCode, JSONArray jArray) {
+		this.controller = controller;
+		this.route = getRoute(uri);
+		this.statusCode = statusCode;
+		this.jObject = null;
+		this.jArray = jArray;
+	}
+	
+	
+	public InfoResponse(Object controller, URI uri, int statusCode) {
+		this.controller = controller;
+		this.route = getRoute(uri);
+		this.statusCode = statusCode;
+		this.jObject = null;
+		this.jArray = null;
 	}
 
 
@@ -28,6 +55,47 @@ public class InfoResponse {
 
 
 
+	public String getRoute() {
+		return route;
+	}
+	
+
+	private String getRoute(URI uri) {
+		String strUri = uri.toString();
+		// remove query params?
+		int index = strUri.indexOf('?');
+		if (index != -1) {
+			strUri = strUri.substring(0, index);
+		}
+		// encode
+		strUri = strUri
+				.replace(RESTClient.HOST, "")
+				.replace("%20", " ")
+				.replace("%21", "!")
+				.replace("%27", "'")
+				.replace("%28", "(")
+				.replace("%29", ")");
+		return strUri;
+	}
+	
+
+	public void setRoute(String route) {
+		this.route = route;
+	}
+
+
+
+	public int getStatusCode() {
+		return statusCode;
+	}
+	
+
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
+	}
+
+
+
 	public JSONObject getJObject() {
 		return jObject;
 	}
@@ -35,6 +103,17 @@ public class InfoResponse {
 
 	public void setJObject(JSONObject jObject) {
 		this.jObject = jObject;
+	}
+
+
+
+	public JSONArray getJArray() {
+		return jArray;
+	}
+
+
+	public void setJArray(JSONArray jArray) {
+		this.jArray = jArray;
 	}
 	
 	
