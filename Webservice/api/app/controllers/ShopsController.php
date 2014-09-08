@@ -28,7 +28,11 @@ class ShopsController extends BaseController {
 		        	array_push($nearShops, $shopAux);
 		        }
 			}
-			return $nearShops;
+			if (count($nearShops) != 0) {
+				return $nearShops;
+			} else {
+				return App::abort(404);
+			}
 		}
     }
  

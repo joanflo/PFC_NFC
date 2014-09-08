@@ -2,6 +2,16 @@
  
 class BrandsController extends BaseController {
 	
+	
+	/**
+     * Display a listing of brands.
+     */
+    public function index() {
+        // GET <URLbase>/brands
+        return Brand::all();
+    }
+	
+	
  
     /**
      * Display the specified brand.

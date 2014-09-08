@@ -7,103 +7,118 @@ class ProductsController extends BaseController {
      * Display a listing of products.
      */
     public function index() {
+        // GET <URLbase>/products?idCategory={idCategory}
         // GET <URLbase>/products?queryName={queryName}
         // GET <URLbase>/products?queryName={queryName}&priceFrom={priceFrom}&priceSince={priceSince}&coin={coin}&brandName={brandName}&idCategory={idCategory}&rating={rating}
-        $query = DB::table('Product');
-		
-		// product name contains query text
-        if ($queryName = Input::get('queryName')) {
-			$query->where('name_en', 'LIKE', '%'.$queryName.'%')
-				  ->orWhere('name_ca', 'LIKE', '%'.$queryName.'%');
-		}
-		
-		// get current country
-		$coin = Input::get('coin');
-		if (!$coin) {
-			$coin = '€'; // by default
-		}
-		$countryName;
-		switch ($coin) {
-			case '$':
-				$countryName = 'United States';
-				break;
-			case '£':
-				$countryName = 'England';
-				break;
-			case '€':
-			default:
-				$countryName = 'Espanya';
-				break;
-		}
-		
-		// get temporal products list
-		$tempProducts = $query->get();
-		$products = array();
-		$average = array();
-		
-		// for each product, check constraints if they are indicated
-		$brandName = Input::get('brandName');
-		$idCategory = Input::get('idCategory');
-		$priceFrom = Input::get('priceFrom');
-		$priceSince = Input::get('priceSince');
-		$rating = Input::get('rating');
-		foreach ($tempProducts as $productAux) {
-			$idProduct = $productAux->idProduct;
+        $idCategory = Input::get('idCategory');
+		if ($idCategory) {
+			// get products by id
+			$productsIds = DB::table('Product_Belongs_Category')->where('idCategory', '=', $idCategory)->select('idProduct')->get();
+			$idProducts = array();
+			foreach ($productsIds as $productsIdAux) {
+				$idProduct = $productsIdAux->idProduct;
+				array_push($idProducts, $idProduct);
+			}
+			return Product::whereIn('idProduct', $idProducts)->get();
 			
-			// product made by brand
-			$brandConstraint = true;
-			if ($brandName) {
-				if ($brandName != $productAux->brandName) {
-					$brandConstraint = false;
-				}
+		} else {
+			// search
+			$query = DB::table('Product');
+			
+			// product name contains query text
+			if ($queryName = Input::get('queryName')) {
+				$query->where('name_en', 'LIKE', '%'.$queryName.'%')
+					  ->orWhere('name_ca', 'LIKE', '%'.$queryName.'%');
 			}
 			
-			// product belongs to the given category?
-			$categoryConstraint = true;
-			if ($idCategory) {
-				$idCategoryAux = DB::table('Product_Belongs_Category')->where('idProduct', '=', $idProduct)->pluck('idCategory');
-				if ($idCategory != $idCategoryAux) {
-					$categoryConstraint = false;
-				}
+			// get current country
+			$coin = Input::get('coin');
+			if (!$coin) {
+				$coin = '€'; // by default
+			}
+			$countryName;
+			switch ($coin) {
+				case '$':
+					$countryName = 'United States';
+					break;
+				case '£':
+					$countryName = 'England';
+					break;
+				case '€':
+				default:
+					$countryName = 'Espanya';
+					break;
 			}
 			
-			// product price between minimum and maximum?
-			$priceConstraint = true;
-			if ($priceFrom || $priceSince) {
-				$productPrice = $this->calculatePrice($idProduct, $countryName);
-				if ($priceFrom && !$priceSince) {
-					if ($productPrice < $priceFrom) {
-						$priceConstraint = false;
-					}
-				} else if (!$priceFrom && $priceSince) {
-					if ($productPrice > $priceSince) {
-						$priceConstraint = false;
-					}
-				} else { // $priceFrom && $priceSince
-					if ($productPrice < $priceFrom || $productPrice > $priceSince) {
-						$priceConstraint = false;
+			// get temporal products list
+			$tempProducts = $query->get();
+			$products = array();
+			$average = array();
+			
+			// for each product, check constraints if they are indicated
+			$brandName = Input::get('brandName');
+			$idCategory = Input::get('idCategory');
+			$priceFrom = Input::get('priceFrom');
+			$priceSince = Input::get('priceSince');
+			$rating = Input::get('rating');
+			foreach ($tempProducts as $productAux) {
+				$idProduct = $productAux->idProduct;
+				
+				// product made by brand
+				$brandConstraint = true;
+				if ($brandName) {
+					if ($brandName != $productAux->brandName) {
+						$brandConstraint = false;
 					}
 				}
-			}
-			
-			// product rating higher to the given?
-			$ratingConstraint = true;
-			if ($rating) {
-				$productRating = $this->calculateAverageRating($idProduct);
-				array_push($average, $productRating);
-				if ($productRating < $rating) {
-					$ratingConstraint = false;
+				
+				// product belongs to the given category?
+				$categoryConstraint = true;
+				if ($idCategory) {
+					$idCategoryAux = DB::table('Product_Belongs_Category')->where('idProduct', '=', $idProduct)->pluck('idCategory');
+					if ($idCategory != $idCategoryAux) {
+						$categoryConstraint = false;
+					}
+				}
+				
+				// product price between minimum and maximum?
+				$priceConstraint = true;
+				if ($priceFrom || $priceSince) {
+					$productPrice = $this->calculatePrice($idProduct, $countryName);
+					if ($priceFrom && !$priceSince) {
+						if ($productPrice < $priceFrom) {
+							$priceConstraint = false;
+						}
+					} else if (!$priceFrom && $priceSince) {
+						if ($productPrice > $priceSince) {
+							$priceConstraint = false;
+						}
+					} else { // $priceFrom && $priceSince
+						if ($productPrice < $priceFrom || $productPrice > $priceSince) {
+							$priceConstraint = false;
+						}
+					}
+				}
+				
+				// product rating higher to the given?
+				$ratingConstraint = true;
+				if ($rating) {
+					$productRating = $this->calculateAverageRating($idProduct);
+					array_push($average, $productRating);
+					if ($productRating < $rating) {
+						$ratingConstraint = false;
+					}
+				}
+				
+				// check constraints
+				if ($brandConstraint && $categoryConstraint && $priceConstraint && $ratingConstraint) {
+					array_push($products, $productAux);
 				}
 			}
 			
-			// check constraints
-			if ($brandConstraint && $categoryConstraint && $priceConstraint && $ratingConstraint) {
-				array_push($products, $productAux);
-			}
+			//return $average;
+			return $products;
 		}
-		
-		//return $average;
-		return $products;
     }
 
 

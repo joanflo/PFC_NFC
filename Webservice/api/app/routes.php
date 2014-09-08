@@ -90,6 +90,8 @@ Route::put('batches/{idBatch}', 'BatchesController@update');
  * ===================================== BRANDS =================================== *
  * ================================================================================ */
 
+Route::get('brands', 'BrandsController@index');
+ 
 Route::get('brands/{brandName}', 'BrandsController@show');
  
 

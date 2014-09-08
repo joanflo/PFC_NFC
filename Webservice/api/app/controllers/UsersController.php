@@ -9,21 +9,15 @@ class UsersController extends BaseController {
     public function show($userEmail) {
         // GET <URLbase>/users/{userEmail}
         // GET <URLbase>/users/{userEmail}?fields=nick,points
-        // GET <URLbase>/users/{userEmail}?password={password}
+        // GET <URLbase>/users/{userEmail}?fields=password
         $fields = Input::get('fields');
 		if ($fields) {
 			// only return some fields
 			$fields = explode(',', $fields);
 			return User::where('userEmail', '=', $userEmail)->select($fields)->get()[0];
 		} else {
-			$password = Input::get('password');
-			if ($password) {
-				// login
-				return $password == User::where('userEmail', '=', $userEmail)->select('password')->get()[0];
-			} else {
-				// return the whole user (except password)
-				return User::where('userEmail', '=', $userEmail)->select('userEmail', 'cityName', 'languageName', 'nick', 'name', 'surname', 'age', 'phone', 'direction', 'registration', 'points')->get()[0];
-			}
+			// return the whole user (except password)
+			return User::where('userEmail', '=', $userEmail)->select('userEmail', 'cityName', 'languageName', 'nick', 'name', 'surname', 'age', 'phone', 'direction', 'registration', 'points')->get()[0];
 		}
     }
  
@@ -191,7 +185,8 @@ class UsersController extends BaseController {
     public function indexPurchaseDetails($userEmail, $idPurchase) {
         // GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details
 		return DB::table('Purchase_Detail')->join('Purchase', 'Purchase_Detail.idPurchase', '=', 'Purchase.idPurchase')
-            							   ->select('Purchase_Detail.idPurchaseDetail', 'Purchase_Detail.idPurchase', 'Purchase_Detail.idBatch', 'Purchase_Detail.units')
+										   ->join('Batch', 'Purchase_Detail.idBatch', '=', 'Batch.idBatch')
+            							   ->select('Purchase_Detail.idPurchaseDetail', 'Purchase_Detail.idPurchase', 'Purchase_Detail.idBatch', 'Purchase_Detail.units', 'Batch.idProduct', 'Batch.idShop')
 										   ->where('Purchase.idPurchase', '=', $idPurchase)
 										   ->where('Purchase.userEmail', '=', $userEmail)
 										   ->get();
@@ -302,9 +297,15 @@ class UsersController extends BaseController {
 		}
 		
 		if (count($emailsUsers) != 0) {
-			return User::whereIn('userEmail', $emailsUsers)
-				   ->select('userEmail', 'nick', 'points')
-				   ->get();
+			$result = User::whereIn('userEmail', $emailsUsers)
+					->select('userEmail', 'nick', 'points')
+					->get();
+			if (Input::get('following') == "true") {
+				$result = json_encode(array('following' => $result));
+			} else {
+				$result = json_encode(array('followers' => $result));
+			}
+			return $result;
 		}
     }
  
