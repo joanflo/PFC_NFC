@@ -3,12 +3,12 @@ package com.joanflo.controllers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.widget.Toast;
-
+import com.joanflo.models.Size;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.R;
+import com.joanflo.utils.Regex;
 
 public class SizesController {
 
@@ -25,23 +25,21 @@ public class SizesController {
 	
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
-		/*try {
+		try {
 			
-			if (route.equals("")) {
-				// 
-				
-				
-			} else if (route.equals("")) {
-				// 
-				
-				
+			if (route.matches("sizes/" + Regex.INTEGER)) {
+				// GET <URLbase>/sizes/{idSize}
+				if (jObject != null) {
+					// size
+					Size size = new Size(jObject);
+					
+					// TODO
+				}
 			}
 			
-			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
-			
 		} catch (JSONException e) {
-			e.printStackTrace();
-		}*/
+			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 
@@ -51,6 +49,7 @@ public class SizesController {
 	 * @param idSize
 	 */
 	public void getSize(int idSize) {
+		// GET <URLbase>/sizes/{idSize}
 		client.getSize(this, idSize);
 	}
 	

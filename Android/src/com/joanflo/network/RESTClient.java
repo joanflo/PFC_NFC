@@ -473,8 +473,15 @@ public class RESTClient implements AsyncResponse {
 	public void signInUser(UsersController controller, CharSequence userEmail, CharSequence cityName,
 						   CharSequence languageName, CharSequence nick, CharSequence name, CharSequence surname,
 						   int age, CharSequence password, CharSequence phone, CharSequence direction) {
+		String query = "users/" + userEmail + "?password=" + password + "&cityName=" + cityName + "&languageName=" + languageName + "&nick=" + nick + "&name=" + name + "&surname=" + surname + "&age=" + age;
+		if (!phone.equals("")) {
+			query += "&phone=" + phone;
+		}
+		if (!direction.equals("")) {
+			query += "&direction=" + direction;
+		}
 		// PUT <URLbase>/users/{userEmail}?password={password}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
-		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + "users/" + userEmail + "?password=" + password + "&cityName=" + cityName + "&languageName=" + languageName + "&nick=" + nick + "&name=" + name + "&surname=" + surname + "&age=" + age + "&phone=" + phone + "&direction=" + direction);
+		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + query);
 		new AsyncRequest(this).execute(info);
 	}
 	
@@ -535,8 +542,8 @@ public class RESTClient implements AsyncResponse {
 	 * @param userEmail
 	 */
 	public void getAnotherUser(UsersController controller, CharSequence userEmail) {
-		// GET <URLbase>/users/{userEmail}?fields=nick,points
-		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "?fields=nick,points");
+		// GET <URLbase>/users/{userEmail}?fields=userEmail,nick,points
+		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "users/" + userEmail + "?fields=userEmail,nick,points");
 		new AsyncRequest(this).execute(info);
 	}
 	

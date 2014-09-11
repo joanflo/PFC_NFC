@@ -8,13 +8,18 @@ class UsersController extends BaseController {
      */
     public function show($userEmail) {
         // GET <URLbase>/users/{userEmail}
-        // GET <URLbase>/users/{userEmail}?fields=nick,points
+        // GET <URLbase>/users/{userEmail}?fields=userEmail,nick,points
         // GET <URLbase>/users/{userEmail}?fields=password
         $fields = Input::get('fields');
 		if ($fields) {
 			// only return some fields
 			$fields = explode(',', $fields);
-			return User::where('userEmail', '=', $userEmail)->select($fields)->get()[0];
+			$user = User::where('userEmail', '=', $userEmail)->select($fields)->get();
+			if (count($user) == 0) {
+				App::abort(404);
+			} else {
+				return $user[0];
+			}
 		} else {
 			// return the whole user (except password)
 			return User::where('userEmail', '=', $userEmail)->select('userEmail', 'cityName', 'languageName', 'nick', 'name', 'surname', 'age', 'phone', 'direction', 'registration', 'points')->get()[0];
@@ -31,14 +36,15 @@ class UsersController extends BaseController {
         // PUT <URLbase>/users/{userEmail}?password={password}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
         
         // check if user exists
-        $user = User::where('userEmail', '=', $userEmail)->get()[0];
+        $user = User::where('userEmail', '=', $userEmail)->get();
 		$password = Input::get('password');
-		if ($user) {
+		if (count($user) != 0) {
+			$user = $user[0];
 			// update user
-			if ($password) {
+			if ($password && !Input::get('nick')) {
 				// update user's password
 				$user->password = $password;
-			} else {
+			} else if (!$password) {
 				// update user's data
 				$user->cityName = Input::get('cityName');
 				$user->languageName = Input::get('languageName');
@@ -48,11 +54,15 @@ class UsersController extends BaseController {
 				$user->age = Input::get('age');
 				$user->phone = Input::get('phone');
 				$user->direction = Input::get('direction');
+			} else {
+				// error
+				App::abort(404);
 			}
 			
 		} else {
 			// create user
 			$user = new User();
+			$user->userEmail = $userEmail;
 			$user->password = $password;
 			$user->cityName = Input::get('cityName');
 			$user->languageName = Input::get('languageName');
@@ -75,7 +85,12 @@ class UsersController extends BaseController {
      */
     public function indexReviews($userEmail) {
         // GET <URLbase>/users/{userEmail}/reviews
-        return Review::where('userEmail', '=', $userEmail)->get();
+        $reviews = Review::where('userEmail', '=', $userEmail)->get();
+		if (count($reviews) == 0) {
+			App::abort(404);
+		} else {
+			return $reviews;
+		}
     }
 	
 	
@@ -91,7 +106,7 @@ class UsersController extends BaseController {
 		$review->comment = Input::get('comment');
 		$review->date = \Carbon\Carbon::now()->toDateTimeString();
 		$review->save();
-		return $review;
+		return Response::json($review, 201);
     }
 	
 	
@@ -111,7 +126,12 @@ class UsersController extends BaseController {
      */
     public function indexWishes($userEmail) {
         // GET <URLbase>/users/{userEmail}/wishes
-        return Wish::where('userEmail', '=', $userEmail)->get();
+        $wishes = Wish::where('userEmail', '=', $userEmail)->get();
+		if (count($wishes) == 0) {
+			App::abort(404);
+		} else {
+			return $wishes;
+		}
     }
 	
 	
@@ -125,7 +145,7 @@ class UsersController extends BaseController {
 		$wish->userEmail = $userEmail;
 		$wish->date = \Carbon\Carbon::now()->toDateTimeString();
 		$wish->save();
-		return $wish;
+		return Response::json($wish, 201);
     }
 	
 	
@@ -145,9 +165,10 @@ class UsersController extends BaseController {
      */
     public function destroyWish($userEmail, $idWish) {
         // DELETE <URLbase>/users/{userEmail}/wishes/{idWish}
-        return Wish::where('idWish', '=', $idWish)
-				   ->where('userEmail', '=', $userEmail)
-				   ->delete();
+        Wish::where('idWish', '=', $idWish)
+			->where('userEmail', '=', $userEmail)
+			->delete();
+		return Response::json(null, 204);
     }
 	
 	
@@ -163,7 +184,13 @@ class UsersController extends BaseController {
 			// Purchase.STATUS_PENDING = 'p' | Purchase.STATUS_FINISHED = 'f'
 			$query->where('status', '=', $status);
 		}
-		return $query->get();
+		$purchases = $query->get();
+		
+		if (count($purchases) == 0) {
+			App::abort(404);
+		} else {
+			return $purchases;
+		}
     }
 	
 	
@@ -184,12 +211,18 @@ class UsersController extends BaseController {
      */
     public function indexPurchaseDetails($userEmail, $idPurchase) {
         // GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details
-		return DB::table('Purchase_Detail')->join('Purchase', 'Purchase_Detail.idPurchase', '=', 'Purchase.idPurchase')
-										   ->join('Batch', 'Purchase_Detail.idBatch', '=', 'Batch.idBatch')
-            							   ->select('Purchase_Detail.idPurchaseDetail', 'Purchase_Detail.idPurchase', 'Purchase_Detail.idBatch', 'Purchase_Detail.units', 'Batch.idProduct', 'Batch.idShop')
-										   ->where('Purchase.idPurchase', '=', $idPurchase)
-										   ->where('Purchase.userEmail', '=', $userEmail)
-										   ->get();
+		$purchaseDetails = DB::table('Purchase_Detail')->join('Purchase', 'Purchase_Detail.idPurchase', '=', 'Purchase.idPurchase')
+													   ->join('Batch', 'Purchase_Detail.idBatch', '=', 'Batch.idBatch')
+            										   ->select('Purchase_Detail.idPurchaseDetail', 'Purchase_Detail.idPurchase', 'Purchase_Detail.idBatch', 'Purchase_Detail.units', 'Batch.idProduct', 'Batch.idShop')
+													   ->where('Purchase.idPurchase', '=', $idPurchase)
+													   ->where('Purchase.userEmail', '=', $userEmail)
+													   ->get();
+										   
+		if (count($purchaseDetails) == 0) {
+			App::abort(404);
+		} else {
+			return $purchaseDetails;
+		}
     }
 	
 	
@@ -234,7 +267,8 @@ class UsersController extends BaseController {
 		);
 		
 		// return purchase detail
-		return DB::table('Purchase_Detail')->where('idPurchaseDetail', '=', $idPurchaseDetail)->get();
+		$purchaseDetail = DB::table('Purchase_Detail')->where('idPurchaseDetail', '=', $idPurchaseDetail)->get();
+		return Response::json($purchaseDetail, 201);
     }
  
  
@@ -272,6 +306,8 @@ class UsersController extends BaseController {
 		if ($numItems == 0) {
         	Purchase::where('idPurchase', '=', $idPurchase)->delete();
 		}
+		
+		return Response::json(null, 204);
     }
 	
 	
@@ -306,6 +342,8 @@ class UsersController extends BaseController {
 				$result = json_encode(array('followers' => $result));
 			}
 			return $result;
+		} else {
+			App::abort(404);
 		}
     }
  
@@ -319,8 +357,9 @@ class UsersController extends BaseController {
 		$idFriendship = Friendship::insertGetId(
 			array('emailFollower' => $userEmailFollowing, 'emailFollowed' => $userEmailFollowed, 'date' => \Carbon\Carbon::now()->toDateTimeString())
 		);
-		return Friendship::find($idFriendship);
-    }
+		$friendship = Friendship::find($idFriendship);
+		return Response::json($friendship, 201);
+	}
 	
  
     /**
@@ -329,9 +368,10 @@ class UsersController extends BaseController {
     public function destroyFriendship($userEmailFollowing) {
         // DELETE <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
         $userEmailFollowed = Input::get('userEmailFollowed');
-        return Friendship::where('emailFollower', '=', $userEmailFollowing)
-        				 ->where('emailFollowed', '=', $userEmailFollowed)
-        				 ->delete();
+        Friendship::where('emailFollower', '=', $userEmailFollowing)
+        		  ->where('emailFollowed', '=', $userEmailFollowed)
+        		  ->delete();
+		return Response::json(null, 204);
     }
 	
 	
@@ -353,7 +393,8 @@ class UsersController extends BaseController {
 		$idAchievement = Achievement::insertGetId(
 			array('userEmail' => $userEmail, 'badgeName' => $badgeName, 'date' => \Carbon\Carbon::now()->toDateTimeString())
 		);
-		return Achievement::find($idAchievement);
+		$achievement = Achievement::find($idAchievement);
+		return Response::json($achievement, 201);
     }
  
  

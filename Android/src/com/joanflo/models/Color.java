@@ -1,5 +1,8 @@
 package com.joanflo.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Color {
 
 	
@@ -14,6 +17,11 @@ public class Color {
 	public Color(CharSequence colorCode, CharSequence name) {
 		this.colorCode = colorCode;
 		this.name = name;
+	}
+	
+	public Color(JSONObject jColor, String lang) throws JSONException {
+		this.colorCode = jColor.getString("colorCode");
+		this.name = jColor.getString("name_" + lang);
 	}
 
 

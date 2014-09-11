@@ -25,9 +25,9 @@ public class Collection {
 		this.idCollection = idCollection;
 	}
 	
-	public Collection(JSONObject jCollection) throws JSONException {
+	public Collection(JSONObject jCollection, String lang) throws JSONException {
 		this.idCollection = jCollection.getInt("idCollection");
-		this.name = jCollection.getString("name");
+		this.name = jCollection.getString("name_" + lang);
 		this.year = jCollection.getInt("year");
 	}
 

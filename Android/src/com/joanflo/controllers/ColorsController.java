@@ -7,8 +7,12 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.widget.Toast;
 
+import com.joanflo.models.Color;
+import com.joanflo.models.Size;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.R;
+import com.joanflo.utils.LocalStorage;
+import com.joanflo.utils.Regex;
 
 public class ColorsController {
 
@@ -25,23 +29,23 @@ public class ColorsController {
 	
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
-		/*try {
+		try {
 			
-			if (route.equals("")) {
-				// 
-				
-				
-			} else if (route.equals("")) {
-				// 
-				
-				
+			if (route.matches("colors/" + Regex.SPECIAL_TEXT)) {
+				// GET <URLbase>/colors/{colorCode}
+				if (jObject != null) {
+					// get language code
+					String lang = LocalStorage.getInstance().getLocaleLanguage(activity);
+					// color
+					Color color = new Color(jObject, lang);
+					
+					// TODO
+				}
 			}
 			
-			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
-			
 		} catch (JSONException e) {
-			e.printStackTrace();
-		}*/
+			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	

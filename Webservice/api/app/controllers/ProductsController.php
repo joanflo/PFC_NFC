@@ -19,7 +19,9 @@ class ProductsController extends BaseController {
 				$idProduct = $productsIdAux->idProduct;
 				array_push($idProducts, $idProduct);
 			}
-			return Product::whereIn('idProduct', $idProducts)->get();
+			return Product::whereIn('idProduct', $idProducts)
+						  ->select('idProduct', 'brandName', 'idCollection', 'name_en', 'name_ca')
+						  ->get();
 			
 		} else {
 			// search
@@ -51,7 +53,9 @@ class ProductsController extends BaseController {
 			}
 			
 			// get temporal products list
-			$tempProducts = $query->get();
+			$tempProducts = $query
+						  ->select('idProduct', 'brandName', 'idCollection', 'name_en', 'name_ca')
+						  ->get();
 			$products = array();
 			$average = array();
 			
@@ -116,8 +120,11 @@ class ProductsController extends BaseController {
 				}
 			}
 			
-			//return $average;
-			return $products;
+			if (count($products) != 0) {
+				return $products;
+			} else {
+				return App::abort(404);
+			}
 		}
     }
 
@@ -174,7 +181,13 @@ class ProductsController extends BaseController {
      */
     public function indexReviews($idProduct) {
         // GET <URLbase>/products/{idProduct}/reviews 
-        return Review::where('idProduct', '=', $idProduct)->get();
+        $reviews = Review::where('idProduct', '=', $idProduct)->get();
+		
+		if (count($reviews) != 0) {
+			return $reviews;
+		} else {
+			return App::abort(404);
+		}
     }
  
  
@@ -188,8 +201,12 @@ class ProductsController extends BaseController {
 		foreach ($idsRelatedProducts as $idRelatedProduct) {
 			array_push($idsProducts, $idRelatedProduct->IdProductB);
 		}
-		if ($idsRelatedProducts) {
-        	return Product::whereIn('IdProduct', $idsProducts)->get();
+		if (count($idsProducts) != 0) {
+        	return Product::whereIn('IdProduct', $idsProducts)
+						  ->select('idProduct', 'name_en', 'name_ca')
+						  ->get();
+		} else {
+			return App::abort(404);
 		}
     }
  

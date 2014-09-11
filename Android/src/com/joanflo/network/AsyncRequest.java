@@ -68,8 +68,7 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 				JSONArray jArray = null;
 				int statusCode = httpResponse.getStatusLine().getStatusCode();
 				if (statusCode == HttpStatusCode.OK
-					|| statusCode == HttpStatusCode.CREATED
-					|| statusCode == HttpStatusCode.NO_CONTENT) {
+					|| statusCode == HttpStatusCode.CREATED) {
 					
 					// convert response to JSON
 					HttpEntity entity = httpResponse.getEntity();
@@ -95,7 +94,7 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 					}
 					
 				}
-				// else: BAD_REQUEST, NOT_FOUND, INTERNAL_SERVER_ERROR
+				// else: BAD_REQUEST, NOT_FOUND, INTERNAL_SERVER_ERROR, NO_CONTENT
 				
 				// encapsulate response
 				Object controller = infoRequests[i].getController();
@@ -106,7 +105,7 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 					// JSON object
 					infoResponses[i] = new InfoResponse(controller, uri, statusCode, jObject);
 				} else {
-					// error
+					// error or delete
 					infoResponses[i] = new InfoResponse(controller, uri, statusCode);
 				}
 				

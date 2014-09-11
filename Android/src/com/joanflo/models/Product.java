@@ -70,27 +70,42 @@ public class Product {
 	}
 	
 	public Product(JSONObject jProduct, String lang) throws JSONException {
+		// id product
 		this.idProduct = jProduct.getInt("idProduct");
-		if (jProduct.has("brand")) {
-			this.brand = new Brand(jProduct.getJSONObject("brand"));
-		} else if (jProduct.has("brandName")) {
+		// brand
+		if (jProduct.has("brandName")) {
 			this.brand = new Brand(jProduct.getString("brandName"));
 		}
-		if (jProduct.has("collection")) {
-			this.collection = new Collection(jProduct.getJSONObject("collection"));
-		} else if (jProduct.has("idCollection")) {
+		// collection
+		if (jProduct.has("idCollection")) {
 			this.collection = new Collection(jProduct.getInt("idCollection"));
 		}
+		// reviews
 		this.reviews = new ArrayList<Review>();
+		// taxes
 		this.taxes = new ArrayList<Tax>();
+		// batches
 		this.batches = new ArrayList<Batch>();
+		// related products
 		this.relatedProducts = new ArrayList<Product>();
+		// product images
 		this.images = new ArrayList<ProductImage>();
+		// categories
 		this.categories = new ArrayList<Category>();
+		// name
 		this.name = jProduct.getString("name_" + lang);
-		this.description = jProduct.getString("description_" + lang);
-		this.reference = jProduct.getString("reference");
-		this.composition = jProduct.getString("composition_" + lang);
+		// description
+		if (jProduct.has("description_" + lang)) {
+			this.description = jProduct.getString("description_" + lang);
+		}
+		// reference
+		if (jProduct.has("reference")) {
+			this.reference = jProduct.getString("reference");
+		}
+		// composition
+		if (jProduct.has("composition_" + lang)) {
+			this.composition = jProduct.getString("composition_" + lang);
+		}
 	}
 	
 	

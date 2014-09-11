@@ -2,11 +2,19 @@ package com.joanflo.models;
 
 import java.sql.Timestamp;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.joanflo.utils.Time;
+
 
 public class Achievement {
 
 	
-	// primary & foreign keys
+	// primary key
+	int idAchievement;
+	
+	// foreign keys
 	private Badge badge;
 	private User user;
 	
@@ -22,14 +30,25 @@ public class Achievement {
 		this.date = date;
 	}
 	
-	
-	
 	// new achievement
 	public Achievement(Badge badge, User user) {
 		this.badge = badge;
 		this.user = user;
 		long time = System.currentTimeMillis();
 		this.date = new java.sql.Timestamp(time);
+	}
+	
+	public Achievement(JSONObject jAchievement) throws JSONException {
+		// id achievement
+		this.idAchievement = jAchievement.getInt("idAchievement");
+		// badge
+		String badgeName = jAchievement.getString("badgeName");
+		this.badge = new Badge(badgeName, "");
+		// user
+		String userEmail = jAchievement.getString("userEmail");
+		this.user = new User(userEmail, null, null, "", "", "", 0, "", "", "");
+		// date
+		this.date = Time.convertStringToTimestamp(jAchievement.getString("date"));
 	}
 	
 	

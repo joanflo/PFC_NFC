@@ -1,23 +1,27 @@
 package com.joanflo.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.widget.Toast;
-
 import com.joanflo.models.Achievement;
+import com.joanflo.models.Friendship;
 import com.joanflo.models.Purchase;
 import com.joanflo.models.PurchaseDetail;
 import com.joanflo.models.Review;
 import com.joanflo.models.User;
 import com.joanflo.models.Wish;
+import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.HomeActivity;
 import com.joanflo.tagit.LoginActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.tagit.RegistrationActivity;
 import com.joanflo.utils.LocalStorage;
+import com.joanflo.utils.Regex;
 import com.joanflo.utils.SimpleCrypto;
 
 public class UsersController {
@@ -35,93 +39,271 @@ public class UsersController {
 	
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
-		/*try {
-			
-			if (route.equals("")) {
-				// 
-				
-				
-			} else if (route.equals("")) {
-				// 
-				
-				
-			}
-			
-			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}*/
-		
-		
-		
-		
-		
 		try {
-		
-		
-			if (activity instanceof HomeActivity) {
-				HomeActivity homeActivity = (HomeActivity) activity;
-				
-				if (jArray != null) {
-					// array
-					jObject = jArray.getJSONObject(0);
-					if (jObject.has("idWish")) {
-						int wishlistItemsCount = jArray.length();
-						homeActivity.wishlistItemsCountReceived(wishlistItemsCount);
+			
+			if (route.matches("users/" + Regex.SPECIAL_TEXT)) {
+				// GET <URLbase>/users/{userEmail}
+				// GET <URLbase>/users/{userEmail}?fields=password
+				// GET <URLbase>/users/{userEmail}?fields=userEmail,nick,points
+				// PUT <URLbase>/users/{userEmail}?password={password}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
+				// PUT <URLbase>/users/{userEmail}?cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
+				// PUT <URLbase>/users/{userEmail}?password={password}
+				if (jObject != null) {
+					// user
+					User user = new User(jObject);
+					
+					if (activity instanceof LoginActivity) {
+						LoginActivity loginActivity = (LoginActivity) activity;
+						boolean successful = loginActivity.loginReceived(decryptPassword(user));
+						// successful login?
+						if (successful) {
+							LocalStorage.getInstance().setUserLoged(activity, true);
+							loginActivity.goToHomeActivity(true);
+						}
 						
-					} else if (jObject.has("idPurchaseDetail")) {
-						int cartItemsCount = jArray.length();
-						homeActivity.cartItemsCountReceived(cartItemsCount);
+					} else if (activity instanceof HomeActivity) {
+						HomeActivity homeActivity = (HomeActivity) activity;
+						homeActivity.userReceived(user);
 						
-					} else if (jObject.has("idPurchase")) {
-						Purchase purchase = new Purchase(jObject);
-						homeActivity.cartPurchaseReceived(purchase);
+					} else if (activity instanceof RegistrationActivity) {
+						RegistrationActivity registrationActivity = (RegistrationActivity) activity;
+						registrationActivity.userCreated(user);
 					}
 					
-				} else {
-					// object
-					if (jObject.has("following")) {
-						int followingCount = jObject.getJSONArray("following").length();
-						homeActivity.followingCountReceived(followingCount);
+				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
+					// 404
+					
+					if (activity instanceof LoginActivity) {
+						LoginActivity loginActivity = (LoginActivity) activity;
+						loginActivity.loginReceived(null);
 						
-					} else if (jObject.has("followers")) {
-						int followersCount = jObject.getJSONArray("followers").length();
-						homeActivity.followersCountReceived(followersCount);
-						
-					} else if (jObject.has("userEmail")) {
-						User user = new User(jObject);
-						homeActivity.userReceived(user);
+					} else if (activity instanceof RegistrationActivity) {
+						RegistrationActivity registrationActivity = (RegistrationActivity) activity;
+						registrationActivity.userCreated(null);
 					}
 				}
 				
-			} else if (activity instanceof LoginActivity) {
-				LoginActivity loginActivity = (LoginActivity) activity;
-				String dbPassword = jObject.getString("password");
-				
-				// decrypt database password
-				dbPassword = SimpleCrypto.decrypt(SimpleCrypto.MASTER_KEY, dbPassword);
-				boolean successful = loginActivity.loginReceived(dbPassword);
-				// perform successful login
-				if (successful) {
-					LocalStorage.getInstance().setUserLoged(activity, true);
-					loginActivity.goToHomeActivity(true);
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/reviews")) {
+				// GET <URLbase>/users/{userEmail}/reviews
+				if (jArray != null) {
+					// list of reviews
+					List<Review> reviews = processReviews(jArray);
+					
+					// TODO
+					
+				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
+					// 404
+					
+					// TODO
+				}
+				// POST <URLbase>/users/{userEmail}/reviews?idProduct={idProduct}&rating={rating}&comment={comment}
+				if (jObject != null) {
+					// review
+					Review review = new Review(jObject);
+					
+					// TODO
 				}
 				
-			} else if (activity instanceof RegistrationActivity) {
-				RegistrationActivity registrationActivity = (RegistrationActivity) activity;
-				User user = new User(jObject);
-				registrationActivity.userCreated(user);
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/reviews/" + Regex.INTEGER)) {
+				// GET <URLbase>/users/{userEmail}/reviews/{idComment}
+				if (jObject != null) {
+					// review
+					Review review = new Review(jObject);
+					
+					// TODO
+				}
 				
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/wishes")) {
+				// GET <URLbase>/users/{userEmail}/wishes
+				if (jArray != null) {
+					// list of wishes
+					List<Wish> wishes = processWishes(jArray);
+					
+					if (activity instanceof HomeActivity) {
+						HomeActivity homeActivity = (HomeActivity) activity;
+						homeActivity.wishlistItemsCountReceived(wishes.size());
+					}
+					
+				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
+					// 404
+					
+					// TODO
+				}
+				// POST <URLbase>/users/{userEmail}/wishes?idProduct={idProduct}
+				if (jObject != null) {
+					// wish
+					Wish wish = new Wish(jObject);
+					
+					// TODO
+				}
+				
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/wishes/" + Regex.INTEGER)) {
+				// GET <URLbase>/users/{userEmail}/wishes/{idWish}
+				// DELETE <URLbase>/users/{userEmail}/wishes/{idWish}
+				if (jObject != null) {
+					// wish
+					Wish wish = new Wish(jObject);
+					
+					// TODO
+				} else if (statusCode == HttpStatusCode.NO_CONTENT) {
+					// 204
+					
+					// TODO
+				}
+				
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/purchases")) {
+				// GET <URLbase>/users/{userEmail}/purchases
+				// GET <URLbase>/users/{userEmail}/purchases?status={Purchase.STATUS_PENDING}
+				if (jArray != null) {
+					// list of purchases
+					List<Purchase> purchases = processPurchases(jArray);
+					
+					if (activity instanceof HomeActivity) {
+						HomeActivity homeActivity = (HomeActivity) activity;
+						homeActivity.cartPurchaseReceived(purchases.get(0));
+					}
+				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
+					// 404
+					
+					// TODO
+				}
+				
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/purchases/" + Regex.INTEGER)) {
+				// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}
+				if (jObject != null) {
+					// purchase
+					Purchase purchase = new Purchase(jObject);
+					
+					// TODO
+				}
+				
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/purchases/" + Regex.INTEGER + "/purchase_details")) {
+				// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details
+				// POST <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details?idBatch={idBatch}&units={units}
+				if (jArray != null) {
+					if (statusCode == HttpStatusCode.NOT_FOUND) {
+						// list of purchase details
+						List<PurchaseDetail> purchaseDetails = processPurchaseDetails(jArray);
+						
+						if (activity instanceof HomeActivity) {
+							HomeActivity homeActivity = (HomeActivity) activity;
+							homeActivity.cartItemsCountReceived(purchaseDetails.size());
+						}
+					} else if (statusCode == HttpStatusCode.CREATED) {
+						// purchase detail
+						jObject = jArray.getJSONObject(0);
+						PurchaseDetail purchaseDetail = new PurchaseDetail(jObject);
+						
+						// TODO
+					}
+				} else if (statusCode == HttpStatusCode.NO_CONTENT) {
+					// 204
+					
+					// TODO
+				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
+					// 404
+					
+					// TODO
+				}
+				
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/purchases/" + Regex.INTEGER + "/purchase_details/" + Regex.INTEGER)) {
+				// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}
+				// PUT <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}?idBatch={idBatch}&units={units}
+				// DELETE <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}
+				if (jArray != null) {
+					jObject = jArray.getJSONObject(0);
+					// purchase detail
+					PurchaseDetail purchaseDetail = new PurchaseDetail(jObject);
+					
+					// TODO
+				} else if (statusCode == HttpStatusCode.NO_CONTENT) {
+					// 204
+					
+					// TODO
+				}
+				
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/friendships")) {
+				// GET <URLbase>/users/{userEmail}/friendships?following=false
+				// GET <URLbase>/users/{userEmail}/friendships?following=true
+				// POST <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
+				// DELETE <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
+				if (jObject != null) {
+					if (statusCode == HttpStatusCode.OK) {
+						if (jObject.has("following") || jObject.has("followers")) {
+							// get list of users
+							if (jObject.has("following")) {
+								jArray = jObject.getJSONArray("following");
+							} else if (jObject.has("followers")) {
+								jArray = jObject.getJSONArray("followers");
+							}
+							List<User> users = processUsers(jArray);
+							
+							if (activity instanceof HomeActivity) {
+								HomeActivity homeActivity = (HomeActivity) activity;
+								
+								if (jObject.has("following")) {
+									homeActivity.followingCountReceived(users.size());
+								} else if (jObject.has("followers")) {
+									homeActivity.followersCountReceived(users.size());
+								}
+							}
+							
+						} else {
+							// get user
+							User user = new User(jObject);
+						
+							// TODO
+						}
+						
+					} else if (statusCode == HttpStatusCode.CREATED) {
+						// friendship
+						Friendship friendship = new Friendship(jObject);
+						
+						// TODO
+					}
+					
+				} else if (statusCode == HttpStatusCode.NO_CONTENT) {
+					// 204
+					
+					// TODO
+					
+				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
+					// 404
+					
+					if (activity instanceof HomeActivity) {
+						HomeActivity homeActivity = (HomeActivity) activity;
+						homeActivity.zeroCountReceived();
+					}
+				}
+				
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/achievements")) {
+				// GET <URLbase>/users/{userEmail}/achievements
+				if (jArray != null) {
+					// list of achievements
+					List<Achievement> achievements = processAchievements(jArray);
+					
+					// TODO
+				}
+				// POST <URLbase>/users/{userEmail}/achievements?badgeName={badgeName}
+				if (jObject != null) {
+					// achievement
+					Achievement achievement = new Achievement(jObject);
+					
+					// TODO
+				}
+				
+			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/achievements/" + Regex.INTEGER)) {
+				// GET <URLbase>/users/{userEmail}/achievements/{idAchievement}
+				if (jObject != null) {
+					// achievement
+					Achievement achievement = new Achievement(jObject);
+					
+					// TODO
+				}
 			}
 			
-			
-			
-			
 		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -133,6 +315,7 @@ public class UsersController {
 	 * @param password
 	 */
 	public void logInUser(CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}?fields=password
 		client.logInUser(this, userEmail);
 	}
 	
@@ -153,7 +336,8 @@ public class UsersController {
 	 */
 	public void signInUser(CharSequence userEmail, CharSequence cityName, CharSequence languageName, CharSequence nick,
 			CharSequence name, CharSequence surname, int age, CharSequence password, CharSequence phone, CharSequence direction) {
-		client.signInUser(this, userEmail, cityName, languageName, nick, name, surname, age, password, phone, direction);
+		// PUT <URLbase>/users/{userEmail}?password={password}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
+		client.signInUser(this, userEmail, cityName, languageName, nick, name, surname, age, encryptPassword((String) password), phone, direction);
 	}
 	
 	
@@ -163,6 +347,7 @@ public class UsersController {
 	 * @param user
 	 */
 	public void updateUserData(User user) {
+		// PUT <URLbase>/users/{userEmail}?cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
 		client.updateUserData(this, user);
 	}
 	
@@ -174,7 +359,8 @@ public class UsersController {
 	 * @param password
 	 */
 	public void changeUserPassword(CharSequence userEmail, CharSequence password) {
-		client.changeUserPassword(this, userEmail, password);
+		// PUT <URLbase>/users/{userEmail}?password={password}
+		client.changeUserPassword(this, userEmail, encryptPassword((String) password));
 	}
 	
 	
@@ -184,6 +370,7 @@ public class UsersController {
 	 * @param userEmail
 	 */
 	public void getCurrentUser(CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}
 		client.getCurrentUser(this, userEmail);
 	}
 	
@@ -194,6 +381,7 @@ public class UsersController {
 	 * @param userEmail
 	 */
 	public void getAnotherUser(CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}?fields=userEmail,nick,points
 		client.getAnotherUser(this, userEmail);
 	}
 	
@@ -204,6 +392,7 @@ public class UsersController {
 	 * @param userEmail
 	 */
 	public void getFollowers(CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}/friendships?following=false
 		client.getFollowers(this, userEmail);
 	}
 	
@@ -214,6 +403,7 @@ public class UsersController {
 	 * @param userEmail
 	 */
 	public void getFollowing(CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}/friendships?following=true
 		client.getFollowing(this, userEmail);
 	}
 	
@@ -225,6 +415,7 @@ public class UsersController {
 	 * @param userEmailFollowed
 	 */
 	public void followUser(CharSequence userEmailFollowing, CharSequence userEmailFollowed) {
+		// POST <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
 		client.followUser(this, userEmailFollowing, userEmailFollowed);
 	}
 	
@@ -236,6 +427,7 @@ public class UsersController {
 	 * @param userEmailFollowed
 	 */
 	public void unfollowUser(CharSequence userEmailFollowing, CharSequence userEmailFollowed) {
+		// DELETE <URLbase>/users/{userEmailFollowing}/friendships?userEmailFollowed={userEmailFollowed}
 		client.unfollowUser(this, userEmailFollowing, userEmailFollowed);
 	}
 	
@@ -246,6 +438,7 @@ public class UsersController {
 	 * @param userEmail
 	 */
 	public void getAchievements(CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}/achievements
 		client.getAchievements(this, userEmail);
 	}
 	
@@ -256,6 +449,7 @@ public class UsersController {
 	 * @param achievement
 	 */
 	public void createAchievement(Achievement achievement) {
+		// POST <URLbase>/users/{userEmail}/achievements?badgeName={badgeName}
 		client.createAchievement(this, achievement);
 	}
 	
@@ -267,6 +461,7 @@ public class UsersController {
 	 * @param idAchievement
 	 */
 	public void getAchievement(CharSequence userEmail, int idAchievement) {
+		// GET <URLbase>/users/{userEmail}/achievements/{idAchievement}
 		client.getAchievement(this, userEmail, idAchievement);
 	}
 	
@@ -277,6 +472,7 @@ public class UsersController {
 	 * @param userEmail
 	 */
 	public void getReviews(CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}/reviews
 		client.getReviews(this, userEmail);
 	}
 	
@@ -287,6 +483,7 @@ public class UsersController {
 	 * @param review
 	 */
 	public void createReview(Review review) {
+		// POST <URLbase>/users/{userEmail}/reviews?idProduct={idProduct}&rating={rating}&comment={comment}
 		client.createReview(this, review);
 	}
 	
@@ -298,6 +495,7 @@ public class UsersController {
 	 * @param idComment
 	 */
 	public void getReview(CharSequence userEmail, int idComment) {
+		// GET <URLbase>/users/{userEmail}/reviews/{idComment}
 		client.getReview(this, userEmail, idComment);
 	}
 	
@@ -308,6 +506,7 @@ public class UsersController {
 	 * @param userEmail
 	 */
 	public void getWishes(CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}/wishes
 		client.getWishes(this, userEmail);
 	}
 	
@@ -318,6 +517,7 @@ public class UsersController {
 	 * @param wish
 	 */
 	public void createWish(Wish wish) {
+		// POST <URLbase>/users/{userEmail}/wishes?idProduct={idProduct}
 		client.createWish(this, wish);
 	}
 	
@@ -329,6 +529,7 @@ public class UsersController {
 	 * @param idWish
 	 */
 	public void getWish(CharSequence userEmail, int idWish) {
+		// GET <URLbase>/users/{userEmail}/wishes/{idWish}
 		client.getWish(this, userEmail, idWish);
 	}
 	
@@ -340,6 +541,7 @@ public class UsersController {
 	 * @param idWish
 	 */
 	public void deleteWish(CharSequence userEmail, int idWish) {
+		// DELETE <URLbase>/users/{userEmail}/wishes/{idWish}
 		client.deleteWish(this, userEmail, idWish);
 	}
 	
@@ -350,6 +552,7 @@ public class UsersController {
 	 * @param userEmail
 	 */
 	public void getPurchases(CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}/purchases
 		client.getPurchases(this, userEmail);
 	}
 	
@@ -361,6 +564,7 @@ public class UsersController {
 	 * @param idPurchase
 	 */
 	public void getPurchase(CharSequence userEmail, int idPurchase) {
+		// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}
 		client.getPurchase(this, userEmail, idPurchase);
 	}
 	
@@ -371,6 +575,7 @@ public class UsersController {
 	 * @param userEmail
 	 */
 	public void getCartPurchase(CharSequence userEmail) {
+		// GET <URLbase>/users/{userEmail}/purchases?status={Purchase.STATUS_PENDING}
 		client.getCartPurchase(this, userEmail);
 	}
 	
@@ -382,6 +587,7 @@ public class UsersController {
 	 * @param idPurchase
 	 */
 	public void getPurchaseDetails(CharSequence userEmail, int idPurchase) {
+		// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details
 		client.getPurchaseDetails(this, userEmail, idPurchase);
 	}
 	
@@ -394,6 +600,7 @@ public class UsersController {
 	 * @param idPurchaseDetail
 	 */
 	public void getPurchaseDetail(CharSequence userEmail, int idPurchase, int idPurchaseDetail) {
+		// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}
 		client.getPurchaseDetail(this, userEmail, idPurchase, idPurchaseDetail);
 	}
 	
@@ -406,6 +613,7 @@ public class UsersController {
 	 * @param detail
 	 */
 	public void createPurchaseDetail(CharSequence userEmail, PurchaseDetail detail) {
+		// POST <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details?idBatch={idBatch}&units={units}
 		client.createPurchaseDetail(this, userEmail, detail);
 	}
 	
@@ -417,6 +625,7 @@ public class UsersController {
 	 * @param detail
 	 */
 	public void updatePurchaseDetail(CharSequence userEmail, PurchaseDetail detail) {
+		// PUT <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}?idBatch={idBatch}&units={units}
 		client.updatePurchaseDetail(this, userEmail, detail);
 	}
 	
@@ -430,7 +639,123 @@ public class UsersController {
 	 * @param idPurchaseDetail
 	 */
 	public void deletePurchaseDetail(CharSequence userEmail, int idPurchase, int idPurchaseDetail) {
+		// DELETE <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details/{idPurchaseDetail}
 		client.deletePurchaseDetail(this, userEmail, idPurchase, idPurchaseDetail);
+	}
+	
+	
+	
+	private List<Review> processReviews(JSONArray jReviews) throws JSONException {
+		List<Review> reviews = new ArrayList<Review>(jReviews.length());
+		
+		// for each review JSON object
+		for (int i = 0; i < jReviews.length(); i++) {
+			// create Review model from JSON object
+			JSONObject jReview = jReviews.getJSONObject(i);
+			Review review = new Review(jReview);
+			reviews.add(review);
+		}
+		
+		return reviews;
+	}
+	
+	
+	
+	private List<Wish> processWishes(JSONArray jWishes) throws JSONException {
+		List<Wish> wishes = new ArrayList<Wish>(jWishes.length());
+		
+		// for each wish JSON object
+		for (int i = 0; i < jWishes.length(); i++) {
+			// create Wish model from JSON object
+			JSONObject jWish = jWishes.getJSONObject(i);
+			Wish wish = new Wish(jWish);
+			wishes.add(wish);
+		}
+		
+		return wishes;
+	}
+	
+	
+	
+	private List<Purchase> processPurchases(JSONArray jPurchases) throws JSONException {
+		List<Purchase> purchases = new ArrayList<Purchase>(jPurchases.length());
+		
+		// for each purchase JSON object
+		for (int i = 0; i < jPurchases.length(); i++) {
+			// create Purchase model from JSON object
+			JSONObject jPurchase = jPurchases.getJSONObject(i);
+			Purchase purchase = new Purchase(jPurchase);
+			purchases.add(purchase);
+		}
+		
+		return purchases;
+	}
+	
+	
+	
+	private List<PurchaseDetail> processPurchaseDetails(JSONArray jPurchaseDetails) throws JSONException {
+		List<PurchaseDetail> purchaseDetails = new ArrayList<PurchaseDetail>(jPurchaseDetails.length());
+		
+		// for each purchase detail JSON object
+		for (int i = 0; i < jPurchaseDetails.length(); i++) {
+			// create PurchaseDetail model from JSON object
+			JSONObject jPurchaseDetail = jPurchaseDetails.getJSONObject(i);
+			PurchaseDetail purchaseDetail = new PurchaseDetail(jPurchaseDetail);
+			purchaseDetails.add(purchaseDetail);
+		}
+		
+		return purchaseDetails;
+	}
+	
+	
+	
+	private List<Achievement> processAchievements(JSONArray jAchievements) throws JSONException {
+		List<Achievement> achievements = new ArrayList<Achievement>(jAchievements.length());
+		
+		// for each achievement JSON object
+		for (int i = 0; i < jAchievements.length(); i++) {
+			// create Achievement model from JSON object
+			JSONObject jAchievement = jAchievements.getJSONObject(i);
+			Achievement achievement = new Achievement(jAchievement);
+			achievements.add(achievement);
+		}
+		
+		return achievements;
+	}
+	
+	
+	
+	private List<User> processUsers(JSONArray jUsers) throws JSONException {
+		List<User> users = new ArrayList<User>(jUsers.length());
+		
+		// for each user JSON object
+		for (int i = 0; i < jUsers.length(); i++) {
+			// create User model from JSON object
+			JSONObject jUser = jUsers.getJSONObject(i);
+			User user = new User(jUser);
+			users.add(user);
+		}
+		
+		return users;
+	}
+	
+	
+	private String encryptPassword(String password) {
+		try {
+			return SimpleCrypto.encrypt(SimpleCrypto.MASTER_KEY, password);
+		} catch (Exception e) {
+			return "";
+		}
+	}
+	
+	
+	private String decryptPassword(User user) {
+		try {
+			String dbPassword = (String) user.getPassword();
+			return SimpleCrypto.decrypt(SimpleCrypto.MASTER_KEY, dbPassword);
+		} catch (Exception e) {
+			return "";
+		}
 	}
 	
 	

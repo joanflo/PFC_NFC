@@ -2,14 +2,11 @@ package com.joanflo.controllers;
 
 import java.util.Iterator;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.widget.Toast;
-
 import com.joanflo.models.Country;
 import com.joanflo.models.Product;
 import com.joanflo.models.PurchaseDetail;
@@ -33,40 +30,23 @@ public class TaxesController {
 	
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
-		/*try {
-			
-			if (route.equals("")) {
-				// 
-				
-				
-			} else if (route.equals("")) {
-				// 
-				
-				
-			}
-			
-			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}*/
-		
-		
-		
-		
 		try {
-		
-			Tax tax = new Tax(jObject);
 			
-	
-			if (activity instanceof ProductListActivity) {
-				ProductListActivity productListActivity = (ProductListActivity) activity;
-				productListActivity.taxReceived(tax);
-				
+			if (route.matches("taxes")) {
+				// GET <URLbase>/taxes?idProduct={idProduct}&countryName={countryName}
+				if (jObject != null) {
+					// tax
+					Tax tax = new Tax(jObject);
+					
+					if (activity instanceof ProductListActivity) {
+						ProductListActivity productListActivity = (ProductListActivity) activity;
+						productListActivity.taxReceived(tax);
+					}
+				}
 			}
 			
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -78,7 +58,8 @@ public class TaxesController {
 	 * @param countryName
 	 */
 	public void getTax(int idProduct, CharSequence countryName) {
-		 client.getTax(this, idProduct, countryName);
+		// GET <URLbase>/taxes?idProduct={idProduct}&countryName={countryName}
+		client.getTax(this, idProduct, countryName);
 	}
 	
 

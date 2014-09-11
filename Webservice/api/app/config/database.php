@@ -57,7 +57,7 @@ return array(
 			'host'      => 'alumnes-ltim.uib.es',
 			'database'  => 'jflorit_pfcDB',
 			'username'  => 'jflorit',
-			'password'  => '***',
+			'password'  => 'j0anNFC',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

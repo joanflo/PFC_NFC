@@ -1,5 +1,8 @@
 package com.joanflo.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Batch {
 	
 	
@@ -24,6 +27,25 @@ public class Batch {
 		this.color = color;
 		this.shop = shop;
 		this.units = units;
+	}
+	
+	public Batch(JSONObject jBatch) throws JSONException {
+		// id batch
+		this.idBatch = jBatch.getInt("idBatch");
+		// product
+		int idProduct = jBatch.getInt("idProduct");
+		this.product = new Product(idProduct, null, null, "", "", "", "");
+		// size
+		int idSize = jBatch.getInt("idSize");
+		this.size = new Size(idSize, 0, 'u', 'o');
+		// color
+		CharSequence colorCode = jBatch.getString("colorCode");
+		this.color = new Color(colorCode, "");;
+		// shop
+		int idShop = jBatch.getInt("idShop");
+		this.shop = new Shop(idShop, null, "", "", "", "", 0, 0);
+		// units
+		this.units = jBatch.getInt("units");
 	}
 
 

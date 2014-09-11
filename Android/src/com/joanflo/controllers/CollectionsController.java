@@ -3,12 +3,13 @@ package com.joanflo.controllers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.widget.Toast;
-
+import com.joanflo.models.Collection;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.R;
+import com.joanflo.utils.LocalStorage;
+import com.joanflo.utils.Regex;
 
 public class CollectionsController {
 
@@ -25,23 +26,23 @@ public class CollectionsController {
 	
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
-		/*try {
+		try {
 			
-			if (route.equals("")) {
-				// 
-				
-				
-			} else if (route.equals("")) {
-				// 
-				
-				
+			if (route.matches("collections/" + Regex.INTEGER)) {
+				// GET <URLbase>/collections/{idCollection}
+				if (jObject != null) {
+					// get language code
+					String lang = LocalStorage.getInstance().getLocaleLanguage(activity);
+					// collection
+					Collection collection = new Collection(jObject, lang);
+					
+					// TODO
+				}
 			}
 			
-			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
-			
 		} catch (JSONException e) {
-			e.printStackTrace();
-		}*/
+			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	
@@ -51,6 +52,7 @@ public class CollectionsController {
 	 * @param idCollection
 	 */
 	public void getCollection(int idCollection) {
+		// GET <URLbase>/collections/{idCollection}
 		client.getCollection(this, idCollection);
 	}
 	

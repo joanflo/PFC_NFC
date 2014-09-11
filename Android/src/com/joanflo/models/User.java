@@ -100,7 +100,9 @@ public class User {
 	
 	public User(JSONObject jUser) throws JSONException {
 		// user email
-		this.userEmail = jUser.getString("userEmail");
+		if (jUser.has("userEmail")) {
+			this.userEmail = jUser.getString("userEmail");
+		}
 		// nick
 		if (jUser.has("nick")) {
 			this.nick = jUser.getString("nick");

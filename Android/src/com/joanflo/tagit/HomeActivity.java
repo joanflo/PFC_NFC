@@ -193,6 +193,13 @@ public class HomeActivity extends BaseActivity {
 	
 	
 	
+	public void zeroCountReceived() {
+		// check if it's the last request
+		checkLastRequest();
+	}
+	
+	
+	
 	public void wishlistItemsCountReceived(int wishlistItemsCount) {
 		LocalStorage.getInstance().setWishlistItemsCount(this, wishlistItemsCount);
 		prepareMyWishlistSection();

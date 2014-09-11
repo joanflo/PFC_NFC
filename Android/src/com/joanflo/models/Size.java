@@ -1,5 +1,8 @@
 package com.joanflo.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Size {
 	
 	
@@ -29,6 +32,13 @@ public class Size {
 		this.size = size;
 		this.genre = genre;
 		this.type = type;
+	}
+	
+	public Size(JSONObject jSize) throws JSONException {
+		this.idSize = jSize.getInt("idSize");
+		this.size = jSize.getInt("size");
+		this.genre = jSize.getString("genre").charAt(0);
+		this.type = jSize.getString("type").charAt(0);
 	}
 
 

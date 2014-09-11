@@ -7,11 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.widget.Toast;
-
 import com.joanflo.models.Brand;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.ProductSearchActivity;
 import com.joanflo.tagit.R;
+import com.joanflo.utils.Regex;
 
 public class BrandsController {
 
@@ -28,51 +28,32 @@ public class BrandsController {
 	
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
-		/*try {
-			
-			if (route.equals("")) {
-				// 
-				
-				
-			} else if (route.equals("")) {
-				// 
-				
-				
-			}
-			
-			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}*/
-		
-		
-		
-		
-		
-		
 		try {
 			
-			
-			if (activity instanceof ProductSearchActivity) {
-				ProductSearchActivity productSearchActivity = (ProductSearchActivity) activity;
-				
-				// for each brand JSON object
-				List<Brand> brands = new ArrayList<Brand>();
-				for (int i = 0; i < jArray.length(); i++) {
-					// create Brand model from JSON object
-					JSONObject jBrand = jArray.getJSONObject(i);
-					Brand brand = new Brand(jBrand);
-					brands.add(brand);
+			if (route.matches("brands")) {
+				// GET <URLbase>/brands
+				if (jArray != null) {
+					// list of brands
+					List<Brand> brands = processBrands(jArray);
+					
+					if (activity instanceof ProductSearchActivity) {
+						ProductSearchActivity productSearchActivity = (ProductSearchActivity) activity;
+						productSearchActivity.brandsReceived(brands);
+					}
 				}
-				productSearchActivity.brandsReceived(brands);
 				
+			} else if (route.matches("brands/" + Regex.TEXT)) {
+				// GET <URLbase>/brands/{brandName}
+				if (jObject != null) {
+					// brand
+					Brand brand = new Brand(jObject);
+					
+					// TODO
+				}
 			}
 			
-	
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -82,6 +63,7 @@ public class BrandsController {
 	 * Get brands
 	 */
 	public void getBrands() {
+		// GET <URLbase>/brands
 		client.getBrands(this);
 	}
 	
@@ -92,7 +74,25 @@ public class BrandsController {
 	 * @param brandName
 	 */
 	public void getBrand(CharSequence brandName) {
+		// GET <URLbase>/brands/{brandName}
 		client.getBrand(this, brandName);
 	}
+	
+	
+	
+	private List<Brand> processBrands(JSONArray jBrands) throws JSONException {
+		List<Brand> brands = new ArrayList<Brand>(jBrands.length());
+		
+		// for each brand JSON object
+		for (int i = 0; i < jBrands.length(); i++) {
+			// create Brand model from JSON object
+			JSONObject jBrand = jBrands.getJSONObject(i);
+			Brand brand = new Brand(jBrand);
+			brands.add(brand);
+		}
+		
+		return brands;
+	}
+	
 	
 }

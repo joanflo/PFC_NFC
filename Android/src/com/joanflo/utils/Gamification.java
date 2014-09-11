@@ -56,54 +56,69 @@ public class Gamification {
 	public static final int BADGE_1PURCHASE = 11;
 	public static final int BADGE_10PURCHASES = 12;
 	
-	/*
+	
 	public static Badge getBadge(int event) {
 		Badge badge = null;
-		
 		switch (event) {
 		case BADGE_NEWBIE:
-			badge = new Badge("newbie", "description", BADGE_NEWBIE);
+			// You've signed up for the app.
+			badge = new Badge("Newbie!", "");
 			break;
 		case BADGE_5DAYS:
-			badge = new Badge("5 days", "description", BADGE_5DAYS);
+			// You've logged in 5 days in a row.
+			badge = new Badge("Constant", "");
 			break;
 		case BADGE_1YEAR:
-			badge = new Badge("1 year", "description", BADGE_1YEAR);
+			// You've used the app for 1 year
+			badge = new Badge("Veteran!", "");
+			break;
+			
+		case BADGE_NFC:
+			// You've used your phone to read an NFC tag of a product
+			badge = new Badge("Tag it!", "");
 			break;
 		case BADGE_1SHARE:
-			badge = new Badge("1 share", "description", BADGE_1SHARE);
+			// You've shared for the first time a product
+			badge = new Badge("Sharing", "");
 			break;
 		case BADGE_10SHARES:
-			badge = new Badge("10 shares", "description", BADGE_10SHARES);
+			// You've shared at least 10 products
+			badge = new Badge("Sharing is life!", "");
 			break;
+			
 		case BADGE_1REVIEW:
-			badge = new Badge("1 review", "description", BADGE_1REVIEW);
+			// You've reviewed a product for the first time.
+			badge = new Badge("First review", "");
 			break;
 		case BADGE_10REVIEWS:
-			badge = new Badge("1 review", "description", BADGE_10REVIEWS);
+			// You've reviewed at least 10 different products.
+			badge = new Badge("Guru", "");
 			break;
-		case BADGE_NFC:
-			badge = new Badge("nfc", "description", BADGE_NFC);
-			break;
+			
 		case BADGE_1FOLLOWING:
-			badge = new Badge("1 following", "description", BADGE_1FOLLOWING);
+			// You've followed your first user.
+			badge = new Badge("Let's be friends!", "");
 			break;
 		case BADGE_1FOLLOWER:
-			badge = new Badge("1follower", "description", BADGE_1FOLLOWER);
+			// You've got your first followed.
+			badge = new Badge("First friend", "");
 			break;
 		case BADGE_100FOLLOWERS:
-			badge = new Badge("100followers", "description", BADGE_100FOLLOWERS);
+			// You have at least 100 followers.
+			badge = new Badge("Create trend", "");
 			break;
+			
 		case BADGE_1PURCHASE:
-			badge = new Badge("1purchase", "description", BADGE_1PURCHASE);
+			// You've bought a product for the first time.
+			badge = new Badge("Buyer", "");
 			break;
 		case BADGE_10PURCHASES:
-			badge = new Badge("10purchases", "description", BADGE_10PURCHASES);
+			// You've bought at least 10 products.
+			badge = new Badge("Shopaholic", "");
 			break;
 		}
 		
 		return badge;
 	}
-	*/
 	
 }
