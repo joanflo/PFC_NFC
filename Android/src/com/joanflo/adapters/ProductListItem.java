@@ -7,6 +7,8 @@ import android.content.Context;
 public class ProductListItem implements Comparable<ProductListItem> {
 
 	
+	private int idProduct;
+	
 	private URL url;
 	private CharSequence description;
 	private CharSequence productName;
@@ -26,10 +28,11 @@ public class ProductListItem implements Comparable<ProductListItem> {
 	
 	
 	
-	public ProductListItem(Context context, URL url, CharSequence description, 
+	public ProductListItem(Context context, int idProduct, URL url, CharSequence description, 
 			CharSequence productName, CharSequence brandName, CharSequence categoryName, 
 			CharSequence price, CharSequence coin, CharSequence rating) {
 		
+		this.idProduct = idProduct;
 		this.url = url;
 		this.description = description;
 		this.productName = productName;
@@ -38,6 +41,16 @@ public class ProductListItem implements Comparable<ProductListItem> {
 		this.price = price;
 		this.coin = coin;
 		this.rating = rating;
+	}
+
+	
+
+	public int getIdProduct() {
+		return idProduct;
+	}
+
+	public void setIdProduct(int idProduct) {
+		this.idProduct = idProduct;
 	}
 
 	

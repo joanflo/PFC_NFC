@@ -12,6 +12,7 @@ import com.joanflo.models.ProductBelongsCategory;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.CategoryListActivity;
 import com.joanflo.tagit.ProductListActivity;
+import com.joanflo.tagit.ProductSearchActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
@@ -44,6 +45,9 @@ public class CategoriesController {
 					if (activity instanceof CategoryListActivity) {
 						CategoryListActivity categoryListActivity = (CategoryListActivity) activity;
 						categoryListActivity.categoriesReceived(categories);
+					} else if (activity instanceof ProductSearchActivity) {
+						ProductSearchActivity productSearchActivity = (ProductSearchActivity) activity;
+						productSearchActivity.categoriesReceived(categories);
 					}
 				}
 				// GET <URLbase>/categories?idProduct={idProduct}

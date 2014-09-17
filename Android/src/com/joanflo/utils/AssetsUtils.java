@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.util.TypedValue;
 
 public class AssetsUtils {
@@ -33,7 +31,6 @@ public class AssetsUtils {
 	    	if (imageName == null){
 	    		return null;
 	    	}
-	    	Log.i("DEBUG", imageName);
 	    	String srcName = imageType + imageName + ".png";
 	        myInput = context.getAssets().open(srcName);
 	        d = Drawable.createFromStream(myInput, srcName);

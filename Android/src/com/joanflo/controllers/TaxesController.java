@@ -12,6 +12,7 @@ import com.joanflo.models.Product;
 import com.joanflo.models.PurchaseDetail;
 import com.joanflo.models.Tax;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.ProductActivity;
 import com.joanflo.tagit.ProductListActivity;
 import com.joanflo.tagit.R;
 
@@ -41,6 +42,9 @@ public class TaxesController {
 					if (activity instanceof ProductListActivity) {
 						ProductListActivity productListActivity = (ProductListActivity) activity;
 						productListActivity.taxReceived(tax);
+					} else if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.taxReceived(tax);
 					}
 				}
 			}

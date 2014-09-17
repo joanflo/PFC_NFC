@@ -43,7 +43,7 @@ public class Color {
 	public boolean equals(Object obj) {
 		if (obj instanceof Color) {
 			Color color = (Color) obj;
-			return colorCode == color.getColorCode(); 
+			return colorCode.equals(color.getColorCode()); 
 		} else {
 			return false;
 		}

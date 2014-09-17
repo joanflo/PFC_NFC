@@ -1,10 +1,12 @@
 package com.joanflo.tagit;
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -65,6 +67,15 @@ public class HomeActivity extends BaseActivity {
         prepareMyCartSection();
         prepareMyWishlistSection();
         prepareProfileSection();
+	}
+	
+	
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// update shop section
+        prepareShopSection();
 	}
 	
 	
@@ -138,7 +149,8 @@ public class HomeActivity extends BaseActivity {
 			
 			// show user image
 			ImageView iv = (ImageView) findViewById(R.id.profile_image_home);
-            iv.setImageResource(R.drawable.user_profile);
+			Uri uri = storage.getProfileImage(this);
+            iv.setImageURI(uri);
             
 			// set user nick
 			TextView tv = (TextView) findViewById(R.id.profile_nick_home);
@@ -240,7 +252,8 @@ public class HomeActivity extends BaseActivity {
 	
 	
 	
-    public void onClickButton(View v) {
+    @SuppressLint("InlinedApi")
+	public void onClickButton(View v) {
 		Intent i;
     	
 		switch (v.getId()) {
@@ -280,11 +293,15 @@ public class HomeActivity extends BaseActivity {
 		
 		case R.id.profile_image_home:
 			// select profile image
-			i = new Intent();
+			if (Build.VERSION.SDK_INT < 19){
+                i = new Intent();
+                i.setAction(Intent.ACTION_GET_CONTENT);
+            } else {
+                i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
+            }
 			i.setType("image/*");
-			i.setAction(Intent.ACTION_GET_CONTENT);
-			String title = getResources().getString(R.string.toast_profile);
-			startActivityForResult(Intent.createChooser(i, title), SELECT_PICTURE);
+            startActivityForResult(i, SELECT_PICTURE);
 			break;
 			
 		case R.id.button_viewprofile_home:
@@ -325,6 +342,8 @@ public class HomeActivity extends BaseActivity {
                 // Set profile image
                 ImageButton ib = (ImageButton) findViewById(R.id.profile_image_home);
                 ib.setImageURI(selectedImageUri);
+                // save local
+                LocalStorage.getInstance().setProfileImage(this, selectedImageUri);
                 // upload image to server
                 // TODO
             }

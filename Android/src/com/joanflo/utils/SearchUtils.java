@@ -2,6 +2,7 @@ package com.joanflo.utils;
 
 import java.util.List;
 
+import com.joanflo.models.Batch;
 import com.joanflo.models.Category;
 import com.joanflo.models.Product;
 import com.joanflo.models.ProductImage;
@@ -104,6 +105,38 @@ public class SearchUtils {
 		} else {
 			return null;
 		}
+	}
+	
+	
+	
+	public static Batch searchBatchByIdSize(int idSize, List<Batch> batches) {
+		Batch batch = null;
+		int i = 0;
+		boolean found = false;
+		while (i < batches.size() && !found) {
+			batch = batches.get(i);
+			if (batch.getSize().getIdSize() == idSize && batch.getSize().getSize() == 0) {
+				found = true;
+			}
+			i++;
+		}
+		return batch;
+	}
+	
+	
+	
+	public static Batch searchBatchByColorCode(CharSequence colorCode, List<Batch> batches) {
+		Batch batch = null;
+		int i = 0;
+		boolean found = false;
+		while (i < batches.size() && !found) {
+			batch = batches.get(i);
+			if (batch.getColor().getColorCode().equals(colorCode) && batch.getColor().getName() == null) {
+				found = true;
+			}
+			i++;
+		}
+		return batch;
 	}
 	
 	

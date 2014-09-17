@@ -52,7 +52,7 @@ public class UserProfileActivity extends BaseActivity implements OnItemClickList
 
 		// show user image
 		ImageView iv = (ImageView) findViewById(R.id.imageView_userprofile);
-		iv.setImageResource(R.drawable.user_profile);
+		//iv.setImageResource(R.drawable.user_profile);
 		
 		// set user nick
 		TextView tv = (TextView) findViewById(R.id.textView_userprofile_nick);

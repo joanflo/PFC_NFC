@@ -75,7 +75,7 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
         
 		// call web service
 		CountriesController controller = new CountriesController(this);
-		//controller.getCountries();
+		controller.getCountries();
         
 		prepareMapSection();
         preparePlaceSection();
@@ -292,7 +292,7 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 			CountriesController cController = new CountriesController(this);
 			Spinner spinner = (Spinner) findViewById(R.id.spinner_shopselection_country);
 			CharSequence countryName = spinner.getSelectedItem().toString();
-			switch (v.getId()) {
+			switch (adapterView.getId()) {
 			case R.id.spinner_shopselection_city:
 				prepareShopListSection(false);
 				// call web service to load shops from selected city
@@ -304,7 +304,7 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 				
 			case R.id.spinner_shopselection_region:
 				// call web service to load cities from selected region
-				spinner = (Spinner) findViewById(R.id.spinner_registration_region);
+				spinner = (Spinner) findViewById(R.id.spinner_shopselection_region);
 				CharSequence regionName = spinner.getSelectedItem().toString();
 				cController.getCities(countryName, regionName);
 				break;
@@ -353,6 +353,13 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		LocalStorage storage = LocalStorage.getInstance();
+		if (!storage.isShopPicked(this)) {
+			itemSelected = null;
+			itemSelectedPosition = -1;
+		}
+		
 		prepareMapSection();
 	}
 	
@@ -360,7 +367,6 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 	
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		Log.i("DEBUG", "onContextItemSelected!");
 		return false;
 	}
 	
@@ -459,6 +465,8 @@ public class ShopSelectionActivity extends BaseActivity implements OnItemSelecte
 			Shop shop = shops.get(position);
 			LocalStorage.getInstance().saveShop(currentActivity, shop);
 			shopList.setItemChecked(position, true);
+			
+			Toast.makeText(currentActivity, R.string.toast_shopselected, Toast.LENGTH_SHORT).show();
 		}
 		
     }

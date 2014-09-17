@@ -127,7 +127,10 @@ public class UsersController {
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
 					// 404
 					
-					// TODO
+					if (activity instanceof HomeActivity) {
+						HomeActivity homeActivity = (HomeActivity) activity;
+						homeActivity.zeroCountReceived();
+					}
 				}
 				// POST <URLbase>/users/{userEmail}/wishes?idProduct={idProduct}
 				if (jObject != null) {
@@ -165,7 +168,10 @@ public class UsersController {
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
 					// 404
 					
-					// TODO
+					if (activity instanceof HomeActivity) {
+						HomeActivity homeActivity = (HomeActivity) activity;
+						homeActivity.zeroCountReceived();
+					}
 				}
 				
 			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/purchases/" + Regex.INTEGER)) {
@@ -181,7 +187,7 @@ public class UsersController {
 				// GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details
 				// POST <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details?idBatch={idBatch}&units={units}
 				if (jArray != null) {
-					if (statusCode == HttpStatusCode.NOT_FOUND) {
+					if (statusCode == HttpStatusCode.OK) {
 						// list of purchase details
 						List<PurchaseDetail> purchaseDetails = processPurchaseDetails(jArray);
 						
@@ -203,7 +209,10 @@ public class UsersController {
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
 					// 404
 					
-					// TODO
+					if (activity instanceof HomeActivity) {
+						HomeActivity homeActivity = (HomeActivity) activity;
+						homeActivity.zeroCountReceived();
+					}
 				}
 				
 			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/purchases/" + Regex.INTEGER + "/purchase_details/" + Regex.INTEGER)) {
@@ -335,9 +344,9 @@ public class UsersController {
 	 * @param direction
 	 */
 	public void signInUser(CharSequence userEmail, CharSequence cityName, CharSequence languageName, CharSequence nick,
-			CharSequence name, CharSequence surname, int age, CharSequence password, CharSequence phone, CharSequence direction) {
+		CharSequence name, CharSequence surname, int age, CharSequence password, CharSequence phone, CharSequence direction) {
 		// PUT <URLbase>/users/{userEmail}?password={password}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
-		client.signInUser(this, userEmail, cityName, languageName, nick, name, surname, age, encryptPassword((String) password), phone, direction);
+		client.signInUser(this, userEmail, cityName, languageName, nick, name, surname, age, encryptPassword(String.valueOf(password)), phone, direction);
 	}
 	
 	

@@ -1,8 +1,5 @@
 package com.joanflo.tagit;
 
-
-import org.json.JSONObject;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -10,6 +7,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.joanflo.controllers.BrandsController;
 import com.joanflo.models.Brand;
 import com.joanflo.utils.AssetsUtils;
 import android.content.Intent;
@@ -17,9 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,19 +38,29 @@ public class BrandActivity extends BaseActivity {
         // update selected item and title, then close the drawer
         Bundle bundle = getIntent().getExtras();
         CharSequence brandName = bundle.getCharSequence("brandName");
-        brand = new Brand(brandName, "C/ Sant vicenç ferrer 117", "971420779", "hola@hola.com", 34.45, 34.45);
-		        
+        
+        super.showProgressBar(true);
+        // call web service
+        BrandsController controller = new BrandsController(this);
+        controller.getBrand(brandName);
+	}
+	
+	
+	
+	public void brandReceived(Brand brand) {
+		this.brand = brand;
+		super.showProgressBar(false);
 		prepareMapSection();
         prepareBrandInfoSection();
 	}
-
-
-
+	
+	
+	
 	private void prepareMapSection() {
 		try {
             // Loading map
 			if (googleMap == null) {
-				MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.shop_map);
+				MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.brand_map);
 				googleMap = mapFragment.getMap();
 				
 	            if (googleMap == null) {
@@ -102,16 +108,10 @@ public class BrandActivity extends BaseActivity {
 		googleMap.addMarker(marker);
 		
 		// map display
+		googleMap.setMyLocationEnabled(true);
+		googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 		CameraPosition cameraPosition = new CameraPosition.Builder().target(loc).zoom(14).build();
 		googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-	}
-	
-
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		prepareMapSection();
 	}
 	
 	

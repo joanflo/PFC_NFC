@@ -29,7 +29,9 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class ProductListActivity extends BaseActivity implements ActionBar.OnNavigationListener {
@@ -52,7 +54,6 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
 
 		super.showProgressBar(true);
 	    // Get the intent and verify the action
-		super.showProgressBar(true);
     	ProductsController controller = new ProductsController(this);
 	    Intent intent = getIntent();
 	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -129,31 +130,38 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
 	
 	public void productsReceived(List<Product> products) {
 		this.products = products;
-		// for each product, 4 requests (tax, front image, reviews, category)
-		requestsNumber = products.size() * 4;
-		
-		// get user country
-		Country country = LocalStorage.getInstance().getLocaleCountry(this);
-		
-		// for each product
-		TaxesController tController = new TaxesController(this);
-		ProductsController pController = new ProductsController(this);
-		CategoriesController cController = new CategoriesController(this);
-		for (Product product : products) {
-			int idProduct = product.getIdProduct();
-			// call web service
-			tController.getTax(idProduct, country.getCountryName());
-			// call web service
-			pController.getProductFrontImage(idProduct);
-			// call web service
-			pController.getReviews(idProduct);
-			// call web service
-			cController.getProductCategories(idProduct);
-		}
 		
 		if (products.size() == 0) {
 			// empty products list
+			ImageView iv = (ImageView) findViewById(R.id.imageview_productList_empty);
+			iv.setVisibility(View.VISIBLE);
+			ListView productList = (ListView) findViewById(R.id.listView_product);
+			productList.setVisibility(View.GONE);
 			super.showProgressBar(false);
+			Toast.makeText(this, R.string.toast_problem_empty, Toast.LENGTH_LONG).show();
+			
+		} else {
+			// for each product, 4 requests (tax, front image, reviews, category)
+			requestsNumber = products.size() * 4;
+			
+			// get user country
+			Country country = LocalStorage.getInstance().getLocaleCountry(this);
+			
+			// for each product
+			TaxesController tController = new TaxesController(this);
+			ProductsController pController = new ProductsController(this);
+			CategoriesController cController = new CategoriesController(this);
+			for (Product product : products) {
+				int idProduct = product.getIdProduct();
+				// call web service
+				tController.getTax(idProduct, country.getCountryName());
+				// call web service
+				pController.getProductFrontImage(idProduct);
+				// call web service
+				pController.getReviews(idProduct);
+				// call web service
+				cController.getProductCategories(idProduct);
+			}
 		}
 	}
 	
@@ -239,7 +247,9 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
 		productItems = new ArrayList<ProductListItem>();
         while(it.hasNext()) {
         	Product product = (Product) it.next();
-        	
+
+        	// product id
+        	int idProduct = product.getIdProduct();
         	// front image
         	ProductImage front = SearchUtils.searchFrontImage(product);
         	URL url = null;
@@ -256,7 +266,7 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
         	CharSequence cName = product.getCategories().get(0).getName();
         	// calculate prices
         	Tax tax = product.getTaxes().get(0);
-        	DecimalFormat df = new DecimalFormat("0.00");
+        	DecimalFormat df = new DecimalFormat("00.00");
         	CharSequence price = df.format(product.calculatePrice(tax));
         	CharSequence coin = String.valueOf(country.getCoin());
         	double averageRate = product.calculateAverageRating();
@@ -268,13 +278,14 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
         		rate = df.format(averageRate);
         	}
         	
-        	ProductListItem pItem = new ProductListItem(this, url, desc, pName, bName, cName, price, coin, rate);
+        	ProductListItem pItem = new ProductListItem(this, idProduct, url, desc, pName, bName, cName, price, coin, rate);
         	productItems.add(pItem);
         }
         
         // setting the product list adapter
         ProductListAdapter adapter = new ProductListAdapter(getApplicationContext(), productItems);
         ListView productList = (ListView) findViewById(R.id.listView_product);
+        productList.setEmptyView(findViewById(R.layout.list_empty));
         productList.setAdapter(adapter);
         
         // setting the product click listener
@@ -296,9 +307,9 @@ public class ProductListActivity extends BaseActivity implements ActionBar.OnNav
 			// go to product
 			Intent i;
 			currentPosition = position;
-			Product product = products.get(position);
+			ProductListItem productItem = productItems.get(position);
 			i = new Intent(getBaseContext(), ProductActivity.class);
-			i.putExtra("idProduct", product.getIdProduct());
+			i.putExtra("idProduct", productItem.getIdProduct());
 			startActivity(i);
 		}
 		

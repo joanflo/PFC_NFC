@@ -3,7 +3,6 @@ package com.joanflo.models;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -105,6 +104,10 @@ public class Product {
 		// composition
 		if (jProduct.has("composition_" + lang)) {
 			this.composition = jProduct.getString("composition_" + lang);
+		}
+		// url
+		if (jProduct.has("url")) {
+			this.addImage(new ProductImage(jProduct.getString("url"), 'f'));
 		}
 	}
 	

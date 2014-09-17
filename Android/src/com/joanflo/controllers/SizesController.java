@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.widget.Toast;
 import com.joanflo.models.Size;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.ProductActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.utils.Regex;
 
@@ -33,7 +34,10 @@ public class SizesController {
 					// size
 					Size size = new Size(jObject);
 					
-					// TODO
+					if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.sizeReceived(size);
+					}
 				}
 			}
 			

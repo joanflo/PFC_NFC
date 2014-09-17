@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.joanflo.models.Batch;
 import com.joanflo.models.Shop;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.ProductActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.utils.Regex;
 
@@ -40,7 +41,10 @@ public class BatchesController {
 					// list of batches
 					List<Batch> batches = processBatches(jArray);
 					
-					// TODO
+					if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.batchesReceived(batches);
+					}
 				}
 				
 			} else if (route.matches("batches/" + Regex.INTEGER)) {

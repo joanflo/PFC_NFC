@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -189,7 +191,8 @@ public class BaseActivity extends Activity {
 			TextView tv;
 			// show user image
 			iv = (ImageView) findViewById(R.id.profile_image_drawer);
-			iv.setImageResource(R.drawable.user_profile);
+			Uri uri = storage.getProfileImage(this);
+            iv.setImageURI(uri);
 			// set user nick
 			tv = (TextView) findViewById(R.id.profile_nick_drawer);
 			tv.setText("@" + storage.getUserNick(this));
@@ -284,15 +287,20 @@ public class BaseActivity extends Activity {
     
     
     protected void showProgressBar(boolean show) {
+    	View v = findViewById(R.id.drawer_layout);
     	ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBar_base);
     	FrameLayout fl = (FrameLayout) findViewById(R.id.frame_container);
 		// show progress bar?
 		if (show) {
 			spinner.setVisibility(View.VISIBLE);
+			// show background image
+			v.setBackgroundResource(R.drawable.background_base);
 			// hide frame container
 			fl.setVisibility(View.INVISIBLE);
 		} else {
 			spinner.setVisibility(View.GONE);
+			// hide background image
+			v.setBackgroundColor(Color.TRANSPARENT);
 			// show frame container
 			fl.setVisibility(View.VISIBLE);
 		}

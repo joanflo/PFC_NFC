@@ -12,6 +12,7 @@ import com.joanflo.models.ProductImage;
 import com.joanflo.models.Review;
 import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.ProductActivity;
 import com.joanflo.tagit.ProductListActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.utils.LocalStorage;
@@ -54,7 +55,7 @@ public class ProductsController {
 					// 404
 					if (activity instanceof ProductListActivity) {
 						ProductListActivity productListActivity = (ProductListActivity) activity;
-						productListActivity.productsReceived(null);
+						productListActivity.productsReceived(new ArrayList<Product>());
 					}
 				}
 				
@@ -63,7 +64,10 @@ public class ProductsController {
 				if (jObject != null) {
 					Product product = new Product(jObject, lang);
 					
-					// TODO
+					if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.productReceived(product);
+					}
 				}
 				
 			} else if (route.matches("products/" + Regex.INTEGER + "/reviews")) {
@@ -75,13 +79,19 @@ public class ProductsController {
 					if (activity instanceof ProductListActivity) {
 						ProductListActivity productListActivity = (ProductListActivity) activity;
 						productListActivity.reviewsReceived(reviews);
+					} else if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.reviewsReceived(reviews);
 					}
 					
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
 					// 404
 					if (activity instanceof ProductListActivity) {
 						ProductListActivity productListActivity = (ProductListActivity) activity;
-						productListActivity.reviewsReceived(null);
+						productListActivity.reviewsReceived(new ArrayList<Review>());
+					} else if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.reviewsReceived(new ArrayList<Review>());
 					}
 				}
 				
@@ -91,11 +101,18 @@ public class ProductsController {
 					// list of (related) products
 					List<Product> products = processProducts(jArray, lang);
 					
-					// TODO
+					if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.relatedProductsReceived(products);
+					}
 					
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
 					// 404
-					// TODO
+					
+					if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.relatedProductsReceived(new ArrayList<Product>());
+					}
 				}
 				
 			} else if (route.matches("products/" + Regex.INTEGER + "/product_images")) {
@@ -108,6 +125,9 @@ public class ProductsController {
 					if (activity instanceof ProductListActivity) {
 						ProductListActivity productListActivity = (ProductListActivity) activity;
 						productListActivity.frontImageReceived(productImages.get(0));
+					} else if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.productImagesReceived(productImages);
 					}
 				}
 				

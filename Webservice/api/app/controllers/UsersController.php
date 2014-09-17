@@ -72,6 +72,7 @@ class UsersController extends BaseController {
 			$user->age = Input::get('age');
 			$user->phone = Input::get('phone');
 			$user->direction = Input::get('direction');
+			$user->registration = \Carbon\Carbon::now()->toDateTimeString();
 		}
 		
 		// save changes

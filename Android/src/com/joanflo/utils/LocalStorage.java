@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
+
 import com.joanflo.models.Category;
 import com.joanflo.models.Country;
 import com.joanflo.models.Shop;
@@ -36,6 +38,25 @@ public class LocalStorage {
 		return instance;
 	}
 	
+	
+	
+	
+	public Uri getProfileImage(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		String uri = prefs.getString("profileImage", null);
+		if (uri == null) {
+			return null;
+		} else {
+			return Uri.parse(uri);
+		}
+	}
+	
+	public void setProfileImage(Activity activity, Uri uri) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("profileImage", uri.toString());
+		editor.commit();
+	}
 	
 	
 	

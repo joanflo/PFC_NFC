@@ -66,6 +66,8 @@ public class LoginActivity extends Activity {
 			CharSequence localPassword = et.getText();
 			if (dbPassword.equals(localPassword.toString())) {
 				return true;
+			} else {
+				throw new Exception();
 			}
 		} catch (Exception e) {
 			showProgressBar(false);

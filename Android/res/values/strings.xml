@@ -64,6 +64,7 @@
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="description_profile_image">Profile image</string>
     <string name="description_product_image">Product image</string>
+    <string name="description_empty_image">Empty image</string>
     <string name="profile_points_text">Points</string>
     <string name="profile_followers_text">Followers</string>
     <string name="profile_following_text">Following</string>
@@ -120,8 +121,7 @@
     <string name="product_color">Colors</string>
     <string name="product_size">Sizes</string>
     <string name="product_size2">Size</string>
-    <string name="share_part1">Just watching</string>
-    <string name="share_part2">using</string>
+    <string name="share">Just watching this amazing product using</string>
     <string name="comment">Comment</string>
     <string name="shop1">Bought in</string>
     <string name="shop2">on</string>
@@ -207,12 +207,15 @@
     <!-- toast messages -->
     <string name="toast_requiredfields">All required fields must be filled. Terms and conditions must be accepted.</string>
     <string name="toast_problem_shop">Ops! There is not any shop near.</string>
+    <string name="toast_problem_request">Ops! An error has occurred with the request to the server.</string>
+    <string name="toast_problem_creatinguser">Ops! There was a problem creating the user. Probably the user already exists.</string>
+    <string name="toast_problem_empty">Ops! No results were found.</string>
+    <string name="toast_problem_productnfc">Ops! There was a problem reading the NFC tag.</string>
     <string name="toast_loginfields">Insert user email and password.</string>
     <string name="toast_login">Wrong user or password. Please try again.</string>
-    <string name="toast_problem_creatinguser">Ops! There was a problem creating the user.</string>
     <string name="toast_profile">Select profile image</string>
     <string name="toast_gps">Searching current location.</string>
+    <string name="toast_shopselected">Shop selected.</string>
     <string name="toast_registration">You must be registered to perform this action.</string>
-    <string name="toast_problem_request">An error has occurred with the request to the server.</string>
     
 </resources>
