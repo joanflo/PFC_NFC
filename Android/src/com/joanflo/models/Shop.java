@@ -42,13 +42,7 @@ public class Shop {
 		this.email = jShop.getString("email");
 		this.latitude = jShop.getDouble("latitude");
 		this.longitude = jShop.getDouble("longitude");
-		if (jShop.has("city")) {
-			this.city = new City(jShop.getJSONObject("city"));
-		} else if (jShop.has("cityName")) {
-			this.city = new City(jShop.getString("cityName"));
-		} else {
-			this.city = null;
-		}
+		this.city = new City(jShop.getString("cityName"));
 	}
 
 

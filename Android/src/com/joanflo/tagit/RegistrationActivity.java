@@ -82,27 +82,27 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 		
 		// email field
 		et = (EditText) findViewById(R.id.editText_registration_email);
-		if (et.getText().toString().equals("")) {
+		if (et.getText().equals("")) {
 			// empty field
 			return false;
 		}
 		
 		// nick field
 		et = (EditText) findViewById(R.id.editText_registration_nick);
-		if (et.getText().toString().equals("")) {
+		if (et.getText().equals("")) {
 			// empty field
 			return false;
 		}
 		
 		// password fields
 		et = (EditText) findViewById(R.id.editText_registration_password);
-		if (et.getText().toString().equals("")) {
+		if (et.getText().equals("")) {
 			// empty field
 			return false;
 		} else {
-			CharSequence firstPassword = et.getText().toString();
+			CharSequence firstPassword = et.getText();
 			et = (EditText) findViewById(R.id.editText_registration_repeatpassword);
-			if (!et.getText().toString().equals(firstPassword)) {
+			if (!et.getText().equals(firstPassword)) {
 				// both passwords must be equals
 				return false;
 			}
@@ -138,21 +138,21 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 		
 		// age field
 		et = (EditText) findViewById(R.id.editText_registration_age);
-		if (et.getText().toString().equals("")) {
+		if (et.getText().equals("")) {
 			// empty field
 			return false;
 		}
 		
 		// name field
 		et = (EditText) findViewById(R.id.editText_registration_name);
-		if (et.getText().toString().equals("")) {
+		if (et.getText().equals("")) {
 			// empty field
 			return false;
 		}
 		
 		// surname field
 		et = (EditText) findViewById(R.id.editText_registration_surname);
-		if (et.getText().toString().equals("")) {
+		if (et.getText().equals("")) {
 			// empty field
 			return false;
 		}
@@ -227,11 +227,11 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 			Toast.makeText(this, R.string.toast_problem_creatinguser, Toast.LENGTH_SHORT).show();
 			
 		} else {
-			// user created successfuly
+			// user created successfully
 			LocalStorage storage = LocalStorage.getInstance();
 			storage.setUserLoged(this, true);
 			storage.saveUser(this, user);
-			goToHomeActivity();
+			goToHomeActivity(user.getUserEmail());
 		}
 	}
 	
@@ -242,7 +242,7 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 		switch (v.getId()) {
 		case R.id.button_skip_singin:
 			// Skip log in
-			goToHomeActivity();
+			goToHomeActivity(null);
 			break;
 			
 		case R.id.button_singin_singin:
@@ -252,32 +252,32 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 				Spinner spinner;
 				// get fields
 				et = (EditText) findViewById(R.id.editText_registration_email);
-				CharSequence userEmail = et.getText().toString();
+				CharSequence userEmail = et.getText();
 				spinner = (Spinner) findViewById(R.id.spinner_registration_city);
 				CharSequence cityName = spinner.getSelectedItem().toString();
 				spinner = (Spinner) findViewById(R.id.spinner_registration_language);
 				CharSequence languageName = spinner.getSelectedItem().toString();
 				et = (EditText) findViewById(R.id.editText_registration_nick);
-				CharSequence nick = et.getText().toString();
+				CharSequence nick = et.getText();
 				et = (EditText) findViewById(R.id.editText_registration_name);
-				CharSequence name = et.getText().toString();
+				CharSequence name = et.getText();
 				et = (EditText) findViewById(R.id.editText_registration_surname);
-				CharSequence surname = et.getText().toString();
+				CharSequence surname = et.getText();
 				et = (EditText) findViewById(R.id.editText_registration_age);
 				int age = Integer.parseInt(et.getText().toString());
 				et = (EditText) findViewById(R.id.editText_registration_password);
-				CharSequence password = et.getText().toString();
+				CharSequence password = et.getText();
 				et = (EditText) findViewById(R.id.editText_registration_phone);
-				CharSequence phone = et.getText().toString();
+				CharSequence phone = et.getText();
 				et = (EditText) findViewById(R.id.editText_registration_direction);
-				CharSequence direction = et.getText().toString();
+				CharSequence direction = et.getText();
 				// UI
 				showProgressBar(true);
 				// call web service
 				UsersController controller = new UsersController(this);
 				controller.signInUser(userEmail, cityName, languageName, nick, name, surname, age, password, phone, direction);
 			} else {
-				Toast.makeText(this, R.string.toast_requiredfields, Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.toast_requiredfields1, Toast.LENGTH_SHORT).show();
 			}
 			break;
 			
@@ -342,13 +342,15 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 			// enable sign in button
 			buttonSignIn.setEnabled(true);
 		}
-		
 	}
 	
 	
 	
-	private void goToHomeActivity() {
+	private void goToHomeActivity(CharSequence userEmail) {
 		Intent iMain = new Intent(this, HomeActivity.class);
+		if (userEmail != null) {
+			iMain.putExtra("userEmail", userEmail);
+		}
 		startActivity(iMain);
 		finish();
 	}

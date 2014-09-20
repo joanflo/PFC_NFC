@@ -37,7 +37,7 @@ public class Batch {
 		this.product = new Product(idProduct, null, null, "", "", "", "");
 		// size
 		int idSize = jBatch.getInt("idSize");
-		this.size = new Size(idSize, 0, 'u', 'o');
+		this.size = new Size(idSize, 0, Size.GENRE_UNISEX, Size.TYPE_OTHERS);
 		// color
 		CharSequence colorCode = jBatch.getString("colorCode");
 		this.color = new Color(colorCode, "");;

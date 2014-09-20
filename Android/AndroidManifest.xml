@@ -4,10 +4,6 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    
-    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
-    
-    
     <permission
         android:name="com.joanflo.tagit.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -175,6 +171,7 @@
         
         <activity
             android:name="com.joanflo.tagit.PasswordActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
         </activity>
         

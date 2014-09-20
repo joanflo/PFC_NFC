@@ -53,7 +53,11 @@ public class Review {
 		this.product = new Product(idProduct, null, null, "", "", "", "");
 		// user
 		String userEmail = jReview.getString("userEmail");
-		this.user = new User(userEmail, null, null, "", "", "", 0, "", "", "");
+		String nick = "";
+		if (jReview.has("nick")) {
+			nick = jReview.getString("nick");
+		}
+		this.user = new User(userEmail, null, null, nick, "", "", 0, "", "", "");
 		// rating
 		this.rating = (float) jReview.getDouble("rating");
 		// comment

@@ -43,6 +43,7 @@
 	            android:layout_below="@+id/aux9"
 	            android:layout_margin="8dp"
 	            android:background="@drawable/image_bg_normal"
+	            android:src="@drawable/default_image"
 	            android:contentDescription="@string/description_profile_image" />
 
 	        
@@ -236,113 +237,75 @@
 		        android:textColor="@color/grey_light" />
 	        
 	        
-	        <!-- name -->
-	        <TextView
-	            android:id="@+id/textView_userprofile_nametext"
-		        style="@style/b"
-		        android:layout_marginTop="8dp"
-		        android:layout_marginLeft="8dp"
-	            android:layout_alignParentLeft="true"
-	            android:layout_below="@+id/textView_userprofile_email"
-		        android:text="@string/name2"
-		        android:textColor="@color/grey_light" />
-
-	        <TextView
-	            android:id="@+id/textView_userprofile_name"
-		        style="@style/p"
-	            android:layout_alignLeft="@+id/textView_userprofile_nametext"
-	            android:layout_below="@+id/textView_userprofile_nametext"
-		        android:textColor="@color/grey_light" />
-	        
-	        
-	        <!-- surname -->
-	        <TextView
-	            android:id="@+id/textView_userprofile_surnametext"
-		        style="@style/b"
-		        android:layout_marginTop="8dp"
-		        android:layout_marginLeft="8dp"
-	            android:layout_alignParentLeft="true"
-	            android:layout_below="@+id/textView_userprofile_name"
-		        android:text="@string/surname2"
-		        android:textColor="@color/grey_light" />
-
-	        <TextView
-	            android:id="@+id/textView_userprofile_surname"
-		        style="@style/p"
-	            android:layout_alignLeft="@+id/textView_userprofile_surnametext"
-	            android:layout_below="@+id/textView_userprofile_surnametext"
-		        android:textColor="@color/grey_light" />
-	        
-	        
-	        <!-- location -->
+	        <!-- name & surname & age -->
 	        <LinearLayout
-	            android:id="@+id/linearLayout_userprofile_location"
+	            android:id="@+id/linearLayout_userprofile_namesurnameage"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_margin="8dp"
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentRight="true"
-	            android:layout_below="@+id/textView_userprofile_surname"
+	            android:layout_below="@+id/textView_userprofile_email"
 	            android:baselineAligned="false" >
 
 	            <LinearLayout 
 			        android:layout_width="0dp"
 			        android:layout_height="wrap_content"
 			        android:orientation="vertical"
-			        android:layout_weight="0.3" >
-		
+			        android:layout_weight="0.4" >
+			        
 		            <TextView 
 			            style="@style/b"
-			            android:text="@string/city_name2"
+			            android:text="@string/name2"
 			            android:textColor="@color/grey_light" />
 		            
 		            <TextView 
-		                android:id="@+id/textView_userprofile_city"
+		                android:id="@+id/textView_userprofile_name"
 			            style="@style/p"
 			            android:textColor="@color/grey_light" />
-			        
+	                
 			    </LinearLayout>
 		        
 		        <LinearLayout 
 			        android:layout_width="0dp"
 			        android:layout_height="wrap_content"
 			        android:orientation="vertical"
-			        android:layout_weight="0.3" >
-		
+			        android:layout_weight="0.4" >
+		            
 		            <TextView 
 			            style="@style/b"
-			            android:text="@string/region_name2"
+			            android:text="@string/surname2"
 			            android:textColor="@color/grey_light" />
 		            
 		            <TextView 
-		                android:id="@+id/textView_userprofile_region"
+		                android:id="@+id/textView_userprofile_surname"
 			            style="@style/p"
 			            android:textColor="@color/grey_light" />
-			        
+		            
 			    </LinearLayout>
 		        
 		        <LinearLayout 
 			        android:layout_width="0dp"
 			        android:layout_height="wrap_content"
 			        android:orientation="vertical"
-			        android:layout_weight="0.3" >
-		
+			        android:layout_weight="0.35" >
+			        
 		            <TextView 
 			            style="@style/b"
-			            android:text="@string/country_name2"
+			            android:text="@string/age2"
 			            android:textColor="@color/grey_light" />
 		            
-			        <TextView 
-		                android:id="@+id/textView_userprofile_country"
+		            <TextView 
+		                android:id="@+id/textView_userprofile_age"
 			            style="@style/p"
 			            android:textColor="@color/grey_light" />
-			        
+		            
 			    </LinearLayout>
 	            
 	        </LinearLayout>
 	        
 	        
-	        <!-- language & registration & age -->
+	        <!-- language & registration & city -->
 	        <LinearLayout
 	            android:id="@+id/linearLayout_userprofile_languageage"
 	            android:layout_width="match_parent"
@@ -352,7 +315,7 @@
 	            android:layout_marginBottom="8dp"
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentRight="true"
-	            android:layout_below="@+id/linearLayout_userprofile_location"
+	            android:layout_below="@+id/linearLayout_userprofile_namesurnameage"
 			    android:orientation="horizontal"
 			    android:baselineAligned="false" >
 	        
@@ -360,7 +323,7 @@
 			        android:layout_width="0dp"
 			        android:layout_height="wrap_content"
 			        android:orientation="vertical"
-			        android:layout_weight="0.3" >
+			        android:layout_weight="0.4" >
 		
 		            <TextView 
 			            style="@style/b"
@@ -373,12 +336,30 @@
 			            android:textColor="@color/grey_light" />
 			        
 			    </LinearLayout>
+	            
+	            <LinearLayout 
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_weight="0.4" >
+		
+	                <TextView 
+			            style="@style/b"
+			            android:text="@string/city_name2"
+			            android:textColor="@color/grey_light" />
+		            
+		            <TextView 
+		                android:id="@+id/textView_userprofile_city"
+			            style="@style/p"
+			            android:textColor="@color/grey_light" />
+	                
+			    </LinearLayout>
 			    
 	            <LinearLayout 
 			        android:layout_width="0dp"
 			        android:layout_height="wrap_content"
 			        android:orientation="vertical"
-			        android:layout_weight="0.3" >
+			        android:layout_weight="0.35" >
 		
 		            <TextView 
 			            style="@style/b"
@@ -387,24 +368,6 @@
 		            
 		            <TextView 
 		                android:id="@+id/textView_userprofile_registration"
-			            style="@style/p"
-			            android:textColor="@color/grey_light" />
-			        
-			    </LinearLayout>
-	            
-	            <LinearLayout 
-			        android:layout_width="0dp"
-			        android:layout_height="wrap_content"
-			        android:orientation="vertical"
-			        android:layout_weight="0.3" >
-		
-		            <TextView 
-			            style="@style/b"
-			            android:text="@string/age2"
-			            android:textColor="@color/grey_light" />
-		            
-		            <TextView 
-		                android:id="@+id/textView_userprofile_age"
 			            style="@style/p"
 			            android:textColor="@color/grey_light" />
 			        
@@ -431,7 +394,7 @@
 			        android:layout_width="0dp"
 			        android:layout_height="wrap_content"
 			        android:orientation="vertical"
-			        android:layout_weight="0.6" >
+			        android:layout_weight="0.8" >
 		
 		            <TextView 
 			            style="@style/b"
@@ -449,7 +412,7 @@
 			        android:layout_width="0dp"
 			        android:layout_height="wrap_content"
 			        android:orientation="vertical"
-			        android:layout_weight="0.3" >
+			        android:layout_weight="0.35" >
 		
 		            <TextView 
 			            style="@style/b"

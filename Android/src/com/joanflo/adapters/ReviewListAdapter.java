@@ -3,6 +3,7 @@ package com.joanflo.adapters;
 import java.util.List;
 import com.joanflo.network.ImageLoader;
 import com.joanflo.tagit.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class ReviewListAdapter extends BaseAdapter {
 	}
 	
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -56,7 +58,7 @@ public class ReviewListAdapter extends BaseAdapter {
 		
 		ImageView iv = (ImageView) convertView.findViewById(R.id.imageView_review_thumb);
 		ImageLoader il = new ImageLoader(iv);
-		il.execute(reviewItem.getUrlThumb());
+		il.execute(reviewItem.getUrl());
 		iv.setContentDescription(reviewItem.getDescription());
 		
 		TextView tv;

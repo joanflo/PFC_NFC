@@ -7,9 +7,9 @@ public class Size {
 	
 	
 	// genre constants
-	public static final char GENRE_MALE = 'm';
-	public static final char GENRE_FEMALE = 'f';
-	public static final char GENRE_UNISEX = 'u';
+	public static final char GENRE_MALE = 'M';
+	public static final char GENRE_FEMALE = 'F';
+	public static final char GENRE_UNISEX = 'U';
 	
 	// type constants
 	public static final char TYPE_SHOES = 's';

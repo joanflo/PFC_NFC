@@ -4,18 +4,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.util.TypedValue;
 
 public class AssetsUtils {
 
 	
 	public static final String BADGES_DIRECTORY = "badges/";
-	public static final String BRANDS_DIRECTORY = "brands/";
 	public static final String NFC_DIRECTORY = "nfc/";
 	public static final String CATEGORIES_DIRECTORY = "categories/";
 	
@@ -31,6 +32,7 @@ public class AssetsUtils {
 	    	if (imageName == null){
 	    		return null;
 	    	}
+	    	Log.i("DEBUG", imageName);
 	    	String srcName = imageType + imageName + ".png";
 	        myInput = context.getAssets().open(srcName);
 	        d = Drawable.createFromStream(myInput, srcName);

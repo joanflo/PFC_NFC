@@ -36,7 +36,7 @@ public class PurchaseDetail {
 		this.idPurchaseDetail = jPurchaseDetail.getInt("idPurchaseDetail");
 		// purchase
 		int idPurchase = jPurchaseDetail.getInt("idPurchase");
-		this.purchase = new Purchase(idPurchase, null, 'f');
+		this.purchase = new Purchase(idPurchase, null, ProductImage.TYPE_FRONT);
 		// batch
 		Product product = null;
 		Shop shop = null;

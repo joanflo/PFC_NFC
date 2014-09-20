@@ -11,7 +11,7 @@ class ProductsController extends BaseController {
         // GET <URLbase>/products?queryName={queryName}
         // GET <URLbase>/products?queryName={queryName}&priceFrom={priceFrom}&priceSince={priceSince}&coin={coin}&brandName={brandName}&idCategory={idCategory}&rating={rating}
         $idCategory = Input::get('idCategory');
-		if ($idCategory && !Input::get('coin')) {
+		if ($idCategory) {
 			// get products by id
 			$productsIds = DB::table('Product_Belongs_Category')->where('idCategory', '=', $idCategory)->select('idProduct')->get();
 			$idProducts = array();
@@ -181,7 +181,10 @@ class ProductsController extends BaseController {
      */
     public function indexReviews($idProduct) {
         // GET <URLbase>/products/{idProduct}/reviews 
-        $reviews = Review::where('idProduct', '=', $idProduct)->get();
+        $reviews = Review::join('User', 'Review.userEmail', '=', 'User.userEmail')
+        				 ->where('idProduct', '=', $idProduct)
+						 ->select('Review.idComment', 'User.nick', 'Review.idProduct', 'Review.userEmail', 'Review.rating', 'Review.comment', 'Review.date')
+        				 ->get();
 		
 		if (count($reviews) != 0) {
 			return $reviews;
@@ -202,10 +205,8 @@ class ProductsController extends BaseController {
 			array_push($idsProducts, $idRelatedProduct->IdProductB);
 		}
 		if (count($idsProducts) != 0) {
-        	return Product::join('Product_Image', 'Product.idProduct', '=', 'Product_Image.idProduct')
-						  ->where('Product_Image.type', '=', 'f')
-        				  ->whereIn('Product.IdProduct', $idsProducts)
-						  ->select('Product.idProduct', 'Product.name_en', 'Product.name_ca', 'Product_Image.url')
+        	return Product::whereIn('IdProduct', $idsProducts)
+						  ->select('idProduct', 'name_en', 'name_ca')
 						  ->get();
 		} else {
 			return App::abort(404);

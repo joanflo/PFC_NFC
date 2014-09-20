@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.widget.Toast;
 import com.joanflo.models.Badge;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.BadgeActivity;
+import com.joanflo.tagit.BadgeListActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
@@ -39,7 +41,10 @@ public class BadgesController {
 					// list of badges
 					List<Badge> badges = processBadges(jArray, lang);
 					
-					// TODO
+					if (activity instanceof BadgeListActivity) {
+						BadgeListActivity badgeListActivity = (BadgeListActivity) activity;
+						badgeListActivity.badgesReceived(badges);
+					}
 				}
 				
 			} else if (route.matches("badges/" + Regex.SPECIAL_TEXT)) {
@@ -48,7 +53,10 @@ public class BadgesController {
 					// badge
 					Badge badge = new Badge(jObject, lang);
 					
-					// TODO
+					if (activity instanceof BadgeActivity) {
+						BadgeActivity badgeActivity = (BadgeActivity) activity;
+						badgeActivity.badgeReceived(badge);
+					}
 				}
 			}
 			

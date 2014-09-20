@@ -1,14 +1,11 @@
 package com.joanflo.tagit;
 
 import java.sql.Timestamp;
-
-import org.json.JSONObject;
-
+import com.joanflo.controllers.BadgesController;
 import com.joanflo.models.Achievement;
 import com.joanflo.models.Badge;
 import com.joanflo.utils.AssetsUtils;
 import com.joanflo.utils.Time;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +16,9 @@ import android.widget.TextView;
 public class BadgeActivity extends BaseActivity {
 
 	
+	private String date;
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +28,32 @@ public class BadgeActivity extends BaseActivity {
         
         // get extras
         Bundle bundle = getIntent().getExtras();
-        String date = bundle.getString("date");
+        date = bundle.getString("date", null);
         CharSequence badgeName = bundle.getCharSequence("badgeName");
-        CharSequence badgeDescription = bundle.getCharSequence("badgeDescription");
-        int badgeType = bundle.getInt("badgeType");
-        Badge badge = new Badge(badgeName, badgeDescription);
-        Timestamp timestamp = null;
-        if (date != null) {
-        	timestamp = Timestamp.valueOf(date);
-        }
-        Achievement achievement = new Achievement(badge, null, timestamp);
+        CharSequence badgeDescription = bundle.getCharSequence("badgeDescription", null);
         
+        if (badgeDescription != null) {
+	        // we come from badges list
+	        Badge badge = new Badge(badgeName, badgeDescription);
+	        Achievement achievement = new Achievement(badge, null, null);
+	        prepareBadgeSection(achievement);
+	        
+        } else {
+        	// we come from user profile
+        	super.showProgressBar(true);
+        	// call web service
+        	BadgesController controller = new BadgesController(this);
+        	controller.getBadge(badgeName);
+        }
+	}
+	
+	
+	
+	public void badgeReceived(Badge badge) {
+		Timestamp timestamp = Timestamp.valueOf(date);
+        Achievement achievement = new Achievement(badge, null, timestamp);
         prepareBadgeSection(achievement);
+    	super.showProgressBar(false);
 	}
 	
 	

@@ -1,39 +1,35 @@
 package com.joanflo.adapters;
 
-import com.joanflo.tagit.R;
+import java.net.URL;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 
 public class FollowListItem {
 
 	
-	private Drawable thumb;
+	private URL url;
 	private CharSequence name;
 	private CharSequence nick;
-	private boolean follower;
 	private boolean followed;
-	
-	private CharSequence userEmail;
-	
+	private boolean sameUser;
 	
 	
-	public FollowListItem(Context context, CharSequence url, CharSequence name, CharSequence nick, boolean follower, boolean followed, CharSequence userEmail) {
-		this.thumb = context.getResources().getDrawable(R.drawable.logo_base); //url
+	
+	public FollowListItem(Context context, URL url, CharSequence name, CharSequence nick, boolean followed, boolean sameUser) {
+		this.url = url;
 		this.name = name;
 		this.nick = nick;
-		this.follower = follower;
 		this.followed = followed;
-		this.userEmail = userEmail;
+		this.sameUser = sameUser;
 	}
 
+	
 
-
-	public Drawable getThumb() {
-		return thumb;
+	public URL getUrl() {
+		return url;
 	}
 
-	public void setThumb(Drawable thumb) {
-		this.thumb = thumb;
+	public void setUrl(URL url) {
+		this.url = url;
 	}
 
 
@@ -53,16 +49,7 @@ public class FollowListItem {
 	public void setNick(CharSequence nick) {
 		this.nick = nick;
 	}
-
-
-	public boolean isFollower() {
-		return follower;
-	}
 	
-	public void setFollower(boolean follower) {
-		this.follower = follower;
-	}
-
 
 	public boolean isFollowed() {
 		return followed;
@@ -71,19 +58,14 @@ public class FollowListItem {
 	public void setFollowed(boolean followed) {
 		this.followed = followed;
 	}
+	
 
-
-	public CharSequence getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(CharSequence userEmail) {
-		this.userEmail = userEmail;
+	public boolean isSameUser() {
+		return sameUser;
 	}
 	
-	
-	public void followUnfollow() {
-		followed = !followed;
+	public void setSameUser(boolean sameUser) {
+		this.sameUser = sameUser;
 	}
 	
 	

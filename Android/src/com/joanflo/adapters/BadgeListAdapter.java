@@ -1,6 +1,6 @@
 package com.joanflo.adapters;
 
-import java.util.ArrayList;
+import java.util.List;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +13,13 @@ public class BadgeListAdapter extends BaseAdapter {
 
 	
 	private Context context;
-    private ArrayList<BadgeListItem> thumbs;
-    
-    private int counter;
+    private List<BadgeListItem> thumbs;
     
     
     
-    public BadgeListAdapter(Context context, ArrayList<BadgeListItem> thumbs){
+    public BadgeListAdapter(Context context, List<BadgeListItem> thumbs){
         this.context = context;
         this.thumbs = thumbs;
-        this.counter = 0;
     }
 	
 	
@@ -57,14 +54,6 @@ public class BadgeListAdapter extends BaseAdapter {
 		int pxColumnWidth = (parent.getWidth() / 5) - 20;
 		LayoutParams params = new GridView.LayoutParams(LayoutParams.MATCH_PARENT, pxColumnWidth);
 		iv.setLayoutParams(params);
-		
-		// set gridView height
-		if (counter == getCount() - 1) {
-			ViewGroup.LayoutParams paramsGroup = parent.getLayoutParams();
-			paramsGroup.height = (pxColumnWidth + 20) * ((counter / 5) + 1);
-		    parent.setLayoutParams(paramsGroup);
-		}
-		counter++;
 		
 		return iv;
 	}

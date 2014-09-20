@@ -145,7 +145,7 @@ public class ProductSearchActivity extends BaseActivity implements OnItemSelecte
 			if (pos == 0) { // default value
 				i.putExtra("brandName", "");
 			} else {
-				i.putExtra("brandName", brands.get(pos - 1).getBrandName());
+				i.putExtra("brandName", brands.get(pos).getBrandName());
 			}
 			// id category
 			spinner = (Spinner) findViewById(R.id.spinner_productsearch_category);
@@ -153,7 +153,7 @@ public class ProductSearchActivity extends BaseActivity implements OnItemSelecte
 			if (pos == 0) {// default value
 				i.putExtra("idCategory", -1);
 			} else {
-				i.putExtra("idCategory", categories.get(pos - 1).getIdCategory());
+				i.putExtra("idCategory", categories.get(pos).getIdCategory());
 			}
 			// rating
 			rb = (RatingBar) findViewById(R.id.ratingBar_advancedsearch);

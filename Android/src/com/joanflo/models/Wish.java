@@ -1,10 +1,8 @@
 package com.joanflo.models;
 
 import java.sql.Timestamp;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.joanflo.utils.Time;
 
 public class Wish {
@@ -37,15 +35,32 @@ public class Wish {
 		this.date = new java.sql.Timestamp(time);
 	}
 	
-	public Wish(JSONObject jWish) throws JSONException {
+	public Wish(JSONObject jWish, String lang) throws JSONException {
 		// id wish
 		this.idWish = jWish.getInt("idWish");
 		// product
 		int idProduct = jWish.getInt("idProduct");
-		this.product = new Product(idProduct, null, null, "", "", "", "");
+		if (jWish.has("name_" + lang)) {
+			CharSequence name = jWish.getString("name_" + lang);
+			this.product = new Product(idProduct, null, null, name, "", "", "");
+			// front image
+			if (jWish.has("url")) {
+				String url = jWish.getString("url");
+				CharSequence description = jWish.getString("description_" + lang);
+				ProductImage frontImage = new ProductImage(url, ProductImage.TYPE_FRONT);
+				frontImage.setProduct(this.product);
+				frontImage.setDescription(description);
+				// add front image to product
+				product.addImage(frontImage);
+			}
+		} else {
+			this.product = new Product(idProduct, null, null, "", "", "", "");
+		}
 		// user
-		String userEmail = jWish.getString("userEmail");
-		this.user = new User(userEmail, null, null, "", "", "", 0, "", "", "");
+		if (jWish.has("userEmail")) {
+			String userEmail = jWish.getString("userEmail");
+			this.user = new User(userEmail, null, null, "", "", "", 0, "", "", "");
+		}
 		// date
 		this.date = Time.convertStringToTimestamp(jWish.getString("date"));
 	}

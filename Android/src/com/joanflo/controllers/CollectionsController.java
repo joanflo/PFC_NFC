@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.widget.Toast;
 import com.joanflo.models.Collection;
 import com.joanflo.network.RESTClient;
-import com.joanflo.tagit.ProductActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
@@ -37,10 +36,7 @@ public class CollectionsController {
 					// collection
 					Collection collection = new Collection(jObject, lang);
 					
-					if (activity instanceof ProductActivity) {
-						ProductActivity productActivity = (ProductActivity) activity;
-						productActivity.collectionReceived(collection);
-					}
+					// TODO
 				}
 			}
 			

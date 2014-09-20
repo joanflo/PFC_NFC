@@ -6,6 +6,7 @@ import com.joanflo.network.ImageLoader;
 import com.joanflo.tagit.R;
 import com.joanflo.tagit.WishListActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -50,6 +51,7 @@ public class WishListAdapter extends BaseAdapter {
 	}
 
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -69,7 +71,7 @@ public class WishListAdapter extends BaseAdapter {
 		tv.setText(wishItem.getDate());
 
 		tv = (TextView) convertView.findViewById(R.id.textView_wishlist_productname);
-		tv.setText(wishItem.getDate());
+		tv.setText(wishItem.getProductName());
 		
 		ImageButton ib;
 		ib = (ImageButton) convertView.findViewById(R.id.button_wishlist_remove);

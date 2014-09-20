@@ -1,8 +1,11 @@
 package com.joanflo.adapters;
 
 import java.util.List;
+
+import com.joanflo.network.ImageLoader;
 import com.joanflo.tagit.FollowsListActivity;
 import com.joanflo.tagit.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 public class FollowListAdapter extends BaseAdapter {
 
@@ -47,6 +51,7 @@ public class FollowListAdapter extends BaseAdapter {
 	}
 
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -57,8 +62,8 @@ public class FollowListAdapter extends BaseAdapter {
 		FollowListItem followItem = followItems.get(position);
 		
 		ImageView iv = (ImageView) convertView.findViewById(R.id.imageView_follow_thumb);
-		iv.setImageDrawable(followItem.getThumb());
-		iv.setContentDescription(followItem.getName());
+		ImageLoader il = new ImageLoader(iv);
+		il.execute(followItem.getUrl());
 		
 		TextView tv;
 		tv = (TextView) convertView.findViewById(R.id.textView_follow_name);
@@ -69,13 +74,18 @@ public class FollowListAdapter extends BaseAdapter {
 		
 		ImageButton ib = (ImageButton) convertView.findViewById(R.id.button_follow_follow);
 		ib.setTag(position);
-		ib.setOnClickListener(listener);
-		if (followItem.isFollowed()) { // row user is being followed
-			ib.setImageResource(R.drawable.ic_following);
+		// same user
+		if (followItem.isSameUser()) {
+			ib.setVisibility(View.GONE);
 		} else {
-			ib.setImageResource(R.drawable.ic_notfollowing);
+			ib.setOnClickListener(listener);
+			if (followItem.isFollowed()) { // row user is being followed
+				ib.setImageResource(R.drawable.ic_following);
+			} else {
+				ib.setImageResource(R.drawable.ic_notfollowing);
+			}
+	        ib.setFocusable(false);
 		}
-        ib.setFocusable(false);
 		
 		return convertView;
 	}

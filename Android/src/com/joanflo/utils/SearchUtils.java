@@ -2,10 +2,10 @@ package com.joanflo.utils;
 
 import java.util.List;
 
-import com.joanflo.models.Batch;
 import com.joanflo.models.Category;
 import com.joanflo.models.Product;
 import com.joanflo.models.ProductImage;
+import com.joanflo.models.Review;
 import com.joanflo.models.User;
 
 public class SearchUtils {
@@ -46,6 +46,31 @@ public class SearchUtils {
 		boolean found = false;
 		while (i < products.size() && !found) {
 			prod = products.get(i);
+			if (prod.getIdProduct() == id) {
+				found = true;
+			}
+			i++;
+		}
+		
+		if (found) {
+			return prod;
+		} else {
+			return null;
+		}
+	}
+	
+	
+	
+	public static Product searchProductReviewById(int id, List<Review> reviews) {
+		if (id == 0) {
+			return null;
+		}
+		
+		Product prod = null;
+		int i = 0;
+		boolean found = false;
+		while (i < reviews.size() && !found) {
+			prod = reviews.get(i).getProduct();
 			if (prod.getIdProduct() == id) {
 				found = true;
 			}
@@ -105,38 +130,6 @@ public class SearchUtils {
 		} else {
 			return null;
 		}
-	}
-	
-	
-	
-	public static Batch searchBatchByIdSize(int idSize, List<Batch> batches) {
-		Batch batch = null;
-		int i = 0;
-		boolean found = false;
-		while (i < batches.size() && !found) {
-			batch = batches.get(i);
-			if (batch.getSize().getIdSize() == idSize && batch.getSize().getSize() == 0) {
-				found = true;
-			}
-			i++;
-		}
-		return batch;
-	}
-	
-	
-	
-	public static Batch searchBatchByColorCode(CharSequence colorCode, List<Batch> batches) {
-		Batch batch = null;
-		int i = 0;
-		boolean found = false;
-		while (i < batches.size() && !found) {
-			batch = batches.get(i);
-			if (batch.getColor().getColorCode().equals(colorCode) && batch.getColor().getName() == null) {
-				found = true;
-			}
-			i++;
-		}
-		return batch;
 	}
 	
 	

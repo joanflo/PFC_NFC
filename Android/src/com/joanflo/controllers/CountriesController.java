@@ -14,6 +14,7 @@ import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.R;
 import com.joanflo.tagit.RegistrationActivity;
 import com.joanflo.tagit.ShopSelectionActivity;
+import com.joanflo.tagit.UpdateUserDataActivity;
 import com.joanflo.utils.Regex;
 
 public class CountriesController {
@@ -44,11 +45,14 @@ public class CountriesController {
 					} else if (activity instanceof ShopSelectionActivity) {
 						ShopSelectionActivity shopSelectionActivity = (ShopSelectionActivity) activity;
 						shopSelectionActivity.countriesReceived(countries);
+					} else if (activity instanceof UpdateUserDataActivity) {
+						UpdateUserDataActivity updateUserDataActivity = (UpdateUserDataActivity) activity;
+						updateUserDataActivity.countriesReceived(countries);
 					}
 				}
 				// GET <URLbase>/countries?cityName={cityName}
 				if (jObject != null) {
-					Country country = new Country(jObject);
+					// Country country = new Country(jObject);
 					
 					// TODO
 				}
@@ -63,6 +67,9 @@ public class CountriesController {
 				} else if (activity instanceof ShopSelectionActivity) {
 					ShopSelectionActivity shopSelectionActivity = (ShopSelectionActivity) activity;
 					shopSelectionActivity.regionsReceived(regions);
+				} else if (activity instanceof UpdateUserDataActivity) {
+					UpdateUserDataActivity updateUserDataActivity = (UpdateUserDataActivity) activity;
+					updateUserDataActivity.regionsReceived(regions);
 				}
 				
 			} else if (route.matches("countries/" + Regex.TEXT + "/regions/" + Regex.TEXT + "/cities")) {
@@ -75,6 +82,9 @@ public class CountriesController {
 				} else if (activity instanceof ShopSelectionActivity) {
 					ShopSelectionActivity shopSelectionActivity = (ShopSelectionActivity) activity;
 					shopSelectionActivity.citiesReceived(cities);
+				} else if (activity instanceof UpdateUserDataActivity) {
+					UpdateUserDataActivity updateUserDataActivity = (UpdateUserDataActivity) activity;
+					updateUserDataActivity.citiesReceived(cities);
 				}
 			}
 			

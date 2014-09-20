@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.joanflo.models.Shop;
 import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.PurchaseDetailListActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.tagit.ShopSelectionActivity;
 import com.joanflo.utils.Regex;
@@ -58,7 +59,10 @@ public class ShopsController {
 					// shop
 					Shop shop = new Shop(jObject);
 					
-					// TODO
+					if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.shopReceived(shop);
+					}
 				}
 			}
 			

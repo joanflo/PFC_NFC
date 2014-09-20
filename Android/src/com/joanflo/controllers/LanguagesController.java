@@ -11,6 +11,7 @@ import com.joanflo.models.Language;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.R;
 import com.joanflo.tagit.RegistrationActivity;
+import com.joanflo.tagit.UpdateUserDataActivity;
 
 public class LanguagesController {
 
@@ -38,6 +39,9 @@ public class LanguagesController {
 					if (activity instanceof RegistrationActivity) {
 						RegistrationActivity registrationActivity = (RegistrationActivity) activity;
 						registrationActivity.languagesReceived(languages);
+					} else if (activity instanceof UpdateUserDataActivity) {
+						UpdateUserDataActivity updateUserDataActivity = (UpdateUserDataActivity) activity;
+						updateUserDataActivity.languagesReceived(languages);
 					}
 				}
 			}

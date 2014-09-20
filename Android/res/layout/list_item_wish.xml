@@ -55,7 +55,7 @@
         android:layout_marginRight="8dp"
         android:contentDescription="@string/button_removewish"
         android:src="@drawable/ic_removewish" />
-
+    
     <ImageButton
         android:id="@+id/button_wishlist_addtocart"
         style="@style/button2"

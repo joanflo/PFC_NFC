@@ -122,6 +122,14 @@ public class ShopActivity extends BaseActivity {
 		tv.setText(shop.getSchedule());
 	}
 	
+
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		prepareMapSection();
+	}
+	
 	
 	
 	public void onClickButton(View v) {

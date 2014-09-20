@@ -25,14 +25,17 @@ import com.joanflo.models.Size;
 import com.joanflo.models.Tax;
 import com.joanflo.utils.LocalStorage;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class PurchaseDetailListActivity extends BaseActivity implements Button.OnClickListener {
@@ -40,8 +43,9 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 	
 	private boolean viewingCart;
 	private List<PurchaseDetailListItem> purchaseDetailItems;
+	
 	private int currentPosition;
-	private int deletePosition;
+	private View currentView;
 
 	private Purchase purchase;
 	private int requestsNumber;
@@ -58,8 +62,6 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
         Bundle bundle = getIntent().getExtras();
         int pos = bundle.getInt("drawerPosition");
         viewingCart = pos != 0;
-        
-        deletePosition = -1;
         
         CharSequence userEmail = LocalStorage.getInstance().getUserEmail(this);
         UsersController controller = new UsersController(this);
@@ -81,46 +83,57 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 	
 	
 	public void purchaseReceived(Purchase purchase) {
-		this.purchase = purchase;
-		
-		CharSequence userEmail = LocalStorage.getInstance().getUserEmail(this);
-		int purchaseId = purchase.getIdPurchase();
-		// call web service
-		UsersController controller = new UsersController(this);
-		controller.getPurchaseDetails(userEmail, purchaseId);
+		if (purchase == null) {
+			hideList();
+			
+		} else {
+			this.purchase = purchase;
+			
+			CharSequence userEmail = LocalStorage.getInstance().getUserEmail(this);
+			int purchaseId = purchase.getIdPurchase();
+			// call web service
+			UsersController controller = new UsersController(this);
+			controller.getPurchaseDetails(userEmail, purchaseId);
+		}
 	}
 	
 	
 	
 	public void purchaseDetailsReceived(List<PurchaseDetail> purchaseDetails) {
 		if (viewingCart) {
+			LocalStorage.getInstance().setCartItemsCount(this, purchaseDetails.size());
 			// for each product, 2 requests (tax, front image)
 			requestsNumber = purchaseDetails.size() * 2;
 		} else {
 			// for each product, 5 requests (tax, front image, color, size, shop)
 			requestsNumber = purchaseDetails.size() * 5;
 		}
-
-		// for each purchase detail
-		ProductsController pController = new ProductsController(this);
-		ColorsController cController = new ColorsController(this);
-		SizesController siController = new SizesController(this);
-		ShopsController shController = new ShopsController(this);
-		for (PurchaseDetail purchaseDetail : purchaseDetails) {
-			purchase.addPurchaseDetail(purchaseDetail);
+		
+		if (purchaseDetails.size() == 0) {
+			hideList();
 			
-			// (each purchase detail includes his batch)
-			Batch batch = purchaseDetail.getBatch();
-			// call web service
-			pController.getProduct(batch.getProduct().getIdProduct());
-			
-			if (!viewingCart) {
+		} else {
+			// for each purchase detail
+			ProductsController pController = new ProductsController(this);
+			ColorsController cController = new ColorsController(this);
+			SizesController siController = new SizesController(this);
+			ShopsController shController = new ShopsController(this);
+			for (PurchaseDetail purchaseDetail : purchaseDetails) {
+				purchase.addPurchaseDetail(purchaseDetail);
+				
+				// (each purchase detail includes his batch)
+				Batch batch = purchaseDetail.getBatch();
 				// call web service
-				cController.getColor(batch.getColor().getColorCode());
-				// call web service
-				siController.getSize(batch.getSize().getIdSize());
-				// call web service
-				shController.getShop(batch.getShop().getIdShop());
+				pController.getProduct(batch.getProduct().getIdProduct());
+				
+				if (!viewingCart) {
+					// call web service
+					cController.getColor(batch.getColor().getColorCode());
+					// call web service
+					siController.getSize(batch.getSize().getIdSize());
+					// call web service
+					shController.getShop(batch.getShop().getIdShop());
+				}
 			}
 		}
 	}
@@ -274,24 +287,14 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 	
 	public void purchaseDetailDeleted(boolean successful) {
 		if (successful) {
-			// remove from array lists
-			purchase.getPurchaseDetails().remove(deletePosition);
-			purchaseDetailItems.remove(deletePosition);
-			deletePosition = -1;
-			
-			// remove from list view (button with animation is also removed)
-			ListView purchaseDetailList = (ListView) findViewById(R.id.listView_purchasedetail);
-			PurchaseDetailListAdapter badapter = (PurchaseDetailListAdapter) purchaseDetailList.getAdapter();
-			badapter.notifyDataSetChanged();
-			
+			Toast.makeText(this, R.string.toast_deleteitem, Toast.LENGTH_SHORT).show();
+			LocalStorage.getInstance().updateCartItemsCount(this, false);
+			removeItem();
 		} else {
-			// set all buttons to his normal state
-			ListView lv = (ListView) findViewById(R.id.listView_purchasedetail);
-			for (int i = 0; i < lv.getChildCount(); i++) {
-				ImageButton ib = (ImageButton) lv.getChildAt(i).findViewById(R.id.button_purchase_remove);
-				ib.setImageResource(R.drawable.ic_removecart);
-			}
+			Toast.makeText(this, R.string.toast_problem_deleteitem, Toast.LENGTH_SHORT).show();
 		}
+		// hide animation
+		showImageButton(currentView, true);
 	}
 	
 	
@@ -399,17 +402,18 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 	
 	
 	public void onClickButton(View v) {
+		currentPosition = (Integer) v.getTag();
 		
 		switch (v.getId()) {
 		case R.id.button_purchase_remove:
-			if (deletePosition != -1) {
-				// GUI
-				ImageButton ib = (ImageButton) v;
-				ib.setImageResource(R.drawable.animation_refresh);
-				// get position
-				deletePosition = (Integer) v.getTag();
-				removeItem();
-			}
+			CharSequence userEmail = LocalStorage.getInstance().getUserEmail(this);
+			int idPurchase = purchase.getIdPurchase();
+			int idPurchaseDetail = purchase.getPurchaseDetails().get(currentPosition).getIdPurchaseDetail();
+			// call web service
+			UsersController controller = new UsersController(this);
+			controller.deletePurchaseDetail(userEmail, idPurchase, idPurchaseDetail);
+			// show button animation
+			showImageButton(v, false);
 			break;
 			
 		case R.id.button_purchasedetail_seeshop:
@@ -428,12 +432,43 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 
 	
 	private void removeItem() {
-		CharSequence userEmail = LocalStorage.getInstance().getUserEmail(this);
-		int idPurchase = purchase.getIdPurchase();
-		int idPurchaseDetail = purchase.getPurchaseDetails().get(deletePosition).getIdPurchaseDetail();
-		// call web service
-		UsersController controller = new UsersController(this);
-		controller.deletePurchaseDetail(userEmail, idPurchase, idPurchaseDetail);
+		// remove from array lists
+		purchase.getPurchaseDetails().remove(currentPosition);
+		purchaseDetailItems.remove(currentPosition);
+		// remove from list view
+		ListView purchaseDetailList = (ListView) findViewById(R.id.listView_purchasedetail);
+		PurchaseDetailListAdapter badapter = (PurchaseDetailListAdapter) purchaseDetailList.getAdapter();
+		badapter.notifyDataSetChanged();
+	}
+	
+	
+	
+	private void hideList() {
+		// empty purchase detail list
+		ImageView iv = (ImageView) findViewById(R.id.imageview_purchaseDetailList_empty);
+		iv.setVisibility(View.VISIBLE);
+		ListView productList = (ListView) findViewById(R.id.listView_purchasedetail);
+		productList.setVisibility(View.GONE);
+		RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout_purchaseinfo);
+		rl.setVisibility(View.GONE);
+		Toast.makeText(this, R.string.toast_problem_empty, Toast.LENGTH_LONG).show();
+		super.showProgressBar(false);
+	}
+	
+	
+	
+	private void showImageButton(View v, boolean show) {
+		currentView = v;
+		ImageButton ib = (ImageButton) v;
+		if (show) {
+			ib.setImageResource(R.drawable.ic_removecart);
+			ib.setBackgroundResource(R.drawable.button_selector2);
+		} else {
+			ib.setImageResource(android.R.color.transparent);
+			ib.setBackgroundResource(R.drawable.animation_refresh);
+			AnimationDrawable frameAnimation = (AnimationDrawable) ib.getBackground();
+			frameAnimation.start();
+		}
 	}
 
 
@@ -451,9 +486,9 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			// go to product
 			currentPosition = position;
-			int productId = purchaseDetailItems.get(position).getProductId();
+			int idProduct = purchaseDetailItems.get(position).getProductId();
 			Intent i = new Intent(getBaseContext(), ProductActivity.class);
-			i.putExtra("productId", productId);
+			i.putExtra("idProduct", idProduct);
 			startActivity(i);
 		}
 		

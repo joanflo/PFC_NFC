@@ -5,15 +5,13 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import com.joanflo.models.Product;
-import com.joanflo.models.ProductImage;
-import com.joanflo.models.User;
-import com.joanflo.network.RESTClient;
+import com.joanflo.utils.AssetsUtils;
 import com.joanflo.utils.Time;
 
 public class ReviewListItem {
 
 
-	private URL urlThumb;
+	private URL url;
 	private CharSequence description;
 	private CharSequence date;
 	private CharSequence rating;
@@ -24,18 +22,19 @@ public class ReviewListItem {
 	public ReviewListItem(Product product, Timestamp date, float rating, CharSequence comment) {
 		this(date, rating, comment);
 		this.description = product.getName();
-		ProductImage img = product.getFrontImage();
-		this.urlThumb = img.getUrl();
+		this.url = product.getFrontImage().getUrl();
 	}
 	
-	public ReviewListItem(User user, Timestamp date, float rating, CharSequence comment) {
+	public ReviewListItem(CharSequence userEmail, CharSequence nick, Timestamp date, float rating, CharSequence comment) {
 		this(date, rating, comment);
-		this.description = user.getName();
+		this.description = userEmail;
 		try {
-			this.urlThumb = new URL(RESTClient.HOST + "profile_images/" + user.getNick() + ".jpg");
+			String imagePath = "profiles/" + nick + ".jpg";
+			this.url = AssetsUtils.getUrlFromPath(imagePath);
 		} catch (MalformedURLException e) {
-			this.urlThumb = null;
+			this.url = null;
 		}
+		this.comment = "@" + nick + ": " + this.comment;
 	}
 
 	public ReviewListItem(Timestamp date, float rating, CharSequence comment) {
@@ -46,12 +45,12 @@ public class ReviewListItem {
 	
 	
 	
-	public URL getUrlThumb() {
-		return urlThumb;
+	public URL getUrl() {
+		return url;
 	}
 
-	public void setUrlThumb(URL urlThumb) {
-		this.urlThumb = urlThumb;
+	public void setUrl(URL url) {
+		this.url = url;
 	}
 
 	

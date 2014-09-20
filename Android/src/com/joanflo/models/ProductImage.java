@@ -35,17 +35,6 @@ public class ProductImage {
 		this.description = description;
 	}
 	
-	public ProductImage(String url, char type) {
-		try {
-			this.url = AssetsUtils.getUrlFromPath(url);
-		} catch (MalformedURLException e) {
-			this.url = null;
-		}
-		this.product = null;
-		this.type = type;
-		this.description = "";
-	}
-	
 	public ProductImage(JSONObject jProductImage, String lang) throws JSONException {
 		// url
 		try {

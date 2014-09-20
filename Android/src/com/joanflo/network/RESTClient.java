@@ -513,11 +513,12 @@ public class RESTClient implements AsyncResponse {
 	 * Change user's password
 	 * @param controller
 	 * @param userEmail
-	 * @param password
+	 * @param newPassword
+	 * @param oldPassword
 	 */
-	public void changeUserPassword(UsersController controller, CharSequence userEmail, CharSequence password) {
-		// PUT <URLbase>/users/{userEmail}?password={password}
-		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + "users/" + userEmail + "?password=" + password);
+	public void changeUserPassword(UsersController controller, CharSequence userEmail, CharSequence newPassword, CharSequence oldPassword) {
+		// PUT <URLbase>/users/{userEmail}?password={password}&oldPassword={oldPassword}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + "users/" + userEmail + "?password=" + newPassword + "&oldPassword=" + oldPassword);
 		new AsyncRequest(this).execute(info);
 	}
 	
@@ -964,7 +965,7 @@ public class RESTClient implements AsyncResponse {
 	public void getProducts(ProductsController controller, CharSequence queryName, float priceFrom, float priceSince, char coin, CharSequence brandName, int idCategory, float rating) {
 		// add query params to array
 		ArrayList<String> queryParams = new ArrayList<String>();
-		if (queryName != null && !queryName.toString().equals("")) {
+		if (queryName != null && !queryName.equals("")) {
 			// afegir a la URL
 			queryParams.add("queryName=" + queryName);
 		}
@@ -977,7 +978,7 @@ public class RESTClient implements AsyncResponse {
 			queryParams.add("priceSince=" + priceSince);
 		}
 		queryParams.add("coin=" + coin);
-		if (!brandName.toString().equals("")) {
+		if (!brandName.equals("")) {
 			// afegir a la URL
 			queryParams.add("brandName=" + brandName);
 		}
