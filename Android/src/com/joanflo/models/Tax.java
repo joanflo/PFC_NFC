@@ -107,4 +107,16 @@ public class Tax {
 	}
 	
 	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Tax) {
+			Tax tax = (Tax) obj;
+			return idTax == tax.getIdTax();
+		} else {
+			return false;
+		}
+	}
+	
+	
 }

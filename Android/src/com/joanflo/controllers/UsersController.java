@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.widget.Toast;
 import com.joanflo.models.Achievement;
-import com.joanflo.models.Friendship;
 import com.joanflo.models.Purchase;
 import com.joanflo.models.PurchaseDetail;
 import com.joanflo.models.Review;
@@ -16,10 +15,20 @@ import com.joanflo.models.User;
 import com.joanflo.models.Wish;
 import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.FollowsListActivity;
 import com.joanflo.tagit.HomeActivity;
 import com.joanflo.tagit.LoginActivity;
+import com.joanflo.tagit.NewReviewActivity;
+import com.joanflo.tagit.PasswordActivity;
+import com.joanflo.tagit.ProductActivity;
+import com.joanflo.tagit.PurchaseDetailListActivity;
+import com.joanflo.tagit.PurchaseListActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.tagit.RegistrationActivity;
+import com.joanflo.tagit.ReviewListActivity;
+import com.joanflo.tagit.UpdateUserDataActivity;
+import com.joanflo.tagit.UserProfileActivity;
+import com.joanflo.tagit.WishListActivity;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
 import com.joanflo.utils.SimpleCrypto;
@@ -40,6 +49,8 @@ public class UsersController {
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
+			// get language code
+			String lang = LocalStorage.getInstance().getLocaleLanguage(activity);
 			
 			if (route.matches("users/" + Regex.SPECIAL_TEXT)) {
 				// GET <URLbase>/users/{userEmail}
@@ -68,6 +79,18 @@ public class UsersController {
 					} else if (activity instanceof RegistrationActivity) {
 						RegistrationActivity registrationActivity = (RegistrationActivity) activity;
 						registrationActivity.userCreated(user);
+						
+					} else if (activity instanceof PasswordActivity) {
+						PasswordActivity passwordActivity = (PasswordActivity) activity;
+						passwordActivity.passwordChanged(true);
+						
+					} else if (activity instanceof UserProfileActivity) {
+						UserProfileActivity userProfileActivity = (UserProfileActivity) activity;
+						userProfileActivity.userReceived(user);
+						
+					} else if (activity instanceof UpdateUserDataActivity) {
+						UpdateUserDataActivity updateUserDataActivity = (UpdateUserDataActivity) activity;
+						updateUserDataActivity.userUpdated(user);
 					}
 					
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
@@ -80,6 +103,14 @@ public class UsersController {
 					} else if (activity instanceof RegistrationActivity) {
 						RegistrationActivity registrationActivity = (RegistrationActivity) activity;
 						registrationActivity.userCreated(null);
+						
+					} else if (activity instanceof PasswordActivity) {
+						PasswordActivity passwordActivity = (PasswordActivity) activity;
+						passwordActivity.passwordChanged(false);
+						
+					} else if (activity instanceof UpdateUserDataActivity) {
+						UpdateUserDataActivity updateUserDataActivity = (UpdateUserDataActivity) activity;
+						updateUserDataActivity.userUpdated(null);
 					}
 				}
 				
@@ -89,39 +120,53 @@ public class UsersController {
 					// list of reviews
 					List<Review> reviews = processReviews(jArray);
 					
-					// TODO
+					if (activity instanceof ReviewListActivity) {
+						ReviewListActivity reviewListActivity = (ReviewListActivity) activity;
+						reviewListActivity.reviewsReceived(reviews);
+					}
 					
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
 					// 404
 					
-					// TODO
+					if (activity instanceof ReviewListActivity) {
+						ReviewListActivity reviewListActivity = (ReviewListActivity) activity;
+						reviewListActivity.reviewsReceived(new ArrayList<Review>());
+					}
 				}
 				// POST <URLbase>/users/{userEmail}/reviews?idProduct={idProduct}&rating={rating}&comment={comment}
 				if (jObject != null) {
 					// review
 					Review review = new Review(jObject);
 					
-					// TODO
+					if (activity instanceof NewReviewActivity) {
+						NewReviewActivity newReviewActivity = (NewReviewActivity) activity;
+						newReviewActivity.reviewCreated(review);
+					}
 				}
 				
 			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/reviews/" + Regex.INTEGER)) {
 				// GET <URLbase>/users/{userEmail}/reviews/{idComment}
 				if (jObject != null) {
 					// review
-					Review review = new Review(jObject);
+					//Review review = new Review(jObject);
 					
 					// TODO
 				}
 				
 			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/wishes")) {
 				// GET <URLbase>/users/{userEmail}/wishes
+				
 				if (jArray != null) {
 					// list of wishes
-					List<Wish> wishes = processWishes(jArray);
+					List<Wish> wishes = processWishes(jArray, lang);
 					
 					if (activity instanceof HomeActivity) {
 						HomeActivity homeActivity = (HomeActivity) activity;
 						homeActivity.wishlistItemsCountReceived(wishes.size());
+					
+					} else if (activity instanceof WishListActivity) {
+						WishListActivity wishListActivity = (WishListActivity) activity;
+						wishListActivity.wishesReceived(wishes);
 					}
 					
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
@@ -130,14 +175,22 @@ public class UsersController {
 					if (activity instanceof HomeActivity) {
 						HomeActivity homeActivity = (HomeActivity) activity;
 						homeActivity.zeroCountReceived();
+					
+					} else if (activity instanceof WishListActivity) {
+						WishListActivity wishListActivity = (WishListActivity) activity;
+						wishListActivity.wishesReceived(new ArrayList<Wish>());
 					}
 				}
+				
 				// POST <URLbase>/users/{userEmail}/wishes?idProduct={idProduct}
 				if (jObject != null) {
 					// wish
-					Wish wish = new Wish(jObject);
+					Wish wish = new Wish(jObject, lang);
 					
-					// TODO
+					if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.productAddedToWishList(wish);
+					}
 				}
 				
 			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/wishes/" + Regex.INTEGER)) {
@@ -145,13 +198,22 @@ public class UsersController {
 				// DELETE <URLbase>/users/{userEmail}/wishes/{idWish}
 				if (jObject != null) {
 					// wish
-					Wish wish = new Wish(jObject);
+					//Wish wish = new Wish(jObject, lang);
 					
 					// TODO
 				} else if (statusCode == HttpStatusCode.NO_CONTENT) {
 					// 204
 					
-					// TODO
+					if (activity instanceof WishListActivity) {
+						WishListActivity wishListActivity = (WishListActivity) activity;
+						wishListActivity.wishRemoved(true);
+					}
+					
+				} else {
+					if (activity instanceof WishListActivity) {
+						WishListActivity wishListActivity = (WishListActivity) activity;
+						wishListActivity.wishRemoved(false);
+					}
 				}
 				
 			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/purchases")) {
@@ -164,6 +226,22 @@ public class UsersController {
 					if (activity instanceof HomeActivity) {
 						HomeActivity homeActivity = (HomeActivity) activity;
 						homeActivity.cartPurchaseReceived(purchases.get(0));
+					
+					} else if (activity instanceof WishListActivity) {
+						WishListActivity wishListActivity = (WishListActivity) activity;
+						wishListActivity.cartPurchaseReceived(purchases.get(0));
+					
+					} else if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.purchaseReceived(purchases.get(0));
+					
+					} else if (activity instanceof PurchaseListActivity) {
+						PurchaseListActivity purchaseListActivity = (PurchaseListActivity) activity;
+						purchaseListActivity.purchasesReceived(purchases);
+					
+					} else if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.cartPurchaseReceived(purchases.get(0));
 					}
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
 					// 404
@@ -171,6 +249,22 @@ public class UsersController {
 					if (activity instanceof HomeActivity) {
 						HomeActivity homeActivity = (HomeActivity) activity;
 						homeActivity.zeroCountReceived();
+					
+					} else if (activity instanceof WishListActivity) {
+						WishListActivity wishListActivity = (WishListActivity) activity;
+						wishListActivity.cartPurchaseReceived(null);
+					
+					} else if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.purchaseReceived(null);
+					
+					} else if (activity instanceof PurchaseListActivity) {
+						PurchaseListActivity purchaseListActivity = (PurchaseListActivity) activity;
+						purchaseListActivity.purchasesReceived(new ArrayList<Purchase>());
+					
+					} else if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.cartPurchaseReceived(null);
 					}
 				}
 				
@@ -180,7 +274,17 @@ public class UsersController {
 					// purchase
 					Purchase purchase = new Purchase(jObject);
 					
-					// TODO
+					 if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.purchaseReceived(purchase);
+					 }
+				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
+					// 404
+					
+					if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.purchaseReceived(null);
+					}
 				}
 				
 			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/purchases/" + Regex.INTEGER + "/purchase_details")) {
@@ -194,13 +298,28 @@ public class UsersController {
 						if (activity instanceof HomeActivity) {
 							HomeActivity homeActivity = (HomeActivity) activity;
 							homeActivity.cartItemsCountReceived(purchaseDetails.size());
+						
+						} else if (activity instanceof PurchaseDetailListActivity) {
+							PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+							purchaseDetailListActivity.purchaseDetailsReceived(purchaseDetails);
+						
+						} else if (activity instanceof PurchaseListActivity) {
+							PurchaseListActivity purchaseListActivity = (PurchaseListActivity) activity;
+							purchaseListActivity.purchaseDetailsReceived(purchaseDetails);
 						}
 					} else if (statusCode == HttpStatusCode.CREATED) {
 						// purchase detail
 						jObject = jArray.getJSONObject(0);
-						PurchaseDetail purchaseDetail = new PurchaseDetail(jObject);
+						//PurchaseDetail purchaseDetail = new PurchaseDetail(jObject);
 						
-						// TODO
+						if (activity instanceof WishListActivity) {
+							WishListActivity wishListActivity = (WishListActivity) activity;
+							wishListActivity.wishAddedToCart(true);
+						
+						} else if (activity instanceof ProductActivity) {
+							ProductActivity productActivity = (ProductActivity) activity;
+							productActivity.productAddedToCart(true);
+						}
 					}
 				} else if (statusCode == HttpStatusCode.NO_CONTENT) {
 					// 204
@@ -212,6 +331,22 @@ public class UsersController {
 					if (activity instanceof HomeActivity) {
 						HomeActivity homeActivity = (HomeActivity) activity;
 						homeActivity.zeroCountReceived();
+					
+					} else if (activity instanceof WishListActivity) {
+						WishListActivity wishListActivity = (WishListActivity) activity;
+						wishListActivity.wishAddedToCart(false);
+					
+					} else if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.purchaseDetailsReceived(new ArrayList<PurchaseDetail>());
+					
+					} else if (activity instanceof PurchaseListActivity) {
+						PurchaseListActivity purchaseListActivity = (PurchaseListActivity) activity;
+						purchaseListActivity.purchaseDetailsReceived(new ArrayList<PurchaseDetail>());
+					
+					} else if (activity instanceof ProductActivity) {
+						ProductActivity productActivity = (ProductActivity) activity;
+						productActivity.productAddedToCart(false);
 					}
 				}
 				
@@ -222,13 +357,22 @@ public class UsersController {
 				if (jArray != null) {
 					jObject = jArray.getJSONObject(0);
 					// purchase detail
-					PurchaseDetail purchaseDetail = new PurchaseDetail(jObject);
+					//PurchaseDetail purchaseDetail = new PurchaseDetail(jObject);
 					
 					// TODO
 				} else if (statusCode == HttpStatusCode.NO_CONTENT) {
 					// 204
 					
-					// TODO
+					if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.purchaseDetailDeleted(true);
+					}
+				} else {
+					
+					if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.purchaseDetailDeleted(false);
+					}
 				}
 				
 			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/friendships")) {
@@ -249,32 +393,53 @@ public class UsersController {
 							
 							if (activity instanceof HomeActivity) {
 								HomeActivity homeActivity = (HomeActivity) activity;
-								
 								if (jObject.has("following")) {
 									homeActivity.followingCountReceived(users.size());
 								} else if (jObject.has("followers")) {
 									homeActivity.followersCountReceived(users.size());
 								}
+								
+							} else if (activity instanceof FollowsListActivity) {
+								FollowsListActivity followsListActivity = (FollowsListActivity) activity;
+								if (jObject.has("following")) {
+									followsListActivity.friendshipsReceived(users, false);
+								} else if (jObject.has("followers")) {
+									followsListActivity.friendshipsReceived(users, true);
+								}
+								
+							} else if (activity instanceof UserProfileActivity) {
+								UserProfileActivity userProfileActivity = (UserProfileActivity) activity;
+								if (jObject.has("following")) {
+									userProfileActivity.followingCountReceived(users.size());
+								} else if (jObject.has("followers")) {
+									userProfileActivity.followersCountReceived(users.size());
+								}
 							}
 							
 						} else {
 							// get user
-							User user = new User(jObject);
+							//User user = new User(jObject);
 						
 							// TODO
 						}
 						
 					} else if (statusCode == HttpStatusCode.CREATED) {
 						// friendship
-						Friendship friendship = new Friendship(jObject);
+						//Friendship friendship = new Friendship(jObject);
 						
-						// TODO
+						if (activity instanceof FollowsListActivity) {
+							FollowsListActivity followsListActivity = (FollowsListActivity) activity;
+							followsListActivity.friendshipCreated();
+						}
 					}
 					
 				} else if (statusCode == HttpStatusCode.NO_CONTENT) {
 					// 204
 					
-					// TODO
+					if (activity instanceof FollowsListActivity) {
+						FollowsListActivity followsListActivity = (FollowsListActivity) activity;
+						followsListActivity.friendshipRemoved(true);
+					}
 					
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
 					// 404
@@ -282,6 +447,14 @@ public class UsersController {
 					if (activity instanceof HomeActivity) {
 						HomeActivity homeActivity = (HomeActivity) activity;
 						homeActivity.zeroCountReceived();
+						
+					} else if (activity instanceof FollowsListActivity) {
+						FollowsListActivity followsListActivity = (FollowsListActivity) activity;
+						followsListActivity.friendshipsReceived(new ArrayList<User>(), null);
+						
+					} else if (activity instanceof UserProfileActivity) {
+						UserProfileActivity userProfileActivity = (UserProfileActivity) activity;
+						userProfileActivity.zeroCountReceived();
 					}
 				}
 				
@@ -291,12 +464,15 @@ public class UsersController {
 					// list of achievements
 					List<Achievement> achievements = processAchievements(jArray);
 					
-					// TODO
+					if (activity instanceof UserProfileActivity) {
+						UserProfileActivity userProfileActivity = (UserProfileActivity) activity;
+						userProfileActivity.achievementsReceived(achievements);
+					}
 				}
 				// POST <URLbase>/users/{userEmail}/achievements?badgeName={badgeName}
 				if (jObject != null) {
 					// achievement
-					Achievement achievement = new Achievement(jObject);
+					//Achievement achievement = new Achievement(jObject);
 					
 					// TODO
 				}
@@ -305,7 +481,7 @@ public class UsersController {
 				// GET <URLbase>/users/{userEmail}/achievements/{idAchievement}
 				if (jObject != null) {
 					// achievement
-					Achievement achievement = new Achievement(jObject);
+					//Achievement achievement = new Achievement(jObject);
 					
 					// TODO
 				}
@@ -365,11 +541,12 @@ public class UsersController {
 	/**
 	 * Change user's password
 	 * @param userEmail
-	 * @param password
+	 * @param newPassword
+	 * @param oldPassword
 	 */
-	public void changeUserPassword(CharSequence userEmail, CharSequence password) {
-		// PUT <URLbase>/users/{userEmail}?password={password}
-		client.changeUserPassword(this, userEmail, encryptPassword((String) password));
+	public void changeUserPassword(CharSequence userEmail, CharSequence newPassword, CharSequence oldPassword) {
+		// PUT <URLbase>/users/{userEmail}?password={password}&oldPassword={oldPassword}
+		client.changeUserPassword(this, userEmail, encryptPassword((String) newPassword), encryptPassword((String) oldPassword));
 	}
 	
 	
@@ -670,14 +847,14 @@ public class UsersController {
 	
 	
 	
-	private List<Wish> processWishes(JSONArray jWishes) throws JSONException {
+	private List<Wish> processWishes(JSONArray jWishes, String lang) throws JSONException {
 		List<Wish> wishes = new ArrayList<Wish>(jWishes.length());
 		
 		// for each wish JSON object
 		for (int i = 0; i < jWishes.length(); i++) {
 			// create Wish model from JSON object
 			JSONObject jWish = jWishes.getJSONObject(i);
-			Wish wish = new Wish(jWish);
+			Wish wish = new Wish(jWish, lang);
 			wishes.add(wish);
 		}
 		

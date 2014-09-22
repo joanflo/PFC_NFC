@@ -1,6 +1,7 @@
 package com.joanflo.adapters;
 
 import java.util.List;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -43,6 +44,7 @@ public class PurchaseListAdapter extends BaseAdapter {
 	}
 
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 

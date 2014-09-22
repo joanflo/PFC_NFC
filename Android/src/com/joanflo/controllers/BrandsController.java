@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.widget.Toast;
 import com.joanflo.models.Brand;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.BrandActivity;
 import com.joanflo.tagit.ProductSearchActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.utils.Regex;
@@ -48,7 +49,10 @@ public class BrandsController {
 					// brand
 					Brand brand = new Brand(jObject);
 					
-					// TODO
+					if (activity instanceof BrandActivity) {
+						BrandActivity brandActivity = (BrandActivity) activity;
+						brandActivity.brandReceived(brand);
+					}
 				}
 			}
 			

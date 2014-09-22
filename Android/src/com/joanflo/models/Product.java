@@ -107,7 +107,7 @@ public class Product {
 		}
 		// url
 		if (jProduct.has("url")) {
-			this.addImage(new ProductImage(jProduct.getString("url"), 'f'));
+			this.addImage(new ProductImage(jProduct.getString("url"), ProductImage.TYPE_FRONT));
 		}
 	}
 	

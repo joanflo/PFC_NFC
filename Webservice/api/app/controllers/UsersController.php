@@ -31,7 +31,7 @@ class UsersController extends BaseController {
      * Update the specified user in storage.
      */
     public function update($userEmail) {
-        // PUT <URLbase>/users/{userEmail}?password={password}
+        // PUT <URLbase>/users/{userEmail}?password={password}&oldPassword={oldPassword}
         // PUT <URLbase>/users/{userEmail}?cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
         // PUT <URLbase>/users/{userEmail}?password={password}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
         
@@ -43,7 +43,13 @@ class UsersController extends BaseController {
 			// update user
 			if ($password && !Input::get('nick')) {
 				// update user's password
-				$user->password = $password;
+				$oldPassword = Input::get('oldPassword');
+				if ($user->password == $oldPassword) {
+					// update old password
+					$user->password = $password;
+				} else {
+					App::abort(404);
+				}
 			} else if (!$password) {
 				// update user's data
 				$user->cityName = Input::get('cityName');
@@ -62,7 +68,7 @@ class UsersController extends BaseController {
 		} else {
 			// create user
 			$user = new User();
-			$user->userEmail = $userEmail;
+			//$user->userEmail = $userEmail;
 			$user->password = $password;
 			$user->cityName = Input::get('cityName');
 			$user->languageName = Input::get('languageName');
@@ -70,9 +76,15 @@ class UsersController extends BaseController {
 			$user->name = Input::get('name');
 			$user->surname = Input::get('surname');
 			$user->age = Input::get('age');
-			$user->phone = Input::get('phone');
-			$user->direction = Input::get('direction');
+			if (Input::get('phone')) {
+				$user->phone = Input::get('phone');
+			}
+			if (Input::get('direction')) {
+				$user->direction = Input::get('direction');
+			}
 			$user->registration = \Carbon\Carbon::now()->toDateTimeString();
+			$user->save();
+			$user->userEmail = $userEmail;
 		}
 		
 		// save changes
@@ -127,7 +139,12 @@ class UsersController extends BaseController {
      */
     public function indexWishes($userEmail) {
         // GET <URLbase>/users/{userEmail}/wishes
-        $wishes = Wish::where('userEmail', '=', $userEmail)->get();
+        $wishes = Wish::join('Product', 'Product.idProduct', '=', 'Wish.idProduct')
+					  ->join('Product_Image', 'Product_Image.idProduct', '=', 'Product.idProduct')
+        			  ->where('Product_Image.type', '=', 'f')
+        			  ->where('Wish.userEmail', '=', $userEmail)
+					  ->select('Wish.idWish', 'Wish.idProduct', 'Wish.date', 'Product.name_en', 'Product.name_ca', 'Product_Image.url', 'Product_Image.description_en', 'Product_Image.description_ca')
+        			  ->get();
 		if (count($wishes) == 0) {
 			App::abort(404);
 		} else {
@@ -182,8 +199,10 @@ class UsersController extends BaseController {
         $query = Purchase::where('userEmail', '=', $userEmail);
 		$status = Input::get('status');
 		if ($status) {
-			// Purchase.STATUS_PENDING = 'p' | Purchase.STATUS_FINISHED = 'f'
+			// Purchase.STATUS_PENDING = 'p'
 			$query->where('status', '=', $status);
+		} else {
+			$query->where('status', '=', 'f');
 		}
 		$purchases = $query->get();
 		
@@ -214,7 +233,8 @@ class UsersController extends BaseController {
         // GET <URLbase>/users/{userEmail}/purchases/{idPurchase}/purchase_details
 		$purchaseDetails = DB::table('Purchase_Detail')->join('Purchase', 'Purchase_Detail.idPurchase', '=', 'Purchase.idPurchase')
 													   ->join('Batch', 'Purchase_Detail.idBatch', '=', 'Batch.idBatch')
-            										   ->select('Purchase_Detail.idPurchaseDetail', 'Purchase_Detail.idPurchase', 'Purchase_Detail.idBatch', 'Purchase_Detail.units', 'Batch.idProduct', 'Batch.idShop')
+            										   ->select('Purchase_Detail.idPurchaseDetail', 'Purchase_Detail.idPurchase', 'Purchase_Detail.idBatch', 
+            										   			'Purchase_Detail.units', 'Batch.idProduct', 'Batch.idShop', 'Batch.idSize', 'Batch.colorCode')
 													   ->where('Purchase.idPurchase', '=', $idPurchase)
 													   ->where('Purchase.userEmail', '=', $userEmail)
 													   ->get();
@@ -335,7 +355,7 @@ class UsersController extends BaseController {
 		
 		if (count($emailsUsers) != 0) {
 			$result = User::whereIn('userEmail', $emailsUsers)
-					->select('userEmail', 'nick', 'points')
+					->select('userEmail', 'nick', 'name', 'surname')
 					->get();
 			if (Input::get('following') == "true") {
 				$result = json_encode(array('following' => $result));

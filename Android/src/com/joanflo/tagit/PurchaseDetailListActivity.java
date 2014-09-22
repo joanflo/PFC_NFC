@@ -24,6 +24,8 @@ import com.joanflo.models.Shop;
 import com.joanflo.models.Size;
 import com.joanflo.models.Tax;
 import com.joanflo.utils.LocalStorage;
+import com.joanflo.utils.Time;
+
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -48,6 +50,7 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 	private View currentView;
 
 	private Purchase purchase;
+	private Shop shop;
 	private int requestsNumber;
 	
 	
@@ -60,7 +63,7 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
         
         // update selected item and title, then close the drawer
         Bundle bundle = getIntent().getExtras();
-        int pos = bundle.getInt("drawerPosition");
+        int pos = bundle.getInt("drawerPosition", 0);
         viewingCart = pos != 0;
         
         CharSequence userEmail = LocalStorage.getInstance().getUserEmail(this);
@@ -105,10 +108,11 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 			// for each product, 2 requests (tax, front image)
 			requestsNumber = purchaseDetails.size() * 2;
 		} else {
-			// for each product, 5 requests (tax, front image, color, size, shop)
-			requestsNumber = purchaseDetails.size() * 5;
+			// for each product, 4 requests (tax, front image, color, size) + 1 request (shop)
+			requestsNumber = purchaseDetails.size() * 4 + 1;
 		}
 		
+		boolean shopRequested = false;
 		if (purchaseDetails.size() == 0) {
 			hideList();
 			
@@ -131,8 +135,11 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 					cController.getColor(batch.getColor().getColorCode());
 					// call web service
 					siController.getSize(batch.getSize().getIdSize());
-					// call web service
-					shController.getShop(batch.getShop().getIdShop());
+					if (!shopRequested) {
+						shopRequested = true;
+						// call web service
+						shController.getShop(batch.getShop().getIdShop());
+					}
 				}
 			}
 		}
@@ -247,7 +254,7 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 		while (i < purchaseDetails.size() && !found) {
 			Batch batch = purchaseDetails.get(i).getBatch();
 			Size sizeAux = batch.getSize();
-			if (sizeAux.getIdSize() == size.getIdSize() && sizeAux.getSize() == -1) {
+			if (sizeAux.getIdSize() == size.getIdSize() && sizeAux.getSize() == 0) {
 				// add color to batch
 				batch.setSize(size);
 				found = true;
@@ -263,21 +270,7 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 	
 	
 	public void shopReceived(Shop shop) {
-		// search batch position
-		int i = 0;
-		boolean found = false;
-		List<PurchaseDetail> purchaseDetails = purchase.getPurchaseDetails();
-		while (i < purchaseDetails.size() && !found) {
-			Batch batch = purchaseDetails.get(i).getBatch();
-			Shop shopAux = batch.getShop();
-			if (shopAux.getIdShop() == shop.getIdShop() && shopAux.getDirection() == null) {
-				// add shop to batch
-				batch.setShop(shop);
-				found = true;
-			} else {
-				i++;
-			}
-		}
+		this.shop = shop;
 		
 		// check if it's the last request
 		checkLastRequest();
@@ -330,8 +323,8 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 			tv.setText(String.valueOf(totalPrice));
 			
 			tv = (TextView) findViewById(R.id.textView_purchasedetail_purchaseinfo);
-			Shop shop = purchase.getPurchaseDetails().get(0).getBatch().getShop(); // purchase in only one shop
-			tv.setText(shop.getDirection());
+			String date = Time.convertTimestampToString(purchase.getDate());
+			tv.setText(shop.getDirection() + "\n(" + date + ")");
 		}
 	}
 
@@ -402,10 +395,11 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 	
 	
 	public void onClickButton(View v) {
-		currentPosition = (Integer) v.getTag();
 		
 		switch (v.getId()) {
 		case R.id.button_purchase_remove:
+			currentPosition = (Integer) v.getTag();
+			
 			CharSequence userEmail = LocalStorage.getInstance().getUserEmail(this);
 			int idPurchase = purchase.getIdPurchase();
 			int idPurchaseDetail = purchase.getPurchaseDetails().get(currentPosition).getIdPurchaseDetail();
@@ -418,8 +412,20 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
 			
 		case R.id.button_purchasedetail_seeshop:
 			Intent i = new Intent(this, ShopActivity.class);
-			Shop shop = purchase.getPurchaseDetails().get(0).getBatch().getShop();
 			i.putExtra("idShop", shop.getIdShop());
+			i.putExtra("cityName", shop.getCity().getCityName().toString());
+			i.putExtra("direction", shop.getDirection().toString());
+			i.putExtra("schedule", shop.getSchedule().toString());
+			i.putExtra("phone", shop.getPhone().toString());
+			i.putExtra("email", shop.getEmail().toString());
+			i.putExtra("latitude", shop.getLatitude());
+			i.putExtra("longitude", shop.getLongitude());
+			boolean isSelected = false;
+			LocalStorage storage = LocalStorage.getInstance();
+			if (storage.isShopPicked(this)) {
+				isSelected = storage.getShop(this).equals(shop);
+			}
+			i.putExtra("isSelected", isSelected);
 			startActivity(i);
 			break;
 		

@@ -1,6 +1,7 @@
 package com.joanflo.adapters;
 
 import java.util.List;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ public class PurchaseDetailListAdapter extends BaseAdapter {
 	}
 
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -98,7 +100,7 @@ public class PurchaseDetailListAdapter extends BaseAdapter {
 			tv.setText(context.getResources().getString(R.string.product_size2) + " " + String.valueOf(purchaseDetailItem.getSize()));
 			
 			tv = (TextView) convertView.findViewById(R.id.textView_purchase_colorcode);
-			int c = android.graphics.Color.parseColor((String) purchaseDetailItem.getColorCode());
+			int c = android.graphics.Color.parseColor("#" + (String) purchaseDetailItem.getColorCode());
 			tv.setBackgroundColor(c);
 			
 			tv = (TextView) convertView.findViewById(R.id.textView_purchase_colorname);

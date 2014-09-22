@@ -58,9 +58,6 @@ public class ReviewListActivity extends BaseActivity {
         	// product reviews
         	productNameBundle = bundle.getCharSequence("productName");
             averageRateBundle = bundle.getCharSequence("averageRate");
-        	// call web service
-        	ProductsController pController = new ProductsController(this);
-        	pController.getReviews(idProductBundle);
         	
         } else {
         	// user reviews

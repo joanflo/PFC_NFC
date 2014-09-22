@@ -14,6 +14,8 @@ import com.joanflo.models.Tax;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.ProductActivity;
 import com.joanflo.tagit.ProductListActivity;
+import com.joanflo.tagit.PurchaseDetailListActivity;
+import com.joanflo.tagit.PurchaseListActivity;
 import com.joanflo.tagit.R;
 
 public class TaxesController {
@@ -42,9 +44,18 @@ public class TaxesController {
 					if (activity instanceof ProductListActivity) {
 						ProductListActivity productListActivity = (ProductListActivity) activity;
 						productListActivity.taxReceived(tax);
+						
 					} else if (activity instanceof ProductActivity) {
 						ProductActivity productActivity = (ProductActivity) activity;
 						productActivity.taxReceived(tax);
+						
+					} else if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.taxReceived(tax);
+						
+					} else if (activity instanceof PurchaseListActivity) {
+						PurchaseListActivity purchaseListActivity = (PurchaseListActivity) activity;
+						purchaseListActivity.taxReceived(tax);
 					}
 				}
 			}

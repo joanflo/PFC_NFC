@@ -39,15 +39,25 @@ public class PurchaseDetail {
 		this.purchase = new Purchase(idPurchase, null, ProductImage.TYPE_FRONT);
 		// batch
 		Product product = null;
+		Size size = null;
+		Color color = null;
 		Shop shop = null;
 		if (jPurchaseDetail.has("idProduct") && jPurchaseDetail.has("idShop")) {
+			// product
 			int idProduct = jPurchaseDetail.getInt("idProduct");
 			product = new Product(idProduct, null, null, "", "", "", "");
+			// size
+			int idSize = jPurchaseDetail.getInt("idSize");
+			size = new Size(idSize, 0, ' ', ' ');
+			// color
+			String colorCode = jPurchaseDetail.getString("colorCode");
+			color = new Color(colorCode, null);
+			// shop
 			int idShop = jPurchaseDetail.getInt("idShop");
 			shop = new Shop(idShop, null, "", "", "", "", 0, 0);
 		}
 		int idBatch = jPurchaseDetail.getInt("idBatch");
-		this.batch = new Batch(idBatch, product, null, null, shop, 0);
+		this.batch = new Batch(idBatch, product, size, color, shop, 0);
 		// units
 		this.units = jPurchaseDetail.getInt("units");
 	}

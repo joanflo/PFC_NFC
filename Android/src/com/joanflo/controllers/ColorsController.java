@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.joanflo.models.Color;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.ProductActivity;
+import com.joanflo.tagit.PurchaseDetailListActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
@@ -40,6 +41,9 @@ public class ColorsController {
 					if (activity instanceof ProductActivity) {
 						ProductActivity productActivity = (ProductActivity) activity;
 						productActivity.colorReceived(color);
+					} else if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.colorReceived(color);
 					}
 				}
 			}

@@ -23,25 +23,24 @@
     
     
     <!-- items number -->
+
     <TextView
         android:id="@+id/textView_itemsnumber"
         style="@style/counter1"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="4dp"
         android:layout_alignLeft="@+id/textView_totalprice"
         android:layout_alignRight="@+id/textView_totalprice"
         android:layout_below="@+id/textView_totalprice"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:gravity="center" />
 
     <TextView
         android:id="@+id/textView_itemsnumbertxt"
         style="@style/p"
         android:layout_alignBottom="@+id/textView_itemsnumber"
-        android:layout_toRightOf="@+id/textView_itemsnumber"
-        android:textColor="@color/main_white"
-        android:text="@string/item_text" />
-    
+        android:layout_toRightOf="@+id/textView_totalprice"
+        android:text="@string/item_text"
+        android:textColor="@color/main_white" />
     
     <!-- shop & date -->
     <TextView

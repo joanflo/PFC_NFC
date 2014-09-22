@@ -28,7 +28,9 @@ public class Collection {
 	public Collection(JSONObject jCollection, String lang) throws JSONException {
 		this.idCollection = jCollection.getInt("idCollection");
 		this.name = jCollection.getString("name_" + lang);
-		this.year = jCollection.getInt("year");
+		if (!jCollection.isNull("year")) {
+			this.year = jCollection.getInt("year");
+		}
 	}
 
 

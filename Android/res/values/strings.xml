@@ -122,9 +122,10 @@
     <string name="product_size">Sizes</string>
     <string name="product_size2">Size</string>
     <string name="share">Just watching this amazing product using</string>
-    <string name="comment">Comment</string>
+    <string name="comment">Comment*</string>
     <string name="shop1">Bought in</string>
     <string name="shop2">on</string>
+    <string name="nosizes">Unique size</string>
     
     <!-- titles -->
     <string name="title_home_search">Search</string>
@@ -205,17 +206,33 @@
     
     
     <!-- toast messages -->
-    <string name="toast_requiredfields">All required fields must be filled. Terms and conditions must be accepted.</string>
+    <string name="toast_requiredfields1">All required fields must be filled. Terms and conditions must be accepted.</string>
+    <string name="toast_requiredfields2">All required fields must be filled. New password fields must be equals.</string>
+    <string name="toast_requiredfields3">All required fields must be filled.</string>
     <string name="toast_problem_shop">Ops! There is not any shop near.</string>
     <string name="toast_problem_request">Ops! An error has occurred with the request to the server.</string>
     <string name="toast_problem_creatinguser">Ops! There was a problem creating the user. Probably the user already exists.</string>
+    <string name="toast_problem_updatinguser">Ops! There was a problem updating the user information.</string>
+    <string name="toast_problem_creatingreview">Ops! There was a problem creating the review.</string>
     <string name="toast_problem_empty">Ops! No results were found.</string>
     <string name="toast_problem_productnfc">Ops! There was a problem reading the NFC tag.</string>
+    <string name="toast_problem_deleteitem">Ops! There was a problem deleting this item.</string>
+    <string name="toast_problem_wishadded">Ops! There was a problem adding this wish into the cart.</string>
+    <string name="toast_problem_productaddedcart">Ops! There was a problem adding this product into the cart.</string>
+    <string name="toast_problem_creatingwish">Ops! There was a problem adding this product into the wish list.</string>
+    <string name="toast_deleteitem">Item deleted successfully.</string>
+    <string name="toast_wishadded">Wish added to cart.</string>
+    <string name="toast_productaddedcart">Product added to cart.</string>
+    <string name="toast_productaddedwish">Product added to wish list.</string>
     <string name="toast_loginfields">Insert user email and password.</string>
     <string name="toast_login">Wrong user or password. Please try again.</string>
+    <string name="toast_password">Wrong password. Please try again.</string>
+    <string name="toast_password2">Password changed successfully.</string>
     <string name="toast_profile">Select profile image</string>
     <string name="toast_gps">Searching current location.</string>
     <string name="toast_shopselected">Shop selected.</string>
     <string name="toast_registration">You must be registered to perform this action.</string>
+    <string name="toast_userupdated">User information updated successfully.</string>
+    <string name="toast_reviewcreated">Review created successfully.</string>
     
 </resources>

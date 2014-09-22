@@ -138,6 +138,8 @@ public class User {
 		// points
 		if (jUser.has("points")) {
 			this.points = jUser.getInt("points");
+		} else {
+			this.points = 0;
 		}
 		// city
 		if (jUser.has("cityName")) {
@@ -414,7 +416,9 @@ public class User {
 			jUser.put("password", password);
 			jUser.put("phone", phone);
 			jUser.put("direction", direction);
-			jUser.put("registration", registration.toString());
+			if (registration != null) {
+				jUser.put("registration", registration.toString());
+			}
 			jUser.put("points", points);
 			if (city != null) {
 				JSONObject jCity = city.convertToJSON();

@@ -12,9 +12,12 @@ import com.joanflo.models.ProductImage;
 import com.joanflo.models.Review;
 import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.NewReviewActivity;
 import com.joanflo.tagit.ProductActivity;
 import com.joanflo.tagit.ProductListActivity;
+import com.joanflo.tagit.PurchaseDetailListActivity;
 import com.joanflo.tagit.R;
+import com.joanflo.tagit.ReviewListActivity;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
 
@@ -67,6 +70,9 @@ public class ProductsController {
 					if (activity instanceof ProductActivity) {
 						ProductActivity productActivity = (ProductActivity) activity;
 						productActivity.productReceived(product);
+					} else if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.productReceived(product);
 					}
 				}
 				
@@ -82,6 +88,9 @@ public class ProductsController {
 					} else if (activity instanceof ProductActivity) {
 						ProductActivity productActivity = (ProductActivity) activity;
 						productActivity.reviewsReceived(reviews);
+					} else if (activity instanceof ReviewListActivity) {
+						ReviewListActivity reviewListActivity = (ReviewListActivity) activity;
+						reviewListActivity.reviewsReceived(reviews);
 					}
 					
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
@@ -92,6 +101,9 @@ public class ProductsController {
 					} else if (activity instanceof ProductActivity) {
 						ProductActivity productActivity = (ProductActivity) activity;
 						productActivity.reviewsReceived(new ArrayList<Review>());
+					} else if (activity instanceof ReviewListActivity) {
+						ReviewListActivity reviewListActivity = (ReviewListActivity) activity;
+						reviewListActivity.reviewsReceived(new ArrayList<Review>());
 					}
 				}
 				
@@ -128,6 +140,15 @@ public class ProductsController {
 					} else if (activity instanceof ProductActivity) {
 						ProductActivity productActivity = (ProductActivity) activity;
 						productActivity.productImagesReceived(productImages);
+					} else if (activity instanceof PurchaseDetailListActivity) {
+						PurchaseDetailListActivity purchaseDetailListActivity = (PurchaseDetailListActivity) activity;
+						purchaseDetailListActivity.frontImageReceived(productImages.get(0));
+					} else if (activity instanceof ReviewListActivity) {
+						ReviewListActivity reviewListActivity = (ReviewListActivity) activity;
+						reviewListActivity.frontImageReceived(productImages.get(0));
+					} else if (activity instanceof NewReviewActivity) {
+						NewReviewActivity newReviewActivity = (NewReviewActivity) activity;
+						newReviewActivity.frontImageReceived(productImages.get(0));
 					}
 				}
 				

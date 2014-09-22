@@ -9,14 +9,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.joanflo.controllers.BrandsController;
 import com.joanflo.models.Brand;
-import com.joanflo.utils.AssetsUtils;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,11 +88,6 @@ public class BrandActivity extends BaseActivity {
 
 		tv = (TextView) findViewById(R.id.textView_brand_email);
 		tv.setText(brand.getEmail());
-		
-		ImageView iv = (ImageView) findViewById(R.id.imageView_brand_logo);
-		Drawable logo = AssetsUtils.getImageFromAssets(getBaseContext(), AssetsUtils.BRANDS_DIRECTORY, (String) brand.getBrandName());
-		iv.setImageDrawable(logo);
-		iv.setContentDescription(brand.getBrandName());
 	}
 	
 

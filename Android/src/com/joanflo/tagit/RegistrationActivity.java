@@ -82,27 +82,27 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 		
 		// email field
 		et = (EditText) findViewById(R.id.editText_registration_email);
-		if (et.getText().equals("")) {
+		if (et.getText().toString().equals("")) {
 			// empty field
 			return false;
 		}
 		
 		// nick field
 		et = (EditText) findViewById(R.id.editText_registration_nick);
-		if (et.getText().equals("")) {
+		if (et.getText().toString().equals("")) {
 			// empty field
 			return false;
 		}
 		
 		// password fields
 		et = (EditText) findViewById(R.id.editText_registration_password);
-		if (et.getText().equals("")) {
+		if (et.getText().toString().equals("")) {
 			// empty field
 			return false;
 		} else {
-			CharSequence firstPassword = et.getText();
+			CharSequence firstPassword = et.getText().toString();
 			et = (EditText) findViewById(R.id.editText_registration_repeatpassword);
-			if (!et.getText().equals(firstPassword)) {
+			if (!et.getText().toString().equals(firstPassword)) {
 				// both passwords must be equals
 				return false;
 			}
@@ -138,21 +138,21 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 		
 		// age field
 		et = (EditText) findViewById(R.id.editText_registration_age);
-		if (et.getText().equals("")) {
+		if (et.getText().toString().equals("")) {
 			// empty field
 			return false;
 		}
 		
 		// name field
 		et = (EditText) findViewById(R.id.editText_registration_name);
-		if (et.getText().equals("")) {
+		if (et.getText().toString().equals("")) {
 			// empty field
 			return false;
 		}
 		
 		// surname field
 		et = (EditText) findViewById(R.id.editText_registration_surname);
-		if (et.getText().equals("")) {
+		if (et.getText().toString().equals("")) {
 			// empty field
 			return false;
 		}
@@ -252,25 +252,25 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 				Spinner spinner;
 				// get fields
 				et = (EditText) findViewById(R.id.editText_registration_email);
-				CharSequence userEmail = et.getText();
+				CharSequence userEmail = et.getText().toString();
 				spinner = (Spinner) findViewById(R.id.spinner_registration_city);
 				CharSequence cityName = spinner.getSelectedItem().toString();
 				spinner = (Spinner) findViewById(R.id.spinner_registration_language);
 				CharSequence languageName = spinner.getSelectedItem().toString();
 				et = (EditText) findViewById(R.id.editText_registration_nick);
-				CharSequence nick = et.getText();
+				CharSequence nick = et.getText().toString();
 				et = (EditText) findViewById(R.id.editText_registration_name);
-				CharSequence name = et.getText();
+				CharSequence name = et.getText().toString();
 				et = (EditText) findViewById(R.id.editText_registration_surname);
-				CharSequence surname = et.getText();
+				CharSequence surname = et.getText().toString();
 				et = (EditText) findViewById(R.id.editText_registration_age);
 				int age = Integer.parseInt(et.getText().toString());
 				et = (EditText) findViewById(R.id.editText_registration_password);
-				CharSequence password = et.getText();
+				CharSequence password = et.getText().toString();
 				et = (EditText) findViewById(R.id.editText_registration_phone);
-				CharSequence phone = et.getText();
+				CharSequence phone = et.getText().toString();
 				et = (EditText) findViewById(R.id.editText_registration_direction);
-				CharSequence direction = et.getText();
+				CharSequence direction = et.getText().toString();
 				// UI
 				showProgressBar(true);
 				// call web service

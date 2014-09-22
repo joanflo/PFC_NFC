@@ -63,10 +63,6 @@ public class HomeActivity extends BaseActivity {
         }
         
 		prepareSearchSection();
-        prepareShopSection();
-        prepareMyCartSection();
-        prepareMyWishlistSection();
-        prepareProfileSection();
 	}
 	
 	
@@ -76,6 +72,9 @@ public class HomeActivity extends BaseActivity {
 		super.onResume();
 		// update shop section
         prepareShopSection();
+        prepareMyCartSection();
+        prepareMyWishlistSection();
+        prepareProfileSection();
 	}
 	
 	
@@ -342,6 +341,8 @@ public class HomeActivity extends BaseActivity {
                 // Set profile image
                 ImageButton ib = (ImageButton) findViewById(R.id.profile_image_home);
                 ib.setImageURI(selectedImageUri);
+                ImageView iv = (ImageView) findViewById(R.id.profile_image_drawer);
+                iv.setImageURI(selectedImageUri);
                 // save local
                 LocalStorage.getInstance().setProfileImage(this, selectedImageUri);
                 // upload image to server

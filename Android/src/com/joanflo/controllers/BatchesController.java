@@ -2,19 +2,16 @@ package com.joanflo.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.widget.Toast;
-
 import com.joanflo.models.Batch;
-import com.joanflo.models.Shop;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.ProductActivity;
 import com.joanflo.tagit.R;
+import com.joanflo.tagit.WishListActivity;
 import com.joanflo.utils.Regex;
 
 public class BatchesController {
@@ -44,6 +41,9 @@ public class BatchesController {
 					if (activity instanceof ProductActivity) {
 						ProductActivity productActivity = (ProductActivity) activity;
 						productActivity.batchesReceived(batches);
+					} else if (activity instanceof WishListActivity) {
+						WishListActivity wishListActivity = (WishListActivity) activity;
+						wishListActivity.batchesReceived(batches);
 					}
 				}
 				
@@ -52,7 +52,7 @@ public class BatchesController {
 				// PUT <URLbase>/batches/{idBatch}?units={units}
 				if (jObject != null) {
 					// batch
-					Batch batch = new Batch(jObject);
+					//Batch batch = new Batch(jObject);
 					
 					// TODO
 				}

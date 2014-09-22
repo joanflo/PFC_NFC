@@ -1,59 +1,43 @@
 package com.joanflo.tagit;
 
-import java.net.MalformedURLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.json.JSONObject;
-
 import com.joanflo.adapters.PurchaseListAdapter;
 import com.joanflo.adapters.PurchaseListItem;
-import com.joanflo.controllers.BrandsController;
+import com.joanflo.controllers.ShopsController;
 import com.joanflo.controllers.TaxesController;
 import com.joanflo.controllers.UsersController;
 import com.joanflo.models.Batch;
-import com.joanflo.models.Brand;
-import com.joanflo.models.Category;
-import com.joanflo.models.City;
-import com.joanflo.models.Collection;
-import com.joanflo.models.Color;
 import com.joanflo.models.Country;
-import com.joanflo.models.Language;
-import com.joanflo.models.Product;
-import com.joanflo.models.ProductImage;
 import com.joanflo.models.Purchase;
 import com.joanflo.models.PurchaseDetail;
-import com.joanflo.models.Region;
-import com.joanflo.models.Review;
 import com.joanflo.models.Shop;
-import com.joanflo.models.Size;
 import com.joanflo.models.Tax;
-import com.joanflo.models.User;
-import com.joanflo.models.Wish;
 import com.joanflo.utils.LocalStorage;
-
+import com.joanflo.utils.SearchUtils;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class PurchaseListActivity extends BaseActivity {
-
-
+	
+	
 	private List<PurchaseListItem> purchaseItems;
 	private List<Purchase> purchases;
 	
-	private Shop shop;
+	private List<Tax> taxes;
+	private List<Shop> shops;
+
+	private Integer requestsNumber;
+	
 	private int currentPosition;
 	
 	
@@ -63,6 +47,9 @@ public class PurchaseListActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_purchaselist);
 		
+		
+		taxes = new ArrayList<Tax>();
+		shops = new ArrayList<Shop>();
         
         super.showProgressBar(true);
         // call web service
@@ -97,10 +84,99 @@ public class PurchaseListActivity extends BaseActivity {
 			Toast.makeText(this, R.string.toast_problem_empty, Toast.LENGTH_LONG).show();
 			
 		} else {
-			prepareList();
+			// 1 request per purchase (purchase detail)
+			requestsNumber = purchases.size();
+			
+			for (Purchase purchase : purchases) {
+				int idPurchase = purchase.getIdPurchase();
+				CharSequence userEmail = LocalStorage.getInstance().getUserEmail(this);
+				// call web service
+				UsersController controller = new UsersController(this);
+				controller.getPurchaseDetails(userEmail, idPurchase);
+			}
+		}
+	}
+	
+	
+	
+	public void purchaseDetailsReceived(List<PurchaseDetail> purchaseDetails) {
+		synchronized (requestsNumber) {
+			// purchase detail request received
+			requestsNumber--;
+			// 2 requests per purchase detail (tax, shop)
+			requestsNumber += purchaseDetails.size() * 2;
 		}
 		
-		super.showProgressBar(false);
+		// search purchase
+		int idPurchase = purchaseDetails.get(0).getPurchase().getIdPurchase();
+		Purchase purchase = SearchUtils.searchPurchaseById(idPurchase, purchases);
+		// for each purchase detail
+		CharSequence countryName = LocalStorage.getInstance().getLocaleCountry(this).getCountryName();
+		TaxesController tController = new TaxesController(this);
+		ShopsController sController = new ShopsController(this);
+		for (PurchaseDetail purchaseDetail : purchaseDetails) {
+			// add purchase detail to the list
+			purchase.addPurchaseDetail(purchaseDetail);
+			// (each purchase detail includes his batch)
+			Batch batch = purchaseDetail.getBatch();
+			int idProduct = batch.getProduct().getIdProduct();
+			int idShop = batch.getShop().getIdShop();
+			// call web service
+			tController.getTax(idProduct, countryName);
+			// call web service
+			sController.getShop(idShop);
+		}
+	}
+	
+	
+	
+	public synchronized void taxReceived(Tax tax) {
+		synchronized (taxes) {
+			if (!taxes.contains(tax)) {
+				taxes.add(tax);
+			}
+		}
+		
+		// check if it's the last request
+		checkLastRequest();
+	}
+	
+	
+	
+	public void shopReceived(Shop shop) {
+		synchronized (shops) {
+			if (!shops.contains(shop)) {
+				shops.add(shop);
+			}
+		}
+		
+		// check if it's the last request
+		checkLastRequest();
+	}
+	
+	
+	
+	private synchronized void checkLastRequest() {
+		requestsNumber--;
+		if (requestsNumber == 0) {
+			// last request
+			for (Purchase purchase : purchases) {
+				for (PurchaseDetail detail : purchase.getPurchaseDetails()) {
+					// get ids
+					Batch batch = detail.getBatch();
+					int idProduct = batch.getProduct().getIdProduct();
+					int idShop = batch.getShop().getIdShop();
+					// add tax to batch
+					Tax tax = SearchUtils.searchTaxByIdProduct(idProduct, taxes);
+					batch.getProduct().addTax(tax);
+					// add shop to batch
+					Shop shop = SearchUtils.searchShopById(idShop, shops);
+					batch.setShop(shop);
+				}
+			}
+			prepareList();
+	        super.showProgressBar(false);
+		}
 	}
 	
 	
@@ -120,15 +196,15 @@ public class PurchaseListActivity extends BaseActivity {
         	Timestamp date = purchase.getDate();
         	// get total price
         	DecimalFormat df = new DecimalFormat("0.00");
-			double tPrice = controller.calculateTotalPrice(purchase.getPurchaseDetails(), country);
+        	List<PurchaseDetail> details = purchase.getPurchaseDetails();
+			double tPrice = controller.calculateTotalPrice(details, country);
         	CharSequence totalPrice = df.format(tPrice);
         	// get coin
-        	List<PurchaseDetail> details = purchase.getPurchaseDetails();
-        	shop = details.get(0).getBatch().getShop();
-        	char coin = shop.getCity().getRegion().getCountry().getCoin();
+        	char coin = country.getCoin();
         	// get items number
         	CharSequence totalItems = String.valueOf(details.size());
         	// get shop direction
+        	Shop shop = details.get(0).getBatch().getShop();
         	CharSequence shopDirection = shop.getDirection();
         	
         	PurchaseListItem purchaseItem = new PurchaseListItem(id, date, totalPrice, coin, totalItems, shopDirection);
@@ -161,22 +237,6 @@ public class PurchaseListActivity extends BaseActivity {
 			int purchaseId = purchaseItems.get(position).getPurchaseId();
 			Intent i = new Intent(getBaseContext(), PurchaseDetailListActivity.class);
 			i.putExtra("purchaseId", purchaseId);
-			
-			/*
-			// get button info
-			TextView tv;
-			tv = (TextView) view.findViewById(R.id.textView_totalprice);
-			i.putExtra("totalPrice", tv.getText());
-			tv = (TextView) view.findViewById(R.id.textView_totalprice_coin);
-			i.putExtra("totalPriceCoin", tv.getText());
-			tv = (TextView) view.findViewById(R.id.textView_purchaseinfo);
-			i.putExtra("purchaseInfo", tv.getText());
-			
-			// shop id
-			i.putExtra("idShop", shop.getIdShop());
-			*/
-			
-			// start activity
 			startActivity(i);
 		}
 		
