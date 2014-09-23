@@ -46,6 +46,7 @@ public class PurchaseListActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_purchaselist);
+		super.setTitle(R.string.title_purchaselist);
 		
 		
 		taxes = new ArrayList<Tax>();

@@ -1,11 +1,11 @@
 package com.joanflo.controllers;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.widget.Toast;
 import com.joanflo.models.Collection;
+import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.ProductActivity;
 import com.joanflo.tagit.R;
@@ -28,6 +28,9 @@ public class CollectionsController {
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
+			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
+				throw new Exception();
+			}
 			
 			if (route.matches("collections/" + Regex.INTEGER)) {
 				// GET <URLbase>/collections/{idCollection}
@@ -44,8 +47,9 @@ public class CollectionsController {
 				}
 			}
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			activity.finish();
 		}
 	}
 	

@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.widget.Toast;
 import com.joanflo.models.Badge;
+import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.BadgeActivity;
 import com.joanflo.tagit.BadgeListActivity;
@@ -34,6 +35,9 @@ public class BadgesController {
 		String lang = LocalStorage.getInstance().getLocaleLanguage(activity);
 		
 		try {
+			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
+				throw new Exception();
+			}
 			
 			if (route.matches("badges")) {
 				// GET <URLbase>/badges
@@ -60,8 +64,9 @@ public class BadgesController {
 				}
 			}
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			activity.finish();
 		}
 	}
 	

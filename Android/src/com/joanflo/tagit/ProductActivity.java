@@ -72,6 +72,7 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_product);
+		super.setTitle(R.string.title_product);
 		
         
         // set adapter
@@ -361,7 +362,8 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 		LinearLayout container = (LinearLayout) findViewById(R.id.layout_relatedproducts);
 		LayoutInflater mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         ViewGroup convertView = (ViewGroup) mInflater.inflate(R.layout.list_item_relatedproduct, container, false);
-		
+		convertView.setTag(product.getIdProduct());
+        
         // set image info
 		ImageView iv = (ImageView) convertView.findViewById(R.id.imageView_front);
 		ProductImage image = product.getFrontImage();
@@ -457,9 +459,9 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
     	int iva = tax.getIva();
     	double priceWithIva = tax.getBasePrice() + (tax.getBasePrice() * (iva / 100));
     	tv = (TextView) findViewById(R.id.textView_product_ivapricetxt);
-    	tv.setText(getResources().getString(R.string.product_price) + " (" + String.valueOf(iva) + "% IVA)");
+    	tv.setText(getResources().getString(R.string.product_price) + " (" + String.valueOf(iva) + "% IVA):");
     	tv = (TextView) findViewById(R.id.textView_product_ivaprice);
-    	tv.setText(df.format(priceWithIva));
+    	tv.setText(" " + df.format(priceWithIva) + " ");
     	tv = (TextView) findViewById(R.id.textView_product_ivapricecoin);
     	tv.setText(coin);
     	
@@ -483,7 +485,7 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
     		
     		// set discount
     		tv = (TextView) findViewById(R.id.textView_product_discounttxt);
-    		CharSequence discountTxt = getResources().getString(R.string.product_discount);
+    		CharSequence discountTxt = getResources().getString(R.string.product_discount) + ":";
     		Double discountMoney;
     		if (tax.getDiscountType() == Tax.DISCOUNT_PERCENT) {
     			discountTxt = discountTxt + " (-" + df.format(tax.getDiscount()) + "%):";
@@ -878,12 +880,11 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 	public void onClickRelatedProduct(View v) {
 		// get related product
 		ViewGroup vg = (ViewGroup) v.getParent();
-		int pos = vg.indexOfChild(v);
-		Product relatedProduct = product.getRelatedProducts().get(pos);
+		int idProductTag = (int) vg.getTag();
 		
 		// go to product activity
 		Intent i = new Intent(getBaseContext(), ProductActivity.class);
-		i.putExtra("idProduct", relatedProduct.getIdProduct());
+		i.putExtra("idProduct", idProductTag);
 		startActivity(i);
 	}
 	

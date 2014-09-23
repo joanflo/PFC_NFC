@@ -3,7 +3,6 @@ package com.joanflo.controllers;
 import java.util.Iterator;
 import java.util.List;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
 import android.widget.Toast;
@@ -11,6 +10,7 @@ import com.joanflo.models.Country;
 import com.joanflo.models.Product;
 import com.joanflo.models.PurchaseDetail;
 import com.joanflo.models.Tax;
+import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.ProductActivity;
 import com.joanflo.tagit.ProductListActivity;
@@ -34,6 +34,9 @@ public class TaxesController {
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
+			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
+				throw new Exception();
+			}
 			
 			if (route.matches("taxes")) {
 				// GET <URLbase>/taxes?idProduct={idProduct}&countryName={countryName}
@@ -60,8 +63,9 @@ public class TaxesController {
 				}
 			}
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			activity.finish();
 		}
 	}
 	

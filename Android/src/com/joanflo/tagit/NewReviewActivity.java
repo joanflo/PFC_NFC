@@ -31,6 +31,7 @@ public class NewReviewActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_newreview);
+		super.setTitle(R.string.title_createreview);
 		
 		// get product data
         Bundle bundle = getIntent().getExtras();

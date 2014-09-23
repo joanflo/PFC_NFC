@@ -40,6 +40,9 @@ public class ProductsController {
 		String lang = LocalStorage.getInstance().getLocaleLanguage(activity);
 		
 		try {
+			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
+				throw new Exception();
+			}
 			
 			if (route.matches("products")) {
 				// GET <URLbase>/products?queryName={queryName}
@@ -154,8 +157,9 @@ public class ProductsController {
 				
 			}
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			activity.finish();
 		}
 	}
 	

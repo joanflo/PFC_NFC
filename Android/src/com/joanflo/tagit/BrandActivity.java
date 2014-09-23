@@ -30,6 +30,7 @@ public class BrandActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_brand);
+		super.setTitle(R.string.title_brand);
 		
         
         // update selected item and title, then close the drawer

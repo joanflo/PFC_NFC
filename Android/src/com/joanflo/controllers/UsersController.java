@@ -15,6 +15,7 @@ import com.joanflo.models.User;
 import com.joanflo.models.Wish;
 import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
+import com.joanflo.tagit.BaseActivity;
 import com.joanflo.tagit.FollowsListActivity;
 import com.joanflo.tagit.HomeActivity;
 import com.joanflo.tagit.LoginActivity;
@@ -49,6 +50,10 @@ public class UsersController {
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
+			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
+				throw new Exception();
+			}
+			
 			// get language code
 			String lang = LocalStorage.getInstance().getLocaleLanguage(activity);
 			
@@ -462,7 +467,7 @@ public class UsersController {
 				// GET <URLbase>/users/{userEmail}/achievements
 				if (jArray != null) {
 					// list of achievements
-					List<Achievement> achievements = processAchievements(jArray);
+					List<Achievement> achievements = processAchievements(jArray, lang);
 					
 					if (activity instanceof UserProfileActivity) {
 						UserProfileActivity userProfileActivity = (UserProfileActivity) activity;
@@ -472,9 +477,12 @@ public class UsersController {
 				// POST <URLbase>/users/{userEmail}/achievements?badgeName={badgeName}
 				if (jObject != null) {
 					// achievement
-					//Achievement achievement = new Achievement(jObject);
+					Achievement achievement = new Achievement(jObject, lang);
 					
-					// TODO
+					if (activity instanceof BaseActivity) {
+						BaseActivity baseActivity = (BaseActivity) activity;
+						baseActivity.achievementCreated(achievement);
+					}
 				}
 				
 			} else if (route.matches("users/" + Regex.SPECIAL_TEXT + "/achievements/" + Regex.INTEGER)) {
@@ -487,8 +495,9 @@ public class UsersController {
 				}
 			}
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			activity.finish();
 		}
 	}
 	
@@ -895,14 +904,14 @@ public class UsersController {
 	
 	
 	
-	private List<Achievement> processAchievements(JSONArray jAchievements) throws JSONException {
+	private List<Achievement> processAchievements(JSONArray jAchievements, String lang) throws JSONException {
 		List<Achievement> achievements = new ArrayList<Achievement>(jAchievements.length());
 		
 		// for each achievement JSON object
 		for (int i = 0; i < jAchievements.length(); i++) {
 			// create Achievement model from JSON object
 			JSONObject jAchievement = jAchievements.getJSONObject(i);
-			Achievement achievement = new Achievement(jAchievement);
+			Achievement achievement = new Achievement(jAchievement, lang);
 			achievements.add(achievement);
 		}
 		

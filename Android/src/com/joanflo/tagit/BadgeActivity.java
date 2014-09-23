@@ -24,6 +24,7 @@ public class BadgeActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_badge);
+		super.setTitle(R.string.title_badge);
 		
         
         // get extras

@@ -10,6 +10,7 @@ public class HttpStatusCode {
 	// Client Error
 	public static final int BAD_REQUEST = 400;
 	public static final int NOT_FOUND = 404;
+	public static final int REQUEST_TIMEOUT = 408;
 	
 	// Server Error
 	public static final int INTERNAL_SERVER_ERROR = 500;

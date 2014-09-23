@@ -45,6 +45,7 @@ public class FollowsListActivity extends BaseActivity implements Button.OnClickL
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_followslist);
+		super.setTitle(R.string.title_follows);
 		
         
         // get info from last activity

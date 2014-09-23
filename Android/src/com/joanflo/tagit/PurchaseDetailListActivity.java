@@ -76,6 +76,7 @@ public class PurchaseDetailListActivity extends BaseActivity implements Button.O
         	controller.getCartPurchase(userEmail);
         	
         } else {
+    		super.setTitle(R.string.title_purchasedetaillist);
         	// view finished purchase
         	int purchaseId = bundle.getInt("purchaseId");
         	// call web service

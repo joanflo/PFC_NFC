@@ -26,6 +26,7 @@ public class BadgeListActivity extends BaseActivity implements OnItemClickListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_badgelist);
+		super.setTitle(R.string.title_badgelist);
 		
         super.showProgressBar(true);
         // call web service

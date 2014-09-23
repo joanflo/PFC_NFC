@@ -38,12 +38,16 @@ public class Achievement {
 		this.date = new java.sql.Timestamp(time);
 	}
 	
-	public Achievement(JSONObject jAchievement) throws JSONException {
+	public Achievement(JSONObject jAchievement, String lang) throws JSONException {
 		// id achievement
 		this.idAchievement = jAchievement.getInt("idAchievement");
 		// badge
 		String badgeName = jAchievement.getString("badgeName");
 		this.badge = new Badge(badgeName, "");
+		if (jAchievement.has("description_" + lang)) {
+			String description = jAchievement.getString("description_" + lang);
+			this.badge.setDescription(description);
+		}
 		// user
 		String userEmail = jAchievement.getString("userEmail");
 		this.user = new User(userEmail, null, null, "", "", "", 0, "", "", "");

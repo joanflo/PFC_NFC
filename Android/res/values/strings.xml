@@ -24,6 +24,20 @@
         <item >My wishlist</item>
     </string-array>
     
+    <!-- activities titles -->
+    <string name="title_shop">Shop</string>
+    <string name="title_point">Points</string>
+    <string name="title_follows">Friendships</string>
+    <string name="title_userdata">User data</string>
+    <string name="title_badge">Badge detail</string>
+    <string name="title_badgelist">Badges list</string>
+    <string name="title_reviewlist">Reviews list</string>
+    <string name="title_purchaselist">Purchase history</string>
+    <string name="title_purchasedetaillist">Purchase details</string>
+    <string name="title_product">Product</string>
+    <string name="title_brand">Brand detail</string>
+    <string name="title_createreview">Create review</string>
+    
     <!-- Nav Drawer List Item Icons -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>

@@ -35,6 +35,7 @@ public class UpdateUserDataActivity extends BaseActivity implements OnItemSelect
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_updateuserdata);
+		super.setTitle(R.string.title_userdata);
 		
         prepareInfoSection();
         

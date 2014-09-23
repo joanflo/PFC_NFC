@@ -68,7 +68,8 @@ class UsersController extends BaseController {
 		} else {
 			// create user
 			$user = new User();
-			//$user->userEmail = $userEmail;
+			$user->userEmail = $userEmail;
+			$user->userEmail = $userEmail;
 			$user->password = $password;
 			$user->cityName = Input::get('cityName');
 			$user->languageName = Input::get('languageName');
@@ -414,7 +415,9 @@ class UsersController extends BaseController {
 		$idAchievement = Achievement::insertGetId(
 			array('userEmail' => $userEmail, 'badgeName' => $badgeName, 'date' => \Carbon\Carbon::now()->toDateTimeString())
 		);
-		$achievement = Achievement::find($idAchievement);
+		$achievement = Achievement::join('Badge', 'Achievement.badgeName', '=', 'Badge.badgeName')
+								  ->where('idAchievement' , '=', $idAchievement)
+								  ->get()[0];
 		return Response::json($achievement, 201);
     }
  

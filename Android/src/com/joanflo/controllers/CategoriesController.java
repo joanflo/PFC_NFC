@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.widget.Toast;
 import com.joanflo.models.Category;
 import com.joanflo.models.ProductBelongsCategory;
+import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.CategoryListActivity;
 import com.joanflo.tagit.ProductListActivity;
@@ -35,6 +36,9 @@ public class CategoriesController {
 		String lang = LocalStorage.getInstance().getLocaleLanguage(activity);
 		
 		try {
+			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
+				throw new Exception();
+			}
 			List<Category> categories;
 			
 			if (route.matches("categories")) {
@@ -90,8 +94,9 @@ public class CategoriesController {
 				
 			}
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			activity.finish();
 		}
 	}
 	

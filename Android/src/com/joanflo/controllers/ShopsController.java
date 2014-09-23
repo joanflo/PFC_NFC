@@ -32,6 +32,9 @@ public class ShopsController {
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
+			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
+				throw new Exception();
+			}
 			
 			if (route.matches("shops")) {
 				// GET <URLbase>/shops?cityName={cityName}
@@ -71,8 +74,9 @@ public class ShopsController {
 				}
 			}
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			activity.finish();
 		}
 	}
 	

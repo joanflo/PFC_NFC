@@ -1,6 +1,16 @@
 package com.joanflo.utils;
 
+import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.joanflo.models.Badge;
+import com.joanflo.tagit.R;
 
 public class Gamification {
 
@@ -55,6 +65,37 @@ public class Gamification {
 	public static final int BADGE_100FOLLOWERS = 10;
 	public static final int BADGE_1PURCHASE = 11;
 	public static final int BADGE_10PURCHASES = 12;
+	
+	
+	
+	public static void showToastBadge(Activity activity, CharSequence badgeName, CharSequence description, CharSequence date) {
+		// inflate toast layout
+		LayoutInflater inflater = activity.getLayoutInflater();
+		ViewGroup vg = (ViewGroup) activity.findViewById(R.id.toast_layout_root);
+		View layout = inflater.inflate(R.layout.toast_achievement, vg);
+
+		// set image
+		ImageView iv = (ImageView) layout.findViewById(R.id.imageView_toastachievement_image);
+		Drawable d = AssetsUtils.getImageFromAssets(activity, AssetsUtils.BADGES_DIRECTORY, String.valueOf(badgeName));
+		iv.setImageDrawable(d);
+		iv.setContentDescription(date);
+		
+		// set title
+		TextView tv = (TextView) layout.findViewById(R.id.textView_toastachievement_badgename);
+		tv.setText(badgeName);
+		
+		// set description
+		tv = (TextView) layout.findViewById(R.id.textView_toastachievement_description);
+		tv.setText(description);
+		
+		// create toast
+		Toast toast = new Toast(activity.getApplicationContext());
+		int height = activity.getActionBar().getHeight();
+		toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, height + 50);
+		toast.setDuration(Toast.LENGTH_LONG);
+		toast.setView(layout);
+		toast.show();
+	}
 	
 	
 	public static Badge getBadge(int event) {

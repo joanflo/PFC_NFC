@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.joanflo.models.City;
 import com.joanflo.models.Country;
 import com.joanflo.models.Region;
+import com.joanflo.network.HttpStatusCode;
 import com.joanflo.network.RESTClient;
 import com.joanflo.tagit.R;
 import com.joanflo.tagit.RegistrationActivity;
@@ -33,6 +34,9 @@ public class CountriesController {
 	
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
+			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
+				throw new Exception();
+			}
 			
 			if (route.matches("countries")) {
 				// GET <URLbase>/countries
@@ -88,8 +92,9 @@ public class CountriesController {
 				}
 			}
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			activity.finish();
 		}
 	}
 	

@@ -33,6 +33,7 @@ public class ShopActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_shop);
+		super.setTitle(R.string.title_shop);
 		
         
         // update selected item and title, then close the drawer

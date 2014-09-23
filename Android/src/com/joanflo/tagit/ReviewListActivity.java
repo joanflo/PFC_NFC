@@ -44,6 +44,7 @@ public class ReviewListActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_reviewlist);
+		super.setTitle(R.string.title_reviewlist);
 		
         
         // get extras

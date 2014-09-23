@@ -14,6 +14,7 @@ public class PointsActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setFrameContainerView(R.layout.activity_points);
+		super.setTitle(R.string.title_point);
 		
         
         preparePointsSection();

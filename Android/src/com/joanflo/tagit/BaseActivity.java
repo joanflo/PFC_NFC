@@ -3,7 +3,14 @@ package com.joanflo.tagit;
 import java.util.ArrayList;
 import com.joanflo.adapters.NavigationDrawerListAdapter;
 import com.joanflo.adapters.NavigationDrawerListItem;
+import com.joanflo.controllers.UsersController;
+import com.joanflo.models.Achievement;
+import com.joanflo.models.Badge;
+import com.joanflo.models.User;
+import com.joanflo.utils.Gamification;
 import com.joanflo.utils.LocalStorage;
+import com.joanflo.utils.Time;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -413,6 +420,33 @@ public class BaseActivity extends Activity {
         CharSequence userEmail = LocalStorage.getInstance().getUserEmail(this);
         i.putExtra("userEmail", userEmail);
 		startActivity(i);
+    }
+    
+    
+    
+    protected void createAchievement(int event) {
+    	LocalStorage storage = LocalStorage.getInstance();
+    	if (storage.isUserLoged(this)) {
+	    	// creacte achievement
+	    	Badge badge = Gamification.getBadge(event);
+	    	User user = storage.getUser(this);
+	    	Achievement achievement = new Achievement(badge, user);
+	    	// call web service
+	    	UsersController controller = new UsersController(this);
+	    	controller.createAchievement(achievement);
+    	}
+    }
+    
+    
+    
+    public void achievementCreated(Achievement achievement) {
+		// get data
+		Badge badge = achievement.getBadge();
+		CharSequence badgeName = badge.getBadgeName();
+		CharSequence description = badge.getDescription();
+		CharSequence date = Time.convertTimestampToString(achievement.getDate());
+		// show toast
+		Gamification.showToastBadge(this, badgeName, description, date);
     }
     
     

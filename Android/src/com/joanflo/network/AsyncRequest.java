@@ -14,6 +14,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,8 +61,13 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 			}
 			
 			try {
-				// execute request
+				// set the connection timeout value to 10 seconds
 				HttpClient httpClient = new DefaultHttpClient();
+				final HttpParams httpParams = httpClient.getParams();
+				HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
+				HttpConnectionParams.setSoTimeout(httpParams, 5000);
+				
+				// execute request
 				HttpResponse httpResponse = httpClient.execute(httpMethod);
 				
 				// get status code
@@ -109,10 +116,10 @@ public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 					infoResponses[i] = new InfoResponse(controller, uri, statusCode);
 				}
 				
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
+			} catch (IOException | JSONException e) {
+				// error
+				Object controller = infoRequests[i].getController();
+				infoResponses[i] = new InfoResponse(controller, uri, HttpStatusCode.REQUEST_TIMEOUT);
 			}
 		}
 		return infoResponses;
