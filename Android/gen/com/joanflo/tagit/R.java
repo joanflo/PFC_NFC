@@ -10,15 +10,19 @@ package com.joanflo.tagit;
 public final class R {
     public static final class array {
         /**  Nav Drawer List Item Icons 
+ Nav Drawer List Item Icons 
          */
         public static final int nav_drawer_icons=0x7f0b0001;
         /**  Nav Drawer Menu Items 
+ Nav Drawer Menu Items 
          */
         public static final int nav_drawer_items=0x7f0b0000;
         /**  Nav Spinner List Item Icons 
+ Nav Spinner List Item Icons 
          */
         public static final int nav_spinner_icons=0x7f0b0003;
         /**  Nav Spinner Menu Items 
+ Nav Spinner Menu Items 
          */
         public static final int nav_spinner_items=0x7f0b0002;
         public static final int points_descriptions=0x7f0b0004;
@@ -492,11 +496,11 @@ containing a value of this type.
         public static final int toast_bg=0x7f02005c;
     }
     public static final class id {
-        public static final int action_help=0x7f08016d;
-        public static final int action_logout=0x7f08016f;
-        public static final int action_review=0x7f08016c;
-        public static final int action_settings=0x7f08016e;
-        public static final int action_share=0x7f08016b;
+        public static final int action_help=0x7f080172;
+        public static final int action_logout=0x7f080174;
+        public static final int action_review=0x7f080171;
+        public static final int action_settings=0x7f080173;
+        public static final int action_share=0x7f080170;
         public static final int aux1=0x7f0800b7;
         public static final int aux10=0x7f08011e;
         public static final int aux11=0x7f080122;
@@ -633,6 +637,7 @@ containing a value of this type.
         public static final int linearLayout1=0x7f080049;
         public static final int linearLayout_product_colors=0x7f080096;
         public static final int linearLayout_product_sizes=0x7f080097;
+        public static final int linearLayout_toastpoints=0x7f08016b;
         public static final int linearLayout_updateuserdata_languageage=0x7f080105;
         public static final int linearLayout_updateuserdata_location=0x7f080101;
         public static final int linearLayout_userprofile_directionphone=0x7f08012d;
@@ -705,7 +710,7 @@ containing a value of this type.
         public static final int shop_map=0x7f0800eb;
         public static final int shopselection_map=0x7f0800f7;
         public static final int slider_product=0x7f0800b1;
-        public static final int spin_refresh=0x7f08016a;
+        public static final int spin_refresh=0x7f08016f;
         public static final int spinner_productsearch_brand=0x7f0800c1;
         public static final int spinner_productsearch_category=0x7f0800c2;
         public static final int spinner_registration_city=0x7f0800da;
@@ -827,6 +832,9 @@ containing a value of this type.
         public static final int textView_title_password=0x7f080067;
         public static final int textView_toastachievement_badgename=0x7f080168;
         public static final int textView_toastachievement_description=0x7f080169;
+        public static final int textView_toastpoints_description=0x7f08016c;
+        public static final int textView_toastpoints_newpoints=0x7f08016e;
+        public static final int textView_toastpoints_totalpoints=0x7f08016d;
         public static final int textView_totalprice=0x7f080146;
         public static final int textView_totalprice_coin=0x7f080147;
         public static final int textView_updateuserdata_direction=0x7f08010e;
@@ -857,7 +865,8 @@ containing a value of this type.
         public static final int title_currentshop_home=0x7f08003b;
         public static final int title_product_info=0x7f080088;
         public static final int title_shop_shopselected=0x7f0800ed;
-        public static final int toast_layout_root=0x7f080166;
+        public static final int toast_layout_achievement=0x7f080166;
+        public static final int toast_layout_points=0x7f08016a;
         public static final int until_coin=0x7f0800bf;
         public static final int wrap_content=0x7f08000d;
     }
@@ -902,6 +911,7 @@ containing a value of this type.
         public static final int list_item_shop=0x7f030022;
         public static final int list_item_wish=0x7f030023;
         public static final int toast_achievement=0x7f030024;
+        public static final int toast_points=0x7f030025;
     }
     public static final class menu {
         public static final int home=0x7f0c0000;
@@ -912,11 +922,13 @@ containing a value of this type.
         public static final int action_review=0x7f07001d;
         public static final int action_settings=0x7f07001f;
         /**  action bar menu 
+ action bar menu 
          */
         public static final int action_share=0x7f07001c;
         public static final int age=0x7f07004c;
         public static final int age2=0x7f07004d;
         /**  default values in lists 
+ default values in lists 
          */
         public static final int all_brands=0x7f07002d;
         public static final int all_categories=0x7f07002e;
@@ -936,6 +948,7 @@ containing a value of this type.
         public static final int button_password=0x7f070095;
         public static final int button_pickshop=0x7f07008a;
         /**  buttons 
+ buttons 
          */
         public static final int button_profile=0x7f070087;
         public static final int button_removecart=0x7f0700a5;
@@ -1050,6 +1063,7 @@ containing a value of this type.
         public static final int country_name2=0x7f070043;
         public static final int currentshop_text=0x7f070038;
         /**  Content Description 
+ Content Description 
          */
         public static final int desc_list_item_icon=0x7f070030;
         public static final int description_empty_image=0x7f070033;
@@ -1068,6 +1082,7 @@ containing a value of this type.
         public static final int name2=0x7f070049;
         public static final int new_password=0x7f070050;
         /**  NFC instructions 
+ NFC instructions 
          */
         public static final int nfc_beam=0x7f0700a9;
         public static final int nfc_settings=0x7f0700aa;
@@ -1079,6 +1094,7 @@ containing a value of this type.
         public static final int number10=0x7f0700a7;
         public static final int number20=0x7f0700a8;
         /**  points 
+ points 
          */
         public static final int number5=0x7f0700a6;
         public static final int old_password=0x7f07004f;
@@ -1131,6 +1147,7 @@ containing a value of this type.
         public static final int title_home_mycart=0x7f070073;
         public static final int title_home_mywishlist=0x7f070074;
         /**  titles 
+ titles 
          */
         public static final int title_home_search=0x7f070071;
         public static final int title_home_shop=0x7f070072;
@@ -1152,41 +1169,44 @@ containing a value of this type.
         public static final int title_purchaselist=0x7f070028;
         public static final int title_reviewlist=0x7f070027;
         /**  activities titles 
+ activities titles 
          */
         public static final int title_shop=0x7f070021;
         public static final int title_signin=0x7f070075;
         public static final int title_updatepersonalinfo=0x7f07007e;
         public static final int title_userdata=0x7f070024;
-        public static final int toast_deleteitem=0x7f0700ba;
-        public static final int toast_gps=0x7f0700c3;
-        public static final int toast_login=0x7f0700bf;
-        public static final int toast_loginfields=0x7f0700be;
-        public static final int toast_password=0x7f0700c0;
-        public static final int toast_password2=0x7f0700c1;
-        public static final int toast_problem_creatingreview=0x7f0700b3;
-        public static final int toast_problem_creatinguser=0x7f0700b1;
-        public static final int toast_problem_creatingwish=0x7f0700b9;
-        public static final int toast_problem_deleteitem=0x7f0700b6;
-        public static final int toast_problem_empty=0x7f0700b4;
-        public static final int toast_problem_productaddedcart=0x7f0700b8;
-        public static final int toast_problem_productnfc=0x7f0700b5;
+        public static final int toast_deleteitem=0x7f0700bb;
+        public static final int toast_gps=0x7f0700c4;
+        public static final int toast_login=0x7f0700c0;
+        public static final int toast_loginfields=0x7f0700bf;
+        public static final int toast_password=0x7f0700c1;
+        public static final int toast_password2=0x7f0700c2;
+        public static final int toast_problem_creatingreview=0x7f0700b4;
+        public static final int toast_problem_creatinguser=0x7f0700b2;
+        public static final int toast_problem_creatingwish=0x7f0700ba;
+        public static final int toast_problem_deleteitem=0x7f0700b7;
+        public static final int toast_problem_empty=0x7f0700b5;
+        public static final int toast_problem_internetconnection=0x7f0700b1;
+        public static final int toast_problem_productaddedcart=0x7f0700b9;
+        public static final int toast_problem_productnfc=0x7f0700b6;
         public static final int toast_problem_request=0x7f0700b0;
         public static final int toast_problem_shop=0x7f0700af;
-        public static final int toast_problem_updatinguser=0x7f0700b2;
-        public static final int toast_problem_wishadded=0x7f0700b7;
-        public static final int toast_productaddedcart=0x7f0700bc;
-        public static final int toast_productaddedwish=0x7f0700bd;
-        public static final int toast_profile=0x7f0700c2;
-        public static final int toast_registration=0x7f0700c5;
+        public static final int toast_problem_updatinguser=0x7f0700b3;
+        public static final int toast_problem_wishadded=0x7f0700b8;
+        public static final int toast_productaddedcart=0x7f0700bd;
+        public static final int toast_productaddedwish=0x7f0700be;
+        public static final int toast_profile=0x7f0700c3;
+        public static final int toast_registration=0x7f0700c6;
         /**  toast messages 
+ toast messages 
          */
         public static final int toast_requiredfields1=0x7f0700ac;
         public static final int toast_requiredfields2=0x7f0700ad;
         public static final int toast_requiredfields3=0x7f0700ae;
-        public static final int toast_reviewcreated=0x7f0700c7;
-        public static final int toast_shopselected=0x7f0700c4;
-        public static final int toast_userupdated=0x7f0700c6;
-        public static final int toast_wishadded=0x7f0700bb;
+        public static final int toast_reviewcreated=0x7f0700c8;
+        public static final int toast_shopselected=0x7f0700c5;
+        public static final int toast_userupdated=0x7f0700c7;
+        public static final int toast_wishadded=0x7f0700bc;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
@@ -1233,10 +1253,10 @@ containing a value of this type.
         public static final int b=0x7f05000f;
         /**  buttons 
          */
-        public static final int button1=0x7f050014;
-        public static final int button2=0x7f050015;
-        public static final int counter1=0x7f050017;
-        public static final int edittext1=0x7f050019;
+        public static final int button1=0x7f050015;
+        public static final int button2=0x7f050016;
+        public static final int counter1=0x7f050018;
+        public static final int edittext1=0x7f05001a;
         /**  texts 
          */
         public static final int h1=0x7f05000c;
@@ -1249,21 +1269,22 @@ containing a value of this type.
         public static final int layout1=0x7f05000b;
         /**  others 
          */
-        public static final int list1=0x7f050016;
+        public static final int list1=0x7f050017;
         public static final int p=0x7f05000e;
-        public static final int ratingbar1=0x7f05001b;
-        public static final int search1=0x7f050018;
+        public static final int ratingbar1=0x7f05001c;
+        public static final int search1=0x7f050019;
         /**  OWN STYLES 
  sections 
          */
         public static final int section1=0x7f050007;
         public static final int section2=0x7f050008;
         public static final int section3=0x7f050009;
-        public static final int spinner1=0x7f05001a;
+        public static final int spinner1=0x7f05001b;
         public static final int title=0x7f05000a;
         /**  toast 
          */
-        public static final int toast=0x7f050013;
+        public static final int toast1=0x7f050013;
+        public static final int toast2=0x7f050014;
     }
     public static final class xml {
         public static final int searchable=0x7f040000;

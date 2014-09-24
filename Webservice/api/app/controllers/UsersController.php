@@ -34,6 +34,7 @@ class UsersController extends BaseController {
         // PUT <URLbase>/users/{userEmail}?password={password}&oldPassword={oldPassword}
         // PUT <URLbase>/users/{userEmail}?cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
         // PUT <URLbase>/users/{userEmail}?password={password}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
+        // PUT <URLbase>/users/{userEmail}?points={points}
         
         // check if user exists
         $user = User::where('userEmail', '=', $userEmail)->get();
@@ -41,7 +42,12 @@ class UsersController extends BaseController {
 		if (count($user) != 0) {
 			$user = $user[0];
 			// update user
-			if ($password && !Input::get('nick')) {
+			if (Input::get('points')) {
+				$user->points += Input::get('points');
+				$user->save();
+				return array('points' => $user);
+				
+			} else if ($password && !Input::get('nick')) {
 				// update user's password
 				$oldPassword = Input::get('oldPassword');
 				if ($user->password == $oldPassword) {

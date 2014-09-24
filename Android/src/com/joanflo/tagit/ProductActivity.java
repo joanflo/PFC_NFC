@@ -84,7 +84,7 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
         	idProduct = NFC.retrieveData(intent);
         	if (idProduct == NFC.PARSING_ERROR) {
         		Toast.makeText(this, R.string.toast_problem_productnfc, Toast.LENGTH_LONG).show();
-        		return;
+        		finish();
         	}
         } else {
         	Bundle bundle = intent.getExtras();

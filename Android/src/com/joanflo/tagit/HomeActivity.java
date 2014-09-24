@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.joanflo.controllers.UsersController;
 import com.joanflo.models.Purchase;
 import com.joanflo.models.User;
-import com.joanflo.utils.Gamification;
 import com.joanflo.utils.LocalStorage;
 
 
@@ -44,14 +43,6 @@ public class HomeActivity extends BaseActivity {
         	pos = bundle.getInt("drawerPosition");
         }
         super.updateSelected(pos);
-        
-        
-        
-        
-        super.createAchievement(Gamification.BADGE_10SHARES);
-        
-        
-        
         
         // load user data if isn't available locally
         if (bundle != null) {

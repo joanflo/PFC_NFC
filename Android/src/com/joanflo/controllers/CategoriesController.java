@@ -95,7 +95,11 @@ public class CategoriesController {
 			}
 			
 		} catch (Exception e) {
-			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			if (!RESTClient.isOnline(activity)) {
+				Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_internetconnection), Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			}
 			activity.finish();
 		}
 	}

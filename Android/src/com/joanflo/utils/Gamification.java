@@ -49,6 +49,66 @@ public class Gamification {
 		
 		return points;
 	}
+	
+	
+	public static CharSequence getPointsDescription(Activity activity, int event) {
+		String[] descriptions = activity.getResources().getStringArray(R.array.points_descriptions);
+		CharSequence description = "";
+		
+		switch (event) {
+		case POINTS_NEWBIE:
+			description = descriptions[0];
+			break;
+		case POINTS_SHARE_NFC:
+			description = descriptions[1];
+			break;
+		case POINTS_SHARE_SOCIAL_NETWORKS:
+			description = descriptions[2];
+			break;
+		case POINTS_REVIEW_PRODUCT:
+			description = descriptions[3];
+			break;
+		case POINTS_BUY_PRODUCT:
+			description = descriptions[4];
+			break;
+		case POINTS_OPEN_APP:
+			description = descriptions[5];
+			break;
+		}
+		
+		return description;
+	}
+	
+	
+	
+	public static void showToastPoints(Activity activity, int newPoints, int totalPoints, CharSequence description) {
+		// inflate toast layout
+		LayoutInflater inflater = activity.getLayoutInflater();
+		ViewGroup vg = (ViewGroup) activity.findViewById(R.id.toast_layout_points);
+		View layout = inflater.inflate(R.layout.toast_points, vg);
+		
+		// set new points
+		TextView tv = (TextView) layout.findViewById(R.id.textView_toastpoints_newpoints);
+		CharSequence newPointsTxt = "+" + String.valueOf(newPoints) + " " + activity.getResources().getString(R.string.title_point);
+		tv.setText(newPointsTxt);
+		
+		// set total points
+		tv = (TextView) layout.findViewById(R.id.textView_toastpoints_totalpoints);
+		CharSequence totalPointsTxt = String.valueOf(totalPoints);
+		tv.setText(totalPointsTxt);
+
+		// set description
+		tv = (TextView) layout.findViewById(R.id.textView_toastpoints_description);
+		tv.setText(description);
+		
+		// create toast
+		Toast toast = new Toast(activity.getApplicationContext());
+		int height = activity.getActionBar().getHeight();
+		toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, height + 50);
+		toast.setDuration(Toast.LENGTH_LONG);
+		toast.setView(layout);
+		toast.show();
+	}
 
 	
 	
@@ -71,7 +131,7 @@ public class Gamification {
 	public static void showToastBadge(Activity activity, CharSequence badgeName, CharSequence description, CharSequence date) {
 		// inflate toast layout
 		LayoutInflater inflater = activity.getLayoutInflater();
-		ViewGroup vg = (ViewGroup) activity.findViewById(R.id.toast_layout_root);
+		ViewGroup vg = (ViewGroup) activity.findViewById(R.id.toast_layout_achievement);
 		View layout = inflater.inflate(R.layout.toast_achievement, vg);
 
 		// set image

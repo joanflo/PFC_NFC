@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toast_layout_points"
+    style="@style/toast2" >
+    
+    <LinearLayout
+        android:id="@+id/linearLayout_toastpoints"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="52dp"
+        android:layout_marginLeft="80dp"
+        android:background="@color/grey_light"
+        android:padding="4dp" >
+        
+        <TextView
+	        android:id="@+id/textView_toastpoints_description"
+	        style="@style/p"
+	        android:textSize="12sp"
+	        android:textColor="@color/main_white" />
+        
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_toastpoints_totalpoints"
+        style="@style/counter1"
+        android:layout_alignBottom="@+id/linearLayout_toastpoints"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:id="@+id/textView_toastpoints_newpoints"
+        style="@style/b"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/main_white" />
+    
+</RelativeLayout>

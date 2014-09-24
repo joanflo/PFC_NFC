@@ -64,11 +64,21 @@ public class UsersController {
 				// PUT <URLbase>/users/{userEmail}?password={password}&cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
 				// PUT <URLbase>/users/{userEmail}?cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
 				// PUT <URLbase>/users/{userEmail}?password={password}
+				// PUT <URLbase>/users/{userEmail}?points={points}
 				if (jObject != null) {
 					// user
-					User user = new User(jObject);
+					User user;
+					if (jObject.has("points")) {
+						user = new User(jObject.getJSONObject("points"));
+					} else {
+						user = new User(jObject);
+					}
 					
-					if (activity instanceof LoginActivity) {
+					if (jObject.has("points")) {
+						BaseActivity baseActivity = (BaseActivity) activity;
+						baseActivity.userPointsUpdated(user.getPoints());
+						
+					} else if (activity instanceof LoginActivity) {
 						LoginActivity loginActivity = (LoginActivity) activity;
 						boolean successful = loginActivity.loginReceived(decryptPassword(user));
 						// successful login?
@@ -96,6 +106,7 @@ public class UsersController {
 					} else if (activity instanceof UpdateUserDataActivity) {
 						UpdateUserDataActivity updateUserDataActivity = (UpdateUserDataActivity) activity;
 						updateUserDataActivity.userUpdated(user);
+						
 					}
 					
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
@@ -496,7 +507,11 @@ public class UsersController {
 			}
 			
 		} catch (Exception e) {
-			Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			if (!RESTClient.isOnline(activity)) {
+				Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_internetconnection), Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(activity, activity.getResources().getString(R.string.toast_problem_request), Toast.LENGTH_SHORT).show();
+			}
 			activity.finish();
 		}
 	}
@@ -543,6 +558,18 @@ public class UsersController {
 	public void updateUserData(User user) {
 		// PUT <URLbase>/users/{userEmail}?cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
 		client.updateUserData(this, user);
+	}
+	
+	
+	
+	/**
+	 * Update points
+	 * @param userEmail
+	 * @param points
+	 */
+	public void updatePoints(CharSequence userEmail, int points) {
+		// PUT <URLbase>/users/{userEmail}?points={points}
+		client.updatePoints(this, userEmail, points);
 	}
 	
 	

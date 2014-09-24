@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.joanflo.controllers.BadgesController;
 import com.joanflo.controllers.BatchesController;
 import com.joanflo.controllers.BrandsController;
@@ -504,6 +510,20 @@ public class RESTClient implements AsyncResponse {
 		CharSequence direction = user.getDirection();
 		// PUT <URLbase>/users/{userEmail}?cityName={cityName}&languageName={languageName}&nick={nick}&name={name}&surname={surname}&age={age}&phone={phone}&direction={direction}
 		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + "users/" + userEmail + "?cityName=" + cityName + "&languageName=" + languageName + "&nick=" + nick + "&name=" + name + "&surname=" + surname + "&age=" + age + "&phone=" + phone + "&direction=" + direction);
+		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Update points
+	 * @param controller
+	 * @param userEmail
+	 * @param points
+	 */
+	public void updatePoints(UsersController controller, CharSequence userEmail, int points) {
+		// PUT <URLbase>/users/{userEmail}?points={points}
+		InfoRequest info = new InfoRequest(controller, HttpMethod.PUT, HOST + "users/" + userEmail + "?points=" + points);
 		new AsyncRequest(this).execute(info);
 	}
 	
@@ -1060,6 +1080,22 @@ public class RESTClient implements AsyncResponse {
 		// GET <URLbase>/products/{idProduct}/related_products
 		InfoRequest info = new InfoRequest(controller, HttpMethod.GET, HOST + "products/" + idProduct + "/related_products");
 		new AsyncRequest(this).execute(info);
+	}
+	
+	
+	
+	/**
+	 * Checks connection availability
+	 * @param activity
+	 * @return
+	 */
+	public static boolean isOnline(Activity activity) {
+	    ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
 	}
 	
 	

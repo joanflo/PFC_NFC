@@ -56,7 +56,8 @@
         android:layout_below="@+id/layout_purchaseinfo"
 	    style="@style/list1"
     	android:choiceMode="singleChoice" 
-        android:listSelector="@color/main_red" >
+        android:listSelector="@color/main_red"
+    	android:animateLayoutChanges="true" >
         
     </ListView>
     

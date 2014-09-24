@@ -60,6 +60,8 @@ public class BaseActivity extends Activity {
     // 0..5 ListView item selected
     private int currentPosition = NO_CURRENT_POSITION;
     
+    private int gamificationEvent;
+    
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -395,14 +397,12 @@ public class BaseActivity extends Activity {
     
     
     protected void viewProfile() {
-    	if (currentPosition != PROFILE) {
-			Intent i = new Intent(this, UserProfileActivity.class);
-			currentPosition = PROFILE;
-	        i.putExtra("drawerPosition", currentPosition);
-			startActivity(i);
-    	} else {
-    		mDrawerLayout.closeDrawer(mDrawerLinearLayout);
-    	}
+		mDrawerLayout.closeDrawer(mDrawerLinearLayout);
+		currentPosition = PROFILE;
+		// intent
+		Intent i = new Intent(this, UserProfileActivity.class);
+        i.putExtra("drawerPosition", currentPosition);
+		startActivity(i);
     }
     
     
@@ -447,6 +447,38 @@ public class BaseActivity extends Activity {
 		CharSequence date = Time.convertTimestampToString(achievement.getDate());
 		// show toast
 		Gamification.showToastBadge(this, badgeName, description, date);
+    }
+    
+    
+    
+    protected void updateUserPoints(int event) {
+    	this.gamificationEvent = event;
+    	LocalStorage storage = LocalStorage.getInstance();
+    	if (storage.isUserLoged(this)) {
+	    	// get data
+    		int points = Gamification.getPoints(event);
+	    	CharSequence userEmail = storage.getUserEmail(this);
+	    	// call web service
+	    	UsersController controller = new UsersController(this);
+	    	controller.updatePoints(userEmail, points);
+    	}
+    }
+    
+    
+    
+    public void userPointsUpdated(int points) {
+		// update local data
+    	LocalStorage storage = LocalStorage.getInstance();
+    	User user = storage.getUser(this);
+    	user.setPoints(points);
+    	storage.saveUser(this, user);
+    	// refresh GUI
+		TextView tv = (TextView) findViewById(R.id.profile_pointsnumber_drawer);
+		tv.setText(String.valueOf(points));
+		// show toast
+		int newPoints = Gamification.getPoints(gamificationEvent);
+		CharSequence description = Gamification.getPointsDescription(this, gamificationEvent);
+		Gamification.showToastPoints(this, newPoints, points, description);
     }
     
     

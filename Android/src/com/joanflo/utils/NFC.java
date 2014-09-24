@@ -2,12 +2,14 @@ package com.joanflo.utils;
 
 import com.joanflo.tagit.ProductActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.nfc.NfcManager;
 import android.os.Parcelable;
-import android.util.Log;
 
 
 public class NFC {
@@ -34,23 +36,16 @@ public class NFC {
 	
 	
 	
-	public static void checkAvaiability() {
-		// comprovar que el mobil te NFC?
-		
-		// comprovar que el mobil te NFC activat
-		
-		// comprovar que el mobil te android beam activat
-		
-		// comprovar tipus de tag llegit + mime type 
-		// (assegurar que la nostra app es la correcta)
+	public static boolean nfcIsAvailable(Activity activity) {
+		NfcManager manager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
+		NfcAdapter adapter = manager.getDefaultAdapter();
+		return adapter != null && adapter.isEnabled();
 	}
 	
 	
 	
 	public static int retrieveData(Intent intent) {
 		try {
-    		Log.i("ANDROD BEAM", "retrieveData 0");
-    		
 			// raw data
 			Parcelable[] RawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 			
@@ -75,7 +70,6 @@ public class NFC {
 			
 			// convert bytes to integer
 			String productId = new String(payload);
-    		Log.i("ANDROD BEAM", "retrieveData 1");
 			return Integer.valueOf(productId);
 			
 		} catch (Exception e) {
@@ -86,7 +80,6 @@ public class NFC {
 	
 	
 	public static NdefMessage createBeamMessage(int id) {
-		Log.i("ANDROD BEAM", "createBeamMessage 1");
 		// convert integer to bytes
 		String productId = String.valueOf(id);
 		byte[] payload = productId.getBytes();
@@ -105,8 +98,7 @@ public class NFC {
 		
 		// create NDEF message
 		NdefMessage message = new NdefMessage(records);
-
-		Log.i("ANDROD BEAM", "createBeamMessage 2");
+		
 		return message;
 	}
 	

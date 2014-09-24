@@ -85,7 +85,8 @@
     	android:layout_marginRight="8dp"
     	android:choiceMode="singleChoice" 
         android:listSelector="@color/main_red"
-		android:visibility="gone" >
+		android:visibility="gone"
+    	android:animateLayoutChanges="true" >
         
     </ListView>
     
