@@ -9,8 +9,7 @@
     <!-- action bar menu -->
     <string name="action_share">Share</string>
     <string name="action_review">Add review</string>
-    <string name="action_help">Help</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
     <string name="action_logout">Log out</string>
     
 
@@ -52,8 +51,8 @@
     <!-- Nav Spinner Menu Items -->
     <string-array name="nav_spinner_items">
         <item >Name</item>
-        <item >Price ascending</item>
-        <item >Price descending</item>
+        <item >Ascending price</item>
+        <item >Descending price</item>
         <item >Brand</item>
         <item >Rating</item>
     </string-array>
@@ -86,6 +85,8 @@
     <string name="currentshop_text">Current shop</string>
     <string name="shopinfo_text">Shop info</string>
     <string name="nocurrentshopselected_text">No current shop\nselected. Pick a shop\nto check products\navailability.</string>
+    <string name="nocurrentshopselected_text2">No current shop selected.</string>
+    <string name="noavaialability">There are no available products.</string>
     <string name="identifier">Email</string>
     <string name="email">Email*</string>
     <string name="email2">Email</string>
@@ -126,7 +127,7 @@
     <string name="product_rating">Minimum rating</string>
     <string name="product_setrating">Set rating</string>
     <string name="distance">meters</string>
-    <string name="pick_email_client">Pick your mail client</string>
+    <string name="pick_email_client">Choose your email client</string>
     <string name="no_email_client">There is no email client installed.</string>
     <string name="won">Won date</string>
     <string name="star">★</string>
@@ -140,6 +141,10 @@
     <string name="shop1">Bought in</string>
     <string name="shop2">on</string>
     <string name="nosizes">Unique size</string>
+    <string name="aboutinfo">Joan G. Florit Gomila\nThis app corresponds to the Final Degree Project for Computer Engineering\n2014 (Mallorca)\n\n"Computer science is no more about computers than astronomy is about telescopes." - Dijkstra\n</string>
+    <string name="aboutgithub">github.com/joanflo</string>
+    <string name="aboutlinkedin">linkedin.com/in/joanflo</string>
+    <string name="abouttwitter">twitter.com/joan_flo</string>
     
     <!-- titles -->
     <string name="title_home_search">Search</string>
@@ -149,6 +154,7 @@
     <string name="title_signin">Sign in</string>
     <string name="title_password">Change password</string>
     <string name="title_login">Log in</string>
+    <string name="title_about">About the developer</string>
     <string name="title_advanced_search">Advanced search</string>
     <string name="title_current_shop">Current shop</string>
     <string name="title_profile">Profile</string>
@@ -214,7 +220,7 @@
     
     
     <!-- NFC instructions -->
-    <string name="nfc_beam">Beam products from one phone to another</string>
+    <string name="nfc_beam">Share products with another phone using Android Beam.</string>
     <string name="nfc_settings">Ensure that NFC is enabled</string>
     <string name="nfc_tag">Tap on NFC to add product into shopping cart</string>
     

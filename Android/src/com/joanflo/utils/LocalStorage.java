@@ -306,6 +306,24 @@ public class LocalStorage {
 	
 	
 	
+	@SuppressLint("CommitPrefEdits")
+	public void deleteStorage(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.remove("profileImage");
+		editor.remove("userLoged");
+		editor.remove("user");
+		editor.remove("followersCount");
+		editor.remove("followingCount");
+		editor.remove("shopPicked");
+		editor.remove("shop");
+		editor.remove("cartItemsCount");
+		editor.remove("wishlistItemsCount");
+		editor.commit();
+	}
+	
+	
+	
 	public Country getLocaleCountry(Activity activity) {
 		// default values
 		CharSequence countryName = "Espanya";

@@ -41,7 +41,6 @@ import com.joanflo.models.ProductImage;
 import com.joanflo.models.Purchase;
 import com.joanflo.models.PurchaseDetail;
 import com.joanflo.models.Review;
-import com.joanflo.models.Shop;
 import com.joanflo.models.Size;
 import com.joanflo.models.Tax;
 import com.joanflo.models.User;
@@ -56,10 +55,11 @@ import com.joanflo.utils.SearchUtils;
 public class ProductActivity extends BaseActivity implements CreateNdefMessageCallback {
 	
 	
+	private MenuItem shareItem;
+	
 	private int idProduct;
 	private Product product;
 	
-	private Shop shop;
 	private Purchase purchase;
     private Batch batch;
 	
@@ -131,6 +131,9 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 	
 	public void productReceived(Product product) {
 		this.product = product;
+		
+		// set share intent
+		setShareItemAction();
 		
 		// 6 initial requests (tax, product images, reviews, related products, collection, batches)
 		requestsNumber = 6;
@@ -510,7 +513,7 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 
 
 	private void prepareAvailabilitySection() {
-		List<Batch> batches = product.getBatches(shop);
+		List<Batch> batches = product.getBatches();
 		Iterator<?> it;
 		
 		// remove all containers views
@@ -587,24 +590,38 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 			}
 			appendSizes(Size.GENRE_UNISEX, sizes);
 		}
-		
-		TextView textViewSizeTitle = (TextView) findViewById(R.id.textView_product_sizestitle);
+
+		TextView tv;
+		tv = (TextView) findViewById(R.id.textView_product_colors);
+		tv.setText(R.string.product_color);
+		tv.setVisibility(View.VISIBLE);
+		tv = (TextView) findViewById(R.id.textView_product_sizestitle);
+		tv.setText(R.string.product_size);
+		tv.setVisibility(View.VISIBLE);
 		if (sizesFemale.size() + sizesMale.size() + sizesUnisex.size() == 0) {
-			// unique size
-			textViewSizeTitle.setText(R.string.nosizes);
-		} else {
-			// add sizes
-			textViewSizeTitle.setText(R.string.product_size);
+			if (colors.isEmpty()) {
+				// no availability
+				tv.setVisibility(View.GONE);
+				tv = (TextView) findViewById(R.id.textView_product_colors);
+				tv.setText(R.string.noavaialability);
+			} else {
+				// unique size
+				tv.setText(R.string.nosizes);
+			}
 		}
 		
 		// button
 		Button b = (Button) findViewById(R.id.button_product_availability);
-		if (shop == null) {
-			// check availability
-			b.setText(R.string.button_checkavailability);
-		} else {
-			// change shop
+		tv = (TextView) findViewById(R.id.textView_product_currentshop);
+		LocalStorage storage = LocalStorage.getInstance();
+		if (storage.isShopPicked(this)) {
+			// change the current shop selected
 			b.setText(R.string.button_changeshop);
+			tv.setText(storage.getShopLocation(this));
+		} else {
+			// select shop to check availability
+			b.setText(R.string.button_checkavailability);
+			tv.setText(R.string.nocurrentshopselected_text2);
 		}
 	}
 
@@ -814,14 +831,6 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 			break;
 			
 		case R.id.button_product_availability:
-			Button b = (Button) v;
-			if (shop == null) {
-				// no current shop selected, check availability
-				b.setText(R.string.button_checkavailability);
-			} else {
-				// change shop
-				b.setText(R.string.button_changeshop);
-			}
 			i = new Intent(this, ShopSelectionActivity.class);
 	        i.putExtra("drawerPosition", 1); // 1 = shop selection item position
 	        startActivity(i);
@@ -895,20 +904,24 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 		getMenuInflater().inflate(R.menu.home, menu);
 		
 		// show share item
-		MenuItem shareItem = menu.findItem(R.id.action_share);
+		shareItem = menu.findItem(R.id.action_share);
+		shareItem.setVisible(true);
 		shareItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		
-		// set share item action
+		return true;
+	}
+	
+	
+	
+	private void setShareItemAction() {
 		ShareActionProvider provider = (ShareActionProvider) shareItem.getActionProvider();
 		Intent sendIntent = new Intent();
 		sendIntent.setAction(Intent.ACTION_SEND);
 		Resources r = getResources();
-		String shareTxt = r.getString(R.string.share) + " " + r.getString(R.string.app_name);
+		String shareTxt = r.getString(R.string.share) + " " + r.getString(R.string.app_name) + " - " + product.getName();
 		sendIntent.putExtra(Intent.EXTRA_TEXT, shareTxt);
 		sendIntent.setType("text/plain");
 		provider.setShareIntent(sendIntent);
-		
-		return super.onCreateOptionsMenu(menu);
 	}
 	
 	

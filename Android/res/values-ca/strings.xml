@@ -1,42 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">Tag It!</string>
     
-    <string name="search_hint">Search by product name</string>
+    <string name="search_hint">Cercar per nom de producte</string>
     
     
     <!-- action bar menu -->
-    <string name="action_share">Share</string>
-    <string name="action_review">Add review</string>
-    <string name="action_help">Help</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_logout">Log out</string>
+    <string name="action_share">Compartir</string>
+    <string name="action_review">Afegir comentari</string>
+    <string name="action_about">Informació</string>
+    <string name="action_logout">Sortir</string>
     
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
-        <item >Home</item>
-        <item >Pick shop</item>
+        <item >Inici</item>
+        <item >Triar tenda</item>
         <item >Categories</item>
-        <item >Search products</item>
-        <item >My cart</item>
-        <item >My wishlist</item>
+        <item >Cercar productes</item>
+        <item >Carret</item>
+        <item >Desitjos</item>
     </string-array>
     
     <!-- activities titles -->
-    <string name="title_shop">Shop</string>
-    <string name="title_point">Points</string>
-    <string name="title_follows">Friendships</string>
-    <string name="title_userdata">User data</string>
-    <string name="title_badge">Badge detail</string>
-    <string name="title_badgelist">Badges list</string>
-    <string name="title_reviewlist">Reviews list</string>
-    <string name="title_purchaselist">Purchase history</string>
-    <string name="title_purchasedetaillist">Purchase details</string>
-    <string name="title_product">Product</string>
-    <string name="title_brand">Brand detail</string>
-    <string name="title_createreview">Create review</string>
+    <string name="title_shop">Tenda</string>
+    <string name="title_point">Punts</string>
+    <string name="title_follows">Amistats</string>
+    <string name="title_userdata">Dades usuari</string>
+    <string name="title_badge">Detall insígnia</string>
+    <string name="title_badgelist">Llista insígnies</string>
+    <string name="title_reviewlist">Comentaris</string>
+    <string name="title_purchaselist">Historial de compra</string>
+    <string name="title_purchasedetaillist">Detalls de compra</string>
+    <string name="title_product">Producte</string>
+    <string name="title_brand">Detall marca</string>
+    <string name="title_createreview">Crear comentari</string>
     
     <!-- Nav Drawer List Item Icons -->
     <array name="nav_drawer_icons">
@@ -51,11 +50,11 @@
 
     <!-- Nav Spinner Menu Items -->
     <string-array name="nav_spinner_items">
-        <item >Name</item>
-        <item >Price ascending</item>
-        <item >Price descending</item>
-        <item >Brand</item>
-        <item >Rating</item>
+        <item >Nom</item>
+        <item >Preu ascendent</item>
+        <item >Preu descendent</item>
+        <item >Marca</item>
+        <item >Valoració</item>
     </string-array>
     
     <!-- Nav Spinner List Item Icons -->
@@ -69,134 +68,138 @@
     
     
     <!-- default values in lists -->
-    <string name="all_brands">All brands</string>
-    <string name="all_categories">All categories</string>
-    <string name="list_default">::Select::</string>
+    <string name="all_brands">Totes les marques</string>
+    <string name="all_categories">Totes les categories</string>
+    <string name="list_default">::Selecciona::</string>
     
     
     <!-- Content Description -->
-    <string name="desc_list_item_icon">Item Icon</string>
-    <string name="description_profile_image">Profile image</string>
-    <string name="description_product_image">Product image</string>
-    <string name="description_empty_image">Empty image</string>
-    <string name="profile_points_text">Points</string>
-    <string name="profile_followers_text">Followers</string>
-    <string name="profile_following_text">Following</string>
-    <string name="item_text">item(s)</string>
-    <string name="currentshop_text">Current shop</string>
-    <string name="shopinfo_text">Shop info</string>
-    <string name="nocurrentshopselected_text">No current shop\nselected. Pick a shop\nto check products\navailability.</string>
+    <string name="desc_list_item_icon">Icona ítem</string>
+    <string name="description_profile_image">Imatge perfil</string>
+    <string name="description_product_image">Imatge producte</string>
+    <string name="description_empty_image">Imatge buida</string>
+    <string name="profile_points_text">Punts</string>
+    <string name="profile_followers_text">Seguidors</string>
+    <string name="profile_following_text">Seguint</string>
+    <string name="item_text">ítem(s)</string>
+    <string name="currentshop_text">Tenda actual</string>
+    <string name="shopinfo_text">Informació tenda</string>
+    <string name="nocurrentshopselected_text">Cap tenda seleccionada.\nTria una tenda per comprovar\nla disponibilitat de productes.</string>
+    <string name="nocurrentshopselected_text2">Cap tenda seleccionada.</string>
+    <string name="noavaialability">No hi ha productes disponibles.</string>
     <string name="identifier">Email</string>
     <string name="email">Email*</string>
     <string name="email2">Email</string>
-    <string name="city_name">City*</string>
-    <string name="city_name2">City</string>
-    <string name="region_name">Region*</string>
-    <string name="region_name2">Region</string>
-    <string name="country_name">Country*</string>
-    <string name="country_name2">Country</string>
-    <string name="language_name">Language*</string>
-    <string name="language_name2">Language</string>
-    <string name="registration_name">Registration</string>
+    <string name="city_name">Ciutat*</string>
+    <string name="city_name2">Ciutat</string>
+    <string name="region_name">Regió*</string>
+    <string name="region_name2">Regió</string>
+    <string name="country_name">País*</string>
+    <string name="country_name2">País</string>
+    <string name="language_name">Idioma*</string>
+    <string name="language_name2">Idioma</string>
+    <string name="registration_name">Registre</string>
     <string name="nick">Nick*</string>
-    <string name="name">Name*</string>
-    <string name="name2">Name</string>
-    <string name="surname">Surname*</string>
-    <string name="surname2">Surname</string>
-    <string name="age">Age*</string>
-    <string name="age2">Age</string>
-    <string name="password">Password*</string>
-    <string name="old_password">Old Password</string>
-    <string name="new_password">New password</string>
-    <string name="repeat_new_password">Repeat new password</string>
-    <string name="repeat_password">Repeat password*</string>
-    <string name="phone">Phone</string>
-    <string name="direction">Direction</string>
-    <string name="termsconditions">I accept terms and conditions</string>
-    <string name="required_fields">* Required fields</string>
-    <string name="product_name">Product name</string>
-    <string name="price_from">From</string>
-    <string name="price_until">since</string>
+    <string name="name">Nom*</string>
+    <string name="name2">Nom</string>
+    <string name="surname">Cognom*</string>
+    <string name="surname2">Cognom</string>
+    <string name="age">Edat*</string>
+    <string name="age2">Edat</string>
+    <string name="password">Contrassenya*</string>
+    <string name="old_password">Contrassenya antiga</string>
+    <string name="new_password">Contrassenya nova</string>
+    <string name="repeat_new_password">Repetir contrassenya nova</string>
+    <string name="repeat_password">Repetir contrassenya*</string>
+    <string name="phone">Telèfon</string>
+    <string name="direction">Direcció</string>
+    <string name="termsconditions">Accepto els termes i condicions</string>
+    <string name="required_fields">* Camps obligatoris</string>
+    <string name="product_name">Nom producte</string>
+    <string name="price_from">Des de</string>
+    <string name="price_until">fins</string>
     <string name="price_coin">€</string>
-    <string name="product_price">Price</string>
-    <string name="product_finalprice">Final price:</string>
-    <string name="product_discount">Discount</string>
-    <string name="product_brand">Brand</string>
-    <string name="product_category">Category</string>
-    <string name="product_rating">Minimum rating</string>
-    <string name="product_setrating">Set rating</string>
-    <string name="distance">meters</string>
-    <string name="pick_email_client">Pick your mail client</string>
-    <string name="no_email_client">There is no email client installed.</string>
-    <string name="won">Won date</string>
+    <string name="product_price">Preu</string>
+    <string name="product_finalprice">Preu final:</string>
+    <string name="product_discount">Descompte</string>
+    <string name="product_brand">Marca</string>
+    <string name="product_category">Categoria</string>
+    <string name="product_rating">Valoració mínima</string>
+    <string name="product_setrating">Indicar valoració</string>
+    <string name="distance">metres</string>
+    <string name="pick_email_client">Tria el teu client de correu</string>
+    <string name="no_email_client">No hi ha cap client de correu instal·lat.</string>
+    <string name="won">Data</string>
     <string name="star">★</string>
-    <string name="product_description">Description</string>
-    <string name="product_composition">Composition</string>
+    <string name="product_description">Descripció</string>
+    <string name="product_composition">Composició</string>
     <string name="product_color">Colors</string>
-    <string name="product_size">Sizes</string>
-    <string name="product_size2">Size</string>
+    <string name="product_size">Talles</string>
+    <string name="product_size2">Talla</string>
     <string name="share">Just watching this amazing product using</string>
-    <string name="comment">Comment*</string>
-    <string name="shop1">Bought in</string>
-    <string name="shop2">on</string>
-    <string name="nosizes">Unique size</string>
+    <string name="comment">Comentari*</string>
+    <string name="shop1">Comprat a</string>
+    <string name="shop2">el</string>
+    <string name="nosizes">Talla única</string>
+    <string name="aboutinfo">Joan G. Florit Gomila\nAquesta app es correspon amb el Projecte de Fi de Carrera d\'Enginyeria Informàtica\n2014 (Mallorca)\n\n"La informàtica és als ordinadors el que l\'astronomia és als telescopis." - Dijkstra\n</string>
     
     <!-- titles -->
-    <string name="title_home_search">Search</string>
-    <string name="title_home_shop">Shop selection</string>
-    <string name="title_home_mycart">My cart</string>
-    <string name="title_home_mywishlist">My wishlist</string>
-    <string name="title_signin">Sign in</string>
-    <string name="title_password">Change password</string>
-    <string name="title_login">Log in</string>
-    <string name="title_advanced_search">Advanced search</string>
-    <string name="title_current_shop">Current shop</string>
-    <string name="title_profile">Profile</string>
-    <string name="title_badges">Badges</string>
-    <string name="title_allbadges">All badges</string>
-    <string name="title_personalinfo">Personal info</string>
-    <string name="title_updatepersonalinfo">Update personal info</string>
-    <string name="title_points">Points table</string>
-    <string name="title_product_info">Product info</string>
-    <string name="title_product_availability">Availability</string>
-    <string name="title_product_price">Price</string>
-    <string name="title_product_collection">Collection</string>
-    <string name="title_product_brand">Brand</string>
-    <string name="title_product_related">Related products</string>
-    <string name="title_newreview">New review</string>
+    <string name="title_home_search">Cercar</string>
+    <string name="title_home_shop">Selecció tenda</string>
+    <string name="title_home_mycart">Carret</string>
+    <string name="title_home_mywishlist">Desitjos</string>
+    <string name="title_signin">Registrar-se</string>
+    <string name="title_password">Canviar contrassenya</string>
+    <string name="title_login">Entrar</string>
+    <string name="title_about">Info del desenvolupador</string>
+    <string name="title_advanced_search">Cerca avançada</string>
+    <string name="title_current_shop">Tenda actual</string>
+    <string name="title_profile">Perfil</string>
+    <string name="title_badges">Insígnies</string>
+    <string name="title_allbadges">Totes les insígnies</string>
+    <string name="title_personalinfo">Informació personal</string>
+    <string name="title_updatepersonalinfo">Actualitzar informació personal</string>
+    <string name="title_points">Taula de punts</string>
+    <string name="title_product_info">Informació producte</string>
+    <string name="title_product_availability">Disponibilitat</string>
+    <string name="title_product_price">Preu</string>
+    <string name="title_product_collection">Col·lecció</string>
+    <string name="title_product_brand">Marca</string>
+    <string name="title_product_related">Productes relacionats</string>
+    <string name="title_newreview">Nou comentari</string>
     
     <!-- buttons -->
-    <string name="button_profile">My profile</string>
-    <string name="button_mywishlist">See wishlist</string>
-    <string name="button_mycart">See cart</string>
-    <string name="button_pickshop">Pick shop</string>
-    <string name="button_unselectshop">Unselect</string>
-    <string name="button_seeshop">See shop</string>
-    <string name="button_info">Info</string>
-    <string name="button_searchcategory">Search by category</string>
-    <string name="button_advancedsearch">Advanced search</string>
-    <string name="button_search">Search</string>
-    <string name="button_skip">Skip</string>
-    <string name="button_signin">Sign in</string>
-    <string name="button_login">Log in</string>
-    <string name="button_terms">See terms</string>
-    <string name="button_password">Change password</string>
-    <string name="button_seecomments">See comments</string>
-    <string name="button_seepurchases">Purchase History</string>
-    <string name="button_seeallbadges">See all badges</string>
-    <string name="button_modifydata">Modify data</string>
-    <string name="button_changepassword">Change password</string>
-    <string name="button_update">Update</string>
-    <string name="button_addreview">Add review</string>
-    <string name="button_seereviews">See reviews</string>
-    <string name="button_sendreview">Send review</string>
-    <string name="button_seebrand">See brand</string>
-    <string name="button_changeshop">Change shop</string>
-    <string name="button_checkavailability">Check availability</string>
-    <string name="button_addtocart">Add to cart</string>
-    <string name="button_addtowishlist">Add to wishlist</string>
-    <string name="button_removewish">Remove wish</string>
-    <string name="button_removecart">Remove item from cart</string>
+    <string name="button_profile">El meu perfil</string>
+    <string name="button_mywishlist">Veure llista de desitjos</string>
+    <string name="button_mycart">Veure carret</string>
+    <string name="button_pickshop">Triar tenda</string>
+    <string name="button_unselectshop">Desseleccionar</string>
+    <string name="button_seeshop">Veure tenda</string>
+    <string name="button_info">Informació</string>
+    <string name="button_searchcategory">Cerca per categoria</string>
+    <string name="button_advancedsearch">Cerca avançada</string>
+    <string name="button_search">Cerca</string>
+    <string name="button_skip">Salta</string>
+    <string name="button_signin">Registrar-se</string>
+    <string name="button_login">Entrar</string>
+    <string name="button_terms">Veure condicions</string>
+    <string name="button_password">Canviar contrassenya</string>
+    <string name="button_seecomments">Veure comentaris</string>
+    <string name="button_seepurchases">Historial de compra</string>
+    <string name="button_seeallbadges">Veure totes les insígnies</string>
+    <string name="button_modifydata">Modificar dades</string>
+    <string name="button_changepassword">Canviar contrassenya</string>
+    <string name="button_update">Actualitzar</string>
+    <string name="button_addreview">Afegir comentari</string>
+    <string name="button_seereviews">Veure comentaris</string>
+    <string name="button_sendreview">Enviar comentari</string>
+    <string name="button_seebrand">Veure marca</string>
+    <string name="button_changeshop">Canviar tenda</string>
+    <string name="button_checkavailability">Comprovar disponibilitat</string>
+    <string name="button_addtocart">Afegir al carret</string>
+    <string name="button_addtowishlist">Afegir a desitjos</string>
+    <string name="button_removewish">Esborrar desig</string>
+    <string name="button_removecart">Esborrar producte del carret</string>
     
     
     <!-- points -->
@@ -204,50 +207,50 @@
     <string name="number10">10</string>
     <string name="number20">20</string>
     <array name="points_descriptions">
-        <item>Sign up welcome points</item>
-        <item>Share a product using NFC</item>
-        <item>Share a product in social networks</item>
-        <item>Review a product</item>
-        <item>Buy a product</item>
-        <item>Open app for first time in a day</item>
+        <item>Punts de benvinguda</item>
+        <item>Compartir producte emprant NFC</item>
+        <item>Compartir producte a xarxes socials</item>
+        <item>Comentar producte</item>
+        <item>Comprar producte</item>
+        <item>Obrir l\'app per primer cop avui</item>
     </array>
     
     
     <!-- NFC instructions -->
-    <string name="nfc_beam">Beam products from one phone to another</string>
-    <string name="nfc_settings">Ensure that NFC is enabled</string>
-    <string name="nfc_tag">Tap on NFC to add product into shopping cart</string>
+    <string name="nfc_beam">Empra Android Beam per a compartir un producte amb un altre mòbil</string>
+    <string name="nfc_settings">Assegurar NFC habilitat</string>
+    <string name="nfc_tag">Acosta el mòbil a un tag NFC per a llegir la informació d\'un producte</string>
     
     
     <!-- toast messages -->
-    <string name="toast_requiredfields1">All required fields must be filled. Terms and conditions must be accepted.</string>
-    <string name="toast_requiredfields2">All required fields must be filled. New password fields must be equals.</string>
-    <string name="toast_requiredfields3">All required fields must be filled.</string>
-    <string name="toast_problem_shop">Ops! There is not any shop near.</string>
-    <string name="toast_problem_request">Ops! An error has occurred with the request to the server.</string>
-    <string name="toast_problem_internetconnection">Ops! The internet connection is not available.</string>
-    <string name="toast_problem_creatinguser">Ops! There was a problem creating the user. Probably the user already exists.</string>
-    <string name="toast_problem_updatinguser">Ops! There was a problem updating the user information.</string>
-    <string name="toast_problem_creatingreview">Ops! There was a problem creating the review.</string>
-    <string name="toast_problem_empty">Ops! No results were found.</string>
-    <string name="toast_problem_productnfc">Ops! There was a problem reading the NFC tag.</string>
-    <string name="toast_problem_deleteitem">Ops! There was a problem deleting this item.</string>
-    <string name="toast_problem_wishadded">Ops! There was a problem adding this wish into the cart.</string>
-    <string name="toast_problem_productaddedcart">Ops! There was a problem adding this product into the cart.</string>
-    <string name="toast_problem_creatingwish">Ops! There was a problem adding this product into the wish list.</string>
-    <string name="toast_deleteitem">Item deleted successfully.</string>
-    <string name="toast_wishadded">Wish added to cart.</string>
-    <string name="toast_productaddedcart">Product added to cart.</string>
-    <string name="toast_productaddedwish">Product added to wish list.</string>
-    <string name="toast_loginfields">Insert user email and password.</string>
-    <string name="toast_login">Wrong user or password. Please try again.</string>
-    <string name="toast_password">Wrong password. Please try again.</string>
-    <string name="toast_password2">Password changed successfully.</string>
-    <string name="toast_profile">Select profile image</string>
-    <string name="toast_gps">Searching current location.</string>
-    <string name="toast_shopselected">Shop selected.</string>
-    <string name="toast_registration">You must be registered to perform this action.</string>
-    <string name="toast_userupdated">User information updated successfully.</string>
-    <string name="toast_reviewcreated">Review created successfully.</string>
+    <string name="toast_requiredfields1">Tots els camps obligatoris s\'han d\'emplenar. Els termes i condicions s\'han d\'acceptar.</string>
+    <string name="toast_requiredfields2">Tots els camps obligatoris s\'han d\'emplenar. Els camps contrassenya nova han de ser iguals.</string>
+    <string name="toast_requiredfields3">Tots els camps obligatoris s\'han d\'emplenar.</string>
+    <string name="toast_problem_shop">Ui! No hi ha cap tenda propera.</string>
+    <string name="toast_problem_request">Ui! Hi ha hagut un error en la petició al servidor.</string>
+    <string name="toast_problem_internetconnection">Ui! No hi ha connexió disponible.</string>
+    <string name="toast_problem_creatinguser">Ui! Hi ha hagut un problema creant l\'usuari. Probablement ja existeix.</string>
+    <string name="toast_problem_updatinguser">Ui! Hi ha hagut un problema actualitzant la informació d\'usuari.</string>
+    <string name="toast_problem_creatingreview">Ui! Hi ha hagut un problema creant un comentari.</string>
+    <string name="toast_problem_empty">Ui! No s\'han trobat resultats.</string>
+    <string name="toast_problem_productnfc">Ui! Hi ha hagut un problema llegint el tag NFC.</string>
+    <string name="toast_problem_deleteitem">Ui! Hi ha hagut un problema esborrant aquest ítem.</string>
+    <string name="toast_problem_wishadded">Ui! Hi ha hagut un problema afegint aquest desig al carret.</string>
+    <string name="toast_problem_productaddedcart">Ui! Hi ha hagut un problema afegint aquest producte al carret.</string>
+    <string name="toast_problem_creatingwish">Ui! Hi ha hagut un problema afegint aquest producte a la llista de desitjos.</string>
+    <string name="toast_deleteitem">Ítem esborrat exitosament.</string>
+    <string name="toast_wishadded">Desig afegit al carret.</string>
+    <string name="toast_productaddedcart">Producte afegit al carret.</string>
+    <string name="toast_productaddedwish">Producte afegit a la llista de desitjos.</string>
+    <string name="toast_loginfields">Inserta email i contrassenya.</string>
+    <string name="toast_login">Usuari o contrassenya incorrectes. Per favor, torna-ho a intentar.</string>
+    <string name="toast_password">Contrassenya incorrecta. Per favor, torna-ho a intentar.</string>
+    <string name="toast_password2">Contrassenya canviada exitosament.</string>
+    <string name="toast_profile">Selecciona imatge de perfil</string>
+    <string name="toast_gps">Cercant ubicació actual.</string>
+    <string name="toast_shopselected">Tenda seleccionada.</string>
+    <string name="toast_registration">Has d\'estar registrat per això.</string>
+    <string name="toast_userupdated">Informació d\'usuari actualitzada.</string>
+    <string name="toast_reviewcreated">Comentari creat.</string>
     
 </resources>

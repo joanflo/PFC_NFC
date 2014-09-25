@@ -54,6 +54,7 @@ public class BadgeListAdapter extends BaseAdapter {
 		int pxColumnWidth = (parent.getWidth() / 5) - 20;
 		LayoutParams params = new GridView.LayoutParams(LayoutParams.MATCH_PARENT, pxColumnWidth);
 		iv.setLayoutParams(params);
+		iv.setPadding(2, 2, 2, 2);
 		
 		return iv;
 	}

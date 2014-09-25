@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_login" >
+    
+    <RelativeLayout
+        style="@style/layout1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:padding="8dp" >
+
+        <!-- title -->
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/logo_base" />
+
+        <TextView
+            android:id="@+id/textView_title_about"
+            style="@style/h1"
+            android:layout_alignTop="@+id/imageView10"
+            android:layout_toRightOf="@+id/imageView10"
+            android:layout_marginLeft="10dp"
+            android:text="@string/title_about"
+            android:textColor="@color/main_white" />
+        
+
+        <!-- info about the developer -->
+        <TextView
+            android:id="@+id/textView_title_aboutinfo"
+            style="@style/b"
+            android:layout_alignLeft="@+id/textView_title_about"
+            android:layout_below="@+id/imageView10"
+            android:text="@string/aboutinfo"
+            android:textColor="@color/main_white" />
+        
+        
+        <!-- github link -->
+        <ImageButton
+            android:id="@+id/imageButton_about_github"
+            style="@style/icon3"
+            android:layout_alignLeft="@+id/imageView10"
+            android:layout_below="@+id/textView_title_aboutinfo"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/aboutgithub"
+            android:onClick="onClickButton"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_github" />
+        
+        <TextView
+            android:id="@+id/textView_about_github"
+            style="@style/p"
+            android:layout_alignBottom="@+id/imageButton_about_github"
+            android:layout_alignTop="@+id/imageButton_about_github"
+            android:layout_toRightOf="@+id/imageButton_about_github"
+            android:text="@string/aboutgithub"
+            android:gravity="center"
+            android:textColor="@color/main_white" />
+
+        
+        <!-- linked in link -->
+        <ImageButton
+            android:id="@+id/imageButton_about_linkedin"
+            style="@style/icon3"
+            android:layout_alignLeft="@+id/imageButton_about_github"
+            android:layout_below="@+id/textView_about_github"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/aboutlinkedin"
+            android:onClick="onClickButton"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_linkedin" />
+
+        <TextView
+            android:id="@+id/textView_about_linkedin"
+            style="@style/p"
+            android:layout_alignBottom="@+id/imageButton_about_linkedin"
+            android:layout_alignLeft="@+id/textView_about_github"
+            android:layout_alignTop="@+id/imageButton_about_linkedin"
+            android:gravity="center"
+            android:text="@string/aboutlinkedin"
+            android:textColor="@color/main_white" />
+
+        
+        <!-- twitter in link -->
+        <ImageButton
+            android:id="@+id/imageButton_about_twitter"
+            style="@style/icon3"
+            android:layout_alignLeft="@+id/imageButton_about_linkedin"
+            android:layout_below="@+id/textView_about_linkedin"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/abouttwitter"
+            android:onClick="onClickButton"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_twitter" />
+
+        <TextView
+            android:id="@+id/textView_about_twitter"
+            style="@style/p"
+            android:layout_alignBottom="@+id/imageButton_about_twitter"
+            android:layout_alignLeft="@+id/textView_about_linkedin"
+            android:layout_alignTop="@+id/imageButton_about_twitter"
+            android:gravity="center"
+            android:text="@string/abouttwitter"
+            android:textColor="@color/main_white" />
+        
+    </RelativeLayout>
+
+</RelativeLayout>

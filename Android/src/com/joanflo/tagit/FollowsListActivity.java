@@ -91,7 +91,7 @@ public class FollowsListActivity extends BaseActivity implements Button.OnClickL
 			if (seeFollowers && followers) {
 				this.currentUsersFollows = users;
 			} else if (!seeFollowers && !followers) {
-				if (this.currentUsersFollows == null) {
+				if (this.currentUsersFollows == null && requestsNumber != 1) {
 					this.currentUsersFollows = users;
 				} else {
 					this.loggedUsersFollows = users;

@@ -84,6 +84,14 @@ public class BaseActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.home, menu);
+		
+		// hide some menu items
+		MenuItem item;
+		item = menu.findItem(R.id.action_share);
+		item.setVisible(false);
+		item = menu.findItem(R.id.action_review);
+		item.setVisible(false);
+		
 		return super.onCreateOptionsMenu(menu);
 	}
 	
@@ -97,14 +105,20 @@ public class BaseActivity extends Activity {
         }
         
         // Handle action bar actions click
+        Intent i;
         switch (item.getItemId()) {
-        case R.id.action_help:
-            return true;
-            
-        case R.id.action_settings:
+        case R.id.action_about:
+        	i = new Intent(this, AboutActivity.class);
+        	startActivity(i);
             return true;
             
         case R.id.action_logout:
+        	LocalStorage.getInstance().deleteStorage(this);
+        	i = new Intent(this, LoginActivity.class);
+        	// clear all activity stack
+        	i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        	startActivity(i);
+        	finish();
             return true;
             
         default:
@@ -234,7 +248,7 @@ public class BaseActivity extends Activity {
     public boolean onPrepareOptionsMenu(Menu menu) {
     	// if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerLinearLayout);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        menu.findItem(R.id.action_about).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
     

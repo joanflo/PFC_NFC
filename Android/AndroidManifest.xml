@@ -36,7 +36,7 @@
     
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="20" />
     
     
     <application
@@ -62,6 +62,12 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        
+        
+        <activity
+            android:name="com.joanflo.tagit.AboutActivity"
+            android:screenOrientation="portrait" >
         </activity>
         
         

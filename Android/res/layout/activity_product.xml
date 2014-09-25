@@ -184,6 +184,7 @@
 	            	android:orientation="vertical" >
 
 	                <TextView
+		            	android:id="@+id/textView_product_colors"
 	                    style="@style/b"
 	            		android:textColor="@color/grey_light"
 	            		android:layout_marginBottom="6dp"
@@ -211,7 +212,7 @@
 	            </LinearLayout>
 	            
 	        </LinearLayout>
-
+	        
 	        
 	        <Button
 	            android:id="@+id/button_product_availability"
@@ -223,6 +224,16 @@
 	            android:layout_marginLeft="178dp"
 	            android:layout_marginBottom="8dp"
 	            android:onClick="onClickButton" />
+
+	        
+	        <TextView
+	            android:id="@+id/textView_product_currentshop"
+	            style="@style/b"
+	            android:layout_width="170dp"
+	            android:layout_alignLeft="@+id/aux25"
+	            android:layout_alignTop="@+id/button_product_availability"
+	            android:text="@string/nocurrentshopselected_text2"
+	            android:textColor="@color/grey_light" />
 	        
 	    </RelativeLayout>
 	    

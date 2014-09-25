@@ -95,7 +95,10 @@ public class ReviewListActivity extends BaseActivity {
 			
 			// show add review item
 			MenuItem reviewItem = menu.findItem(R.id.action_review);
+			reviewItem.setVisible(true);
 			reviewItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+			
+			return true;
 		}
 		
 		return super.onCreateOptionsMenu(menu);

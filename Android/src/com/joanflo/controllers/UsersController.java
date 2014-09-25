@@ -68,13 +68,13 @@ public class UsersController {
 				if (jObject != null) {
 					// user
 					User user;
-					if (jObject.has("points")) {
+					if (jObject.has("points") && !jObject.has("userEmail")) {
 						user = new User(jObject.getJSONObject("points"));
 					} else {
 						user = new User(jObject);
 					}
 					
-					if (jObject.has("points")) {
+					if (jObject.has("points") && !jObject.has("userEmail")) {
 						BaseActivity baseActivity = (BaseActivity) activity;
 						baseActivity.userPointsUpdated(user.getPoints());
 						
