@@ -23,7 +23,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
+/**
+ * Review list activity
+ * @author Joanflo
+ */
 public class ReviewListActivity extends BaseActivity {
 	
 	private Activity activity = this;
@@ -98,6 +101,14 @@ public class ReviewListActivity extends BaseActivity {
 			reviewItem.setVisible(true);
 			reviewItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 			
+			// set log in/log out text
+			MenuItem item = menu.findItem(R.id.action_logout);
+			if (LocalStorage.getInstance().isUserLogged(this)) {
+				item.setTitle(R.string.action_logout);
+			} else {
+				item.setTitle(R.string.action_login);
+			}
+			
 			return true;
 		}
 		
@@ -112,7 +123,7 @@ public class ReviewListActivity extends BaseActivity {
         switch (item.getItemId()) {
         case R.id.action_review:
         	Intent intent;
-    		if (LocalStorage.getInstance().isUserLoged(this)) {
+    		if (LocalStorage.getInstance().isUserLogged(this)) {
 	        	intent = new Intent(this, NewReviewActivity.class);
     	        intent.putExtra("idProduct", idProductBundle);
     	        intent.putExtra("productName", productNameBundle);

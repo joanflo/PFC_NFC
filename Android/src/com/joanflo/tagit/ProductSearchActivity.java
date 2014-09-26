@@ -16,7 +16,10 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-
+/**
+ * Product search activity
+ * @author Joanflo
+ */
 public class ProductSearchActivity extends BaseActivity implements OnItemSelectedListener {
 	
 	

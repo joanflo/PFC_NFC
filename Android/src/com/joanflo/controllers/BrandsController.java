@@ -15,6 +15,10 @@ import com.joanflo.tagit.ProductSearchActivity;
 import com.joanflo.tagit.R;
 import com.joanflo.utils.Regex;
 
+/**
+ * Brands controller class
+ * @author Joanflo
+ */
 public class BrandsController {
 
 	
@@ -22,6 +26,11 @@ public class BrandsController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Brands controller constructor
+	 * @param activity
+	 */
 	public BrandsController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -29,6 +38,15 @@ public class BrandsController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
 			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
@@ -93,6 +111,12 @@ public class BrandsController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of brands
+	 * @param jBrands
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Brand> processBrands(JSONArray jBrands) throws JSONException {
 		List<Brand> brands = new ArrayList<Brand>(jBrands.length());
 		

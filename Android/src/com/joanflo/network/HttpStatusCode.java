@@ -1,5 +1,9 @@
 package com.joanflo.network;
 
+/**
+ * Status codes used in this app
+ * @author Joanflo
+ */
 public class HttpStatusCode {
 	
 	// Success

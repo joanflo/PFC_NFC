@@ -8,6 +8,11 @@ import com.joanflo.models.Product;
 import com.joanflo.utils.AssetsUtils;
 import com.joanflo.utils.Time;
 
+/**
+ * Review item class
+ * @author Joanflo
+ * @see ReviewListAdapter
+ */
 public class ReviewListItem {
 
 
@@ -19,12 +24,28 @@ public class ReviewListItem {
 	
 	
 	
+	/**
+	 * Review list item constructor
+	 * @param product
+	 * @param date
+	 * @param rating
+	 * @param comment
+	 */
 	public ReviewListItem(Product product, Timestamp date, float rating, CharSequence comment) {
 		this(date, rating, comment);
 		this.description = product.getName();
 		this.url = product.getFrontImage().getUrl();
 	}
 	
+	
+	/**
+	 * Review list item constructor
+	 * @param userEmail
+	 * @param nick
+	 * @param date
+	 * @param rating
+	 * @param comment
+	 */
 	public ReviewListItem(CharSequence userEmail, CharSequence nick, Timestamp date, float rating, CharSequence comment) {
 		this(date, rating, comment);
 		this.description = userEmail;
@@ -37,6 +58,13 @@ public class ReviewListItem {
 		this.comment = "@" + nick + ": " + this.comment;
 	}
 
+	
+	/**
+	 * Review list item constructor
+	 * @param date
+	 * @param rating
+	 * @param comment
+	 */
 	public ReviewListItem(Timestamp date, float rating, CharSequence comment) {
 		this.date = Time.convertTimestampToString(date);
 		setRating(rating);

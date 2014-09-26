@@ -34,6 +34,10 @@ import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
 import com.joanflo.utils.SimpleCrypto;
 
+/**
+ * Users controller class
+ * @author Joanflo
+ */
 public class UsersController {
 
 	
@@ -41,6 +45,11 @@ public class UsersController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Users controller constructor
+	 * @param activity
+	 */
 	public UsersController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -48,6 +57,15 @@ public class UsersController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
 			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
@@ -83,7 +101,7 @@ public class UsersController {
 						boolean successful = loginActivity.loginReceived(decryptPassword(user));
 						// successful login?
 						if (successful) {
-							LocalStorage.getInstance().setUserLoged(activity, true);
+							LocalStorage.getInstance().setUserLogged(activity, true);
 							loginActivity.goToHomeActivity(true);
 						}
 						
@@ -139,6 +157,10 @@ public class UsersController {
 					if (activity instanceof ReviewListActivity) {
 						ReviewListActivity reviewListActivity = (ReviewListActivity) activity;
 						reviewListActivity.reviewsReceived(reviews);
+						
+					} else if (activity instanceof HomeActivity) {
+						HomeActivity homeActivity = (HomeActivity) activity;
+						homeActivity.reviewsCountReceived(reviews.size());
 					}
 					
 				} else if (statusCode == HttpStatusCode.NOT_FOUND) {
@@ -147,6 +169,10 @@ public class UsersController {
 					if (activity instanceof ReviewListActivity) {
 						ReviewListActivity reviewListActivity = (ReviewListActivity) activity;
 						reviewListActivity.reviewsReceived(new ArrayList<Review>());
+						
+					} else if (activity instanceof HomeActivity) {
+						HomeActivity homeActivity = (HomeActivity) activity;
+						homeActivity.zeroCountReceived();
 					}
 				}
 				// POST <URLbase>/users/{userEmail}/reviews?idProduct={idProduct}&rating={rating}&comment={comment}
@@ -867,6 +893,12 @@ public class UsersController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of reviews
+	 * @param jReviews
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Review> processReviews(JSONArray jReviews) throws JSONException {
 		List<Review> reviews = new ArrayList<Review>(jReviews.length());
 		
@@ -883,6 +915,13 @@ public class UsersController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of wishes
+	 * @param jWishes
+	 * @param lang
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Wish> processWishes(JSONArray jWishes, String lang) throws JSONException {
 		List<Wish> wishes = new ArrayList<Wish>(jWishes.length());
 		
@@ -899,6 +938,12 @@ public class UsersController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of purchases
+	 * @param jPurchases
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Purchase> processPurchases(JSONArray jPurchases) throws JSONException {
 		List<Purchase> purchases = new ArrayList<Purchase>(jPurchases.length());
 		
@@ -915,6 +960,12 @@ public class UsersController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of PurchaseDetail model
+	 * @param jPurchaseDetails
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<PurchaseDetail> processPurchaseDetails(JSONArray jPurchaseDetails) throws JSONException {
 		List<PurchaseDetail> purchaseDetails = new ArrayList<PurchaseDetail>(jPurchaseDetails.length());
 		
@@ -931,6 +982,13 @@ public class UsersController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of achievements
+	 * @param jAchievements
+	 * @param lang
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Achievement> processAchievements(JSONArray jAchievements, String lang) throws JSONException {
 		List<Achievement> achievements = new ArrayList<Achievement>(jAchievements.length());
 		
@@ -947,6 +1005,12 @@ public class UsersController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of users
+	 * @param jUsers
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<User> processUsers(JSONArray jUsers) throws JSONException {
 		List<User> users = new ArrayList<User>(jUsers.length());
 		
@@ -962,6 +1026,12 @@ public class UsersController {
 	}
 	
 	
+	
+	/**
+	 * Encrypt password in AES-128
+	 * @param password
+	 * @return
+	 */
 	private String encryptPassword(String password) {
 		try {
 			return SimpleCrypto.encrypt(SimpleCrypto.MASTER_KEY, password);
@@ -971,6 +1041,12 @@ public class UsersController {
 	}
 	
 	
+	
+	/**
+	 * Decrypt password from AES-128
+	 * @param user
+	 * @return
+	 */
 	private String decryptPassword(User user) {
 		try {
 			String dbPassword = (String) user.getPassword();

@@ -1,6 +1,10 @@
 package com.joanflo.adapters;
 
-
+/**
+ * Spinner item class
+ * @author Joanflo
+ * @see SpinnerNavAdapter
+ */
 public class SpinnerNavItem {
 
 	
@@ -9,6 +13,11 @@ public class SpinnerNavItem {
      
 	
 	
+	/**
+	 * Spinner item constructor
+	 * @param title
+	 * @param icon
+	 */
 	public SpinnerNavItem(CharSequence title, int icon){
 		this.title = title;
 		this.icon = icon;

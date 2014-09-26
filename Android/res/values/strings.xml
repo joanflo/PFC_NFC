@@ -11,6 +11,7 @@
     <string name="action_review">Add review</string>
     <string name="action_about">About</string>
     <string name="action_logout">Log out</string>
+    <string name="action_login">Log in</string>
     
 
     <!-- Nav Drawer Menu Items -->
@@ -141,7 +142,7 @@
     <string name="shop1">Bought in</string>
     <string name="shop2">on</string>
     <string name="nosizes">Unique size</string>
-    <string name="aboutinfo">Joan G. Florit Gomila\nThis app corresponds to the Final Degree Project for Computer Engineering\n2014 (Mallorca)\n\n"Computer science is no more about computers than astronomy is about telescopes." - Dijkstra\n</string>
+    <string name="aboutinfo">Joan G. Florit Gomila\nThis app corresponds to the Final Degree Project for Computer Engineering\n2014 (Mallorca)\n\n\"Computer science is no more about computers than astronomy is about telescopes.\" - Dijkstra\n</string>
     <string name="aboutgithub">github.com/joanflo</string>
     <string name="aboutlinkedin">linkedin.com/in/joanflo</string>
     <string name="abouttwitter">twitter.com/joan_flo</string>

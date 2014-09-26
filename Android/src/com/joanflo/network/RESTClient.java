@@ -32,6 +32,10 @@ import com.joanflo.models.Review;
 import com.joanflo.models.User;
 import com.joanflo.models.Wish;
 
+/**
+ * REST client
+ * @author Joanflo
+ */
 public class RESTClient implements AsyncResponse {
 	
 	
@@ -61,6 +65,9 @@ public class RESTClient implements AsyncResponse {
 	
 	
 	@Override
+	/**
+	 * Method to deliver server responses to the properly controller.
+	 */
 	public void requestFinished(InfoResponse[] infoResponses) {
 		// for each response
 		for (int i = 0; i < infoResponses.length; i++) {

@@ -18,6 +18,10 @@ import com.joanflo.tagit.PurchaseDetailListActivity;
 import com.joanflo.tagit.PurchaseListActivity;
 import com.joanflo.tagit.R;
 
+/**
+ * Taxes controller class
+ * @author Joanflo
+ */
 public class TaxesController {
 
 	
@@ -25,6 +29,11 @@ public class TaxesController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Taxes controller constructor
+	 * @param activity
+	 */
 	public TaxesController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -32,6 +41,15 @@ public class TaxesController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
 			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {

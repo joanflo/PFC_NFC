@@ -20,7 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-
+/**
+ * Update user data activity
+ * @author Joanflo
+ */
 public class UpdateUserDataActivity extends BaseActivity implements OnItemSelectedListener {
 
 	

@@ -10,30 +10,31 @@ import android.os.Bundle;
 
 /**
  * Methods to work with locations
- * 
  * @author Fedor
- * 
  * @see <a href="https://stackoverflow.com/questions/3145089/what-is-the-simplest-and-most-robust-way-to-get-the-users-current-location-in-a">Class source</a>
  */
 public class LocationUtils {
+	
+	
     Timer timer1;
     LocationManager lm;
     LocationResult locationResult;
     boolean gps_enabled=false;
     boolean network_enabled=false;
+    
+    
 
-    public boolean getLocation(Context context, LocationResult result)
-    {
-        //I use LocationResult callback class to pass location value from MyLocation to user code.
+    public boolean getLocation(Context context, LocationResult result) {
+        // I use LocationResult callback class to pass location value from MyLocation to user code.
         locationResult=result;
         if(lm==null)
             lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
-        //exceptions will be thrown if provider is not permitted.
+        // Exceptions will be thrown if provider is not permitted.
         try{gps_enabled=lm.isProviderEnabled(LocationManager.GPS_PROVIDER);}catch(Exception ex){}
         try{network_enabled=lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);}catch(Exception ex){}
 
-        //don't start listeners if no provider is enabled
+        // Don't start listeners if no provider is enabled
         if(!gps_enabled && !network_enabled)
             return false;
 
@@ -46,6 +47,8 @@ public class LocationUtils {
         return true;
     }
 
+    
+    
     LocationListener locationListenerGps = new LocationListener() {
         public void onLocationChanged(Location location) {
             timer1.cancel();
@@ -58,6 +61,8 @@ public class LocationUtils {
         public void onStatusChanged(String provider, int status, Bundle extras) {}
     };
 
+    
+    
     LocationListener locationListenerNetwork = new LocationListener() {
         public void onLocationChanged(Location location) {
             timer1.cancel();
@@ -70,6 +75,8 @@ public class LocationUtils {
         public void onStatusChanged(String provider, int status, Bundle extras) {}
     };
 
+    
+    
     class GetLastLocation extends TimerTask {
         @Override
         public void run() {
@@ -103,7 +110,11 @@ public class LocationUtils {
         }
     }
 
-    public static abstract class LocationResult{
+    
+    
+    public static abstract class LocationResult {
         public abstract void gotLocation(Location location);
     }
+    
+    
 }

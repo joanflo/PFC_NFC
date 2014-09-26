@@ -29,8 +29,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-
+/**
+ * User profile activity
+ * @author Joanflo
+ */
 public class UserProfileActivity extends BaseActivity implements OnItemClickListener {
 	
 	
@@ -287,9 +291,16 @@ public class UserProfileActivity extends BaseActivity implements OnItemClickList
 	
 	
 	private void viewUserRealationship(boolean seeFollowers, CharSequence userEmail) {
-		Intent i = new Intent(this, FollowsListActivity.class);
-        i.putExtra("seeFollowers", seeFollowers);
-        i.putExtra("userEmail", userEmail);
+		Intent i;
+		if (LocalStorage.getInstance().isUserLogged(this)) {
+			i = new Intent(this, FollowsListActivity.class);
+	        i.putExtra("seeFollowers", seeFollowers);
+	        i.putExtra("userEmail", userEmail);
+		} else {
+			Toast.makeText(this, R.string.toast_registration, Toast.LENGTH_SHORT).show();
+    		i = new Intent(this, LoginActivity.class);
+	        startActivity(i);
+		}
 		startActivity(i);
     }
 	

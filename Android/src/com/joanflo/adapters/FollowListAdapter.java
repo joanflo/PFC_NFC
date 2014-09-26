@@ -16,7 +16,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+/**
+ * Follow list adapter class
+ * @author Joanflo
+ * @see FollowListItem
+ */
 public class FollowListAdapter extends BaseAdapter {
 
 
@@ -25,6 +29,13 @@ public class FollowListAdapter extends BaseAdapter {
 	private FollowsListActivity listener;
 	
 	
+	
+	/**
+	 * Follow list adapter constructor
+	 * @param context
+	 * @param followItems
+	 * @param listener
+	 */
 	public FollowListAdapter(Context context, List<FollowListItem> followItems, FollowsListActivity listener) {
 		this.context = context;
 		this.followItems = followItems;

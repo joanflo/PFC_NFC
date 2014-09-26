@@ -26,7 +26,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
+/**
+ * Purchase list activity
+ * @author Joanflo
+ */
 public class PurchaseListActivity extends BaseActivity {
 	
 	

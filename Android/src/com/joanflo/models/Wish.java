@@ -1,10 +1,15 @@
 package com.joanflo.models;
 
 import java.sql.Timestamp;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.joanflo.utils.Time;
 
+/**
+ * Wish model
+ * @author Joanflo
+ */
 public class Wish {
 
 	
@@ -20,14 +25,23 @@ public class Wish {
 	
 	
 	
-	// wish from database
+	/**
+	 * Wish model constructor
+	 * @param product
+	 * @param user
+	 * @param date
+	 */
 	public Wish(Product product, User user, Timestamp date) {
 		this.product = product;
 		this.user = user;
 		this.date = date;
 	}
 	
-	// new wish
+	/**
+	 * Wish model constructor
+	 * @param product
+	 * @param user
+	 */
 	public Wish(Product product, User user) {
 		this.product = product;
 		this.user = user;
@@ -35,6 +49,12 @@ public class Wish {
 		this.date = new java.sql.Timestamp(time);
 	}
 	
+	/**
+	 * Wish model constructor
+	 * @param jWish
+	 * @param lang
+	 * @throws JSONException
+	 */
 	public Wish(JSONObject jWish, String lang) throws JSONException {
 		// id wish
 		this.idWish = jWish.getInt("idWish");

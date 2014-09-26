@@ -3,6 +3,10 @@ package com.joanflo.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * ProductBelongsCategory model
+ * @author Joanflo
+ */
 public class ProductBelongsCategory {
 	
 	
@@ -15,12 +19,23 @@ public class ProductBelongsCategory {
 	
 	
 	
+	/**
+	 * ProductBelongsCategory model constructor
+	 * @param idProductBelongsCategory
+	 * @param product
+	 * @param category
+	 */
 	public ProductBelongsCategory(int idProductBelongsCategory, Product product, Category category) {
 		this.idProductBelongsCategory = idProductBelongsCategory;
 		this.product = product;
 		this.category = category;
 	}
 	
+	/**
+	 * ProductBelongsCategory model constructor
+	 * @param jProductBelongsCategory
+	 * @throws JSONException
+	 */
 	public ProductBelongsCategory(JSONObject jProductBelongsCategory) throws JSONException {
 		// id
 		this.idProductBelongsCategory = jProductBelongsCategory.getInt("idProductBelongsCategory");

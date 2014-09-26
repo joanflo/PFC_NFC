@@ -7,6 +7,7 @@ import com.joanflo.models.ProductImage;
 import com.joanflo.models.Review;
 import com.joanflo.models.User;
 import com.joanflo.network.ImageLoader;
+import com.joanflo.utils.Gamification;
 import com.joanflo.utils.LocalStorage;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +18,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+/**
+ * New review activity
+ * @author Joanflo
+ */
 public class NewReviewActivity extends BaseActivity {
 
 
@@ -141,8 +145,23 @@ public class NewReviewActivity extends BaseActivity {
 			
 		} else {
 			// review created successfully
+			checkGamification();
 			Toast.makeText(this, R.string.toast_reviewcreated, Toast.LENGTH_SHORT).show();
 			finish();
+		}
+	}
+	
+	
+	
+	private void checkGamification() {
+		super.updateUserPoints(Gamification.POINTS_REVIEW_PRODUCT);
+		LocalStorage storage = LocalStorage.getInstance();
+		int reviewsNumber = storage.getReviewsNumber(this) + 1;
+		storage.setReviewsNumber(this, reviewsNumber);
+		if (reviewsNumber == 1) {
+			super.createAchievement(Gamification.BADGE_1REVIEW);
+		} else if (reviewsNumber == 10) {
+			super.createAchievement(Gamification.BADGE_10REVIEWS);
 		}
 	}
 	

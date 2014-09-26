@@ -4,7 +4,11 @@ import java.sql.Timestamp;
 
 import com.joanflo.utils.Time;
 
-
+/**
+ * Purchase item class
+ * @author Joanflo
+ * @see PurchaseListAdapter
+ */
 public class PurchaseListItem {
 
 	
@@ -17,6 +21,15 @@ public class PurchaseListItem {
 	
 	
 	
+	/**
+	 * Purchase list item constructor
+	 * @param purchaseId
+	 * @param date
+	 * @param totalPrice
+	 * @param coin
+	 * @param totalItems
+	 * @param shopDirection
+	 */
 	public PurchaseListItem(int purchaseId, Timestamp date, CharSequence totalPrice, char coin, CharSequence totalItems, CharSequence shopDirection) {
 		this.purchaseId = purchaseId;
 		this.date = Time.convertTimestampToString(date);

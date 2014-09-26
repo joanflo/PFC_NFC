@@ -5,6 +5,12 @@ import com.joanflo.utils.AssetsUtils;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+
+/**
+ * Badge item class
+ * @author Joanflo
+ * @see BadgeListAdapter
+ */
 public class BadgeListItem {
 
 	
@@ -13,6 +19,12 @@ public class BadgeListItem {
 	
 	
 	
+	/**
+	 * Badge list item constructor
+	 * @param context
+	 * @param badgeName
+	 * @param description
+	 */
 	public BadgeListItem(Context context, CharSequence badgeName, CharSequence description) {
 		this.thumb = AssetsUtils.getImageFromAssets(context, AssetsUtils.BADGES_DIRECTORY, String.valueOf(badgeName));
 		this.description = description;

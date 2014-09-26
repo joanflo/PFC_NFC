@@ -3,6 +3,10 @@ package com.joanflo.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Batch model
+ * @author Joanflo
+ */
 public class Batch {
 	
 	
@@ -20,6 +24,15 @@ public class Batch {
 	
 	
 	
+	/**
+	 * Batch model constructor
+	 * @param idBatch
+	 * @param product
+	 * @param size
+	 * @param color
+	 * @param shop
+	 * @param units
+	 */
 	public Batch(int idBatch, Product product, Size size, Color color, Shop shop, int units) {
 		this.idBatch = idBatch;
 		this.product = product;
@@ -29,6 +42,11 @@ public class Batch {
 		this.units = units;
 	}
 	
+	/**
+	 * Batch model constructor
+	 * @param jBatch
+	 * @throws JSONException
+	 */
 	public Batch(JSONObject jBatch) throws JSONException {
 		// id batch
 		this.idBatch = jBatch.getInt("idBatch");

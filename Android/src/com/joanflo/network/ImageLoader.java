@@ -8,12 +8,15 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
-public class ImageLoader extends AsyncTask<URL, Void, Bitmap> { // <input_data, progress_data, output_data>
+/**
+ * AsyncTask to load images
+ * @author Joanflo
+ */
+public class ImageLoader extends AsyncTask<URL, Void, Bitmap> {
+	// <input_data, progress_data, output_data>
 
 	
 	private ImageView imageView;
-	
-	
 	
 	public ImageLoader(ImageView imageView) {
 		this.imageView = imageView;
@@ -42,7 +45,6 @@ public class ImageLoader extends AsyncTask<URL, Void, Bitmap> { // <input_data, 
 	protected void onPostExecute(Bitmap bmp) {
 		if (bmp == null) {
 			imageView.setImageResource(R.drawable.default_image);
-		
 		} else {
 			imageView.setImageBitmap(bmp);
 		}

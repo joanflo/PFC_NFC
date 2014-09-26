@@ -12,13 +12,23 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.joanflo.tagit.R;
 
-
+/**
+ * Purchase list adapter class
+ * @author Joanflo
+ * @see PurchaseListItem
+ */
 public class PurchaseListAdapter extends BaseAdapter {
 
 	private Context context;
 	private List<PurchaseListItem> purchaseItems;
 		
 	
+	
+	/**
+	 * Purchase list adapter constructor
+	 * @param context
+	 * @param purchaseItems
+	 */
 	public PurchaseListAdapter(Context context, List<PurchaseListItem> purchaseItems) {
 		this.context = context;
 		this.purchaseItems = purchaseItems;

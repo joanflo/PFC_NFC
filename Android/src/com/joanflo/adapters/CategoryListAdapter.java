@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.joanflo.tagit.R;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,12 +14,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Category list adapter class
+ * @author Joanflo
+ * @see CategoryListItem
+ */
 public class CategoryListAdapter extends BaseAdapter {
 
 	private Context context;
 	private List<CategoryListItem> categoryItems;
 		
 	
+	
+	/**
+	 * Category list adapter constructor
+	 * @param context
+	 * @param categoryItems
+	 */
 	public CategoryListAdapter(Context context, List<CategoryListItem> categoryItems) {
 		this.context = context;
 		this.categoryItems = categoryItems;
@@ -44,6 +56,7 @@ public class CategoryListAdapter extends BaseAdapter {
 	}
 
 	
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 

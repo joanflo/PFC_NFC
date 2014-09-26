@@ -18,6 +18,10 @@ import com.joanflo.tagit.R;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
 
+/**
+ * Categories controller class
+ * @author Joanflo
+ */
 public class CategoriesController {
 
 	
@@ -25,6 +29,11 @@ public class CategoriesController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Categories controller constructor
+	 * @param activity
+	 */
 	public CategoriesController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -32,6 +41,15 @@ public class CategoriesController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		String lang = LocalStorage.getInstance().getLocaleLanguage(activity);
 		
@@ -150,6 +168,13 @@ public class CategoriesController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of categories
+	 * @param jCategories
+	 * @param lang
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Category> processCategories(JSONArray jCategories, String lang) throws JSONException {
 		List<Category> categories = new ArrayList<Category>(jCategories.length());
 		
@@ -166,6 +191,12 @@ public class CategoriesController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of ProductBelongsCategory model
+	 * @param jProductBelongsCategories
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<ProductBelongsCategory> processProductBelongsCategory(JSONArray jProductBelongsCategories) throws JSONException {
 		List<ProductBelongsCategory> productBelongsCategories = new ArrayList<ProductBelongsCategory>(jProductBelongsCategories.length());
 		

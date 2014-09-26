@@ -12,6 +12,10 @@ import com.joanflo.tagit.R;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
 
+/**
+ * Collections controller class
+ * @author Joanflo
+ */
 public class CollectionsController {
 
 	
@@ -19,6 +23,11 @@ public class CollectionsController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Collections controller constructor
+	 * @param activity
+	 */
 	public CollectionsController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -26,6 +35,15 @@ public class CollectionsController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
 			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {

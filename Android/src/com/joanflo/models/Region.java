@@ -5,6 +5,10 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Region model
+ * @author Joanflo
+ */
 public class Region {
 
 	
@@ -17,12 +21,23 @@ public class Region {
 	
 	
 	
+	/**
+	 * Region model constructor
+	 * @param regionName
+	 * @param cities
+	 * @param country
+	 */
 	public Region(CharSequence regionName, List<City> cities, Country country) {
 		this.regionName = regionName;
 		this.cities = cities;
 		this.country = country;
 	}
 	
+	/**
+	 * Region model constructor
+	 * @param jRegions
+	 * @throws JSONException
+	 */
 	public Region(JSONObject jRegions) throws JSONException {
 		this.regionName = jRegions.getString("regionName");
 		this.cities = null;

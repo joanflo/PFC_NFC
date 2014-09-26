@@ -21,6 +21,10 @@ import com.joanflo.tagit.ReviewListActivity;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
 
+/**
+ * Products controller class
+ * @author Joanflo
+ */
 public class ProductsController {
 
 	
@@ -28,6 +32,11 @@ public class ProductsController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Products controller constructor
+	 * @param activity
+	 */
 	public ProductsController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -35,6 +44,15 @@ public class ProductsController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		// get language code
 		String lang = LocalStorage.getInstance().getLocaleLanguage(activity);
@@ -263,6 +281,13 @@ public class ProductsController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of products
+	 * @param jProducts
+	 * @param lang
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Product> processProducts(JSONArray jProducts, String lang) throws JSONException {
 		List<Product> products = new ArrayList<Product>(jProducts.length());
 		
@@ -279,6 +304,13 @@ public class ProductsController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of ProductImage model
+	 * @param jProductImages
+	 * @param lang
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<ProductImage> processProductImages(JSONArray jProductImages, String lang) throws JSONException {
 		List<ProductImage> productImages = new ArrayList<ProductImage>(jProductImages.length());
 		
@@ -295,6 +327,12 @@ public class ProductsController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of reviews
+	 * @param jReviews
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Review> processReviews(JSONArray jReviews) throws JSONException {
 		List<Review> reviews = new ArrayList<Review>(jReviews.length());
 		

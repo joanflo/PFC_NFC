@@ -39,7 +39,10 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
 
-
+/**
+ * Shop list activity
+ * @author Joanflo
+ */
 public class ShopSelectionActivity extends BaseActivity implements OnItemSelectedListener {
 
 	

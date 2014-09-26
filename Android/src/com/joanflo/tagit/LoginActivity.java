@@ -11,6 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.joanflo.controllers.UsersController;
 
+/**
+ * Log in activity
+ * @author Joanflo
+ */
 public class LoginActivity extends Activity {
 
 	

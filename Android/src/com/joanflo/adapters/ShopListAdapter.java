@@ -2,6 +2,7 @@ package com.joanflo.adapters;
 
 import java.util.ArrayList;
 import com.joanflo.tagit.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,12 +11,23 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+/**
+ * Shop list adapter class
+ * @author Joanflo
+ * @see ShopListItem
+ */
 public class ShopListAdapter extends BaseAdapter {
 
 	private Context context;
     private ArrayList<ShopListItem> shopItems;
     
     
+    
+    /**
+     * Shop list adapter constructor
+     * @param context
+     * @param shopItems
+     */
     public ShopListAdapter(Context context, ArrayList<ShopListItem> shopItems){
         this.context = context;
         this.shopItems = shopItems;
@@ -37,6 +49,7 @@ public class ShopListAdapter extends BaseAdapter {
 		return position;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 

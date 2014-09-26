@@ -29,6 +29,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Registration activity
+ * @author Joanflo
+ */
 public class RegistrationActivity extends Activity implements OnItemSelectedListener {
 
 	
@@ -229,7 +233,7 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 		} else {
 			// user created successfully
 			LocalStorage storage = LocalStorage.getInstance();
-			storage.setUserLoged(this, true);
+			storage.setUserLogged(this, true);
 			storage.saveUser(this, user);
 			goToHomeActivity(user.getUserEmail());
 		}
@@ -350,6 +354,7 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 		Intent iMain = new Intent(this, HomeActivity.class);
 		if (userEmail != null) {
 			iMain.putExtra("userEmail", userEmail);
+			iMain.putExtra("userCreated", true);
 		}
 		startActivity(iMain);
 		finish();

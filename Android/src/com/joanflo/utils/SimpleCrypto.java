@@ -28,6 +28,13 @@ public class SimpleCrypto {
 	
 	
 	
+	/**
+	 * Encrypt text
+	 * @param seed
+	 * @param cleartext
+	 * @return encrypted text
+	 * @throws Exception
+	 */
 	public static String encrypt(String seed, String cleartext) throws Exception {
 		byte[] rawKey = getRawKey(seed.getBytes());
 		byte[] result = encrypt(rawKey, cleartext.getBytes());
@@ -36,6 +43,13 @@ public class SimpleCrypto {
 	
 	
 	
+	/**
+	 * Decrypt text
+	 * @param seed
+	 * @param encrypted
+	 * @return decrypted text
+	 * @throws Exception
+	 */
 	public static String decrypt(String seed, String encrypted) throws Exception {
 		byte[] rawKey = getRawKey(seed.getBytes());
 		byte[] enc = toByte(encrypted);
@@ -46,6 +60,12 @@ public class SimpleCrypto {
 	
 	
 	@SuppressLint("TrulyRandom")
+	/**
+	 * Obtain a key using the given seed
+	 * @param seed
+	 * @return
+	 * @throws Exception
+	 */
 	private static byte[] getRawKey(byte[] seed) throws Exception {
 		/*
 		KeyGenerator kgen = KeyGenerator.getInstance("AES");
@@ -63,6 +83,13 @@ public class SimpleCrypto {
 	
 	
 	@SuppressLint("TrulyRandom")
+	/**
+	 * Encrypt bytes
+	 * @param raw
+	 * @param clear
+	 * @return
+	 * @throws Exception
+	 */
 	private static byte[] encrypt(byte[] raw, byte[] clear) throws Exception {
 		SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
 		Cipher cipher = Cipher.getInstance("AES");
@@ -73,6 +100,13 @@ public class SimpleCrypto {
 	
 	
 	
+	/**
+	 * Decrypt bytes
+	 * @param raw
+	 * @param encrypted
+	 * @return
+	 * @throws Exception
+	 */
 	private static byte[] decrypt(byte[] raw, byte[] encrypted) throws Exception {
 		SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
 		Cipher cipher = Cipher.getInstance("AES");
@@ -88,11 +122,9 @@ public class SimpleCrypto {
 	}
 	
 	
-	
 	public static String fromHex(String hex) {
 		return new String(toByte(hex));
 	}
-	
 	
 	
 	public static byte[] toByte(String hexString) {
@@ -104,17 +136,15 @@ public class SimpleCrypto {
 	}
 	
 	
-	
 	public static String toHex(byte[] buf) {
-	        if (buf == null)
-	                return "";
-	        StringBuffer result = new StringBuffer(2*buf.length);
-	        for (int i = 0; i < buf.length; i++) {
-	                appendHex(result, buf[i]);
-	        }
-	        return result.toString();
+        if (buf == null)
+                return "";
+        StringBuffer result = new StringBuffer(2*buf.length);
+        for (int i = 0; i < buf.length; i++) {
+                appendHex(result, buf[i]);
+        }
+        return result.toString();
 	}
-	
 	
 	
 	private static void appendHex(StringBuffer sb, byte b) {

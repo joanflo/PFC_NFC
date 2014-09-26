@@ -17,7 +17,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+/**
+ * Brand activity
+ * @author Joanflo
+ */
 public class BrandActivity extends BaseActivity {
 
 	

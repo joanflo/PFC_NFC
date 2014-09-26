@@ -9,6 +9,10 @@ import org.json.JSONObject;
 
 import com.joanflo.utils.Time;
 
+/**
+ * Purchase model
+ * @author Joanflo
+ */
 public class Purchase {
 
 	
@@ -30,7 +34,13 @@ public class Purchase {
 	
 	
 	
-	// purchase from database
+	/**
+	 * Purchase model constructor
+	 * @param idPurchase
+	 * @param user
+	 * @param status
+	 * @param date
+	 */
 	public Purchase(int idPurchase, User user, char status, Timestamp date) {
 		this.idPurchase = idPurchase;
 		this.user = user;
@@ -39,9 +49,14 @@ public class Purchase {
 		this.date = date;
 	}
 	
-	
-	
-	// purchase from database and purchase detail
+	/**
+	 * Purchase model constructor
+	 * @param idPurchase
+	 * @param user
+	 * @param purchaseDetails
+	 * @param status
+	 * @param date
+	 */
 	public Purchase(int idPurchase, User user, List<PurchaseDetail> purchaseDetails, char status, Timestamp date) {
 		this.idPurchase = idPurchase;
 		this.user = user;
@@ -50,9 +65,12 @@ public class Purchase {
 		this.date = date;
 	}
 	
-	
-	
-	// new purchase
+	/**
+	 * Purchase model constructor
+	 * @param idPurchase
+	 * @param user
+	 * @param status
+	 */
 	public Purchase(int idPurchase, User user, char status) {
 		this.idPurchase = idPurchase;
 		this.user = user;
@@ -62,8 +80,11 @@ public class Purchase {
 		this.date = new java.sql.Timestamp(time);
 	}
 	
-	
-	
+	/**
+	 * Purchase model constructor
+	 * @param jPurchase
+	 * @throws JSONException
+	 */
 	public Purchase(JSONObject jPurchase) throws JSONException {
 		this.idPurchase = jPurchase.getInt("idPurchase");
 		this.user = new User(jPurchase);
@@ -72,6 +93,7 @@ public class Purchase {
 		this.date = Time.convertStringToTimestamp(jPurchase.getString("date"));
 	}
 
+	
 
 	public int getIdPurchase() {
 		return idPurchase;

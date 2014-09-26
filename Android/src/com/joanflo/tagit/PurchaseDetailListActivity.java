@@ -39,7 +39,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+/**
+ * Purchase detail list activity
+ * @author Joanflo
+ */
 public class PurchaseDetailListActivity extends BaseActivity implements Button.OnClickListener {
 
 	

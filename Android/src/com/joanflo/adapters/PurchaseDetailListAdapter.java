@@ -15,7 +15,11 @@ import com.joanflo.network.ImageLoader;
 import com.joanflo.tagit.PurchaseDetailListActivity;
 import com.joanflo.tagit.R;
 
-
+/**
+ * Purchase detail list adapter class
+ * @author Joanflo
+ * @see PurchaseDetailListItem
+ */
 public class PurchaseDetailListAdapter extends BaseAdapter {
 
 	private Context context;
@@ -25,6 +29,13 @@ public class PurchaseDetailListAdapter extends BaseAdapter {
 	
 		
 	
+	/**
+	 * Purchase detail list adapter constructor
+	 * @param listener
+	 * @param context
+	 * @param purchaseDetailItems
+	 * @param viewingCart
+	 */
 	public PurchaseDetailListAdapter(PurchaseDetailListActivity listener, Context context, List<PurchaseDetailListItem> purchaseDetailItems, boolean viewingCart) {
 		this.context = context;
 		this.purchaseDetailItems = purchaseDetailItems;

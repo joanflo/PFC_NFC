@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-
+/**
+ * Points activity
+ * @author Joanflo
+ */
 public class PointsActivity extends BaseActivity {
 
 
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

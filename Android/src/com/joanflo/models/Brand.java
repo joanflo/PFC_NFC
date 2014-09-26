@@ -3,6 +3,10 @@ package com.joanflo.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Brand model
+ * @author Joanflo
+ */
 public class Brand {
 
 	
@@ -20,6 +24,15 @@ public class Brand {
 	
 	
 	
+	/**
+	 * Brand model constructor
+	 * @param brandName
+	 * @param headquarter
+	 * @param phone
+	 * @param email
+	 * @param latitude
+	 * @param longitude
+	 */
 	public Brand(CharSequence brandName, CharSequence headquarter, CharSequence phone, CharSequence email, double latitude, double longitude) {
 		this.brandName = brandName;
 		this.headquarter = headquarter;
@@ -29,10 +42,19 @@ public class Brand {
 		this.longitude = longitude;
 	}
 	
+	/**
+	 * Brand model constructor
+	 * @param brandName
+	 */
 	public Brand(CharSequence brandName) {
 		this.brandName = brandName;
 	}
 	
+	/**
+	 * Brand model constructor
+	 * @param jBrand
+	 * @throws JSONException
+	 */
 	public Brand(JSONObject jBrand) throws JSONException {
 		this.brandName = jBrand.getString("brandName");
 		this.headquarter = jBrand.getString("headquarter");

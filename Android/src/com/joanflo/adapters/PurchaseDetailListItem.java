@@ -2,6 +2,11 @@ package com.joanflo.adapters;
 
 import java.net.URL;
 
+/**
+ * Purchase detail item class
+ * @author Joanflo
+ * @see PurchaseDetailListAdapter
+ */
 public class PurchaseDetailListItem {
 
 	
@@ -19,6 +24,19 @@ public class PurchaseDetailListItem {
 	
 	
 	
+	/**
+	 * Purchase detail list item constructor
+	 * @param units
+	 * @param productId
+	 * @param productName
+	 * @param url
+	 * @param description
+	 * @param totalPrice
+	 * @param coin
+	 * @param size
+	 * @param colorCode
+	 * @param colorName
+	 */
 	public PurchaseDetailListItem(int units, int productId, CharSequence productName,
 			URL url, CharSequence description, CharSequence totalPrice, char coin,
 			int size, CharSequence colorCode, CharSequence colorName) {
@@ -37,7 +55,16 @@ public class PurchaseDetailListItem {
 	}
 	
 	
-	
+	/**
+	 * Purchase detail list item constructor
+	 * @param units
+	 * @param productId
+	 * @param productName
+	 * @param url
+	 * @param description
+	 * @param totalPrice
+	 * @param coin
+	 */
 	public PurchaseDetailListItem(int units, int productId, CharSequence productName,
 			URL url, CharSequence description, CharSequence totalPrice, char coin) {
 		viewingCart = true;

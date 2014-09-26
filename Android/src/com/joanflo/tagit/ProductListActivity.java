@@ -33,7 +33,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
+/**
+ * Product list activity
+ * @author Joanflo
+ */
 public class ProductListActivity extends BaseActivity implements ActionBar.OnNavigationListener {
 
 	

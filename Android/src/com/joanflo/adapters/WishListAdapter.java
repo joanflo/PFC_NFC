@@ -17,7 +17,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+/**
+ * Wish list adapter class
+ * @author Joanflo
+ * @see WishListItem
+ */
 public class WishListAdapter extends BaseAdapter {
 
 	private Context context;
@@ -25,6 +29,13 @@ public class WishListAdapter extends BaseAdapter {
 	private WishListActivity listener;
 		
 	
+	
+	/**
+	 * Wish list adapter constructor
+	 * @param listener
+	 * @param context
+	 * @param wishItems
+	 */
 	public WishListAdapter(WishListActivity listener, Context context, List<WishListItem> wishItems) {
 		this.listener = listener;
 		this.context = context;

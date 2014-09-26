@@ -10,6 +10,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+/**
+ * Start activity
+ * @author Joanflo
+ */
 public class StartActivity extends Activity {
 
 	private Activity startActivity = this;
@@ -29,7 +33,7 @@ public class StartActivity extends Activity {
 
 			private void chooseInitialActivity() {
 				Intent i;
-				if (LocalStorage.getInstance().isUserLoged(startActivity)) {
+				if (LocalStorage.getInstance().isUserLogged(startActivity)) {
 					i = new Intent(startActivity, HomeActivity.class);
 				} else {
 					i = new Intent(startActivity, LoginActivity.class);

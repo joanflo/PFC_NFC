@@ -3,6 +3,10 @@ package com.joanflo.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * PurchaseDetail model
+ * @author Joanflo
+ */
 public class PurchaseDetail {
 
 	
@@ -16,7 +20,13 @@ public class PurchaseDetail {
 	
 	
 	
-	// new purchase detail from database
+	/**
+	 * PurchaseDetail model constructor
+	 * @param idPurchaseDetail
+	 * @param purchase
+	 * @param batch
+	 * @param units
+	 */
 	public PurchaseDetail(int idPurchaseDetail, Purchase purchase, Batch batch, int units) {
 		this.idPurchaseDetail = idPurchaseDetail;
 		this.purchase = purchase;
@@ -24,13 +34,23 @@ public class PurchaseDetail {
 		this.units = units;
 	}
 	
-	// new purchase detail
+	/**
+	 * PurchaseDetail model constructor
+	 * @param purchase
+	 * @param batch
+	 * @param units
+	 */
 	public PurchaseDetail(Purchase purchase, Batch batch, int units) {
 		this.purchase = purchase;
 		this.batch = batch;
 		this.units = units;
 	}
 	
+	/**
+	 * PurchaseDetail model constructor
+	 * @param jPurchaseDetail
+	 * @throws JSONException
+	 */
 	public PurchaseDetail(JSONObject jPurchaseDetail) throws JSONException {
 		// id purchase detail
 		this.idPurchaseDetail = jPurchaseDetail.getInt("idPurchaseDetail");

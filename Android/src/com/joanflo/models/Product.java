@@ -6,6 +6,10 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Product model
+ * @author Joanflo
+ */
 public class Product {
 
 	
@@ -30,6 +34,22 @@ public class Product {
 	
 	
 	
+	/**
+	 * Product model constructor
+	 * @param idProduct
+	 * @param brand
+	 * @param collection
+	 * @param reviews
+	 * @param taxes
+	 * @param batches
+	 * @param relatedProducts
+	 * @param images
+	 * @param categories
+	 * @param name
+	 * @param description
+	 * @param reference
+	 * @param composition
+	 */
 	public Product(int idProduct, Brand brand, Collection collection, List<Review> reviews, 
 			List<Tax> taxes, List<Batch> batches, List<Product> relatedProducts, 
 			List<ProductImage> images, List<Category> categories, CharSequence name,
@@ -50,6 +70,16 @@ public class Product {
 		this.composition = composition;
 	}
 	
+	/**
+	 * Product model constructor
+	 * @param idProduct
+	 * @param brand
+	 * @param collection
+	 * @param name
+	 * @param description
+	 * @param reference
+	 * @param composition
+	 */
 	public Product(int idProduct, Brand brand, Collection collection, CharSequence name,
 			CharSequence description, CharSequence reference, CharSequence composition) {
 		
@@ -68,6 +98,12 @@ public class Product {
 		this.composition = composition;
 	}
 	
+	/**
+	 * Product model constructor
+	 * @param jProduct
+	 * @param lang
+	 * @throws JSONException
+	 */
 	public Product(JSONObject jProduct, String lang) throws JSONException {
 		// id product
 		this.idProduct = jProduct.getInt("idProduct");
@@ -158,6 +194,11 @@ public class Product {
 		return batches;
 	}
 	
+	/**
+	 * Get batches delivered to the given shop
+	 * @param shop
+	 * @return
+	 */
 	public List<Batch> getBatches(Shop shop) {
 		if (shop == null) {
 			return batches;
@@ -268,6 +309,11 @@ public class Product {
 	}
 	
 	
+	/**
+	 * Search tax by country name
+	 * @param country
+	 * @return
+	 */
 	public Tax searchTax(Country country) {
 		int i = 0;
 		boolean found = false;
@@ -285,6 +331,11 @@ public class Product {
 	}
 	
 	
+	/**
+	 * Calculate product's price
+	 * @param tax
+	 * @return
+	 */
 	public double calculatePrice(Tax tax) {
 		double basePrice = tax.getBasePrice();
 		int iva = tax.getIva();
@@ -305,6 +356,10 @@ public class Product {
 	}
 	
 	
+	/**
+	 * Calculate product's average rating
+	 * @return
+	 */
 	public double calculateAverageRating() {
 		int n = reviews.size();
 		if (n == 0) {
@@ -323,6 +378,8 @@ public class Product {
 	}
 	
 	
+	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Product) {
 			Product product = (Product) obj;

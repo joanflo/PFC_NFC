@@ -11,6 +11,7 @@
     <string name="action_review">Afegir comentari</string>
     <string name="action_about">Informació</string>
     <string name="action_logout">Sortir</string>
+    <string name="action_login">Entrar</string>
     
 
     <!-- Nav Drawer Menu Items -->
@@ -141,7 +142,7 @@
     <string name="shop1">Comprat a</string>
     <string name="shop2">el</string>
     <string name="nosizes">Talla única</string>
-    <string name="aboutinfo">Joan G. Florit Gomila\nAquesta app es correspon amb el Projecte de Fi de Carrera d\'Enginyeria Informàtica\n2014 (Mallorca)\n\n"La informàtica és als ordinadors el que l\'astronomia és als telescopis." - Dijkstra\n</string>
+    <string name="aboutinfo">Joan G. Florit Gomila\nAquesta app es correspon amb el Projecte de Fi de Carrera d\'Enginyeria Informàtica\n2014 (Mallorca)\n\n\"La informàtica és als ordinadors el que l\'astronomia és als telescopis.\" - Dijkstra\n</string>
     
     <!-- titles -->
     <string name="title_home_search">Cercar</string>

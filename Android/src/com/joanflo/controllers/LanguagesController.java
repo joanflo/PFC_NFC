@@ -14,6 +14,10 @@ import com.joanflo.tagit.R;
 import com.joanflo.tagit.RegistrationActivity;
 import com.joanflo.tagit.UpdateUserDataActivity;
 
+/**
+ * Languages controller class
+ * @author Joanflo
+ */
 public class LanguagesController {
 
 	
@@ -21,6 +25,11 @@ public class LanguagesController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Languages controller constructor
+	 * @param activity
+	 */
 	public LanguagesController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -28,6 +37,15 @@ public class LanguagesController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
 			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
@@ -72,6 +90,12 @@ public class LanguagesController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of languages
+	 * @param jLanguages
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Language> processLanguages(JSONArray jLanguages) throws JSONException {
 		List<Language> languages = new ArrayList<Language>(jLanguages.length());
 		

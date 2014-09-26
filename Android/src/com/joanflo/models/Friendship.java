@@ -7,6 +7,10 @@ import org.json.JSONObject;
 
 import com.joanflo.utils.Time;
 
+/**
+ * Friendship model
+ * @author Joanflo
+ */
 public class Friendship {
 
 	// primary & foreign keys
@@ -18,14 +22,23 @@ public class Friendship {
 	
 	
 
-	// friendship from database
+	/**
+	 * Friendship model constructor
+	 * @param userFollowing
+	 * @param userFollower
+	 * @param date
+	 */
 	public Friendship(User userFollowing, User userFollower, Timestamp date) {
 		this.userFollowing = userFollowing;
 		this.userFollower = userFollower;
 		this.date = date;
 	}
 	
-	// new friendship
+	/**
+	 * Friendship model constructor
+	 * @param userFollowing
+	 * @param userFollower
+	 */
 	public Friendship(User userFollowing, User userFollower) {
 		this.userFollowing = userFollowing;
 		this.userFollower = userFollower;
@@ -33,6 +46,11 @@ public class Friendship {
 		this.date = new java.sql.Timestamp(time);
 	}
 	
+	/**
+	 * Friendship model constructor
+	 * @param jFriendship
+	 * @throws JSONException
+	 */
 	public Friendship(JSONObject jFriendship) throws JSONException {
 		// emails
 		String emailFollowing = jFriendship.getString("emailFollowed");

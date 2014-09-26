@@ -1,5 +1,9 @@
 package com.joanflo.models;
 
+/**
+ * RelatedProduct model
+ * @author Joanflo
+ */
 public class RelatedProduct {
 
 	
@@ -9,6 +13,11 @@ public class RelatedProduct {
 	
 	
 	
+	/**
+	 * RelatedProduct model constructor
+	 * @param productA
+	 * @param productB
+	 */
 	public RelatedProduct(Product productA, Product productB) {
 		this.productA = productA;
 		this.productB = productB;

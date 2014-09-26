@@ -16,6 +16,10 @@ import com.joanflo.tagit.R;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
 
+/**
+ * Badges controller class
+ * @author Joanflo
+ */
 public class BadgesController {
 
 	
@@ -23,6 +27,11 @@ public class BadgesController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Badges controller constructor
+	 * @param activity
+	 */
 	public BadgesController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -30,6 +39,15 @@ public class BadgesController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		// get language code
 		String lang = LocalStorage.getInstance().getLocaleLanguage(activity);
@@ -97,6 +115,13 @@ public class BadgesController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of badges
+	 * @param jBadges
+	 * @param lang
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Badge> processBadges(JSONArray jBadges, String lang) throws JSONException {
 		List<Badge> badges = new ArrayList<Badge>(jBadges.length());
 		

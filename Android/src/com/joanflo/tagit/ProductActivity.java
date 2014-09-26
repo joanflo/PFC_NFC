@@ -47,11 +47,15 @@ import com.joanflo.models.User;
 import com.joanflo.models.Wish;
 import com.joanflo.network.ImageLoader;
 import com.joanflo.utils.AssetsUtils;
+import com.joanflo.utils.Gamification;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.NFC;
 import com.joanflo.utils.SearchUtils;
 
-
+/**
+ * Product activity
+ * @author Joanflo
+ */
 public class ProductActivity extends BaseActivity implements CreateNdefMessageCallback {
 	
 	
@@ -85,6 +89,8 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
         	if (idProduct == NFC.PARSING_ERROR) {
         		Toast.makeText(this, R.string.toast_problem_productnfc, Toast.LENGTH_LONG).show();
         		finish();
+        	} else {
+        		checkGamification();
         	}
         } else {
         	Bundle bundle = intent.getExtras();
@@ -124,7 +130,26 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 
 	@Override
 	public NdefMessage createNdefMessage(NfcEvent event) {
+		checkGamification();
 		return NFC.createBeamMessage(product.getIdProduct());
+	}
+	
+	
+	
+	private void checkGamification() {
+		super.updateUserPoints(Gamification.POINTS_SHARE_NFC);
+		LocalStorage storage = LocalStorage.getInstance();
+		int sharesNumber = storage.getSharesNumber(this) + 1;
+		storage.setSharesNumber(this, sharesNumber);
+		if (sharesNumber == 1) {
+			super.createAchievement(Gamification.BADGE_1SHARE);
+		} else if (sharesNumber == 10) {
+			super.createAchievement(Gamification.BADGE_10SHARES);
+		}
+		if (!storage.productHasBeenSharedViaNFC(this)) {
+			storage.setProductSharedViaNFC(this, true);
+			super.createAchievement(Gamification.BADGE_NFC);
+		}
 	}
 	
 	
@@ -811,7 +836,7 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 			break;
 			
 		case R.id.button_product_addreview:
-    		if (LocalStorage.getInstance().isUserLoged(this)) {
+    		if (LocalStorage.getInstance().isUserLogged(this)) {
     			i = new Intent(this, NewReviewActivity.class);
     	        i.putExtra("idProduct", product.getIdProduct());
     	        i.putExtra("productName", product.getName());
@@ -819,7 +844,7 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
     	        i.putExtra("averageRate", tv.getText());
     		} else {
         		Toast.makeText(this, R.string.toast_registration, Toast.LENGTH_SHORT).show();
-        		i = new Intent(this, RegistrationActivity.class);
+        		i = new Intent(this, LoginActivity.class);
         	}
         	startActivity(i);
 			break;
@@ -837,7 +862,7 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 			break;
 			
 		case R.id.button_product_addtocart:
-			if (storage.isUserLoged(this)) {
+			if (storage.isUserLogged(this)) {
 				requestsNumber = 2;
 				isPutRequest = true;
 				int idProduct = product.getIdProduct();
@@ -856,13 +881,13 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 				
 			} else {
 				Toast.makeText(this, R.string.toast_registration, Toast.LENGTH_SHORT).show();
-        		i = new Intent(this, RegistrationActivity.class);
+        		i = new Intent(this, LoginActivity.class);
     	        startActivity(i);
 			}
 			break;
 			
 		case R.id.button_product_addtowishlist:
-			if (storage.isUserLoged(this)) {
+			if (storage.isUserLogged(this)) {
 				super.showProgressBar(true);
 				// create wish model
 				User user = storage.getUser(this);
@@ -873,7 +898,7 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 				
 			} else {
 				Toast.makeText(this, R.string.toast_registration, Toast.LENGTH_SHORT).show();
-        		i = new Intent(this, RegistrationActivity.class);
+        		i = new Intent(this, LoginActivity.class);
     	        startActivity(i);
 			}
 			break;
@@ -907,6 +932,14 @@ public class ProductActivity extends BaseActivity implements CreateNdefMessageCa
 		shareItem = menu.findItem(R.id.action_share);
 		shareItem.setVisible(true);
 		shareItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		
+		// set log in/log out text
+		MenuItem item = menu.findItem(R.id.action_logout);
+		if (LocalStorage.getInstance().isUserLogged(this)) {
+			item.setTitle(R.string.action_logout);
+		} else {
+			item.setTitle(R.string.action_login);
+		}
 		
 		return true;
 	}

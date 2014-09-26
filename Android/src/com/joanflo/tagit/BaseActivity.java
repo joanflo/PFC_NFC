@@ -35,6 +35,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Base activity
+ * @author Joanflo
+ */
 public class BaseActivity extends Activity {
 
 	private DrawerLayout mDrawerLayout;
@@ -82,6 +86,16 @@ public class BaseActivity extends Activity {
 	
 	
 	@Override
+	protected void onResume() {
+		super.onResume();
+		if (currentPosition != NO_CURRENT_POSITION) {
+			updateSelected(currentPosition);
+		}
+	}
+	
+	
+	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.home, menu);
 		
@@ -91,6 +105,14 @@ public class BaseActivity extends Activity {
 		item.setVisible(false);
 		item = menu.findItem(R.id.action_review);
 		item.setVisible(false);
+		
+		// set log in/log out text
+		item = menu.findItem(R.id.action_logout);
+		if (LocalStorage.getInstance().isUserLogged(this)) {
+			item.setTitle(R.string.action_logout);
+		} else {
+			item.setTitle(R.string.action_login);
+		}
 		
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -113,10 +135,13 @@ public class BaseActivity extends Activity {
             return true;
             
         case R.id.action_logout:
-        	LocalStorage.getInstance().deleteStorage(this);
+        	LocalStorage storage = LocalStorage.getInstance();
+        	storage.deleteStorage(this);
         	i = new Intent(this, LoginActivity.class);
-        	// clear all activity stack
-        	i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        	if (storage.isUserLogged(this)) {
+        		// clear all activity stack
+            	i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			}
         	startActivity(i);
         	finish();
             return true;
@@ -209,7 +234,7 @@ public class BaseActivity extends Activity {
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.profile_view);
 		// is user loged?
 		LocalStorage storage = LocalStorage.getInstance();
-		if (storage.isUserLoged(this) && storage.getUser(this) != null) {
+		if (storage.isUserLogged(this) && storage.getUser(this) != null) {
 			ImageView iv;
 			TextView tv;
 			// show user image
@@ -354,19 +379,19 @@ public class BaseActivity extends Activity {
 	        	intent = new Intent(this, ProductSearchActivity.class);
 	            break;
 	        case 4:
-	        	if (storage.isUserLoged(this)) {
+	        	if (storage.isUserLogged(this)) {
 	        		intent = new Intent(this, PurchaseDetailListActivity.class);
 	        	} else {
 	        		Toast.makeText(this, R.string.toast_registration, Toast.LENGTH_SHORT).show();
-	        		intent = new Intent(this, RegistrationActivity.class);
+	        		intent = new Intent(this, LoginActivity.class);
 	        	}
 	            break;
 	        case 5:
-	        	if (storage.isUserLoged(this)) {
+	        	if (storage.isUserLogged(this)) {
 	        		intent = new Intent(this, WishListActivity.class);
 	        	} else {
 	        		Toast.makeText(this, R.string.toast_registration, Toast.LENGTH_SHORT).show();
-	        		intent = new Intent(this, RegistrationActivity.class);
+	        		intent = new Intent(this, LoginActivity.class);
 	        	}
 	            break;
 	        default:
@@ -374,7 +399,7 @@ public class BaseActivity extends Activity {
 	        	intent = new Intent(this, HomeActivity.class);
 	            break;
 	        }
-	        currentPosition = mDrawerList.getCheckedItemPosition();
+	        mDrawerLayout.closeDrawer(mDrawerLinearLayout);
 	        intent.putExtra("drawerPosition", position);
 			startActivity(intent);
     	}
@@ -438,9 +463,9 @@ public class BaseActivity extends Activity {
     
     
     
-    protected void createAchievement(int event) {
+    public void createAchievement(int event) {
     	LocalStorage storage = LocalStorage.getInstance();
-    	if (storage.isUserLoged(this)) {
+    	if (storage.isUserLogged(this)) {
 	    	// creacte achievement
 	    	Badge badge = Gamification.getBadge(event);
 	    	User user = storage.getUser(this);
@@ -465,10 +490,10 @@ public class BaseActivity extends Activity {
     
     
     
-    protected void updateUserPoints(int event) {
+    public void updateUserPoints(int event) {
     	this.gamificationEvent = event;
     	LocalStorage storage = LocalStorage.getInstance();
-    	if (storage.isUserLoged(this)) {
+    	if (storage.isUserLogged(this)) {
 	    	// get data
     		int points = Gamification.getPoints(event);
 	    	CharSequence userEmail = storage.getUserEmail(this);

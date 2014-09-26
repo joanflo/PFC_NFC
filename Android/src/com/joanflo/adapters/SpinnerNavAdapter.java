@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.joanflo.tagit.R;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,17 +14,29 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Spinner adapter class
+ * @author Joanflo
+ * @see SpinnerNavItem
+ */
 public class SpinnerNavAdapter extends BaseAdapter {
 	
 	private Context context;
     private ArrayList<SpinnerNavItem> spinnerNavItems;
     
     
+    
+    /**
+     * Spinner adapter constructor
+     * @param context
+     * @param spinnerNavItems
+     */
 	public SpinnerNavAdapter(Context context, ArrayList<SpinnerNavItem> spinnerNavItems) {
 		this.context = context;
 		this.spinnerNavItems = spinnerNavItems;
 	}
 
+	
 
 	@Override
 	public int getCount() {
@@ -43,6 +56,7 @@ public class SpinnerNavAdapter extends BaseAdapter {
 	}
 
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		

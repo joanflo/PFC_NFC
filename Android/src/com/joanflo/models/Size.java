@@ -3,6 +3,10 @@ package com.joanflo.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Size model
+ * @author Joanflo
+ */
 public class Size {
 	
 	
@@ -27,6 +31,13 @@ public class Size {
 	
 	
 	
+	/**
+	 * Size model constructor
+	 * @param idSize
+	 * @param size
+	 * @param genre
+	 * @param type
+	 */
 	public Size(int idSize, int size, char genre, char type) {
 		this.idSize = idSize;
 		this.size = size;
@@ -34,6 +45,11 @@ public class Size {
 		this.type = type;
 	}
 	
+	/**
+	 * Size model constructor
+	 * @param jSize
+	 * @throws JSONException
+	 */
 	public Size(JSONObject jSize) throws JSONException {
 		this.idSize = jSize.getInt("idSize");
 		this.size = jSize.getInt("size");
@@ -75,6 +91,8 @@ public class Size {
 	}
 	
 	
+	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Color) {
 			Size size = (Size) obj;

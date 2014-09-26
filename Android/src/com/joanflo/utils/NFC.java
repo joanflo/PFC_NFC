@@ -11,7 +11,10 @@ import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
 import android.os.Parcelable;
 
-
+/**
+ * Class to manage NFC operations with tags and another Android devices.
+ * @author Joanflo
+ */
 public class NFC {
 
 	
@@ -19,6 +22,10 @@ public class NFC {
 	
 	
 	
+	/**
+	 * Set the given activity as the NFC adapter
+	 * @param activity
+	 */
 	public static void setNfcAdapter(ProductActivity activity) {
 		// Check for available NFC Adapter
 		NfcAdapter adapter = NfcAdapter.getDefaultAdapter(activity);
@@ -30,12 +37,21 @@ public class NFC {
 	
 	
 	
+	/**
+	 * @param intent
+	 * @return true if 'intent' is ACTION_NDEF_DISCOVERED type; false otherwise.
+	 */
 	public static boolean isNFCIntent(Intent intent) {
 		return NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction());
 	}
 	
 	
 	
+	/**
+	 * @param activity
+	 * @return true if NFC is available (NFC hardware and settings enabled) at
+	 * the current device; false otherwise.
+	 */
 	public static boolean nfcIsAvailable(Activity activity) {
 		NfcManager manager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		NfcAdapter adapter = manager.getDefaultAdapter();
@@ -44,6 +60,11 @@ public class NFC {
 	
 	
 	
+	/**
+	 * Read data from an intent
+	 * @param intent
+	 * @return
+	 */
 	public static int retrieveData(Intent intent) {
 		try {
 			// raw data
@@ -79,6 +100,12 @@ public class NFC {
 	
 	
 	
+	/**
+	 * Creates an NDEF message encapsulating a numeric id
+	 * @param id
+	 * @return NDEF message 2 NDEF records: numeric id saved as plain text & app id
+	 * @see <a href="https://developer.android.com/reference/android/nfc/tech/Ndef.html">NDEF Android reference</a>
+	 */
 	public static NdefMessage createBeamMessage(int id) {
 		// convert integer to bytes
 		String productId = String.valueOf(id);

@@ -11,6 +11,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 
+/**
+ * Class for managing operations with assets
+ * @author Joanflo
+ */
 public class AssetsUtils {
 
 	
@@ -22,6 +26,13 @@ public class AssetsUtils {
 	
 	
 	
+	/**
+	 * Get image stored in assets folder
+	 * @param context
+	 * @param imageType
+	 * @param imageName
+	 * @return
+	 */
 	public static Drawable getImageFromAssets(Context context, String imageType, String imageName){
 	    Drawable d = null;
 	    InputStream myInput = null;
@@ -44,11 +55,35 @@ public class AssetsUtils {
 	
 	
 	
+	/**
+	 * Get image from the given path
+	 * @param path
+	 * @return
+	 */
 	public static Bitmap getImageFromPath(String path) {
 		return BitmapFactory.decodeFile(path);
 	}
+    
+    
+    
+    /**
+     * Get image from the given URL path
+     * @param imagePath
+     * @return
+     * @throws MalformedURLException
+     */
+    public static URL getUrlFromPath(String imagePath) throws MalformedURLException {
+    	return new URL(HOST_PATH_IMAGES + imagePath);
+    }
 	
 	
+	
+	/**
+	 * Conversion from pixels to DIPs (Density-independent pixels)
+	 * @param context
+	 * @param pixels
+	 * @return
+	 */
 	public static int convertPixelsToDips(Context context, int pixels) {
 		Resources resources = context.getResources();
         float dipValue = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, pixels, resources.getDisplayMetrics());
@@ -58,16 +93,17 @@ public class AssetsUtils {
 	
 	
 
+	/**
+	 * Conversion from DIPs (Density-independent pixels) to pixels
+	 * @param context
+	 * @param dip
+	 * @return
+	 */
     public static int convertDipsToPixels(Context context, int dip) {
         Resources resources = context.getResources();
         float pixelValue = (dip * resources.getDisplayMetrics().density);
         resources = null;
         return (int) pixelValue;
-    }
-    
-    
-    public static URL getUrlFromPath(String imagePath) throws MalformedURLException {
-    	return new URL(HOST_PATH_IMAGES + imagePath);
     }
 	
 	

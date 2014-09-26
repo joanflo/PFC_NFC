@@ -20,9 +20,13 @@ import android.widget.TextView;
 import com.joanflo.controllers.UsersController;
 import com.joanflo.models.Purchase;
 import com.joanflo.models.User;
+import com.joanflo.utils.Gamification;
 import com.joanflo.utils.LocalStorage;
 
-
+/**
+ * Home activity
+ * @author Joanflo
+ */
 public class HomeActivity extends BaseActivity {
  
     private static final int SELECT_PICTURE = 1;
@@ -51,15 +55,25 @@ public class HomeActivity extends BaseActivity {
         		//GUI
         		super.showProgressBar(true);
         		// Call web service
-        		requestsNumber = 5;
+        		requestsNumber = 6;
         		UsersController controller = new UsersController(this);
         		controller.getCurrentUser(userEmail);
         		controller.getFollowers(userEmail);
         		controller.getFollowing(userEmail);
         		controller.getWishes(userEmail);
         		controller.getCartPurchase(userEmail);
+        		controller.getReviews(userEmail);
+        		// Points
+        		boolean userCreated = bundle.getBoolean("userCreated", false);
+        		if (userCreated) {
+        			super.createAchievement(Gamification.BADGE_NEWBIE);
+        			super.updateUserPoints(Gamification.POINTS_NEWBIE);
+        		}
         	}
         }
+        
+        // gamification
+        Gamification.check(this);
         
 		prepareSearchSection();
 	}
@@ -141,7 +155,7 @@ public class HomeActivity extends BaseActivity {
 		
 		// is user loged?
 		LocalStorage storage = LocalStorage.getInstance();
-		if (storage.isUserLoged(this) && storage.getUser(this) != null) {
+		if (storage.isUserLogged(this) && storage.getUser(this) != null) {
 			// show section
 			rl.setVisibility(View.VISIBLE);
 			
@@ -196,6 +210,15 @@ public class HomeActivity extends BaseActivity {
 	
 	public void followingCountReceived(int followingCount) {
 		LocalStorage.getInstance().setFollowingCount(this, followingCount);
+		
+		// check if it's the last request
+		checkLastRequest();
+	}
+	
+	
+	
+	public void reviewsCountReceived(int reviewsCount) {
+		LocalStorage.getInstance().setReviewsNumber(this, reviewsCount);
 		
 		// check if it's the last request
 		checkLastRequest();

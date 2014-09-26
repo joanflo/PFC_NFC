@@ -15,7 +15,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-
+/**
+ * Category list activity
+ * @author Joanflo
+ */
 public class CategoryListActivity extends BaseActivity {
 
 	
@@ -111,7 +114,7 @@ public class CategoryListActivity extends BaseActivity {
 	private void prepareList(Category currentCategory) {
 		// get current level
 		int currentLevel = currentCategory.getLevel();
-		if (currentLevel != -1) {
+		if (currentLevel >= 0) {
 			setTitle(currentCategory.getName());
 			currentLevel++;
 		}

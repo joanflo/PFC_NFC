@@ -8,6 +8,10 @@ import org.json.JSONObject;
 
 import com.joanflo.utils.AssetsUtils;
 
+/**
+ * ProductImage model
+ * @author Joanflo
+ */
 public class ProductImage {
 
 	
@@ -28,6 +32,14 @@ public class ProductImage {
 	
 	
 	
+	/**
+	 * ProductImage model constructor
+	 * @param url
+	 * @param product
+	 * @param type
+	 * @param description
+	 * @throws MalformedURLException
+	 */
 	public ProductImage(String url, Product product, char type, CharSequence description) throws MalformedURLException {
 		this.url = new URL(url);
 		this.product = product;
@@ -35,6 +47,11 @@ public class ProductImage {
 		this.description = description;
 	}
 	
+	/**
+	 * ProductImage model constructor
+	 * @param url
+	 * @param type
+	 */
 	public ProductImage(String url, char type) {
 		try {
 			this.url = AssetsUtils.getUrlFromPath(url);
@@ -46,6 +63,12 @@ public class ProductImage {
 		this.description = "";
 	}
 	
+	/**
+	 * ProductImage model constructor
+	 * @param jProductImage
+	 * @param lang
+	 * @throws JSONException
+	 */
 	public ProductImage(JSONObject jProductImage, String lang) throws JSONException {
 		// url
 		try {

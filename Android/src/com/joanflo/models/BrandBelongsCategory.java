@@ -1,5 +1,9 @@
 package com.joanflo.models;
 
+/**
+ * BrandBelongsCategory model
+ * @author Joanflo
+ */
 public class BrandBelongsCategory {
 	
 	
@@ -9,6 +13,11 @@ public class BrandBelongsCategory {
 	
 	
 	
+	/**
+	 * BrandBelongsCategory model constructor
+	 * @param brand
+	 * @param category
+	 */
 	public BrandBelongsCategory(Brand brand, Category category) {
 		this.brand = brand;
 		this.category = category;

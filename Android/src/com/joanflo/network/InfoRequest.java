@@ -3,6 +3,10 @@ package com.joanflo.network;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * Encapsulates the info necessary to perform requests to the server
+ * @author Joanflo
+ */
 public class InfoRequest {
 
 	
@@ -12,6 +16,12 @@ public class InfoRequest {
 	
 	
 	
+	/**
+	 * Constructor
+	 * @param controller
+	 * @param method
+	 * @param uri
+	 */
 	public InfoRequest(Object controller, HttpMethod method, String uri) {
 		this.controller = controller;
 		this.method = method;
@@ -25,6 +35,11 @@ public class InfoRequest {
 	
 	
 	
+	/**
+	 * Encodes special characters from the given URL string
+	 * @param uri
+	 * @return
+	 */
 	public static String encodeURIComponent(String uri) {
 	    String result;
         result = uri
@@ -42,7 +57,6 @@ public class InfoRequest {
 		return controller;
 	}
 
-
 	public void setController(Object controller) {
 		this.controller = controller;
 	}
@@ -53,7 +67,6 @@ public class InfoRequest {
 		return method;
 	}
 
-
 	public void setMethod(HttpMethod method) {
 		this.method = method;
 	}
@@ -63,7 +76,6 @@ public class InfoRequest {
 	public URI getUri() {
 		return uri;
 	}
-	
 
 	public void setUri(URI uri) {
 		this.uri = uri;

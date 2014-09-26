@@ -25,7 +25,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
+/**
+ * Wish list activity
+ * @author Joanflo
+ */
 public class WishListActivity extends BaseActivity implements Button.OnClickListener {
 
 	

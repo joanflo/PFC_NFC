@@ -1,19 +1,33 @@
 package com.joanflo.adapters;
 
+/**
+ * Navigation item class
+ * @author Joanflo
+ * @see NavigationDrawerListAdapter
+ */
 public class NavigationDrawerListItem {
 
 	private String title;
     private int icon;
     private String count = "0";
-    // boolean to set visiblity of the counter
+    // boolean to set visibility of the counter
     private boolean isCounterVisible;
     
     
+    
+    /**
+     * Navigation drawer list item constructor
+     */
     public NavigationDrawerListItem(){
     	isCounterVisible = false;
     }
     
     
+    /**
+     * Navigation drawer list item constructor
+     * @param title
+     * @param icon
+     */
     public NavigationDrawerListItem(String title, int icon){
     	isCounterVisible = false;
         this.title = title;
@@ -21,6 +35,13 @@ public class NavigationDrawerListItem {
     }
     
     
+    /**
+     * Navigation drawer list item constructor
+     * @param title
+     * @param icon
+     * @param isCounterVisible
+     * @param count
+     */
     public NavigationDrawerListItem(String title, int icon, boolean isCounterVisible, String count){
         this.title = title;
         this.icon = icon;

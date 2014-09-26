@@ -5,6 +5,11 @@ import com.joanflo.utils.AssetsUtils;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+/**
+ * Category item class
+ * @author Joanflo
+ * @see CategoryListAdapter
+ */
 public class CategoryListItem {
 
 	
@@ -15,6 +20,13 @@ public class CategoryListItem {
 	
 	
 	
+	/**
+	 * Category list item constructor
+	 * @param context
+	 * @param idCategory
+	 * @param name
+	 * @param itemsNumber
+	 */
 	public CategoryListItem(Context context, int idCategory, CharSequence name, int itemsNumber) {
 		this.idCategory = idCategory;
 		this.thumb = AssetsUtils.getImageFromAssets(context, AssetsUtils.CATEGORIES_DIRECTORY, String.valueOf(idCategory));

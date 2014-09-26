@@ -7,7 +7,10 @@ import org.json.JSONObject;
 
 import com.joanflo.utils.Time;
 
-
+/**
+ * Achievement model
+ * @author Joanflo
+ */
 public class Achievement {
 
 	
@@ -23,14 +26,23 @@ public class Achievement {
 	
 	
 	
-	// achievement from database
+	/**
+	 * Achievement model constructor
+	 * @param badge
+	 * @param user
+	 * @param date
+	 */
 	public Achievement(Badge badge, User user, Timestamp date) {
 		this.badge = badge;
 		this.user = user;
 		this.date = date;
 	}
 	
-	// new achievement
+	/**
+	 * Achievement model constructor
+	 * @param badge
+	 * @param user
+	 */
 	public Achievement(Badge badge, User user) {
 		this.badge = badge;
 		this.user = user;
@@ -38,6 +50,12 @@ public class Achievement {
 		this.date = new java.sql.Timestamp(time);
 	}
 	
+	/**
+	 * Achievement model constructor
+	 * @param jAchievement
+	 * @param lang
+	 * @throws JSONException
+	 */
 	public Achievement(JSONObject jAchievement, String lang) throws JSONException {
 		// id achievement
 		this.idAchievement = jAchievement.getInt("idAchievement");

@@ -5,6 +5,10 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Country model
+ * @author Joanflo
+ */
 public class Country {
 	
 	
@@ -26,6 +30,13 @@ public class Country {
 	
 	
 	
+	/**
+	 * Country model constructor
+	 * @param countryName
+	 * @param regions
+	 * @param code
+	 * @param coin
+	 */
 	public Country(CharSequence countryName, List<Region> regions, int code, char coin) {
 		this.countryName = countryName;
 		this.regions = regions;
@@ -33,6 +44,11 @@ public class Country {
 		this.coin = coin;
 	}
 	
+	/**
+	 * Country model constructor
+	 * @param jCountry
+	 * @throws JSONException
+	 */
 	public Country(JSONObject jCountry) throws JSONException {
 		this.countryName = jCountry.getString("countryName");
 		this.regions = null;
@@ -74,6 +90,8 @@ public class Country {
 	}
 	
 	
+	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Country) {
 			Country country = (Country) obj;

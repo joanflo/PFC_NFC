@@ -13,6 +13,10 @@ import com.joanflo.models.Country;
 import com.joanflo.models.Shop;
 import com.joanflo.models.User;
 
+/**
+ * Class for managing the shared preferences for this app
+ * @author Joanflo
+ */
 public class LocalStorage {
 
 	
@@ -26,11 +30,18 @@ public class LocalStorage {
 	// Singleton pattern
 	private static LocalStorage instance = null;
 	
+	/**
+	 * Exists only to defeat instantiation from any other classes.
+	 */
 	private LocalStorage() {
 		user = null;
-		// Exists only to defeat instantiation from any other classes.
+		shop = null;
+		currentCategory = null;
 	}
 	
+	/**
+	 * @return the singleton instance for this class
+	 */
 	public static LocalStorage getInstance() {
 		if (instance == null) {
 			instance = new LocalStorage();
@@ -40,7 +51,11 @@ public class LocalStorage {
 	
 	
 	
-	
+	/**
+	 * Get profile image URI or null if it isn't set
+	 * @param activity
+	 * @return
+	 */
 	public Uri getProfileImage(Activity activity) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		String uri = prefs.getString("profileImage", null);
@@ -51,6 +66,11 @@ public class LocalStorage {
 		}
 	}
 	
+	/**
+	 * Set profile image URI
+	 * @param activity
+	 * @param uri
+	 */
 	public void setProfileImage(Activity activity, Uri uri) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -60,12 +80,21 @@ public class LocalStorage {
 	
 	
 	
-	public boolean isUserLoged(Activity activity) {
+	/**
+	 * @param activity
+	 * @return true if user is logged; false otherwise
+	 */
+	public boolean isUserLogged(Activity activity) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		return prefs.getBoolean("userLoged", false);
 	}
 	
-	public void setUserLoged(Activity activity, boolean loged) {
+	/**
+	 * Set if the user is logged
+	 * @param activity
+	 * @param loged
+	 */
+	public void setUserLogged(Activity activity, boolean loged) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean("userLoged", loged);
@@ -77,6 +106,11 @@ public class LocalStorage {
 	
 	
 	
+	/**
+	 * Get user logged
+	 * @param activity
+	 * @return
+	 */
 	public User getUser(Activity activity) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		String strUser = prefs.getString("user", null);
@@ -93,6 +127,11 @@ public class LocalStorage {
 		return user;
 	}
 	
+	/**
+	 * Save user logged
+	 * @param activity
+	 * @param user
+	 */
 	public void saveUser(Activity activity, User user) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -104,6 +143,11 @@ public class LocalStorage {
 		this.user = user;
 	}
 	
+	/**
+	 * Get user logged nick
+	 * @param activity
+	 * @return
+	 */
 	public CharSequence getUserNick(Activity activity) {
 		if (user == null) {
 			user = getUser(activity);
@@ -111,6 +155,11 @@ public class LocalStorage {
 		return user.getNick();
 	}
 	
+	/**
+	 * Get user logged points number
+	 * @param activity
+	 * @return
+	 */
 	public int getUserPoints(Activity activity) {
 		if (user == null) {
 			user = getUser(activity);
@@ -118,6 +167,11 @@ public class LocalStorage {
 		return user.getPoints();
 	}
 	
+	/**
+	 * Get user logged email
+	 * @param activity
+	 * @return
+	 */
 	public CharSequence getUserEmail(Activity activity) {
 		if (user == null) {
 			user = getUser(activity);
@@ -127,11 +181,21 @@ public class LocalStorage {
 	
 	
 	
+	/**
+	 * Get followers number
+	 * @param activity
+	 * @return
+	 */
 	public int getFollowersCount(Activity activity) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		return prefs.getInt("followersCount", 0);
 	}
 	
+	/**
+	 * Set followers number
+	 * @param activity
+	 * @param followersCount
+	 */
 	public void setFollowersCount(Activity activity, int followersCount) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -139,6 +203,11 @@ public class LocalStorage {
 		editor.commit();
 	}
 	
+	/**
+	 * Update followers number
+	 * @param activity
+	 * @param increase
+	 */
 	public void updateFollowersCount(Activity activity, boolean increase) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -154,11 +223,21 @@ public class LocalStorage {
 	
 	
 	
+	/**
+	 * Get following number
+	 * @param activity
+	 * @return
+	 */
 	public int getFollowingCount(Activity activity) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		return prefs.getInt("followingCount", 0);
 	}
 	
+	/**
+	 * Set following number
+	 * @param activity
+	 * @param followingCount
+	 */
 	public void setFollowingCount(Activity activity, int followingCount) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -166,6 +245,11 @@ public class LocalStorage {
 		editor.commit();
 	}
 	
+	/**
+	 * Update following number
+	 * @param activity
+	 * @param increase
+	 */
 	public void updateFollowingCount(Activity activity, boolean increase) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -181,11 +265,21 @@ public class LocalStorage {
 	
 	
 	
+	/**
+	 * true if shop is picked; false otherwise
+	 * @param activity
+	 * @return
+	 */
 	public boolean isShopPicked(Activity activity) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		return prefs.getBoolean("shopPicked", false);
 	}
 	
+	/**
+	 * Set current shop
+	 * @param activity
+	 * @param picked
+	 */
 	public void setShopPicked(Activity activity, boolean picked) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -198,6 +292,11 @@ public class LocalStorage {
 	
 	
 	
+	/**
+	 * Get current shop
+	 * @param activity
+	 * @return
+	 */
 	public Shop getShop(Activity activity) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		String strShop = prefs.getString("shop", null);
@@ -211,6 +310,10 @@ public class LocalStorage {
 		return shop;
 	}
 	
+	/**
+	 * Delete current shop
+	 * @param activity
+	 */
 	public void deleteShop(Activity activity) {
 		setShopPicked(activity, false);
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
@@ -221,6 +324,11 @@ public class LocalStorage {
 		this.shop = null;
 	}
 	
+	/**
+	 * Set current shop
+	 * @param activity
+	 * @param shop
+	 */
 	public void saveShop(Activity activity, Shop shop) {
 		setShopPicked(activity, true);
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
@@ -233,6 +341,11 @@ public class LocalStorage {
 		this.shop = shop;
 	}
 	
+	/**
+	 * Get current shop location (direction, city name)
+	 * @param activity
+	 * @return
+	 */
 	public CharSequence getShopLocation(Activity activity) {
 		if (shop == null) {
 			shop = getShop(activity);
@@ -242,11 +355,87 @@ public class LocalStorage {
 	
 	
 	
+	public String getLastDate(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		return prefs.getString("lastDate", null);
+	}
+	
+	public void saveLastDate(Activity activity, String date) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString("lastDate", date);
+		editor.commit();
+	}
+	
+	
+	public int getConsecutiveDaysNumber(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		return prefs.getInt("consecutiveDaysNumber", 0);
+	}
+	
+	public void setConsecutiveDaysNumber(Activity activity, int consecutiveDays) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt("consecutiveDaysNumber", consecutiveDays);
+		editor.commit();
+	}
+	
+	
+	public int getSharesNumber(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		return prefs.getInt("sharesNumber", 0);
+	}
+	
+	public void setSharesNumber(Activity activity, int sharesNumber) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt("sharesNumber", sharesNumber);
+		editor.commit();
+	}
+	
+	
+	public int getReviewsNumber(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		return prefs.getInt("reviewsNumber", 0);
+	}
+	
+	public void setReviewsNumber(Activity activity, int reviewsNumber) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putInt("reviewsNumber", reviewsNumber);
+		editor.commit();
+	}
+	
+	
+	public boolean productHasBeenSharedViaNFC(Activity activity) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		return prefs.getBoolean("sharedViaNFC", false);
+	}
+	
+	public void setProductSharedViaNFC(Activity activity, boolean shared) {
+		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean("sharedViaNFC", shared);
+		editor.commit();
+	}
+	
+	
+	
+	/**
+	 * Get cart items number
+	 * @param activity
+	 * @return
+	 */
 	public int getCartItemsCount(Activity activity) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		return prefs.getInt("cartItemsCount", 0);
 	}
 	
+	/**
+	 * Set cart items number
+	 * @param activity
+	 * @param cartItemsCount
+	 */
 	public void setCartItemsCount(Activity activity, int cartItemsCount) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -254,6 +443,11 @@ public class LocalStorage {
 		editor.commit();
 	}
 	
+	/**
+	 * Update cart items number
+	 * @param activity
+	 * @param increase
+	 */
 	public void updateCartItemsCount(Activity activity, boolean increase) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -269,11 +463,21 @@ public class LocalStorage {
 	
 	
 	
+	/**
+	 * Get wish list items number
+	 * @param activity
+	 * @return
+	 */
 	public int getWishlistItemsCount(Activity activity) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		return prefs.getInt("wishlistItemsCount", 0);
 	}
 	
+	/**
+	 * Set wish list items number
+	 * @param activity
+	 * @param wishlistItemsCount
+	 */
 	public void setWishlistItemsCount(Activity activity, int wishlistItemsCount) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -281,6 +485,11 @@ public class LocalStorage {
 		editor.commit();
 	}
 	
+	/**
+	 * Update wish list items number
+	 * @param activity
+	 * @param increase
+	 */
 	public void updateWishlistItemsCount(Activity activity, boolean increase) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -296,10 +505,18 @@ public class LocalStorage {
 	
 	
 	
+	/**
+	 * Get current category
+	 * @return
+	 */
 	public Category getCurrentCategory() {
 		return currentCategory;
 	}
 	
+	/**
+	 * Set current category
+	 * @param currentCategory
+	 */
 	public void setCurrentCategory(Category currentCategory) {
 		this.currentCategory = currentCategory;
 	}
@@ -307,6 +524,10 @@ public class LocalStorage {
 	
 	
 	@SuppressLint("CommitPrefEdits")
+	/**
+	 * Delete all shared preferences (log out)
+	 * @param activity
+	 */
 	public void deleteStorage(Activity activity) {
 		SharedPreferences prefs = activity.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
@@ -319,11 +540,21 @@ public class LocalStorage {
 		editor.remove("shop");
 		editor.remove("cartItemsCount");
 		editor.remove("wishlistItemsCount");
+		editor.remove("lastDate");
+		editor.remove("consecutiveDaysNumber");
+		editor.remove("sharesNumber");
+		editor.remove("reviewsNumber");
+		editor.remove("sharedViaNFC");
 		editor.commit();
 	}
 	
 	
 	
+	/**
+	 * Get locale country
+	 * @param activity
+	 * @return
+	 */
 	public Country getLocaleCountry(Activity activity) {
 		// default values
 		CharSequence countryName = "Espanya";
@@ -346,6 +577,11 @@ public class LocalStorage {
 	
 	
 	@SuppressLint("DefaultLocale")
+	/**
+	 * Get user's language; otherwise locale language
+	 * @param activity
+	 * @return
+	 */
 	public String getLocaleLanguage(Activity activity) {
 		if (user == null) {
 			user = getUser(activity);

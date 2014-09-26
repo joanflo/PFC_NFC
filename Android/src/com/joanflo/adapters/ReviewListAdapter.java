@@ -13,6 +13,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Review list adapter class
+ * @author Joanflo
+ * @see ReviewListItem
+ */
 public class ReviewListAdapter extends BaseAdapter {
 
 	
@@ -21,6 +26,11 @@ public class ReviewListAdapter extends BaseAdapter {
     
     
     
+    /**
+     * Review list adapter constructor
+     * @param context
+     * @param reviewItems
+     */
     public ReviewListAdapter(Context context, List<ReviewListItem> reviewItems){
         this.context = context;
         this.reviewItems = reviewItems;

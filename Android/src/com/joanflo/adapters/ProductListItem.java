@@ -3,7 +3,11 @@ package com.joanflo.adapters;
 import java.net.URL;
 import android.content.Context;
 
-
+/**
+ * Product item class
+ * @author Joanflo
+ * @see ProductListAdapter
+ */
 public class ProductListItem implements Comparable<ProductListItem> {
 
 	
@@ -28,6 +32,19 @@ public class ProductListItem implements Comparable<ProductListItem> {
 	
 	
 	
+	/**
+	 * Product list item constructor
+	 * @param context
+	 * @param idProduct
+	 * @param url
+	 * @param description
+	 * @param productName
+	 * @param brandName
+	 * @param categoryName
+	 * @param price
+	 * @param coin
+	 * @param rating
+	 */
 	public ProductListItem(Context context, int idProduct, URL url, CharSequence description, 
 			CharSequence productName, CharSequence brandName, CharSequence categoryName, 
 			CharSequence price, CharSequence coin, CharSequence rating) {

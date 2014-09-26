@@ -12,9 +12,19 @@ import com.joanflo.models.Shop;
 import com.joanflo.models.Tax;
 import com.joanflo.models.User;
 
+/**
+ * Search auxiliary class
+ * @author Joanflo
+ */
 public class SearchUtils {
 	
 	
+	/**
+	 * Search category by id
+	 * @param id
+	 * @param categories
+	 * @return
+	 */
 	public static Category searchCategoryById(int id, List<Category> categories) {
 		if (id == 0) {
 			return null;
@@ -40,6 +50,12 @@ public class SearchUtils {
 	
 	
 	
+	/**
+	 * Search product by id
+	 * @param id
+	 * @param products
+	 * @return
+	 */
 	public static Product searchProductById(int id, List<Product> products) {
 		if (id == 0) {
 			return null;
@@ -65,6 +81,12 @@ public class SearchUtils {
 	
 	
 	
+	/**
+	 * Search review by id
+	 * @param id
+	 * @param reviews
+	 * @return
+	 */
 	public static Product searchProductReviewById(int id, List<Review> reviews) {
 		if (id == 0) {
 			return null;
@@ -90,6 +112,12 @@ public class SearchUtils {
 	
 	
 	
+	/**
+	 * Search user by email
+	 * @param email
+	 * @param users
+	 * @return
+	 */
 	public static User searchUserByEmail(CharSequence email, List<User> users) {
 		if (email == null) {
 			return null;
@@ -115,6 +143,11 @@ public class SearchUtils {
 	
 	
 	
+	/**
+	 * Search product's front image
+	 * @param product
+	 * @return
+	 */
 	public static ProductImage searchFrontImage(Product product) {
 		List<ProductImage> images = product.getImages();
 		
@@ -138,6 +171,12 @@ public class SearchUtils {
 	
 	
 	
+	/**
+	 * Search batch by size id
+	 * @param idSize
+	 * @param batches
+	 * @return
+	 */
 	public static Batch searchBatchByIdSize(int idSize, List<Batch> batches) {
 		Batch batch = null;
 		int i = 0;
@@ -154,6 +193,12 @@ public class SearchUtils {
 	
 	
 	
+	/**
+	 * Search batch by color code
+	 * @param colorCode
+	 * @param batches
+	 * @return
+	 */
 	public static Batch searchBatchByColorCode(CharSequence colorCode, List<Batch> batches) {
 		Batch batch = null;
 		int i = 0;
@@ -174,6 +219,12 @@ public class SearchUtils {
 	
 	
 	
+	/**
+	 * Search purchase by id
+	 * @param id
+	 * @param purchases
+	 * @return
+	 */
 	public static Purchase searchPurchaseById(int id, List<Purchase> purchases) {
 		if (id == 0) {
 			return null;
@@ -199,6 +250,12 @@ public class SearchUtils {
 	
 	
 	
+	/**
+	 * Search tax by product id
+	 * @param id
+	 * @param taxes
+	 * @return
+	 */
 	public static Tax searchTaxByIdProduct(int id, List<Tax> taxes) {
 		if (id == 0) {
 			return null;
@@ -224,6 +281,12 @@ public class SearchUtils {
 	
 	
 	
+	/**
+	 * Search shop by id
+	 * @param id
+	 * @param shops
+	 * @return
+	 */
 	public static Shop searchShopById(int id, List<Shop> shops) {
 		if (id == 0) {
 			return null;

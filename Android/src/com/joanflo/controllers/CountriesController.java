@@ -18,6 +18,10 @@ import com.joanflo.tagit.ShopSelectionActivity;
 import com.joanflo.tagit.UpdateUserDataActivity;
 import com.joanflo.utils.Regex;
 
+/**
+ * Countries controller class
+ * @author Joanflo
+ */
 public class CountriesController {
 
 	
@@ -25,6 +29,11 @@ public class CountriesController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Countries controller constructor
+	 * @param activity
+	 */
 	public CountriesController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -32,6 +41,15 @@ public class CountriesController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
 			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
@@ -148,6 +166,12 @@ public class CountriesController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of countries
+	 * @param jCountries
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Country> processCountries(JSONArray jCountries) throws JSONException {
 		List<Country> countries = new ArrayList<Country>(jCountries.length());
 		
@@ -164,6 +188,12 @@ public class CountriesController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of regions
+	 * @param jRegions
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Region> processRegions(JSONArray jRegions) throws JSONException {
 		List<Region> regions = new ArrayList<Region>(jRegions.length());
 		
@@ -180,6 +210,12 @@ public class CountriesController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of cities
+	 * @param jCities
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<City> processCities(JSONArray jCities) throws JSONException {
 		List<City> cities = new ArrayList<City>(jCities.length());
 		

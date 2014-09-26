@@ -7,6 +7,10 @@ import org.json.JSONObject;
 
 import com.joanflo.utils.Time;
 
+/**
+ * Review model
+ * @author Joanflo
+ */
 public class Review {
 
 	
@@ -24,7 +28,15 @@ public class Review {
 	
 	
 	
-	// review from database
+	/**
+	 * Review model constructor
+	 * @param idComment
+	 * @param product
+	 * @param user
+	 * @param rating
+	 * @param comment
+	 * @param date
+	 */
 	public Review(int idComment, Product product, User user, float rating, CharSequence comment, Timestamp date) {
 		this.idComment = idComment;
 		this.product = product;
@@ -34,7 +46,14 @@ public class Review {
 		this.date = date;
 	}
 	
-	// new review
+	/**
+	 * Review model constructor
+	 * @param idComment
+	 * @param product
+	 * @param user
+	 * @param rating
+	 * @param comment
+	 */
 	public Review(int idComment, Product product, User user, float rating, CharSequence comment) {
 		this.idComment = idComment;
 		this.product = product;
@@ -45,6 +64,11 @@ public class Review {
 		this.date = new java.sql.Timestamp(time);
 	}
 	
+	/**
+	 * Review model constructor
+	 * @param jReview
+	 * @throws JSONException
+	 */
 	public Review(JSONObject jReview) throws JSONException {
 		// id comment
 		this.idComment = jReview.getInt("idComment");

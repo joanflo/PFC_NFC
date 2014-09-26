@@ -3,6 +3,10 @@ package com.joanflo.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Shop model
+ * @author Joanflo
+ */
 public class Shop {
 
 	// primary key
@@ -23,6 +27,17 @@ public class Shop {
 	
 	
 	
+	/**
+	 * Shop model constructor
+	 * @param idShop
+	 * @param city
+	 * @param direction
+	 * @param schedule
+	 * @param phone
+	 * @param email
+	 * @param latitude
+	 * @param longitude
+	 */
 	public Shop(int idShop, City city, CharSequence direction, CharSequence schedule, CharSequence phone, CharSequence email, double latitude, double longitude) {
 		this.idShop = idShop;
 		this.city = city;
@@ -34,6 +49,11 @@ public class Shop {
 		this.longitude = longitude;
 	}
 	
+	/**
+	 * Shop model constructor
+	 * @param jShop
+	 * @throws JSONException
+	 */
 	public Shop(JSONObject jShop) throws JSONException {
 		this.idShop = jShop.getInt("idShop");
 		this.direction = jShop.getString("direction");
@@ -117,6 +137,7 @@ public class Shop {
 	}
 	
 	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Shop) {
@@ -129,6 +150,10 @@ public class Shop {
 	
 	
 	
+	/**
+	 * Convert Shop model to JSON
+	 * @return
+	 */
 	public JSONObject convertToJSON() {
 		JSONObject jShop = new JSONObject();
 		

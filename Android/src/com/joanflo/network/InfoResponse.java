@@ -5,6 +5,10 @@ import java.net.URI;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Encapsulates the info necessary to handle responses from the server
+ * @author Joanflo
+ */
 public class InfoResponse {
 
 	
@@ -16,6 +20,13 @@ public class InfoResponse {
 	
 	
 	
+	/**
+	 * Constructor used when the server returns a JSON object.
+	 * @param controller
+	 * @param uri
+	 * @param statusCode
+	 * @param jObject
+	 */
 	public InfoResponse(Object controller, URI uri, int statusCode, JSONObject jObject) {
 		this.controller = controller;
 		this.route = getRoute(uri);
@@ -24,7 +35,13 @@ public class InfoResponse {
 		this.jArray = null;
 	}
 	
-	
+	/**
+	 * Constructor used when the server returns a JSON array.
+	 * @param controller
+	 * @param uri
+	 * @param statusCode
+	 * @param jArray
+	 */
 	public InfoResponse(Object controller, URI uri, int statusCode, JSONArray jArray) {
 		this.controller = controller;
 		this.route = getRoute(uri);
@@ -33,7 +50,12 @@ public class InfoResponse {
 		this.jArray = jArray;
 	}
 	
-	
+	/**
+	 * Constructor used when the server returns a void response or an error has occurred.
+	 * @param controller
+	 * @param uri
+	 * @param statusCode
+	 */
 	public InfoResponse(Object controller, URI uri, int statusCode) {
 		this.controller = controller;
 		this.route = getRoute(uri);
@@ -48,7 +70,6 @@ public class InfoResponse {
 		return controller;
 	}
 
-
 	public void setController(Object controller) {
 		this.controller = controller;
 	}
@@ -58,7 +79,6 @@ public class InfoResponse {
 	public String getRoute() {
 		return route;
 	}
-	
 
 	private String getRoute(URI uri) {
 		String strUri = uri.toString();
@@ -77,7 +97,6 @@ public class InfoResponse {
 				.replace("%29", ")");
 		return strUri;
 	}
-	
 
 	public void setRoute(String route) {
 		this.route = route;
@@ -88,7 +107,6 @@ public class InfoResponse {
 	public int getStatusCode() {
 		return statusCode;
 	}
-	
 
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
@@ -100,7 +118,6 @@ public class InfoResponse {
 		return jObject;
 	}
 
-
 	public void setJObject(JSONObject jObject) {
 		this.jObject = jObject;
 	}
@@ -110,7 +127,6 @@ public class InfoResponse {
 	public JSONArray getJArray() {
 		return jArray;
 	}
-
 
 	public void setJArray(JSONArray jArray) {
 		this.jArray = jArray;

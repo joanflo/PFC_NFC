@@ -10,6 +10,7 @@ import com.joanflo.adapters.FollowListItem;
 import com.joanflo.controllers.UsersController;
 import com.joanflo.models.User;
 import com.joanflo.utils.AssetsUtils;
+import com.joanflo.utils.Gamification;
 import com.joanflo.utils.LocalStorage;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -22,7 +23,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
+/**
+ * Follow list activity
+ * @author Joanflo
+ */
 public class FollowsListActivity extends BaseActivity implements Button.OnClickListener {
 
 
@@ -152,6 +156,7 @@ public class FollowsListActivity extends BaseActivity implements Button.OnClickL
 				Toast.makeText(this, R.string.toast_problem_empty, Toast.LENGTH_LONG).show();
 			
 			} else {
+				checkGamification();
 				prepareList();
 			}
 			
@@ -268,6 +273,33 @@ public class FollowsListActivity extends BaseActivity implements Button.OnClickL
 		}
     }
 	
+	
+	
+	private void checkGamification() {
+		if (currentUserEmail.equals(loggedUserEmail)) {
+			LocalStorage storage = LocalStorage.getInstance();
+			if (seeFollowers) {
+				// followers
+				int followersCount = storage.getFollowersCount(this);
+				if (followersCount != currentUsersFollows.size()) {
+					storage.setFollowersCount(this, followersCount);
+					if (followersCount == 1) {
+						super.createAchievement(Gamification.BADGE_1FOLLOWER);
+					} else if (followersCount == 100) {
+						super.createAchievement(Gamification.BADGE_100FOLLOWERS);
+					}
+				}
+			}
+			// following
+			int followingCount = storage.getFollowingCount(this);
+			if (followingCount != loggedUsersFollows.size()) {
+				storage.setFollowingCount(this, followingCount);
+				if (followingCount == 1) {
+					super.createAchievement(Gamification.BADGE_1FOLLOWING);
+				}
+			}
+		}
+	}
 	
 	
 

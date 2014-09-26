@@ -9,6 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+/**
+ * Badge list adapter class
+ * @author Joanflo
+ * @see BadgeListItem
+ */
 public class BadgeListAdapter extends BaseAdapter {
 
 	
@@ -17,6 +22,11 @@ public class BadgeListAdapter extends BaseAdapter {
     
     
     
+    /**
+     * Badge list adapter constructor
+     * @param context
+     * @param thumbs
+     */
     public BadgeListAdapter(Context context, List<BadgeListItem> thumbs){
         this.context = context;
         this.thumbs = thumbs;

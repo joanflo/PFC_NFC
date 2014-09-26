@@ -6,6 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * About activity
+ * @author Joanflo
+ */
 public class AboutActivity extends Activity {
 
 	

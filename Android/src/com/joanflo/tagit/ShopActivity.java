@@ -19,7 +19,10 @@ import com.joanflo.models.City;
 import com.joanflo.models.Shop;
 import com.joanflo.utils.LocalStorage;
 
-
+/**
+ * Shop activity
+ * @author Joanflo
+ */
 public class ShopActivity extends BaseActivity {
 
 	

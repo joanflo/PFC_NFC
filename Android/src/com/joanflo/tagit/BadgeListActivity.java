@@ -14,7 +14,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
 
-
+/**
+ * Badge list activity
+ * @author Joanflo
+ */
 public class BadgeListActivity extends BaseActivity implements OnItemClickListener {
 
 	

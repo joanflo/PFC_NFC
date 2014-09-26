@@ -21,12 +21,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.AsyncTask;
 
+/**
+ * AsyncTask to execute requests to the server
+ * @author Joanflo
+ */
 public class AsyncRequest extends AsyncTask<InfoRequest, Void, InfoResponse[]> {
 	// AsyncTask<Input, Progress, Output>
 	
 	
 	public AsyncResponse delegate = null;
-	
 	
 	public AsyncRequest(AsyncResponse delegate) {
 		this.delegate = delegate;

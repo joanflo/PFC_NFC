@@ -1,5 +1,9 @@
 package com.joanflo.utils;
 
+/**
+ * Class with useful regular expressions
+ * @author Joanflo
+ */
 public class Regex {
 
 	public static final String TEXT = "[a-zA-Z\\s]+";

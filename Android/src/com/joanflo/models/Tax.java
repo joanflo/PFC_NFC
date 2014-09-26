@@ -3,6 +3,10 @@ package com.joanflo.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Tax model
+ * @author Joanflo
+ */
 public class Tax {
 
 	
@@ -25,6 +29,16 @@ public class Tax {
 	
 	
 	
+	/**
+	 * Tax model constructor
+	 * @param idTax
+	 * @param product
+	 * @param country
+	 * @param basePrice
+	 * @param iva
+	 * @param discount
+	 * @param discountType
+	 */
 	public Tax(int idTax, Product product, Country country, double basePrice, int iva, double discount, char discountType) {
 		this.idTax = idTax;
 		this.product = product;
@@ -35,6 +49,11 @@ public class Tax {
 		this.discountType = discountType;
 	}
 	
+	/**
+	 * Tax model constructor
+	 * @param jTax
+	 * @throws JSONException
+	 */
 	public Tax(JSONObject jTax) throws JSONException {
 		// tax id
 		this.idTax = jTax.getInt("idTax");

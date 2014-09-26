@@ -13,6 +13,10 @@ import com.joanflo.tagit.R;
 import com.joanflo.utils.LocalStorage;
 import com.joanflo.utils.Regex;
 
+/**
+ * Colors controller class
+ * @author Joanflo
+ */
 public class ColorsController {
 
 	
@@ -20,6 +24,11 @@ public class ColorsController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Colors controller constructor
+	 * @param activity
+	 */
 	public ColorsController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -27,6 +36,15 @@ public class ColorsController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
 			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {

@@ -3,6 +3,11 @@ package com.joanflo.adapters;
 import java.net.URL;
 import android.content.Context;
 
+/**
+ * Follow item class
+ * @author Joanflo
+ * @see FollowListAdapter
+ */
 public class FollowListItem {
 
 	
@@ -14,6 +19,15 @@ public class FollowListItem {
 	
 	
 	
+	/**
+	 * Follow list item constructor
+	 * @param context
+	 * @param url
+	 * @param name
+	 * @param nick
+	 * @param followed
+	 * @param sameUser
+	 */
 	public FollowListItem(Context context, URL url, CharSequence name, CharSequence nick, boolean followed, boolean sameUser) {
 		this.url = url;
 		this.name = name;

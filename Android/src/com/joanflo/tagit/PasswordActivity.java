@@ -12,10 +12,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+/**
+ * Password activity
+ * @author Joanflo
+ */
 public class PasswordActivity extends Activity {
 
-	
 	
 	
 	@Override

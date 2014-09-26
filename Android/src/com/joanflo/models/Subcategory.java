@@ -1,5 +1,9 @@
 package com.joanflo.models;
 
+/**
+ * Subcategory model
+ * @author Joanflo
+ */
 public class Subcategory {
 
 	
@@ -9,6 +13,11 @@ public class Subcategory {
 	
 	
 	
+	/**
+	 * Subcategory model constructor
+	 * @param categoryFather
+	 * @param categorySon
+	 */
 	public Subcategory(Category categoryFather, Category categorySon) {
 		this.categoryFather = categoryFather;
 		this.categorySon = categorySon;

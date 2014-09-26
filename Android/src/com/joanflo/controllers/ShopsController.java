@@ -16,6 +16,10 @@ import com.joanflo.tagit.R;
 import com.joanflo.tagit.ShopSelectionActivity;
 import com.joanflo.utils.Regex;
 
+/**
+ * Shops controller class
+ * @author Joanflo
+ */
 public class ShopsController {
 
 	
@@ -23,6 +27,11 @@ public class ShopsController {
 	private Activity activity;
 	
 	
+	
+	/**
+	 * Shops controller constructor
+	 * @param activity
+	 */
 	public ShopsController(Activity activity) {
 		this.activity = activity;
 		client = RESTClient.getInstance();
@@ -30,6 +39,15 @@ public class ShopsController {
 	
 	
 	
+	/**
+	 * Method called when a request is received from the server.
+	 * Parse the JSON data and delivers it to the properly activity
+	 * according to the route request and the status code.
+	 * @param route
+	 * @param statusCode
+	 * @param jObject
+	 * @param jArray
+	 */
 	public synchronized void requestFinished(String route, int statusCode, JSONObject jObject, JSONArray jArray) {
 		try {
 			if (statusCode == HttpStatusCode.REQUEST_TIMEOUT) {
@@ -120,6 +138,12 @@ public class ShopsController {
 	
 	
 	
+	/**
+	 * Converts an array of JSON data into an array of shops
+	 * @param jShops
+	 * @return
+	 * @throws JSONException
+	 */
 	private List<Shop> processShops(JSONArray jShops) throws JSONException {
 		List<Shop> shops = new ArrayList<Shop>(jShops.length());
 		

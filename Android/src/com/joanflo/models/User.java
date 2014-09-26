@@ -12,6 +12,10 @@ import com.joanflo.utils.Gamification;
 import com.joanflo.utils.SearchUtils;
 import com.joanflo.utils.Time;
 
+/**
+ * User model
+ * @author Joanflo
+ */
 public class User {
 
 
@@ -41,7 +45,27 @@ public class User {
 	
 	
 	
-	// user from database
+	/**
+	 * User model constructor
+	 * @param userEmail
+	 * @param city
+	 * @param language
+	 * @param purchases
+	 * @param usersFollowing
+	 * @param usersFollower
+	 * @param achievements
+	 * @param reviews
+	 * @param wishes
+	 * @param nick
+	 * @param name
+	 * @param surname
+	 * @param age
+	 * @param password
+	 * @param phone
+	 * @param direction
+	 * @param registration
+	 * @param points
+	 */
 	public User(CharSequence userEmail, City city, Language language, List<Purchase> purchases, 
 			List<Friendship> usersFollowing, List<Friendship> usersFollower, List<Achievement> achievements, 
 			List<Review> reviews, List<Wish> wishes, CharSequence nick, CharSequence name, CharSequence surname, 
@@ -67,7 +91,19 @@ public class User {
 		this.points = points;
 	}
 	
-	// new user
+	/**
+	 * User model constructor
+	 * @param userEmail
+	 * @param city
+	 * @param language
+	 * @param nick
+	 * @param name
+	 * @param surname
+	 * @param age
+	 * @param password
+	 * @param phone
+	 * @param direction
+	 */
 	public User(CharSequence userEmail, City city, Language language, CharSequence nick, CharSequence name, 
 			CharSequence surname, int age, CharSequence password, CharSequence phone, CharSequence direction) {
 		
@@ -98,6 +134,11 @@ public class User {
 		this.achievements = new ArrayList<Achievement>();
 	}
 	
+	/**
+	 * User model constructor
+	 * @param jUser
+	 * @throws JSONException
+	 */
 	public User(JSONObject jUser) throws JSONException {
 		// user email
 		if (jUser.has("userEmail")) {
@@ -409,6 +450,10 @@ public class User {
 	
 	
 	
+	/**
+	 * Convert User model to JSON
+	 * @return
+	 */
 	public JSONObject convertToJSON() {
 		JSONObject jUser = new JSONObject();
 		

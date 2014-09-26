@@ -6,6 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Category model
+ * @author Joanflo
+ */
 public class Category {
 
 	
@@ -22,6 +26,14 @@ public class Category {
 	
 	
 	
+	/**
+	 * Category model constructor
+	 * @param idCategory
+	 * @param products
+	 * @param categories
+	 * @param level
+	 * @param name
+	 */
 	public Category(int idCategory, ArrayList<Product> products, ArrayList<Category> categories, int level, CharSequence name) {
 		this.idCategory = idCategory;
 		this.products = products;
@@ -30,10 +42,15 @@ public class Category {
 		this.name = name;
 	}
 	
+	/**
+	 * Category model constructor
+	 * @param jCategory
+	 * @param lang
+	 * @throws JSONException
+	 */
 	public Category(JSONObject jCategory, String lang) throws JSONException {
 		// id category
 		this.idCategory = jCategory.getInt("idCategory");
-		
 		// products list
 		this.products = new ArrayList<Product>();
 		if (jCategory.has("products")) {
@@ -44,7 +61,6 @@ public class Category {
 				this.products.add(product);
 			}
 		}
-		
 		// categories list
 		this.categories = new ArrayList<Category>();
 		if (jCategory.has("categories")) {
@@ -55,10 +71,8 @@ public class Category {
 				this.categories.add(category);
 			}
 		}
-		
 		// level
 		this.level = jCategory.getInt("level");
-		
 		// name
 		this.name = jCategory.getString("name_" + lang);
 	}

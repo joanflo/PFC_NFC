@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.joanflo.network.ImageLoader;
 import com.joanflo.tagit.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,12 +14,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Product list adapter class
+ * @author Joanflo
+ * @see ProductListItem
+ */
 public class ProductListAdapter extends BaseAdapter {
 
 	private Context context;
 	private List<ProductListItem> productItems;
 	
 	
+	
+	/**
+	 * Product list adapter constructor
+	 * @param context
+	 * @param productItems
+	 */
 	public ProductListAdapter(Context context, List<ProductListItem> productItems) {
 		this.context = context;
 		this.productItems = productItems;
@@ -44,6 +56,7 @@ public class ProductListAdapter extends BaseAdapter {
 	}
 
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 

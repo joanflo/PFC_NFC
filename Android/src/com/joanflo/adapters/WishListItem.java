@@ -5,6 +5,11 @@ import java.sql.Timestamp;
 
 import com.joanflo.utils.Time;
 
+/**
+ * Wish item class
+ * @author Joanflo
+ * @see WishListAdapter
+ */
 public class WishListItem {
 
 	
@@ -16,6 +21,14 @@ public class WishListItem {
 	
 	
 	
+	/**
+	 * Wish list item constructor
+	 * @param date
+	 * @param productName
+	 * @param productId
+	 * @param url
+	 * @param description
+	 */
 	public WishListItem(Timestamp date, CharSequence productName, int productId, URL url, CharSequence description) {
 		this.date = Time.convertTimestampToString(date);
 		this.productName = productName;
