@@ -299,7 +299,9 @@ public class RegistrationActivity extends Activity implements OnItemSelectedList
 	@Override
 	public void onItemSelected(AdapterView<?> adapterView, View v, int i, long l) {
 		TextView tv = (TextView) adapterView.getChildAt(0);
-		tv.setTextColor(getResources().getColor(R.color.grey_background));
+		if (tv != null) {
+			tv.setTextColor(getResources().getColor(R.color.grey_background));
+		}
 		
 		if (i != 0) { // to avoid default value
 			CountriesController cController = new CountriesController(this);
